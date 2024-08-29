@@ -8,11 +8,11 @@ import 'package:opticonnect_sdk/src/services/permission_handler.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @lazySingleton
-class BleManager {
+class BleDevicesDiscoverer {
   final PermissionHandler _permissionHandler;
   StreamController<DiscoveredDevice>? _deviceDiscoveryStreamController;
 
-  BleManager(this._permissionHandler);
+  BleDevicesDiscoverer(this._permissionHandler);
 
   Future<void> _checkBluetoothPermissions() async {
     if (!await _permissionHandler.hasBluetoothPermissions()) {
@@ -27,6 +27,11 @@ class BleManager {
   /// Starts BLE discovery with the specified service UUID.
   Future<void> startDiscovery() async {
     try {
+      final adapterState = await FlutterBluePlus.adapterState.first;
+      if (adapterState != BluetoothAdapterState.on) {
+        throw Exception('Bluetooth is not enabled.');
+      }
+
       await _checkBluetoothPermissions();
 
       // Check if a scan is already running and stop it
