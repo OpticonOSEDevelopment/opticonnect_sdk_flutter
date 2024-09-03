@@ -2,15 +2,15 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:injectable/injectable.dart';
+import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
-import 'package:opticonnect_sdk/src/entities/discovered_device.dart';
 import 'package:opticonnect_sdk/src/services/permission_handler.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @lazySingleton
 class BleDevicesDiscoverer {
   final PermissionHandler _permissionHandler;
-  StreamController<DiscoveredDevice>? _deviceDiscoveryStreamController;
+  StreamController<BleDiscoveredDevice>? _deviceDiscoveryStreamController;
 
   BleDevicesDiscoverer(this._permissionHandler);
 
@@ -24,7 +24,6 @@ class BleDevicesDiscoverer {
     }
   }
 
-  /// Starts BLE discovery with the specified service UUID.
   Future<void> startDiscovery() async {
     try {
       final adapterState = await FlutterBluePlus.adapterState.first;
@@ -34,15 +33,13 @@ class BleDevicesDiscoverer {
 
       await _checkBluetoothPermissions();
 
-      // Check if a scan is already running and stop it
       if (FlutterBluePlus.isScanningNow) {
-        await stopDiscovery(); // Ensure any ongoing scan is stopped first
+        await stopDiscovery();
       }
 
-      // Initialize the StreamController if it isn't already initialized
-      _deviceDiscoveryStreamController ??= StreamController<DiscoveredDevice>();
+      _deviceDiscoveryStreamController ??=
+          StreamController<BleDiscoveredDevice>();
 
-      // Start BLE discovery
       await FlutterBluePlus.startScan(
         removeIfGone: const Duration(seconds: 2),
         withServices: [
@@ -52,15 +49,14 @@ class BleDevicesDiscoverer {
 
       FlutterBluePlus.scanResults.listen((results) {
         for (final result in results) {
-          final discoveredDevice = DiscoveredDevice(
+          final discoveredDevice = BleDiscoveredDevice(
             name: result.device.platformName,
-            bluetoothId: result.device.remoteId.toString(),
+            deviceId: result.device.remoteId.toString(),
             rssi: result.rssi,
             timeStamp: DateTime.now(),
           );
 
           if (_isValidDeviceName(discoveredDevice.name)) {
-            // Add the discovered device to the stream
             _deviceDiscoveryStreamController!.add(discoveredDevice);
           }
         }
@@ -71,7 +67,6 @@ class BleDevicesDiscoverer {
     }
   }
 
-  /// Stops BLE discovery and cancels the discovery stream subscription.
   Future<void> stopDiscovery() async {
     try {
       await FlutterBluePlus.stopScan();
@@ -83,8 +78,7 @@ class BleDevicesDiscoverer {
     }
   }
 
-  /// Provides a stream of discovered BLE devices.
-  Stream<DiscoveredDevice> get bleDeviceStream {
+  Stream<BleDiscoveredDevice> get bleDeviceStream {
     if (_deviceDiscoveryStreamController != null) {
       return _deviceDiscoveryStreamController!.stream;
     }
@@ -92,8 +86,11 @@ class BleDevicesDiscoverer {
         'BLE discovery has not been started. Please call startDiscovery() before accessing the stream.');
   }
 
-  /// Checks if the device name is valid.
   bool _isValidDeviceName(String deviceName) {
     return deviceName.trim().isNotEmpty;
+  }
+
+  Future<void> dispose() async {
+    await stopDiscovery();
   }
 }

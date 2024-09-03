@@ -8,7 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 class PermissionHandler {
   Future<bool> hasBluetoothPermissions() async {
     if (Platform.isAndroid) {
-      if (await getAndroidVersion() >= 12) {
+      if (await _getAndroidVersion() >= 12) {
         return await Permission.bluetoothScan.status.isGranted &&
             await Permission.bluetoothConnect.status.isGranted;
       } else {
@@ -26,7 +26,7 @@ class PermissionHandler {
     Map<Permission, PermissionStatus> statuses;
 
     if (Platform.isAndroid) {
-      if (await getAndroidVersion() >= 12) {
+      if (await _getAndroidVersion() >= 12) {
         statuses = await [
           Permission.bluetoothScan,
           Permission.bluetoothConnect,
@@ -38,22 +38,19 @@ class PermissionHandler {
         ].request();
       }
     } else {
-      return Permission.bluetooth
-          .request(); // Single permission for non-Android, non-Windows platforms
+      return Permission.bluetooth.request();
     }
 
-    // If any permission is denied, return PermissionStatus.denied
     if (statuses.values.any((status) => status.isDenied)) {
       return PermissionStatus.denied;
     }
 
-    // Return PermissionStatus.granted if all permissions are granted
     return PermissionStatus.granted;
   }
 
   Future<bool> hasStoragePermissions() async {
     if (!Platform.isMacOS &&
-        (!Platform.isAndroid || await getAndroidVersion() <= 11)) {
+        (!Platform.isAndroid || await _getAndroidVersion() <= 11)) {
       return Permission.storage.status.isGranted;
     } else {
       return true;
@@ -62,7 +59,7 @@ class PermissionHandler {
 
   Future<void> setStoragePermissions() async {
     if (!Platform.isMacOS &&
-        (!Platform.isAndroid || await getAndroidVersion() <= 11)) {
+        (!Platform.isAndroid || await _getAndroidVersion() <= 11)) {
       await [Permission.storage].request();
     }
   }
@@ -78,15 +75,9 @@ class PermissionHandler {
     return int.parse(version);
   }
 
-  Future<int> getAndroidVersion() async {
+  Future<int> _getAndroidVersion() async {
     final androidInfo = await DeviceInfoPlugin().androidInfo;
     final release = androidInfo.version.release;
-    return _getVersion(release);
-  }
-
-  Future<int> getIosVersion() async {
-    final iosInfo = await DeviceInfoPlugin().iosInfo;
-    final release = iosInfo.systemVersion;
     return _getVersion(release);
   }
 }

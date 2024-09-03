@@ -1,12 +1,12 @@
-class DiscoveredDevice {
+class BleDiscoveredDevice {
   final String name;
-  final String bluetoothId;
+  final String deviceId;
   final int rssi;
   final DateTime timeStamp;
 
-  DiscoveredDevice({
+  BleDiscoveredDevice({
     required this.name,
-    required this.bluetoothId,
+    required this.deviceId,
     required this.rssi,
     required this.timeStamp,
   });

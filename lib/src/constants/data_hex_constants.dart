@@ -1,0 +1,24 @@
+const String esc = '\x1b';
+const String cr = '\x0d';
+const String ack = '\x06';
+const String nak = '\x15';
+const String dle = '\x10';
+const String stx = '\x02';
+const String etx = '\x03';
+const String lf = '\x0a';
+const String nul = '\x00';
+const String dc1 = '\x11';
+const String dc2 = '\x12';
+
+const int escV = 0x1b;
+const int crV = 0x0d;
+const int ackV = 0x06;
+const int nakV = 0x15;
+const int dleV = 0x10;
+const int stxV = 0x02;
+const int etxV = 0x03;
+const int lfV = 0x0A;
+const int nulV = 0x00;
+const int dc1V = 0x11;
+const int dc2V = 0x12;
+const int dc3V = 0x13;
