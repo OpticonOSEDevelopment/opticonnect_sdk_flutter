@@ -4,6 +4,7 @@ import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
+import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handler.dart';
@@ -41,9 +42,8 @@ class OptiConnectSDK {
     try {
       await _bleDevicesDiscoverer.startDiscovery();
       _appLogger.info("Discovery started successfully.");
-    } catch (e, stacktrace) {
+    } catch (e) {
       _appLogger.error("Error starting discovery: $e");
-      _appLogger.error(stacktrace.toString());
       rethrow;
     }
   }
@@ -65,6 +65,24 @@ class OptiConnectSDK {
       }
     } catch (e) {
       _appLogger.error("Error in bleDeviceStream: $e");
+      rethrow;
+    }
+  }
+
+  Stream<BleDeviceConnectionState> listenToConnectionState(String deviceId) {
+    try {
+      return _bleConnectivityHandler.listenToConnectionState(deviceId);
+    } catch (e) {
+      _appLogger.error("Error listening to connection state: $e");
+      rethrow;
+    }
+  }
+
+  BleDeviceConnectionState getConnectionState(String deviceId) {
+    try {
+      return _bleConnectivityHandler.getConnectionState(deviceId);
+    } catch (e) {
+      _appLogger.error("Error getting connection state: $e");
       rethrow;
     }
   }
