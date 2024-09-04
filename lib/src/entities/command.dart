@@ -1,16 +1,16 @@
 import 'dart:async';
 
+import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/entities/base_command.dart';
 import 'package:opticonnect_sdk/src/extensions/command_buffer_extension.dart';
 
 class Command extends BaseCommand {
-  final Completer<void> completer = Completer<void>();
+  final Completer<CommandResponse> completer = Completer<CommandResponse>();
   late final String _data;
   String get data => _data;
 
   Command(
     super.code, {
-    super.callback,
     super.parameters,
     super.ledFeedback,
     super.buzzerFeedback,

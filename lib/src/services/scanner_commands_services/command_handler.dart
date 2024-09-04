@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:mutex/mutex.dart';
+import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
@@ -66,12 +67,18 @@ class CommandHandler implements ICommandSender {
   Future<void> _sendCommand(Command command) async {
     _responseData.clear();
     _startCommandTimeout(command);
+
     try {
       _bleDataWriter.writeData(
           _deviceId, _commandBytesProvider.getCommandBytes(command));
     } catch (e) {
       _appLogger.error('Error sending command: ${command.code}, Error: $e');
+
       _finishWithFailedRequest(command);
+    } finally {
+      if (!command.completer.isCompleted) {
+        command.completer.complete(CommandResponse('', false));
+      }
     }
   }
 
@@ -98,8 +105,10 @@ class CommandHandler implements ICommandSender {
 
   void _completeCommand(Command command, String responseData, bool hasFailed) {
     _commandTimeoutManager.cancelTimeout();
-    command.callback(responseData, hasFailed);
-    command.completer.complete();
+
+    if (!command.completer.isCompleted) {
+      command.completer.complete(CommandResponse(responseData, !hasFailed));
+    }
   }
 
   void _processNextCommandInQueue(String responseData, bool hasFailed) {

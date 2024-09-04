@@ -7,9 +7,6 @@ class CommandFactory {
   Command createCommand(ScannerCommand scannerCommand) {
     return Command(
       scannerCommand.code,
-      callback: (String feedback, bool succeeded) async {
-        await scannerCommand.callback.call(feedback, succeeded);
-      },
       parameters: scannerCommand.parameters,
       ledFeedback: scannerCommand.ledFeedback,
       buzzerFeedback: scannerCommand.buzzerFeedback,

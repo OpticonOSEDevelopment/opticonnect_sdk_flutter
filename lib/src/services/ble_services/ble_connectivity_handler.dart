@@ -7,22 +7,26 @@ import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connection_states_service.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
+import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
 
 @lazySingleton
 class BleConnectivityHandler {
   final BleConnectionStatesService _bleConnectionStatesService;
   final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
+  final CommandHandlersManager _commandHandlersManager;
   final AppLogger _appLogger;
   final Map<String, StreamSubscription<BluetoothConnectionState>?>
       _connectionStateSubscriptions = {};
   final Map<String, StreamSubscription<BarcodeData>?> _barcodeDataListeners =
       {};
 
-  BleConnectivityHandler(this._bleConnectionStatesService,
-      this._bleDevicesStreamsHandler, this._appLogger);
+  BleConnectivityHandler(
+      this._bleConnectionStatesService,
+      this._bleDevicesStreamsHandler,
+      this._commandHandlersManager,
+      this._appLogger);
 
   Future<void> connect(String deviceId) async {
-    _appLogger.error('connect $deviceId');
     const int maxRetries = 3;
     int retryCount = 0;
 
@@ -53,7 +57,7 @@ class BleConnectivityHandler {
           throw Exception(
               'Failed to connect to device $deviceId after $retryCount attempts: $e');
         } else {
-          _appLogger.error(
+          _appLogger.info(
               'Retrying connection... Attempt $retryCount of $maxRetries');
           _bleConnectionStatesService.setConnectionState(
               deviceId, BluetoothConnectionState.disconnected);
@@ -74,10 +78,10 @@ class BleConnectivityHandler {
 
       switch (state) {
         case BluetoothConnectionState.connected:
-          await startListeningToBarcodeDataStream(deviceId);
+          await _initDevice(deviceId);
           break;
         case BluetoothConnectionState.disconnected:
-          await _processDisconnect(device);
+          await _processDisconnect(deviceId);
           break;
         default:
           break;
@@ -115,15 +119,21 @@ class BleConnectivityHandler {
         _bleConnectionStatesService.getConnectionState(deviceId));
   }
 
-  Future<void> _processDisconnect(BluetoothDevice device) async {
+  Future<void> _initDevice(String deviceId) async {
+    _commandHandlersManager.createCommandHandler(deviceId);
+    await startListeningToBarcodeDataStream(deviceId);
+  }
+
+  Future<void> _processDisconnect(String deviceId) async {
+    _commandHandlersManager.disposeCommandHandler(deviceId);
     _appLogger.error('process disconnect...');
-    await _connectionStateSubscriptions[device.remoteId.str]?.cancel();
-    _connectionStateSubscriptions.remove(device.remoteId.str);
+    await _connectionStateSubscriptions[deviceId]?.cancel();
+    _connectionStateSubscriptions.remove(deviceId);
 
-    await _barcodeDataListeners[device.remoteId.str]?.cancel();
-    _barcodeDataListeners.remove(device.remoteId.str);
+    await _barcodeDataListeners[deviceId]?.cancel();
+    _barcodeDataListeners.remove(deviceId);
 
-    _bleDevicesStreamsHandler.removeDataProcessor(device.remoteId.str);
+    _bleDevicesStreamsHandler.removeDataProcessor(deviceId);
   }
 
   Future<void> disconnect(String deviceId) async {
