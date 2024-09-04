@@ -4,9 +4,12 @@ import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
 import 'package:opticonnect_sdk/src/core/data_processor.dart';
 import 'package:opticonnect_sdk/src/core/opc_data_handler.dart';
+import 'package:opticonnect_sdk/src/interfaces/ble_command_response_reader.dart';
+import 'package:opticonnect_sdk/src/interfaces/ble_data_writer.dart';
 
 @lazySingleton
-class BleDevicesStreamsHandler {
+class BleDevicesStreamsHandler
+    implements BleDataWriter, BleCommandResponseReader {
   final Map<String, DataProcessor> _dataProcessors = {};
 
   Future<Stream<BarcodeData>> getBarcodeDataStream(String deviceId) async {
@@ -14,6 +17,13 @@ class BleDevicesStreamsHandler {
     return dataProcessor.barcodeDataStream;
   }
 
+  @override
+  Future<Stream<String>> getCommandResponseStream(String deviceId) async {
+    final dataProcessor = await _getOrCreateDataProcessor(deviceId);
+    return dataProcessor.commandStream;
+  }
+
+  @override
   Future<void> writeData(String deviceId, List<int> data) async {
     final dataProcessor = await _getOrCreateDataProcessor(deviceId);
     await dataProcessor.writeData(data);

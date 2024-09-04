@@ -4,15 +4,18 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
+import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/permission_handler.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @lazySingleton
 class BleDevicesDiscoverer {
   final PermissionHandler _permissionHandler;
+  final AppLogger _appLogger;
+
   StreamController<BleDiscoveredDevice>? _deviceDiscoveryStreamController;
 
-  BleDevicesDiscoverer(this._permissionHandler);
+  BleDevicesDiscoverer(this._permissionHandler, this._appLogger);
 
   Future<void> _checkBluetoothPermissions() async {
     if (!await _permissionHandler.hasBluetoothPermissions()) {
@@ -62,7 +65,7 @@ class BleDevicesDiscoverer {
         }
       });
     } catch (e) {
-      print('Failed to start BLE discovery: $e');
+      _appLogger.error('Failed to start BLE discovery: $e');
       throw Exception('Failed to start BLE discovery: $e');
     }
   }
@@ -73,7 +76,7 @@ class BleDevicesDiscoverer {
       await _deviceDiscoveryStreamController?.close();
       _deviceDiscoveryStreamController = null;
     } catch (e) {
-      print('Failed to stop BLE discovery: $e');
+      _appLogger.error('Failed to stop BLE discovery: $e');
       throw Exception('Failed to stop BLE discovery: $e');
     }
   }

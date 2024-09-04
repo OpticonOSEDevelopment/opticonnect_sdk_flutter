@@ -11,12 +11,19 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../services/ble_connection_states_service.dart' as _i767;
-import '../services/ble_connectivity_handler.dart' as _i34;
-import '../services/ble_devices_discoverer.dart' as _i301;
-import '../services/ble_devices_streams_handler.dart' as _i56;
+import '../interfaces/app_logger.dart' as _i801;
+import '../services/basic_app_logger.dart' as _i517;
+import '../services/ble_services/ble_connection_states_service.dart' as _i61;
+import '../services/ble_services/ble_connectivity_handler.dart' as _i721;
+import '../services/ble_services/ble_devices_discoverer.dart' as _i314;
+import '../services/ble_services/ble_devices_streams_handler.dart' as _i726;
 import '../services/crc_16_handler.dart' as _i974;
 import '../services/permission_handler.dart' as _i199;
+import '../services/scanner_commands_services/command_factory.dart' as _i5;
+import '../services/scanner_commands_services/command_feedback_service.dart'
+    as _i874;
+import '../services/scanner_commands_services/command_protocol_handler.dart'
+    as _i710;
 import '../services/symbology_handler.dart' as _i11;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -30,20 +37,33 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.lazySingleton<_i767.BleConnectionStatesService>(
-        () => _i767.BleConnectionStatesService());
-    gh.lazySingleton<_i56.BleDevicesStreamsHandler>(
-        () => _i56.BleDevicesStreamsHandler());
+    gh.lazySingleton<_i61.BleConnectionStatesService>(
+        () => _i61.BleConnectionStatesService());
+    gh.lazySingleton<_i726.BleDevicesStreamsHandler>(
+        () => _i726.BleDevicesStreamsHandler());
     gh.lazySingleton<_i974.CRC16Handler>(() => _i974.CRC16Handler());
     gh.lazySingleton<_i199.PermissionHandler>(() => _i199.PermissionHandler());
+    gh.lazySingleton<_i5.CommandFactory>(() => _i5.CommandFactory());
+    gh.lazySingleton<_i874.CommandFeedbackService>(
+        () => _i874.CommandFeedbackService());
     gh.lazySingleton<_i11.SymbologyHandler>(() => _i11.SymbologyHandler());
-    gh.lazySingleton<_i34.BleConnectivityHandler>(
-        () => _i34.BleConnectivityHandler(
-              gh<_i767.BleConnectionStatesService>(),
-              gh<_i56.BleDevicesStreamsHandler>(),
+    gh.lazySingleton<_i801.AppLogger>(() => _i517.OptiConnectLogger());
+    gh.lazySingleton<_i314.BleDevicesDiscoverer>(
+        () => _i314.BleDevicesDiscoverer(
+              gh<_i199.PermissionHandler>(),
+              gh<_i801.AppLogger>(),
             ));
-    gh.lazySingleton<_i301.BleDevicesDiscoverer>(
-        () => _i301.BleDevicesDiscoverer(gh<_i199.PermissionHandler>()));
+    gh.lazySingleton<_i710.CommandProtocolHandler>(
+        () => _i710.CommandProtocolHandler(
+              gh<_i974.CRC16Handler>(),
+              gh<_i801.AppLogger>(),
+            ));
+    gh.lazySingleton<_i721.BleConnectivityHandler>(
+        () => _i721.BleConnectivityHandler(
+              gh<_i61.BleConnectionStatesService>(),
+              gh<_i726.BleDevicesStreamsHandler>(),
+              gh<_i801.AppLogger>(),
+            ));
     return this;
   }
 }

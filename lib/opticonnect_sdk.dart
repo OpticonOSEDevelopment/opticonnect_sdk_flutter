@@ -4,9 +4,9 @@ import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
-import 'package:opticonnect_sdk/src/services/ble_connectivity_handler.dart';
-import 'package:opticonnect_sdk/src/services/ble_devices_discoverer.dart';
-import 'package:opticonnect_sdk/src/services/ble_devices_streams_handler.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handler.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_discoverer.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
 
 class OptiConnectSDK {
   static OptiConnectSDK? _instance;

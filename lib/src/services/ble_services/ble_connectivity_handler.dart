@@ -4,23 +4,25 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk/src/services/ble_connection_states_service.dart';
-import 'package:opticonnect_sdk/src/services/ble_devices_streams_handler.dart';
+import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/ble_connection_states_service.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
 
 @lazySingleton
 class BleConnectivityHandler {
   final BleConnectionStatesService _bleConnectionStatesService;
   final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
+  final AppLogger _appLogger;
   final Map<String, StreamSubscription<BluetoothConnectionState>?>
       _connectionStateSubscriptions = {};
   final Map<String, StreamSubscription<BarcodeData>?> _barcodeDataListeners =
       {};
 
-  BleConnectivityHandler(
-      this._bleConnectionStatesService, this._bleDevicesStreamsHandler);
+  BleConnectivityHandler(this._bleConnectionStatesService,
+      this._bleDevicesStreamsHandler, this._appLogger);
 
   Future<void> connect(String deviceId) async {
-    print('connect $deviceId');
+    _appLogger.error('connect $deviceId');
     const int maxRetries = 3;
     int retryCount = 0;
 
@@ -43,15 +45,16 @@ class BleConnectivityHandler {
         return;
       } catch (e) {
         retryCount++;
-        print('Failed to connect to device: $e');
+        _appLogger.error('Failed to connect to device: $e');
         if (retryCount >= maxRetries) {
           _bleConnectionStatesService.setConnectionState(
               deviceId, BluetoothConnectionState.disconnected);
-          print('Max retry attempts reached. Giving up.');
+          _appLogger.error('Max retry attempts reached. Giving up.');
           throw Exception(
               'Failed to connect to device $deviceId after $retryCount attempts: $e');
         } else {
-          print('Retrying connection... Attempt $retryCount of $maxRetries');
+          _appLogger.error(
+              'Retrying connection... Attempt $retryCount of $maxRetries');
           _bleConnectionStatesService.setConnectionState(
               deviceId, BluetoothConnectionState.disconnected);
           await Future.delayed(const Duration(milliseconds: 500));
@@ -68,8 +71,6 @@ class BleConnectivityHandler {
     _connectionStateSubscriptions[deviceId] =
         device.connectionState.listen((BluetoothConnectionState state) async {
       _bleConnectionStatesService.setConnectionState(deviceId, state);
-
-      print('now state: $state');
 
       switch (state) {
         case BluetoothConnectionState.connected:
@@ -90,13 +91,11 @@ class BleConnectivityHandler {
           await _bleDevicesStreamsHandler.getBarcodeDataStream(deviceId);
 
       _barcodeDataListeners[deviceId] = barcodeDataStream.listen((barcodeData) {
-        print(
+        _appLogger.error(
             'Received barcode data from device $deviceId: ${barcodeData.data}');
       });
-
-      print('Started listening to barcode data stream for device $deviceId');
     } catch (e) {
-      print(
+      _appLogger.error(
           'Failed to start listening to barcode data stream for device $deviceId: $e');
       throw Exception(
           'Failed to start listening to barcode data stream for device $deviceId: $e');
@@ -117,7 +116,7 @@ class BleConnectivityHandler {
   }
 
   Future<void> _processDisconnect(BluetoothDevice device) async {
-    print('process disconnect...');
+    _appLogger.error('process disconnect...');
     await _connectionStateSubscriptions[device.remoteId.str]?.cancel();
     _connectionStateSubscriptions.remove(device.remoteId.str);
 
@@ -128,7 +127,7 @@ class BleConnectivityHandler {
   }
 
   Future<void> disconnect(String deviceId) async {
-    print('disconnect $deviceId');
+    _appLogger.error('disconnect $deviceId');
     if (_bleConnectionStatesService.isDisconnected(deviceId)) {
       return;
     }
@@ -142,10 +141,8 @@ class BleConnectivityHandler {
           BluetoothConnectionState.disconnecting);
 
       await bleDevice.disconnect();
-
-      print('disconnected');
     } catch (e) {
-      print('Failed to disconnect from device: $e');
+      _appLogger.error('Failed to disconnect from device: $e');
       throw Exception('Failed to disconnect from device $deviceId: $e');
     } finally {
       await _connectionStateSubscriptions[deviceId]?.cancel();
