@@ -5,12 +5,12 @@ import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/command_bytes_provider.dart';
 import 'package:opticonnect_sdk/src/services/crc_16_handler.dart';
 
-@lazySingleton
-class CommandProtocolHandler implements CommandBytesProvider {
+@LazySingleton(as: CommandBytesProvider)
+class OpcCommandProtocolHandler implements CommandBytesProvider {
   final CRC16Handler _crc16Handler;
   final AppLogger _appLogger;
 
-  CommandProtocolHandler(this._crc16Handler, this._appLogger);
+  OpcCommandProtocolHandler(this._crc16Handler, this._appLogger);
 
   int _seqNr = 0;
 

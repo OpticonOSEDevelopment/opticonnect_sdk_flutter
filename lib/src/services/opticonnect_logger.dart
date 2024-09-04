@@ -9,6 +9,7 @@ class OptiConnectLogger implements AppLogger {
   OptiConnectLogger()
       : _logger = Logger(
           printer: PrettyPrinter(),
+          level: Level.trace,
         );
 
   @override

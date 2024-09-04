@@ -9,8 +9,11 @@ class Command extends BaseCommand {
   late final String _data;
   String get data => _data;
 
+  final bool sendFeedback;
+
   Command(
     super.code, {
+    this.sendFeedback = true,
     super.parameters,
     super.ledFeedback,
     super.buzzerFeedback,

@@ -25,8 +25,8 @@ import '../services/scanner_commands_services/command_feedback_service.dart'
     as _i874;
 import '../services/scanner_commands_services/command_handlers_manager.dart'
     as _i569;
-import '../services/scanner_commands_services/command_protocol_handler.dart'
-    as _i710;
+import '../services/scanner_commands_services/opc_command_protocol_handler.dart'
+    as _i643;
 import '../services/symbology_handler.dart' as _i11;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -51,8 +51,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i874.CommandFeedbackService());
     gh.lazySingleton<_i11.SymbologyHandler>(() => _i11.SymbologyHandler());
     gh.lazySingleton<_i801.AppLogger>(() => _i652.OptiConnectLogger());
-    gh.lazySingleton<_i710.CommandProtocolHandler>(
-        () => _i710.CommandProtocolHandler(
+    gh.lazySingleton<_i22.CommandBytesProvider>(
+        () => _i643.OpcCommandProtocolHandler(
               gh<_i974.CRC16Handler>(),
               gh<_i801.AppLogger>(),
             ));
