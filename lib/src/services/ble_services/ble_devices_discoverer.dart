@@ -59,6 +59,7 @@ class BleDevicesDiscoverer {
             deviceId: result.device.remoteId.toString(),
             rssi: result.rssi,
             timeStamp: DateTime.now(),
+            connectionPoolId: '', //TODO add connection pool id
           );
 
           if (_isValidDeviceName(discoveredDevice.name)) {

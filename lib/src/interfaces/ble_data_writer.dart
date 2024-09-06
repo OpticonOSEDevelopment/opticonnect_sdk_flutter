@@ -1,3 +1,3 @@
 abstract class BleDataWriter {
-  Future<void> writeData(String deviceId, List<int> dataBytes);
+  Future<void> writeData(String deviceId, String data, List<int> dataBytes);
 }

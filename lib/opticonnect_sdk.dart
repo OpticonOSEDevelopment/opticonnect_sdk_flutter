@@ -11,6 +11,7 @@ import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handl
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_discoverer.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
 
 class OptiConnectSDK {
   static OptiConnectSDK? _instance;
@@ -18,6 +19,7 @@ class OptiConnectSDK {
   late final BleConnectivityHandler _bleConnectivityHandler;
   late final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
   late final CommandHandlersManager _commandHandlersManager;
+  late final ScannerSettingsHandler _scannerSettingsHandler;
   late final AppLogger _appLogger;
 
   static OptiConnectSDK get instance {
@@ -25,17 +27,18 @@ class OptiConnectSDK {
     return _instance!;
   }
 
-  OptiConnectSDK._internal() {
-    _initialize();
-  }
+  OptiConnectSDK._internal();
 
-  void _initialize() {
+  Future<void> initialize() async {
     configureSdkDependencyInjection();
     _bleDevicesDiscoverer = getIt<BleDevicesDiscoverer>();
     _bleConnectivityHandler = getIt<BleConnectivityHandler>();
     _bleDevicesStreamsHandler = getIt<BleDevicesStreamsHandler>();
     _commandHandlersManager = getIt<CommandHandlersManager>();
+    _scannerSettingsHandler = getIt<ScannerSettingsHandler>();
     _appLogger = getIt<AppLogger>();
+
+    await _scannerSettingsHandler.initialize();
   }
 
   Future<void> startDiscovery() async {

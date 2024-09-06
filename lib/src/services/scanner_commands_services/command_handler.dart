@@ -69,8 +69,8 @@ class CommandHandler implements ICommandSender {
     _startCommandTimeout(command);
 
     try {
-      _bleDataWriter.writeData(
-          _deviceId, _commandBytesProvider.getCommandBytes(command));
+      _bleDataWriter.writeData(_deviceId, command.code,
+          _commandBytesProvider.getCommandBytes(command));
     } catch (e) {
       _appLogger.error('Error sending command: ${command.code}, Error: $e');
 

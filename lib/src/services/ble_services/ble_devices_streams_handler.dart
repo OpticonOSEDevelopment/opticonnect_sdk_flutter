@@ -1,5 +1,6 @@
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:injectable/injectable.dart';
+import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
 import 'package:opticonnect_sdk/src/core/data_processor.dart';
@@ -24,9 +25,11 @@ class BleDevicesStreamsHandler
   }
 
   @override
-  Future<void> writeData(String deviceId, List<int> data) async {
+  Future<void> writeData(
+      String deviceId, String data, List<int> dataBytes) async {
     final dataProcessor = await _getOrCreateDataProcessor(deviceId);
-    await dataProcessor.writeData(data);
+    await dataProcessor.writeData(dataBytes,
+        withoutResponse: !data.contains(bluetoothLowEnergyDefault));
   }
 
   Future<DataProcessor> _getOrCreateDataProcessor(String deviceId) async {
