@@ -6,6 +6,7 @@ import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+import 'package:opticonnect_sdk/scanner_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handler.dart';
@@ -16,6 +17,7 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_s
 
 class OptiConnectSDK {
   static OptiConnectSDK? _instance;
+  late final ScannerSettings scannerSettings;
   late final BleDevicesDiscoverer _bleDevicesDiscoverer;
   late final BleConnectivityHandler _bleConnectivityHandler;
   late final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
@@ -31,6 +33,8 @@ class OptiConnectSDK {
   OptiConnectSDK._internal();
 
   Future<void> initialize() async {
+    scannerSettings = ScannerSettings(this);
+
     configureSdkDependencyInjection();
     _bleDevicesDiscoverer = getIt<BleDevicesDiscoverer>();
     _bleConnectivityHandler = getIt<BleConnectivityHandler>();
