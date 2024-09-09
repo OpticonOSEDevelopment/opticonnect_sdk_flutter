@@ -21,6 +21,11 @@ class Command extends BaseCommand {
     super.buzzerFeedback,
     super.vibrationFeedback,
   }) {
+    buildParsedData();
+  }
+
+  @protected
+  void buildParsedData() {
     final buffer = StringBuffer();
     final finalCode = formatCode(code);
     buffer.write(finalCode);
@@ -34,7 +39,7 @@ class Command extends BaseCommand {
   static String formatCode(String code) {
     if (code.length == 3) {
       return '[$code';
-    } else if (code.length == 4) {
+    } else if (code.length == 4 && code[0] != '[') {
       return ']$code';
     } else {
       return code;

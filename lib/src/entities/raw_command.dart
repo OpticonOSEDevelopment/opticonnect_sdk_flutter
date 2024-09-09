@@ -8,7 +8,10 @@ class RawCommand extends Command {
     super.buzzerFeedback,
     super.vibrationFeedback,
     super.sendFeedback,
-  }) {
+  });
+
+  @override
+  void buildParsedData() {
     final buffer = StringBuffer();
     buffer.write(code);
     parsedData = buffer.toString();

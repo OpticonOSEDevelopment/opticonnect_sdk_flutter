@@ -2,13 +2,15 @@ import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/entities/command_data.dart';
 import 'package:opticonnect_sdk/src/entities/raw_command.dart';
+import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
 
 @lazySingleton
 class ScannerSettingsCompressor {
   final ScannerSettingsHandler _scannerSettingsHandler;
+  final AppLogger _appLogger;
 
-  ScannerSettingsCompressor(this._scannerSettingsHandler);
+  ScannerSettingsCompressor(this._scannerSettingsHandler, this._appLogger);
 
   Future<Command> getCompressedSettingsCommand(String settings) async {
     final compressedSettingsList = await _getCompressedSettingsList(settings);
@@ -26,7 +28,7 @@ class ScannerSettingsCompressor {
 
   bool _isDirectInputCommand(String command) {
     return _scannerSettingsHandler.isDirectInputKey(command) ||
-        (command.codeUnitAt(0) == '\$'.codeUnitAt(0));
+        command[0] == '\$';
   }
 
   Future<void> _addCommandToCompressedList(
@@ -67,19 +69,22 @@ class ScannerSettingsCompressor {
   Future<List<CommandData>> _getCompressedSettingsList(String settings) async {
     final List<CommandData> commandsList = [];
     for (int i = 0; i < settings.length; i++) {
-      if (settings.codeUnitAt(i) == '['.codeUnitAt(0)) {
+      final currentChar = settings[i];
+      if (currentChar == '[') {
         commandsList.add(CommandData(settings.substring(i + 1, i + 4)));
         i += 3;
-      } else if (settings.codeUnitAt(i) == ']'.codeUnitAt(0)) {
+      } else if (currentChar == ']') {
         commandsList.add(CommandData(settings.substring(i + 1, i + 5)));
         i += 4;
       } else {
-        commandsList.add(CommandData(settings.substring(i, i + 3)));
+        commandsList.add(CommandData(settings.substring(i, i + 2)));
         i++;
       }
 
       if (commandsList.isNotEmpty &&
           _isDirectInputCommand(commandsList.last.command)) {
+        _appLogger
+            .warning('Is direct input command: ${commandsList.last.command}');
         final parameter = commandsList.last.command;
         commandsList.removeLast();
         if (commandsList.isNotEmpty) {
@@ -87,6 +92,8 @@ class ScannerSettingsCompressor {
         }
       }
     }
+
+    _appLogger.warning('tot commands: ${commandsList.length}');
 
     return await _compressCommandList(commandsList);
   }

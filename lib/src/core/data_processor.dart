@@ -29,9 +29,9 @@ class DataProcessor {
   Stream<BarcodeData> get barcodeDataStream =>
       _barcodeDataStreamController.stream;
 
-  Future<void> writeData(List<int> data, {bool withoutResponse = false}) async {
+  Future<void> writeData(List<int> data) async {
     try {
-      await writeCharacteristic.write(data, withoutResponse: withoutResponse);
+      await writeCharacteristic.write(data);
     } catch (e) {
       _appLogger.error('Failed to write data: $e');
       throw Exception('Failed to write data: $e');

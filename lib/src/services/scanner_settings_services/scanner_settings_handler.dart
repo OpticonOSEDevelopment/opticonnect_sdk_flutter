@@ -145,7 +145,8 @@ class ScannerSettingsHandler {
 
   Future<void> _setDirectInputKeys() async {
     try {
-      _directInputKeys = _codesForGroup[directInputKeysField] ?? [];
+      _directInputKeys =
+          _codesForGroup[directInputKeysField.toLowerCase()] ?? [];
       _directInputKeysSet = _directInputKeys.toSet();
 
       for (final key in _directInputKeys) {

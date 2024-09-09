@@ -50,8 +50,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i61.BleConnectionStatesService>(
         () => _i61.BleConnectionStatesService());
-    gh.lazySingleton<_i726.BleDevicesStreamsHandler>(
-        () => _i726.BleDevicesStreamsHandler());
     gh.lazySingleton<_i974.CRC16Handler>(() => _i974.CRC16Handler());
     gh.lazySingleton<_i904.DatabasePathHelper>(
         () => _i904.DatabasePathHelper());
@@ -65,6 +63,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i801.AppLogger>(() => _i652.OptiConnectLogger());
     gh.lazySingleton<_i211.ScannerSettingsDatabaseManager>(() =>
         _i211.ScannerSettingsDatabaseManager(gh<_i904.DatabasePathHelper>()));
+    gh.lazySingleton<_i726.BleDevicesStreamsHandler>(
+        () => _i726.BleDevicesStreamsHandler(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i22.CommandBytesProvider>(
         () => _i643.OpcCommandProtocolHandler(
               gh<_i974.CRC16Handler>(),
@@ -81,8 +81,11 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i211.ScannerSettingsDatabaseManager>(),
               gh<_i801.AppLogger>(),
             ));
-    gh.lazySingleton<_i925.ScannerSettingsCompressor>(() =>
-        _i925.ScannerSettingsCompressor(gh<_i659.ScannerSettingsHandler>()));
+    gh.lazySingleton<_i925.ScannerSettingsCompressor>(
+        () => _i925.ScannerSettingsCompressor(
+              gh<_i659.ScannerSettingsHandler>(),
+              gh<_i801.AppLogger>(),
+            ));
     gh.lazySingleton<_i569.CommandHandlersManager>(
         () => _i569.CommandHandlersManager(
               gh<_i5.CommandFactory>(),

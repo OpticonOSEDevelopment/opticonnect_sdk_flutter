@@ -37,8 +37,8 @@ class CommandHandler implements ICommandSender {
   }
 
   final _commandQueue = Queue<Command>();
-  final _mutex = Mutex();
   final _responseData = StringBuffer();
+  final _mutex = Mutex();
 
   void _initializeResponseListener() async {
     final commandResponseStream =
@@ -75,23 +75,23 @@ class CommandHandler implements ICommandSender {
       _appLogger.error('Error sending command: ${command.code}, Error: $e');
 
       _finishWithFailedRequest(command);
-    } finally {
-      if (!command.completer.isCompleted) {
-        command.completer.complete(CommandResponse('', false));
-      }
     }
   }
 
   void _startCommandTimeout(Command command) {
     _commandTimeoutManager.startTimeout(
-      const Duration(seconds: 3),
-      () => _onCommandTimeout(command), // Pass the timeout handler
+      const Duration(seconds: 2),
+      () => _onCommandTimeout(command),
     );
   }
 
   void _onCommandTimeout(Command command) {
     _appLogger.warning('Command timeout occurred for: ${command.code}');
-    _finishWithFailedRequest(command);
+    if (command.retried) {
+      _finishWithFailedRequest(command);
+    } else {
+      _retryCommand(command);
+    }
   }
 
   void _sendScannerFeedback(
@@ -104,7 +104,6 @@ class CommandHandler implements ICommandSender {
   }
 
   void _completeCommand(Command command, String responseData, bool hasFailed) {
-    _appLogger.warning('complete command... ${command.code}');
     _commandTimeoutManager.cancelTimeout();
 
     if (!command.completer.isCompleted) {
@@ -113,7 +112,6 @@ class CommandHandler implements ICommandSender {
   }
 
   void _finalizeCommandAndProcessNext(String responseData, bool hasFailed) {
-    _appLogger.warning('response: $responseData');
     if (_commandQueue.isNotEmpty) {
       _mutex.protect(() async {
         if (_commandQueue.isNotEmpty) {
@@ -157,15 +155,15 @@ class CommandHandler implements ICommandSender {
     }
 
     final command = _commandQueue.first;
+    _appLogger
+        .warning('Command response received for: ${command.code}, Data: $data');
 
     if (data == nak && !command.retried) {
       _retryCommand(command);
     } else if (data == ack || data == nak) {
-      _appLogger.warning('Response data1: $data');
       final responseData = _responseData.toString();
       _finishCommandRequest(responseData, data == ack, data == nak, command);
     } else {
-      _appLogger.warning('Response data2: $data');
       _responseData.write(data);
     }
   }

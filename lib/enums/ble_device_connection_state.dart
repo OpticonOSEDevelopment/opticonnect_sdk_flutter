@@ -14,8 +14,10 @@ BleDeviceConnectionState mapBluetoothConnectionState(
       return BleDeviceConnectionState.connected;
     case BluetoothConnectionState.disconnected:
       return BleDeviceConnectionState.disconnected;
+    // ignore: deprecated_member_use
     case BluetoothConnectionState.connecting:
       return BleDeviceConnectionState.connecting;
+    // ignore: deprecated_member_use
     case BluetoothConnectionState.disconnecting:
       return BleDeviceConnectionState.disconnecting;
     default:

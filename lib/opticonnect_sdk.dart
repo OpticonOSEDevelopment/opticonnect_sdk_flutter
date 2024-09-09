@@ -1,5 +1,6 @@
 library opticonnect_sdk;
 
+import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
@@ -126,6 +127,17 @@ class OptiConnectSDK {
       return await _commandHandlersManager.sendCommand(deviceId, command);
     } catch (e) {
       _appLogger.error("Error sending command to device $deviceId: $e");
+      rethrow;
+    }
+  }
+
+  Future<bool> persistSettings(String deviceId) async {
+    try {
+      final result = await _commandHandlersManager.sendCommand(
+          deviceId, ScannerCommand(saveSettings));
+      return result.succeeded;
+    } catch (e) {
+      _appLogger.error("Error persisting settings for device $deviceId: $e");
       rethrow;
     }
   }

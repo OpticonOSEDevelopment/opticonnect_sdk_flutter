@@ -12,7 +12,7 @@ class CommandCompressionManager {
   CommandCompressionManager(
       this._commandHandler, this._scannerSettingsCompressor, this._appLogger);
 
-  static const int _compressionThreshold = 20;
+  static const int _compressionThreshold = 10;
   int _commandsSentCounter = 0;
 
   Future<void> checkAndHandleCompressionThreshold() async {
@@ -23,19 +23,18 @@ class CommandCompressionManager {
 
       try {
         // Fetch the current uncompressed settings
-        final command = Command(fetchSettings);
+        final command = Command(fetchSettings, sendFeedback: false);
         _commandHandler.sendCommand(command);
 
         final settingsResult = await command.completer.future;
 
-        if (settingsResult.succeeded) {
-          // Compress settings and send them
-          final compressedCommand = await _scannerSettingsCompressor
-              .getCompressedSettingsCommand(settingsResult.response);
-          _commandHandler.sendCommand(compressedCommand);
-        } else {
-          _appLogger.error('Failed to fetch settings during compression.');
-        }
+        // Compress settings and send them
+        final compressedCommand = await _scannerSettingsCompressor
+            .getCompressedSettingsCommand(settingsResult.response);
+
+        _appLogger.warning('compress to: ${compressedCommand.data}...');
+
+        _commandHandler.sendCommand(compressedCommand);
       } catch (error) {
         _appLogger.error('Error during command compression: $error');
       }
