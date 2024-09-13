@@ -1,668 +1,639 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/entities/scanner_command.dart';
-import 'package:opticonnect_sdk/opticonnect_sdk.dart';
+import 'package:opticonnect_sdk/scanner_settings/scanner_settings.dart';
 
-class ScannerSettings {
-  final OptiConnectSDK _sdk;
-  ScannerSettings(this._sdk);
-
+class EnableCodesSettings extends ScannerSettings {
+  EnableCodesSettings(super.sdk);
   // Enable single 1D code only
   Future<CommandResponse> set1DAllCodesOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enable1DAllCodesOnly));
+    return sendCommand(deviceId, enable1DAllCodesOnly);
   }
 
   Future<CommandResponse> setCode11Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableCode11Only));
+    return sendCommand(deviceId, enableCode11Only);
   }
 
   Future<CommandResponse> setCode39Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableCode39Only));
+    return sendCommand(deviceId, enableCode39Only);
   }
 
   Future<CommandResponse> setCode93Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableCode93Only));
+    return sendCommand(deviceId, enableCode93Only);
   }
 
   Future<CommandResponse> setCode128Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableCode128Only));
+    return sendCommand(deviceId, enableCode128Only);
   }
 
   Future<CommandResponse> setCodabarOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableCodabarOnly));
+    return sendCommand(deviceId, enableCodabarOnly);
   }
 
   Future<CommandResponse> setEANOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEANOnly));
+    return sendCommand(deviceId, enableEANOnly);
   }
 
   Future<CommandResponse> setEANPlus2Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEANPlus2Only));
+    return sendCommand(deviceId, enableEANPlus2Only);
   }
 
   Future<CommandResponse> setEANPlus5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEANPlus5Only));
+    return sendCommand(deviceId, enableEANPlus5Only);
   }
 
   Future<CommandResponse> setEAN8Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEAN8Only));
+    return sendCommand(deviceId, enableEAN8Only);
   }
 
   Future<CommandResponse> setEAN8Plus2Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEAN8Plus2Only));
+    return sendCommand(deviceId, enableEAN8Plus2Only);
   }
 
   Future<CommandResponse> setEAN8Plus5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEAN8Plus5Only));
+    return sendCommand(deviceId, enableEAN8Plus5Only);
   }
 
   Future<CommandResponse> setEAN13Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEAN13Only));
+    return sendCommand(deviceId, enableEAN13Only);
   }
 
   Future<CommandResponse> setEAN13Plus2Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEAN13Plus2Only));
+    return sendCommand(deviceId, enableEAN13Plus2Only);
   }
 
   Future<CommandResponse> setEAN13Plus5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableEAN13Plus5Only));
+    return sendCommand(deviceId, enableEAN13Plus5Only);
   }
 
   Future<CommandResponse> setIATAOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableIATAOnly));
+    return sendCommand(deviceId, enableIATAOnly);
   }
 
   Future<CommandResponse> setIndustrial2of5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableIndustrial2of5Only));
+    return sendCommand(deviceId, enableIndustrial2of5Only);
   }
 
   Future<CommandResponse> setInterleaved2of5Only(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableInterleaved2of5Only));
+    return sendCommand(deviceId, enableInterleaved2of5Only);
   }
 
   Future<CommandResponse> setMatrix2of5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableMatrix2of5Only));
+    return sendCommand(deviceId, enableMatrix2of5Only);
   }
 
   Future<CommandResponse> setMSIPlesseyOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableMSIPlesseyOnly));
+    return sendCommand(deviceId, enableMSIPlesseyOnly);
   }
 
   Future<CommandResponse> setNixdorfOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableNixdorfOnly));
+    return sendCommand(deviceId, enableNixdorfOnly);
   }
 
   Future<CommandResponse> setSCodeOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableSCodeOnly));
+    return sendCommand(deviceId, enableSCodeOnly);
   }
 
   Future<CommandResponse> setTelepenOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableTelepenOnly));
+    return sendCommand(deviceId, enableTelepenOnly);
   }
 
   Future<CommandResponse> setTriOpticOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableTriOpticOnly));
+    return sendCommand(deviceId, enableTriOpticOnly);
   }
 
   Future<CommandResponse> setUKPlesseyOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUKPlesseyOnly));
+    return sendCommand(deviceId, enableUKPlesseyOnly);
   }
 
   Future<CommandResponse> setUPCOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCOnly));
+    return sendCommand(deviceId, enableUPCOnly);
   }
 
   Future<CommandResponse> setUPCAOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCAOnly));
+    return sendCommand(deviceId, enableUPCAOnly);
   }
 
   Future<CommandResponse> setUPCAPlus2Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCAPlus2Only));
+    return sendCommand(deviceId, enableUPCAPlus2Only);
   }
 
   Future<CommandResponse> setUPCAPlus5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCAPlus5Only));
+    return sendCommand(deviceId, enableUPCAPlus5Only);
   }
 
   Future<CommandResponse> setUPCAEOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCAEOnly));
+    return sendCommand(deviceId, enableUPCAEOnly);
   }
 
   Future<CommandResponse> setUPCAEPlus2Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCAEPlus2Only));
+    return sendCommand(deviceId, enableUPCAEPlus2Only);
   }
 
   Future<CommandResponse> setUPCAEPlus5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCAEPlus5Only));
+    return sendCommand(deviceId, enableUPCAEPlus5Only);
   }
 
   Future<CommandResponse> setUPCEOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCEOnly));
+    return sendCommand(deviceId, enableUPCEOnly);
   }
 
   Future<CommandResponse> setUPCEPlus2Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCEPlus2Only));
+    return sendCommand(deviceId, enableUPCEPlus2Only);
   }
 
   Future<CommandResponse> setUPCEPlus5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCEPlus5Only));
+    return sendCommand(deviceId, enableUPCEPlus5Only);
   }
 
   Future<CommandResponse> setUPCE1Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCE1Only));
+    return sendCommand(deviceId, enableUPCE1Only);
   }
 
   Future<CommandResponse> setUPCE1Plus2Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCE1Plus2Only));
+    return sendCommand(deviceId, enableUPCE1Plus2Only);
   }
 
   Future<CommandResponse> setUPCE1Plus5Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableUPCE1Plus5Only));
+    return sendCommand(deviceId, enableUPCE1Plus5Only);
   }
 
   Future<CommandResponse> setGS1DataBarOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableGS1DataBarOnly));
+    return sendCommand(deviceId, enableGS1DataBarOnly);
   }
 
   Future<CommandResponse> setGS1DataBarLimitedOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableGS1DataBarLimitedOnly));
+    return sendCommand(deviceId, enableGS1DataBarLimitedOnly);
   }
 
   Future<CommandResponse> setGS1DataBarExpandedOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableGS1DataBarExpandedOnly));
+    return sendCommand(deviceId, enableGS1DataBarExpandedOnly);
   }
 
   // Enable single 2D code only
   Future<CommandResponse> set2DAllCodesOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enable2DAllCodesOnly));
+    return sendCommand(deviceId, enable2DAllCodesOnly);
   }
 
   Future<CommandResponse> setAztecCodeOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableAztecCodeOnly));
+    return sendCommand(deviceId, enableAztecCodeOnly);
   }
 
   Future<CommandResponse> setAztecRunesOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableAztecRunesOnly));
+    return sendCommand(deviceId, enableAztecRunesOnly);
   }
 
   Future<CommandResponse> setChineseSensibleCodeOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableChineseSensibleCodeOnly));
+    return sendCommand(deviceId, enableChineseSensibleCodeOnly);
   }
 
   Future<CommandResponse> setCodablockFOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableCodablockFOnly));
+    return sendCommand(deviceId, enableCodablockFOnly);
   }
 
   Future<CommandResponse> setDataMatrixOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableDataMatrixOnly));
+    return sendCommand(deviceId, enableDataMatrixOnly);
   }
 
   Future<CommandResponse> setDataMatrixOldECC000_140Only(
       String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableDataMatrixOldECC000_140Only));
+    return sendCommand(deviceId, enableDataMatrixOldECC000_140Only);
   }
 
   Future<CommandResponse> setDotCodeOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableDotCodeOnly));
+    return sendCommand(deviceId, enableDotCodeOnly);
   }
 
   Future<CommandResponse> setMaxicodeOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableMaxicodeOnly));
+    return sendCommand(deviceId, enableMaxicodeOnly);
   }
 
   Future<CommandResponse> setMicroPDF417Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableMicroPDF417Only));
+    return sendCommand(deviceId, enableMicroPDF417Only);
   }
 
   Future<CommandResponse> setMicroQRCodeOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableMicroQRCodeOnly));
+    return sendCommand(deviceId, enableMicroQRCodeOnly);
   }
 
   Future<CommandResponse> setPDF417Only(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enablePDF417Only));
+    return sendCommand(deviceId, enablePDF417Only);
   }
 
   Future<CommandResponse> setQRCodeOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableQRCodeOnly));
+    return sendCommand(deviceId, enableQRCodeOnly);
   }
 
   Future<CommandResponse> setAustralianPostalOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableAustralianPostalOnly));
+    return sendCommand(deviceId, enableAustralianPostalOnly);
   }
 
   Future<CommandResponse> setChinesePostMatrix2of5Only(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableChinesePostMatrix2of5Only));
+    return sendCommand(deviceId, enableChinesePostMatrix2of5Only);
   }
 
   Future<CommandResponse> setIntelligentMailBarcodeOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableIntelligentMailBarcodeOnly));
+    return sendCommand(deviceId, enableIntelligentMailBarcodeOnly);
   }
 
   Future<CommandResponse> setJapanesePostalOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enableJapanesePostalOnly));
+    return sendCommand(deviceId, enableJapanesePostalOnly);
   }
 
   Future<CommandResponse> setKoreanPostalAuthorityOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableKoreanPostalAuthorityOnly));
+    return sendCommand(deviceId, enableKoreanPostalAuthorityOnly);
   }
 
   Future<CommandResponse> setMailmark4StatePostalOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableMailmark4StatePostalOnly));
+    return sendCommand(deviceId, enableMailmark4StatePostalOnly);
   }
 
   Future<CommandResponse> setNetherlandsKIXCodeOnly(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(enableNetherlandsKIXCodeOnly));
+    return sendCommand(deviceId, enableNetherlandsKIXCodeOnly);
   }
 
   Future<CommandResponse> setPlanetOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enablePlanetOnly));
+    return sendCommand(deviceId, enablePlanetOnly);
   }
 
   Future<CommandResponse> setPostnetOnly(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(enablePostnetOnly));
+    return sendCommand(deviceId, enablePostnetOnly);
   }
 
   // Aztec Code
   Future<CommandResponse> enableAztecCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(aztecEnabled));
+    return sendCommand(deviceId, aztecEnabled);
   }
 
   Future<CommandResponse> disableAztecCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(aztecDisabled));
+    return sendCommand(deviceId, aztecDisabled);
   }
 
   // Aztec Runes
   Future<CommandResponse> enableAztecRunes(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(aztecRunesEnabled));
+    return sendCommand(deviceId, aztecRunesEnabled);
   }
 
   Future<CommandResponse> disableAztecRunes(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(aztecRunesDisabled));
+    return sendCommand(deviceId, aztecRunesDisabled);
   }
 
   // Chinese Sensible Code
   Future<CommandResponse> enableChineseSensibleCode(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(chineseSensibleCodeEnabled));
+    return sendCommand(deviceId, chineseSensibleCodeEnabled);
   }
 
   Future<CommandResponse> disableChineseSensibleCode(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(chineseSensibleCodeDisabled));
+    return sendCommand(deviceId, chineseSensibleCodeDisabled);
   }
 
   // Data Matrix
   Future<CommandResponse> enableDataMatrix(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(dataMatrixEnabled));
+    return sendCommand(deviceId, dataMatrixEnabled);
   }
 
   Future<CommandResponse> disableDataMatrix(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(dataMatrixDisabled));
+    return sendCommand(deviceId, dataMatrixDisabled);
   }
 
   // Maxicode
   Future<CommandResponse> enableMaxicode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(maxicodeEnabled));
+    return sendCommand(deviceId, maxicodeEnabled);
   }
 
   Future<CommandResponse> disableMaxicode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(maxicodeDisabled));
+    return sendCommand(deviceId, maxicodeDisabled);
   }
 
   // Micro PDF417
   Future<CommandResponse> enableMicroPdf417(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(microPdf417Enabled));
+    return sendCommand(deviceId, microPdf417Enabled);
   }
 
   Future<CommandResponse> disableMicroPdf417(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(microPdf417Disabled));
+    return sendCommand(deviceId, microPdf417Disabled);
   }
 
   // Micro QR Code
   Future<CommandResponse> enableMicroQrCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(microQrCodeEnabled));
+    return sendCommand(deviceId, microQrCodeEnabled);
   }
 
   Future<CommandResponse> disableMicroQrCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(microQrCodeDisabled));
+    return sendCommand(deviceId, microQrCodeDisabled);
   }
 
   // PDF417
   Future<CommandResponse> enablePdf417(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(pdf417CodeEnabled));
+    return sendCommand(deviceId, pdf417CodeEnabled);
   }
 
   Future<CommandResponse> disablePdf417(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(pdf417CodeDisabled));
+    return sendCommand(deviceId, pdf417CodeDisabled);
   }
 
   // QR Code
   Future<CommandResponse> enableQrCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(qrCodeEnabled));
+    return sendCommand(deviceId, qrCodeEnabled);
   }
 
   Future<CommandResponse> disableQrCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(qrCodeDisabled));
+    return sendCommand(deviceId, qrCodeDisabled);
   }
 
   // Dot Code
   Future<CommandResponse> enableDotCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(dotCodeEnabled));
+    return sendCommand(deviceId, dotCodeEnabled);
   }
 
   Future<CommandResponse> disableDotCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(dotCodeDisabled));
+    return sendCommand(deviceId, dotCodeDisabled);
   }
 
   // Codablock F
   Future<CommandResponse> enableCodablockF(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(codablockFEnabled));
+    return sendCommand(deviceId, codablockFEnabled);
   }
 
   Future<CommandResponse> disableCodablockF(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(codablockFDisabled));
+    return sendCommand(deviceId, codablockFDisabled);
   }
 
   // Codabar
   Future<CommandResponse> enableCodabar(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(codaBarEnabled));
+    return sendCommand(deviceId, codaBarEnabled);
   }
 
   Future<CommandResponse> disableCodabar(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(codaBarDisabled));
+    return sendCommand(deviceId, codaBarDisabled);
   }
 
   // Code 11
   Future<CommandResponse> enableCode11(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code11Enabled));
+    return sendCommand(deviceId, code11Enabled);
   }
 
   Future<CommandResponse> disableCode11(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code11Disabled));
+    return sendCommand(deviceId, code11Disabled);
   }
 
   // Code 39
   Future<CommandResponse> enableCode39(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code39Enabled));
+    return sendCommand(deviceId, code39Enabled);
   }
 
   Future<CommandResponse> disableCode39(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code39Disabled));
+    return sendCommand(deviceId, code39Disabled);
   }
 
   // Code 93
   Future<CommandResponse> enableCode93(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code93Enabled));
+    return sendCommand(deviceId, code93Enabled);
   }
 
   Future<CommandResponse> disableCode93(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code93Disabled));
+    return sendCommand(deviceId, code93Disabled);
   }
 
   // Code 128
   Future<CommandResponse> enableCode128(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code128Enabled));
+    return sendCommand(deviceId, code128Enabled);
   }
 
   Future<CommandResponse> disableCode128(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(code128Disabled));
+    return sendCommand(deviceId, code128Disabled);
   }
 
   // EAN 8
   Future<CommandResponse> enableEan8(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ean8Enabled));
+    return sendCommand(deviceId, ean8Enabled);
   }
 
   Future<CommandResponse> disableEan8(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ean8Disabled));
+    return sendCommand(deviceId, ean8Disabled);
   }
 
   // EAN 13
   Future<CommandResponse> enableEan13(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ean13Enabled));
+    return sendCommand(deviceId, ean13Enabled);
   }
 
   Future<CommandResponse> disableEan13(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ean13Disabled));
+    return sendCommand(deviceId, ean13Disabled);
   }
 
   // IATA
   Future<CommandResponse> enableIata(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(iataEnabled));
+    return sendCommand(deviceId, iataEnabled);
   }
 
   Future<CommandResponse> disableIata(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(iataDisabled));
+    return sendCommand(deviceId, iataDisabled);
   }
 
   // Industrial 2 of 5
   Future<CommandResponse> enableIndustrial2of5(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(industrial2of5Enabled));
+    return sendCommand(deviceId, industrial2of5Enabled);
   }
 
   Future<CommandResponse> disableIndustrial2of5(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(industrial2of5Disabled));
+    return sendCommand(deviceId, industrial2of5Disabled);
   }
 
   // Interleaved 2 of 5
   Future<CommandResponse> enableInterleaved2of5(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(interleaved2of5Enabled));
+    return sendCommand(deviceId, interleaved2of5Enabled);
   }
 
   Future<CommandResponse> disableInterleaved2of5(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(interleaved2of5Disabled));
+    return sendCommand(deviceId, interleaved2of5Disabled);
   }
 
   // Matrix 2 of 5
   Future<CommandResponse> enableMatrix2of5(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(matrix2of5Enabled));
+    return sendCommand(deviceId, matrix2of5Enabled);
   }
 
   Future<CommandResponse> disableMatrix2of5(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(matrix2of5Disabled));
+    return sendCommand(deviceId, matrix2of5Disabled);
   }
 
   // MSI Plessey
   Future<CommandResponse> enableMsi(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(msiPlesseyEnabled));
+    return sendCommand(deviceId, msiPlesseyEnabled);
   }
 
   Future<CommandResponse> disableMsi(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(msiPlesseyDisabled));
+    return sendCommand(deviceId, msiPlesseyDisabled);
   }
 
   // S code
   Future<CommandResponse> enableSCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(sCodeEnabled));
+    return sendCommand(deviceId, sCodeEnabled);
   }
 
   Future<CommandResponse> disableSCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(sCodeDisabled));
+    return sendCommand(deviceId, sCodeDisabled);
   }
 
   // Telepen
   Future<CommandResponse> enableTelepen(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(telepenEnabled));
+    return sendCommand(deviceId, telepenEnabled);
   }
 
   Future<CommandResponse> disableTelepen(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(telepenDisabled));
+    return sendCommand(deviceId, telepenDisabled);
   }
 
   // Trioptic Code
   Future<CommandResponse> enableTriopticCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(triOpticEnabled));
+    return sendCommand(deviceId, triOpticEnabled);
   }
 
   Future<CommandResponse> disableTriopticCode(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(triOpticDisabled));
+    return sendCommand(deviceId, triOpticDisabled);
   }
 
   // UK Plessey
   Future<CommandResponse> enableUKPlessey(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ukPlesseyEnabled));
+    return sendCommand(deviceId, ukPlesseyEnabled);
   }
 
   Future<CommandResponse> disableUKPlessey(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ukPlesseyDisabled));
+    return sendCommand(deviceId, ukPlesseyDisabled);
   }
 
   // UPC-A
   Future<CommandResponse> enableUPCA(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(upcAEnabled));
+    return sendCommand(deviceId, upcAEnabled);
   }
 
   Future<CommandResponse> disableUPCA(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(upcADisabled));
+    return sendCommand(deviceId, upcADisabled);
   }
 
   // UPC-E
   Future<CommandResponse> enableUPCE(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(upcEEnabled));
+    return sendCommand(deviceId, upcEEnabled);
   }
 
   Future<CommandResponse> disableUPCE(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(upcEDisabled));
+    return sendCommand(deviceId, upcEDisabled);
   }
 
   // GS1 DataBar
   Future<CommandResponse> enableGS1DataBar(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(gs1DataBarEnabled));
+    return sendCommand(deviceId, gs1DataBarEnabled);
   }
 
   Future<CommandResponse> disableGS1DataBar(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(gs1DataBarDisabled));
+    return sendCommand(deviceId, gs1DataBarDisabled);
   }
 
   // GS1 DataBar Expanded
   Future<CommandResponse> enableGS1DataBarExpanded(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(gs1DataBarExpandedEnabled));
+    return sendCommand(deviceId, gs1DataBarExpandedEnabled);
   }
 
   Future<CommandResponse> disableGS1DataBarExpanded(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(gs1DataBarExpandedDisabled));
+    return sendCommand(deviceId, gs1DataBarExpandedDisabled);
   }
 
   // GS1 DataBar Limited
   Future<CommandResponse> enableGS1DataBarLimited(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(gs1DataBarLimitedEnabled));
+    return sendCommand(deviceId, gs1DataBarLimitedEnabled);
   }
 
   Future<CommandResponse> disableGS1DataBarLimited(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(gs1DataBarLimitedDisabled));
+    return sendCommand(deviceId, gs1DataBarLimitedDisabled);
   }
 
   // Australian Postal
   Future<CommandResponse> enableAustralianPostal(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(australianPostalEnabled));
+    return sendCommand(deviceId, australianPostalEnabled);
   }
 
   Future<CommandResponse> disableAustralianPostal(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(australianPostalDisabled));
+    return sendCommand(deviceId, australianPostalDisabled);
   }
 
   // Chinese Post Matrix 2 of 5
   Future<CommandResponse> enableChinesePostMatrix2of5(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(chinesePostMatrix2of5Enabled));
+    return sendCommand(deviceId, chinesePostMatrix2of5Enabled);
   }
 
   Future<CommandResponse> disableChinesePostMatrix2of5(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(chinesePostMatrix2of5Disabled));
+    return sendCommand(deviceId, chinesePostMatrix2of5Disabled);
   }
 
   // Intelligent Mail Barcode
   Future<CommandResponse> enableIntelligentMailBarcode(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(intelligentMailBarcodeEnabled));
+    return sendCommand(deviceId, intelligentMailBarcodeEnabled);
   }
 
   Future<CommandResponse> disableIntelligentMailBarcode(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(intelligentMailBarcodeDisabled));
+    return sendCommand(deviceId, intelligentMailBarcodeDisabled);
   }
 
   // Japanese Postal
   Future<CommandResponse> enableJapanesePostal(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(japanesePostalEnabled));
+    return sendCommand(deviceId, japanesePostalEnabled);
   }
 
   Future<CommandResponse> disableJapanesePostal(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(japanesePostalDisabled));
+    return sendCommand(deviceId, japanesePostalDisabled);
   }
 
   // Korean Postal Authority
   Future<CommandResponse> enableKoreanPostalAuthority(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(koreanPostalAuthorityEnabled));
+    return sendCommand(deviceId, koreanPostalAuthorityEnabled);
   }
 
   Future<CommandResponse> disableKoreanPostalAuthority(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(koreanPostalAuthorityDisabled));
+    return sendCommand(deviceId, koreanPostalAuthorityDisabled);
   }
 
   // Mailmark 4-State Postal
   Future<CommandResponse> enableMailmark4StatePostal(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(mailmark4StatePostalEnabled));
+    return sendCommand(deviceId, mailmark4StatePostalEnabled);
   }
 
   Future<CommandResponse> disableMailmark4StatePostal(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(mailmark4StatePostalDisabled));
+    return sendCommand(deviceId, mailmark4StatePostalDisabled);
   }
 
   // Netherlands Kix Code
   Future<CommandResponse> enableNetherlandsKixCode(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(netherlandsKixCodeEnabled));
+    return sendCommand(deviceId, netherlandsKixCodeEnabled);
   }
 
   Future<CommandResponse> disableNetherlandsKixCode(String deviceId) async {
-    return _sdk.sendCommand(
-        deviceId, ScannerCommand(netherlandsKixCodeDisabled));
+    return sendCommand(deviceId, netherlandsKixCodeDisabled);
   }
 
   // Planet
   Future<CommandResponse> enablePlanet(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(planetEnabled));
+    return sendCommand(deviceId, planetEnabled);
   }
 
   Future<CommandResponse> disablePlanet(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(planetDisabled));
+    return sendCommand(deviceId, planetDisabled);
   }
 
   // Postnet
   Future<CommandResponse> enablePostnet(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(postnetEnabled));
+    return sendCommand(deviceId, postnetEnabled);
   }
 
   Future<CommandResponse> disablePostnet(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(postnetDisabled));
+    return sendCommand(deviceId, postnetDisabled);
   }
 
   // UK Postal
   Future<CommandResponse> enableUKPostal(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ukPostalEnabled));
+    return sendCommand(deviceId, ukPostalEnabled);
   }
 
   Future<CommandResponse> disableUKPostal(String deviceId) async {
-    return _sdk.sendCommand(deviceId, ScannerCommand(ukPostalDisabled));
+    return sendCommand(deviceId, ukPostalDisabled);
   }
 }

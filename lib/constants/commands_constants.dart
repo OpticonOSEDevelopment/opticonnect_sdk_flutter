@@ -151,16 +151,16 @@ const String postnetDisabled = 'D6B';
 const String ukPostalEnabled = 'DG8';
 const String ukPostalDisabled = 'DG9';
 
-const String twoOfFiveCheckCd = 'G1';
-const String twoOfFiveDoNotCheckCd = 'G0';
+const String twoOfFiveAndSCodeCheckCd = 'G1';
+const String twoOfFiveAndSCodeDoNotCheckCd = 'G0';
 
-const String twoOfFiveTransmitCd = 'E0';
-const String twoOfFiveDoNotTransmitCd = 'E1';
+const String twoOfFiveAndSCodeTransmitCd = 'E0';
+const String twoOfFiveAndSCodeDoNotTransmitCd = 'E1';
 
 const String codabarNormal = 'HA';
-const String abcCodeOnly = 'H4';
-const String cxCodeOnly = 'H5';
-const String codabarAbcCx = 'H3';
+const String codabarABCCodeOnly = 'H4';
+const String codabarCXCodeOnly = 'H5';
+const String codabarABCAndCX = 'H3';
 
 const String codabarCheckCd = 'H6';
 const String codabarDoNotCheckCd = 'H7';
@@ -299,7 +299,7 @@ const String upcALeadingZeroDoNotTransmitCd = 'E4';
 const String upcAEnableAddon2 = 'R2A';
 const String upcADisableAddon2 = 'V2A';
 
-const String upcADEnableAddon5 = 'R3A';
+const String upcAEnableAddon5 = 'R3A';
 const String upcADisableAddon5 = 'V3A';
 
 const String upcENoLeadingZeroTransmitCd = 'E7';
@@ -308,7 +308,7 @@ const String upcELeadingZeroTransmitCd = 'E6';
 const String upcELeadingZeroDoNotTransmitCd = 'E8';
 
 const String upcETransmitAsIs = '6Q';
-const String upcETransmitAsUpcA = '6P';
+const String upcETransmitAsUPCA = '6P';
 
 const String upcEEnableAddon2 = 'R2B';
 const String upcEDisableAddon2 = 'V2B';
@@ -341,11 +341,11 @@ const String disableFloodlight = 'D3A';
 const String alternatingFloodlight = 'D3B';
 const String preventSpecularReflection = 'D3Q';
 
-const String enableAiming = 'D3D';
-const String disableAiming = 'D3E';
+const String aimingEnabled = 'D3D';
+const String aimingDisabled = 'D3E';
 
-const String enableTriggerRepeat = '/M';
-const String disableTriggerRepeat = '/K';
+const String triggerRepeatEnabled = '/M';
+const String triggerRepeatDisabled = '/K';
 
 const String enableTrigger = 'S8';
 const String disableTrigger = 'S7';
@@ -383,8 +383,8 @@ const String vibratorDuration100ms = 'EBK';
 const String enableVibratonOnButtonPress = 'BO';
 const String disableVibratonOnButtonPress = 'BP';
 
-const String enableBatteryChargingIndicator = '7G';
-const String disableBatteryChargingIndicator = '8Z';
+const String batteryChargingIndicatorEnabled = '7G';
+const String batteryChargingIndicatorDisabled = '8Z';
 
 const String getBatteryPercentage = 'BATT';
 
@@ -401,8 +401,8 @@ const String enableAckNack = 'WC';
 const String transmitSoftwareVersion = 'Z1';
 const String saveSettings = 'Z2';
 
-const String enableDeleteKey = 'DELE';
-const String disableDeleteKey = 'DELD';
+const String deleteKeyEnabled = 'DELE';
+const String deleteKeyDisabled = 'DELD';
 
 const String transmitDeviceInformation = 'EFK';
 
