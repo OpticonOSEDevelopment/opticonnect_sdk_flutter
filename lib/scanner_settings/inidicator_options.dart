@@ -16,6 +16,11 @@ enum BuzzerDuration {
   duration400ms,
 }
 
+enum VibratorDuration {
+  duration50ms,
+  duration100ms,
+}
+
 class InidicatorOptions extends ScannerSettings {
   InidicatorOptions(super.sdk);
 
@@ -31,6 +36,11 @@ class InidicatorOptions extends ScannerSettings {
     BuzzerDuration.duration100ms: buzzerDuration100ms,
     BuzzerDuration.duration200ms: buzzerDuration200ms,
     BuzzerDuration.duration400ms: buzzerDuration400ms,
+  };
+
+  final Map<VibratorDuration, String> _vibratorDuration = {
+    VibratorDuration.duration50ms: vibratorDuration50ms,
+    VibratorDuration.duration100ms: vibratorDuration100ms,
   };
 
   Future<CommandResponse> enableBuzzer(String deviceId) async {
@@ -59,5 +69,28 @@ class InidicatorOptions extends ScannerSettings {
   Future<CommandResponse> disableBatteryChargingIndicator(
       String deviceId) async {
     return sendCommand(deviceId, batteryChargingIndicatorDisabled);
+  }
+
+  Future<CommandResponse> enableVibrator(String deviceId) async {
+    return sendCommand(deviceId, vibratorEnabled);
+  }
+
+  Future<CommandResponse> disableVibrator(String deviceId) async {
+    return sendCommand(deviceId, vibratorDisabled);
+  }
+
+  Future<CommandResponse> setVibratorDuration(
+      String deviceId, VibratorDuration duration) async {
+    return sendCommand(deviceId, _vibratorDuration[duration]!);
+  }
+
+  Future<CommandResponse> enableVibrateOnScanButtonPress(
+      String deviceId) async {
+    return sendCommand(deviceId, enableVibratonOnButtonPress);
+  }
+
+  Future<CommandResponse> disableVibrateOnScanButtonPress(
+      String deviceId) async {
+    return sendCommand(deviceId, disableVibratonOnButtonPress);
   }
 }

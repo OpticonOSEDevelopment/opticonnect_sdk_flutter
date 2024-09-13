@@ -1,6 +1,7 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/enums/direct_input_key.dart';
+import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
 import 'package:opticonnect_sdk/scanner_settings/scanner_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
@@ -14,13 +15,13 @@ class FormattingOptions extends ScannerSettings {
       List<DirectInputKey> keys, int maxChars) {
     if (keys.length > maxChars) {
       _appLogger.warning(
-          'Preamble length is more than $maxChars characters. Cut off the excess characters.');
+          'Length is more than $maxChars characters. Cut off the excess characters.');
       keys = keys.sublist(0, maxChars);
     }
 
     return keys
         .map((k) {
-          final code = directInputKeyCodes[k];
+          final code = DirectInputKeysHelper.directInputKeyCodes[k];
 
           if (code == null) {
             _appLogger
@@ -42,7 +43,7 @@ class FormattingOptions extends ScannerSettings {
 
     final List<DirectInputKey> directInputKeys = [];
     for (var char in input.split('')) {
-      final key = charToDirectInputKey[char];
+      final key = DirectInputKeysHelper.charToDirectInputKey[char];
 
       if (key != null) {
         directInputKeys.add(key);

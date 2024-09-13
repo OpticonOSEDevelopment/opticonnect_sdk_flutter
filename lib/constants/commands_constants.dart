@@ -374,8 +374,8 @@ const String buzzerLoudnessNormal = 'T2';
 const String buzzerLoudnessLoud = 'T1';
 const String buzzerLoudnessMaximum = 'T0';
 
-const String enableVibrator = 'EBI';
-const String disableVibrator = 'EBH';
+const String vibratorEnabled = 'EBI';
+const String vibratorDisabled = 'EBH';
 
 const String vibratorDuration50ms = 'EBJ';
 const String vibratorDuration100ms = 'EBK';
