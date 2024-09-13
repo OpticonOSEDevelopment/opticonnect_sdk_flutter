@@ -78,7 +78,7 @@ class CommandHandlersManager {
       return await command.completer.future;
     } catch (e) {
       _appLogger.error("Error sending command to device $deviceId: $e");
-      return CommandResponse('', false);
+      return CommandResponse.failed(e.toString());
     }
   }
 
