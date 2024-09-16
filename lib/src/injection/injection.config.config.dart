@@ -11,6 +11,7 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../bluetooth_manager.dart' as _i186;
 import '../interfaces/app_logger.dart' as _i801;
 import '../interfaces/command_bytes_provider.dart' as _i22;
 import '../services/ble_services/ble_connection_states_service.dart' as _i61;
@@ -102,6 +103,12 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i569.CommandHandlersManager>(),
               gh<_i801.AppLogger>(),
             ));
+    gh.lazySingleton<_i186.BluetoothManager>(() => _i186.BluetoothManager(
+          gh<_i314.BleDevicesDiscoverer>(),
+          gh<_i721.BleConnectivityHandler>(),
+          gh<_i726.BleDevicesStreamsHandler>(),
+          gh<_i801.AppLogger>(),
+        ));
     return this;
   }
 }

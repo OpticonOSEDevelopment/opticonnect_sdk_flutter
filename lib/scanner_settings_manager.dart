@@ -30,10 +30,10 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_s
 /// sdk.initialize();
 /// final scannerSettings = sdk.scannerSettings;
 /// ```
-class ScannerSettings extends BaseScannerSettings {
+class ScannerSettingsManager extends BaseScannerSettings {
   final _appLogger = getIt<AppLogger>();
 
-  ScannerSettings(super.sdk);
+  ScannerSettingsManager(super.sdk);
 
   /// Settings related to enabling specific barcode symbologies.
   late final EnableCodesSettings enableCodesSettings;

@@ -1,7 +1,7 @@
 library opticonnect_sdk;
 
 import 'package:opticonnect_sdk/bluetooth_manager.dart';
-import 'package:opticonnect_sdk/scanner_settings.dart';
+import 'package:opticonnect_sdk/scanner_settings_manager.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
@@ -11,10 +11,9 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_s
 class OptiConnectSDK {
   static OptiConnectSDK? _instance;
 
-  late final ScannerSettings _scannerSettings;
+  late final ScannerSettingsManager _scannerSettingsManager;
   late final ScannerSettingsHandler _scannerSettingsHandler;
   late final BluetoothManager _bluetoothManager;
-
   late final AppLogger _appLogger;
 
   bool _isInitialized = false;
@@ -34,8 +33,8 @@ class OptiConnectSDK {
   Future<void> initialize() async {
     configureSdkDependencyInjection();
 
-    _scannerSettings = ScannerSettings(this);
-    await _scannerSettings.initialize();
+    _scannerSettingsManager = ScannerSettingsManager(this);
+    await _scannerSettingsManager.initialize();
 
     _scannerSettingsHandler = getIt<ScannerSettingsHandler>();
     await _scannerSettingsHandler.initialize();
@@ -55,10 +54,10 @@ class OptiConnectSDK {
     }
   }
 
-  /// Public property getter for [scannerSettings].
-  ScannerSettings get scannerSettings {
+  /// Public property getter for [scannerSettingsManager].
+  ScannerSettingsManager get scannerSettingsManager {
     _ensureInitialized(); // Check if SDK is initialized before accessing
-    return _scannerSettings;
+    return _scannerSettingsManager;
   }
 
   /// Public property getter for [bluetoothManager].

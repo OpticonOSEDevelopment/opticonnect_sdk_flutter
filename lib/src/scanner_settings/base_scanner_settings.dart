@@ -11,7 +11,7 @@ abstract class BaseScannerSettings {
   @protected
   Future<CommandResponse> sendCommand(String deviceId, String command,
       {List<String> parameters = const []}) {
-    return sdk.scannerSettings.executeCommand(
+    return sdk.scannerSettingsManager.executeCommand(
         deviceId, ScannerCommand(command, parameters: parameters));
   }
 }

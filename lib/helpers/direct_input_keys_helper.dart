@@ -1,6 +1,14 @@
 import 'package:opticonnect_sdk/enums/direct_input_key.dart';
 
+/// A helper class for managing and converting direct input keys to their corresponding key codes.
+///
+/// This class provides mappings from [DirectInputKey] to their respective string key codes,
+/// and also provides utilities for converting characters and integers into direct input keys.
 class DirectInputKeysHelper {
+  /// A mapping of [DirectInputKey] to their respective string key codes.
+  ///
+  /// This map is used to translate specific input keys (numeric, alphabetic, function keys, etc.)
+  /// into corresponding string codes that can be sent as commands to devices.
   static Map<DirectInputKey, String> directInputKeyCodes = {
     // Numeric
     DirectInputKey.digit0: 'Q0',
@@ -199,6 +207,10 @@ class DirectInputKeysHelper {
     DirectInputKey.timestamp: '\$TM',
   };
 
+  /// A mapping of characters to [DirectInputKey] for direct input key conversion.
+  ///
+  /// This map is used to map individual characters (e.g., 'A', 'a', '1', etc.) to
+  /// their corresponding [DirectInputKey] enum value.
   static Map<String, DirectInputKey> charToDirectInputKey = {
     // Numeric
     '0': DirectInputKey.digit0,
@@ -314,6 +326,19 @@ class DirectInputKeysHelper {
     '\b': DirectInputKey.bs,
   };
 
+  /// Converts an integer value to a list of corresponding direct input key codes.
+  ///
+  /// The method takes an integer value, converts it to its string representation, and then
+  /// maps each character to its respective [DirectInputKey] and key code. This is useful for
+  /// generating commands based on numeric input.
+  ///
+  /// Example:
+  /// ```dart
+  /// List<String> keys = DirectInputKeysHelper.convertIntToDirectInputKeys(123);
+  /// // Returns ['Q1', 'Q2', 'Q3']
+  /// ```
+  ///
+  /// [value] is the integer value to be converted to a list of direct input key codes.
   static List<String> convertIntToDirectInputKeys(int value) {
     final text = value.toString();
     final keys = text
