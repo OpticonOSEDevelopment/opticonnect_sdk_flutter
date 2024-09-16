@@ -59,9 +59,10 @@ class BleDevicesDiscoverer {
             deviceId: result.device.remoteId.toString(),
             rssi: result.rssi,
             timeStamp: DateTime.now(),
-            connectionPoolId: '', //TODO add connection pool id
+            connectionPoolId: _getConnectionPoolIdFromManufacturerData(
+              result.advertisementData.manufacturerData,
+            ),
           );
-
           if (_isValidDeviceName(discoveredDevice.name)) {
             _deviceDiscoveryStreamController!.add(discoveredDevice);
           }
@@ -71,6 +72,27 @@ class BleDevicesDiscoverer {
       _appLogger.error('Failed to start BLE discovery: $e');
       throw Exception('Failed to start BLE discovery: $e');
     }
+  }
+
+  String _getConnectionPoolIdFromManufacturerData(
+      Map<int, List<int>> manufacturerData) {
+    if (manufacturerData.isNotEmpty) {
+      final firstKey = manufacturerData.keys.first;
+      final dataList = manufacturerData[firstKey];
+
+      if (dataList != null && dataList.length >= 2) {
+        final connectionPoolIdBuffer = StringBuffer();
+        for (int i = 0; i < 2; i++) {
+          final byte = dataList[i];
+          final leastSigHex = byte & 0x0F;
+          final mostSigHex = (byte & 0xF0) >> 4;
+          connectionPoolIdBuffer.write(mostSigHex.toRadixString(16));
+          connectionPoolIdBuffer.write(leastSigHex.toRadixString(16));
+        }
+        return connectionPoolIdBuffer.toString();
+      }
+    }
+    return '';
   }
 
   Future<void> stopDiscovery() async {

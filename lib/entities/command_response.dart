@@ -7,4 +7,8 @@ class CommandResponse {
   factory CommandResponse.failed(String message) {
     return CommandResponse(message, false);
   }
+
+  factory CommandResponse.succeeded() {
+    return CommandResponse('', true);
+  }
 }

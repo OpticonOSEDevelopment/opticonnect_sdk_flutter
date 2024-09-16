@@ -445,5 +445,5 @@ const String barcodeValidationBadRead = 'DC2';
 const String barcodeValidationNoResponse = 'DC1';
 const String barcodeValidationResend = 'NAK';
 
-const String setBleConnectionPool = 'BBP';
+const String setConnectionPoolId = 'BBP';
 const String simpleSoundResponseCommand = 'BQS';
