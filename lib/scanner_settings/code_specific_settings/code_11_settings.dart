@@ -1,7 +1,8 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/scanner_settings/scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
+/// Enum representing the check digit validation settings for Code 11 symbology.
 enum Code11CheckCDSettings {
   doNotCheckCD,
   check1CD,
@@ -9,9 +10,14 @@ enum Code11CheckCDSettings {
   check1CDOr2CDsAutomatically,
 }
 
-class Code11Settings extends ScannerSettings {
+/// A class representing settings for Code 11 symbology.
+///
+/// This class provides methods to configure check digit validation and transmission
+/// settings for Code 11 symbology.
+class Code11Settings extends BaseScannerSettings {
   Code11Settings(super.sdk);
 
+  /// A map linking the check digit settings to the corresponding command strings.
   final Map<Code11CheckCDSettings, String> _checkCDCommands = {
     Code11CheckCDSettings.doNotCheckCD: code11DoNotCheckCd,
     Code11CheckCDSettings.check1CD: code11Check1Cd,
@@ -19,15 +25,18 @@ class Code11Settings extends ScannerSettings {
     Code11CheckCDSettings.check1CDOr2CDsAutomatically: code11Check1Or2Cds,
   };
 
+  /// Sets the check digit validation mode for Code 11 symbology.
   Future<CommandResponse> setCheckCD(
       String deviceId, Code11CheckCDSettings setting) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
+  /// Enables the transmission of the check digit for Code 11 symbology.
   Future<CommandResponse> enableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, code11TransmitCd);
   }
 
+  /// Disables the transmission of the check digit for Code 11 symbology.
   Future<CommandResponse> disableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, code11DoNotTransmitCd);
   }

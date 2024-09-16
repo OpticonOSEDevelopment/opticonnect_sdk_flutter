@@ -32,8 +32,6 @@ class CommandCompressionManager {
         final compressedCommand = await _scannerSettingsCompressor
             .getCompressedSettingsCommand(settingsResult.response);
 
-        _appLogger.warning('compress to: ${compressedCommand.data}...');
-
         _commandHandler.sendCommand(compressedCommand);
       } catch (error) {
         _appLogger.error('Error during command compression: $error');

@@ -1,8 +1,8 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/scanner_settings/scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
-class EAN13Settings extends ScannerSettings {
+class EAN13Settings extends BaseScannerSettings {
   EAN13Settings(super.sdk);
 
   Future<CommandResponse> enableTransmitCD(String deviceId) async {

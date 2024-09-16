@@ -1,7 +1,8 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/scanner_settings/scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
+/// Enum representing the check digit validation settings for MSI Plessey symbology.
 enum MSIPlesseyCheckCDSettings {
   doNotCheckCD,
   check1CDMOD10,
@@ -11,15 +12,20 @@ enum MSIPlesseyCheckCDSettings {
   check2CDsMOD11MOD11,
 }
 
+/// Enum representing the transmission settings for check digits in MSI Plessey symbology.
 enum MSIPlesseyCDTransmissionSettings {
   transmitCD1,
   transmitCD1AndCD2,
   doNotTransmitCD,
 }
 
-class MSIPlesseySettings extends ScannerSettings {
+/// A class representing settings for MSI Plessey symbology.
+///
+/// This class provides methods to configure check digit validation and transmission settings for MSI Plessey symbology.
+class MSIPlesseySettings extends BaseScannerSettings {
   MSIPlesseySettings(super.sdk);
 
+  /// A map linking check digit settings to their corresponding commands.
   final Map<MSIPlesseyCheckCDSettings, String> _checkCDCommands = {
     MSIPlesseyCheckCDSettings.doNotCheckCD: msiPlesseyDoNotCheckCd,
     MSIPlesseyCheckCDSettings.check1CDMOD10: msiPlesseyCheck1CdMod10,
@@ -33,6 +39,7 @@ class MSIPlesseySettings extends ScannerSettings {
         msiPlesseyCheck2CdsMod11Mod11,
   };
 
+  /// A map linking CD transmission settings to their corresponding commands.
   final Map<MSIPlesseyCDTransmissionSettings, String> _cdTransmissionCommands =
       {
     MSIPlesseyCDTransmissionSettings.transmitCD1: msiPlesseyTransmitCd1,
@@ -41,11 +48,17 @@ class MSIPlesseySettings extends ScannerSettings {
     MSIPlesseyCDTransmissionSettings.doNotTransmitCD: msiPlesseyDoNotTransmitCd,
   };
 
+  /// Sets the check digit validation mode for MSI Plessey symbology.
+  ///
+  /// [deviceId] is the ID of the BLE device, and [setting] is the desired check digit validation mode.
   Future<CommandResponse> setCheckCD(
       String deviceId, MSIPlesseyCheckCDSettings setting) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
+  /// Sets the check digit transmission mode for MSI Plessey symbology.
+  ///
+  /// [deviceId] is the ID of the BLE device, and [setting] is the desired check digit transmission mode.
   Future<CommandResponse> setCDTransmission(
       String deviceId, MSIPlesseyCDTransmissionSettings setting) async {
     return sendCommand(deviceId, _cdTransmissionCommands[setting]!);

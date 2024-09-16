@@ -1,31 +1,23 @@
 library opticonnect_sdk;
 
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
-import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/entities/scanner_command.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/code_specific_settings.dart';
-import 'package:opticonnect_sdk/scanner_settings/enable_codes_settings.dart';
+import 'package:opticonnect_sdk/bluetooth_manager.dart';
+import 'package:opticonnect_sdk/scanner_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handler.dart';
-import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_discoverer.dart';
-import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
-import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
 
+/// The main class for interacting with Opticon's BLE OPN-2500 and OPN-6000 scanners.
+/// Provides methods to discover, connect, and manage devices.
 class OptiConnectSDK {
   static OptiConnectSDK? _instance;
-  late final EnableCodesSettings enableCodesSettings;
-  late final CodeSpecificSettings codeSpecificSettings;
-  late final BleDevicesDiscoverer _bleDevicesDiscoverer;
-  late final BleConnectivityHandler _bleConnectivityHandler;
-  late final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
-  late final CommandHandlersManager _commandHandlersManager;
+
+  late final ScannerSettings _scannerSettings;
   late final ScannerSettingsHandler _scannerSettingsHandler;
+  late final BluetoothManager _bluetoothManager;
+
   late final AppLogger _appLogger;
+
+  bool _isInitialized = false;
 
   static OptiConnectSDK get instance {
     _instance ??= OptiConnectSDK._internal();
@@ -34,127 +26,59 @@ class OptiConnectSDK {
 
   OptiConnectSDK._internal();
 
+  /// Initializes the SDK and sets up the necessary services.
+  ///
+  /// This method should be called before using any other methods.
+  /// It configures BLE device discovery, connectivity handlers, and
+  /// scanner settings.
   Future<void> initialize() async {
-    enableCodesSettings = EnableCodesSettings(this);
-    codeSpecificSettings = CodeSpecificSettings(this);
-
     configureSdkDependencyInjection();
-    _bleDevicesDiscoverer = getIt<BleDevicesDiscoverer>();
-    _bleConnectivityHandler = getIt<BleConnectivityHandler>();
-    _bleDevicesStreamsHandler = getIt<BleDevicesStreamsHandler>();
-    _commandHandlersManager = getIt<CommandHandlersManager>();
+
+    _scannerSettings = ScannerSettings(this);
+    await _scannerSettings.initialize();
+
     _scannerSettingsHandler = getIt<ScannerSettingsHandler>();
+    await _scannerSettingsHandler.initialize();
+
+    _bluetoothManager = getIt<BluetoothManager>();
+
     _appLogger = getIt<AppLogger>();
 
-    await _scannerSettingsHandler.initialize();
-    await codeSpecificSettings.initialize();
+    _isInitialized = true;
   }
 
-  Future<void> startDiscovery() async {
-    try {
-      await _bleDevicesDiscoverer.startDiscovery();
-      _appLogger.info("Discovery started successfully.");
-    } catch (e) {
-      _appLogger.error("Error starting discovery: $e");
-      rethrow;
+  /// Checks if the SDK is initialized before proceeding.
+  void _ensureInitialized() {
+    if (!_isInitialized) {
+      throw StateError(
+          'OptiConnectSDK has not been initialized. Call initialize() before using other methods.');
     }
   }
 
-  Future<void> stopDiscovery() async {
-    try {
-      await _bleDevicesDiscoverer.stopDiscovery();
-      _appLogger.info("Discovery stopped successfully.");
-    } catch (e) {
-      _appLogger.error("Error stopping discovery: $e");
-      rethrow;
-    }
+  /// Public property getter for [scannerSettings].
+  ScannerSettings get scannerSettings {
+    _ensureInitialized(); // Check if SDK is initialized before accessing
+    return _scannerSettings;
   }
 
-  Stream<BleDiscoveredDevice> get bleDeviceStream async* {
-    try {
-      await for (final results in _bleDevicesDiscoverer.bleDeviceStream) {
-        yield results;
-      }
-    } catch (e) {
-      _appLogger.error("Error in bleDeviceStream: $e");
-      rethrow;
-    }
+  /// Public property getter for [bluetoothManager].
+  BluetoothManager get bluetoothManager {
+    _ensureInitialized(); // Check if SDK is initialized before accessing
+    return _bluetoothManager;
   }
 
-  Stream<BleDeviceConnectionState> listenToConnectionState(String deviceId) {
-    try {
-      return _bleConnectivityHandler.listenToConnectionState(deviceId);
-    } catch (e) {
-      _appLogger.error("Error listening to connection state: $e");
-      rethrow;
-    }
-  }
-
-  BleDeviceConnectionState getConnectionState(String deviceId) {
-    try {
-      return _bleConnectivityHandler.getConnectionState(deviceId);
-    } catch (e) {
-      _appLogger.error("Error getting connection state: $e");
-      rethrow;
-    }
-  }
-
-  Future<void> connect(String deviceId) async {
-    try {
-      await _bleConnectivityHandler.connect(deviceId);
-      _appLogger.info("Connected to device $deviceId successfully.");
-    } catch (e) {
-      _appLogger.error("Error connecting to device $deviceId: $e");
-      rethrow;
-    }
-  }
-
-  Future<void> disconnect(String deviceId) async {
-    try {
-      await _bleConnectivityHandler.disconnect(deviceId);
-      _appLogger.info("Disconnected from device $deviceId successfully.");
-    } catch (e) {
-      _appLogger.error("Error disconnecting from device $deviceId: $e");
-      rethrow;
-    }
-  }
-
-  Future<Stream<BarcodeData>> subscribeToBarcodeDataStream(
-      String deviceId) async {
-    try {
-      return _bleDevicesStreamsHandler.getBarcodeDataStream(deviceId);
-    } catch (e) {
-      _appLogger.error("Error subscribing to barcode data stream: $e");
-      rethrow;
-    }
-  }
-
-  Future<CommandResponse> sendCommand(
-      String deviceId, ScannerCommand command) async {
-    try {
-      return await _commandHandlersManager.sendCommand(deviceId, command);
-    } catch (e) {
-      _appLogger.error("Error sending command to device $deviceId: $e");
-      rethrow;
-    }
-  }
-
-  Future<bool> persistSettings(String deviceId) async {
-    try {
-      final result = await _commandHandlersManager.sendCommand(
-          deviceId, ScannerCommand(saveSettings));
-      return result.succeeded;
-    } catch (e) {
-      _appLogger.error("Error persisting settings for device $deviceId: $e");
-      rethrow;
-    }
-  }
-
+  /// Disposes of the SDK resources, stopping any active processes.
+  ///
+  /// This method should be called when the SDK is no longer needed to
+  /// clean up resources such as BLE connections and discovery.
+  ///
+  /// After calling this method, the SDK will need to be initialized again.
   Future<void> dispose() async {
     try {
-      await _bleConnectivityHandler.dispose();
-      await _bleDevicesDiscoverer.dispose();
+      _ensureInitialized();
+      await _bluetoothManager.dispose();
       _appLogger.info("SDK disposed successfully.");
+      _isInitialized = false;
     } catch (e) {
       _appLogger.error("Error disposing SDK: $e");
       rethrow;

@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
+import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
-import 'package:opticonnect_sdk/src/entities/command_data.dart';
 import 'package:opticonnect_sdk/src/entities/raw_command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
@@ -13,7 +13,7 @@ class ScannerSettingsCompressor {
   ScannerSettingsCompressor(this._scannerSettingsHandler, this._appLogger);
 
   Future<Command> getCompressedSettingsCommand(String settings) async {
-    final compressedSettingsList = await _getCompressedSettingsList(settings);
+    final compressedSettingsList = await getCompressedSettingsList(settings);
 
     StringBuffer compressedCommandData = StringBuffer();
     for (final commandData in compressedSettingsList) {
@@ -66,7 +66,7 @@ class ScannerSettingsCompressor {
     return compressedList;
   }
 
-  Future<List<CommandData>> _getCompressedSettingsList(String settings) async {
+  Future<List<CommandData>> getCompressedSettingsList(String settings) async {
     final List<CommandData> commandsList = [];
     for (int i = 0; i < settings.length; i++) {
       final currentChar = settings[i];

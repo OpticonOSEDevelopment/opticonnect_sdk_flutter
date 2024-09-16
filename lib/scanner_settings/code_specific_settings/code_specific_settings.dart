@@ -14,30 +14,82 @@ import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/msi_ples
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/telepen_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/uk_plessey_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/upc_a_settings.dart';
-import 'package:opticonnect_sdk/scanner_settings/scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
-class CodeSpecificSettings extends ScannerSettings {
+/// A class providing access to settings for specific barcode symbologies.
+///
+/// This class includes settings for individual barcode types such as Codabar, Code 39,
+/// UPC, EAN, and others. It allows you to configure scanner behavior for specific barcode formats.
+///
+/// It is recommended that you access this class through the `ScannerSettings` provided
+/// by the `OptiConnectSDK`. There is no need to manually initialize or modify the settings
+/// directly.
+///
+/// Example usage:
+/// ```dart
+/// final sdk = OptiConnectSDK.instance;
+/// sdk.initialize();
+/// final codeSettings = sdk.scannerSettings.codeSpecificSettings;
+/// ```
+class CodeSpecificSettings extends BaseScannerSettings {
   CodeSpecificSettings(super.sdk);
 
+  /// Settings related to Code 2 of 5 and S-Code symbologies.
   late final Code2Of5AndSCodeSettings code2of5andSCodeSettings;
+
+  /// Settings related to Codabar symbology.
   late final CodabarSettings codabarSettings;
+
+  /// Settings related to Code 11 symbology.
   late final Code11Settings code11Settings;
+
+  /// Settings related to Code 39 symbology.
   late final Code39Settings code39Settings;
+
+  /// Settings related to Code 93 symbology.
   late final Code93Settings code93Settings;
+
+  /// Settings related to Code 128 and GS1-128 symbologies.
   late final Code128AndGS1128Settings code128AndGS1128Settings;
+
+  /// Settings related to composite codes.
   late final CompositeCodesSettings compositeCodesSettings;
+
+  /// Settings related to EAN-8 symbology.
   late final EAN8Settings ean8Settings;
+
+  /// Settings related to EAN-13 symbology.
   late final EAN13Settings ean13Settings;
+
+  /// Settings related to GS1 Databar symbologies.
   late final GS1DatabarSettings gs1DatabarSettings;
+
+  /// Settings related to IATA symbology.
   late final IATASettings iataSettings;
+
+  /// Settings related to the Korean Postal Authority Code symbology.
   late final KoreanPostalAuthorityCodeSettings
       koreanPostalAuthorityCodeSettings;
+
+  /// Settings related to MSI Plessey symbology.
   late final MSIPlesseySettings msiPlesseySettings;
+
+  /// Settings related to Telepen symbology.
   late final TelepenSettings telepenSettings;
+
+  /// Settings related to UK Plessey symbology.
   late final UKPlesseySettings ukPlesseySettings;
+
+  /// Settings related to UPC-A symbology.
   late final UPCASettings upcASettings;
+
+  /// Settings related to UPC-E symbology.
   late final UPCASettings upcESettings;
 
+  /// Initializes the properties that provide access to settings for specific barcode symbologies.
+  ///
+  /// This method is automatically called during the SDK initialization (`OptiConnectSDK.initialize()`),
+  /// so it is not necessary to call this method manually.
   Future<void> initialize() async {
     code2of5andSCodeSettings = Code2Of5AndSCodeSettings(sdk);
     codabarSettings = CodabarSettings(sdk);
