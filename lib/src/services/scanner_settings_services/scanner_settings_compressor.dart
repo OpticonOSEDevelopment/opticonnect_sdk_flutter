@@ -3,25 +3,31 @@ import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/entities/raw_command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings_services/datawizard_settings_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
 
 @lazySingleton
 class ScannerSettingsCompressor {
   final ScannerSettingsHandler _scannerSettingsHandler;
+  final DatawizardSettingsManager _datawizardSettingsManager;
   final AppLogger _appLogger;
 
-  ScannerSettingsCompressor(this._scannerSettingsHandler, this._appLogger);
+  ScannerSettingsCompressor(this._scannerSettingsHandler,
+      this._datawizardSettingsManager, this._appLogger);
 
   Future<Command> getCompressedSettingsCommand(String settings) async {
+    _appLogger.warning('initial settings: $settings');
+
     final compressedSettingsList = await getCompressedSettingsList(settings);
 
     StringBuffer compressedCommandData = StringBuffer();
     for (final commandData in compressedSettingsList) {
       compressedCommandData.write(Command.formatCode(commandData.command));
       for (final parameter in commandData.parameters) {
-        compressedCommandData.write(parameter);
+        compressedCommandData.write(Command.formatCode(parameter));
       }
     }
+    _appLogger.warning('Compressed settings: $compressedCommandData');
 
     return RawCommand(compressedCommandData.toString());
   }
@@ -82,9 +88,9 @@ class ScannerSettingsCompressor {
       }
 
       if (commandsList.isNotEmpty &&
-          _isDirectInputCommand(commandsList.last.command)) {
-        _appLogger
-            .warning('Is direct input command: ${commandsList.last.command}');
+              _isDirectInputCommand(commandsList.last.command) ||
+          _datawizardSettingsManager
+              .isDataWizardParameter(commandsList.last.command)) {
         final parameter = commandsList.last.command;
         commandsList.removeLast();
         if (commandsList.isNotEmpty) {

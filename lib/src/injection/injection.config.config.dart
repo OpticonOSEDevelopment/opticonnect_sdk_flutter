@@ -30,6 +30,8 @@ import '../services/scanner_commands_services/command_handlers_manager.dart'
     as _i569;
 import '../services/scanner_commands_services/opc_command_protocol_handler.dart'
     as _i643;
+import '../services/scanner_settings_services/datawizard_settings_manager.dart'
+    as _i707;
 import '../services/scanner_settings_services/scanner_settings_compressor.dart'
     as _i925;
 import '../services/scanner_settings_services/scanner_settings_database_manager.dart'
@@ -61,6 +63,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i874.CommandFeedbackService>(
         () => _i874.CommandFeedbackService());
     gh.lazySingleton<_i11.SymbologyHandler>(() => _i11.SymbologyHandler());
+    gh.lazySingleton<_i707.DatawizardSettingsManager>(
+        () => _i707.DatawizardSettingsManager());
     gh.lazySingleton<_i801.AppLogger>(() => _i652.OptiConnectLogger());
     gh.lazySingleton<_i211.ScannerSettingsDatabaseManager>(() =>
         _i211.ScannerSettingsDatabaseManager(gh<_i904.DatabasePathHelper>()));
@@ -85,6 +89,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i925.ScannerSettingsCompressor>(
         () => _i925.ScannerSettingsCompressor(
               gh<_i659.ScannerSettingsHandler>(),
+              gh<_i707.DatawizardSettingsManager>(),
               gh<_i801.AppLogger>(),
             ));
     gh.lazySingleton<_i569.CommandHandlersManager>(

@@ -1,4 +1,5 @@
-// Enable single 1D code only
+/// Enable 1D symbologies for scanning.
+/// These commands enable or disable individual 1D barcode symbologies.
 const String enable1DAllCodesOnly = 'BCA';
 const String enableCode11Only = 'BLB';
 const String enableCode39Only = 'A2';
@@ -41,7 +42,8 @@ const String enableGS1DataBarOnly = 'J9';
 const String enableGS1DataBarLimitedOnly = 'JJ';
 const String enableGS1DataBarExpandedOnly = 'JK';
 
-// Enable single 2D code only
+/// Enable 2D symbologies for scanning.
+/// These commands enable or disable individual 2D barcode symbologies.
 const String enable2DAllCodesOnly = 'BCB';
 const String enableAztecCodeOnly = 'BC5';
 const String enableAztecRunesOnly = 'BF4';
@@ -66,6 +68,7 @@ const String enablePlanetOnly = 'DG2';
 const String enablePostnetOnly = 'D6C';
 const String enableUKPostalOnly = 'DG7';
 
+/// Commands for enabling or disabling symbologies (Aztec, DotCode, etc.).
 const String aztecEnabled = 'BCH';
 const String aztecDisabled = 'BCT';
 const String aztecRunesEnabled = 'BF2';
@@ -122,8 +125,28 @@ const String ukPlesseyEnabled = 'B1';
 const String ukPlesseyDisabled = 'VA';
 const String upcAEnabled = 'R1A';
 const String upcADisabled = 'V1A';
+const String upcAAddOn2Enabled = 'R2A';
+const String upcAAddOn2Disabled = 'V2A';
+const String upcAAddOn5Enabled = 'R3A';
+const String upcAAddOn5Disabled = 'V3A';
+const String upcAEEnabled = 'R1';
+const String upcAEDisabled = 'X4B';
+const String upcAEAddOn2Enabled = 'R2';
+const String upcAEAddOn2Disabled = 'X4C';
+const String upcAEAddOn5Enabled = 'R3';
+const String upcAEAddOn5Disabled = 'X4D';
 const String upcEEnabled = 'R1B';
 const String upcEDisabled = 'V1B';
+const String upcEAddOn2Enabled = 'R2B';
+const String upcEAddOn2Disabled = 'V2B';
+const String upcEAddOn5Enabled = 'R3B';
+const String upcEAddOn5Disabled = 'V3B';
+const String upcE1Enabled = 'KG';
+const String upcE1Disabled = 'KP';
+const String upcE1AddOn2Enabled = 'R2C';
+const String upcE1AddOn2Disabled = 'V2C';
+const String upcE1AddOn5Enabled = 'R3C';
+const String upcE1AddOn5Disabled = 'V3C';
 const String gs1DataBarEnabled = 'JX';
 const String gs1DataBarDisabled = 'SJ';
 const String gs1DataBarExpandedEnabled = 'DR';
@@ -151,6 +174,7 @@ const String postnetDisabled = 'D6B';
 const String ukPostalEnabled = 'DG8';
 const String ukPostalDisabled = 'DG9';
 
+/// Commands for configuring code-specific settings.
 const String twoOfFiveAndSCodeCheckCd = 'G1';
 const String twoOfFiveAndSCodeDoNotCheckCd = 'G0';
 
@@ -316,6 +340,7 @@ const String upcEDisableAddon2 = 'V2B';
 const String upcEEnableAddon5 = 'R3B';
 const String upcEDisableAddon5 = 'V3B';
 
+/// Commands for configuring read settings.
 const String singleRead = 'S0';
 const String multipleRead = 'S1';
 const String continuousRead = 'S2';
@@ -350,6 +375,10 @@ const String triggerRepeatDisabled = '/K';
 const String enableTrigger = 'S8';
 const String disableTrigger = 'S7';
 
+const String deleteKeyEnabled = 'DELE';
+const String deleteKeyDisabled = 'DELD';
+
+/// Commands for indicator settings.
 const String nonPersistentSetBuzzer = 'BQX';
 const String persistentSetBuzzer = 'BQY';
 
@@ -374,6 +403,9 @@ const String buzzerLoudnessNormal = 'T2';
 const String buzzerLoudnessLoud = 'T1';
 const String buzzerLoudnessMaximum = 'T0';
 
+const String buzzerOnKeyclickOn = 'WK';
+const String buzzerOnKeyclickOff = 'WL';
+
 const String vibratorEnabled = 'EBI';
 const String vibratorDisabled = 'EBH';
 
@@ -395,25 +427,146 @@ const String workVibration = 'V';
 const String badReadBuzzer = 'E';
 const String badReadLed = 'N';
 
-const String bluetoothLowEnergyDefault = 'EBLE';
-const String usbCDCOptiConnectDefault = 'BQO';
-const String enableAckNack = 'WC';
-const String transmitSoftwareVersion = 'Z1';
-const String saveSettings = 'Z2';
+const String read1TimeRedundancy0 = 'X0';
+const String read2timesRedundancy1 = 'X1';
+const String read3timesRedundancy2 = 'X2';
+const String read4timesRedundancy3 = 'X3';
+const String read5timesRedundancy4 = 'BS';
+const String read6timesRedundancy5 = 'BT';
+const String read7timesRedundancy6 = 'BU';
+const String read8timesRedundancy7 = 'BV';
+const String read9timesRedundancy8 = 'BW';
 
-const String deleteKeyEnabled = 'DELE';
-const String deleteKeyDisabled = 'DELD';
+const String goodReadLedDurationDisabled = 'T4';
+const String goodReadLedDuration10ms = 'XT9';
+const String goodReadLedDuration60ms = 'XTH';
+const String goodReadLedDuration100ms = 'XT8';
+const String goodReadLedDuration200ms = 'T5';
+const String goodReadLedDuration400ms = 'T6';
+const String goodReadLedDuration500ms = 'XTI';
+const String goodReadLedDuration800ms = 'T7';
+const String goodReadLedDuration2000ms = 'XTJ';
 
-const String transmitDeviceInformation = 'EFK';
-
-const String fetchSettings = 'BPT';
-
-const String setDownloadMode = 'XLT';
-
-const String prefixAllCodes = 'RY';
+/// Commands for configuring formatting settings.
 const String preamble = 'MZ';
-const String suffixAllCodes = 'RZ';
 const String postamble = 'PS';
+
+/// Prefix codes for symbologies.
+const String prefixAllCodes = 'RY';
+const String upcAPrefix = 'N1';
+const String upcAAddOnPrefix = 'M0';
+const String upcEPrefix = 'N2';
+const String upcEAddOnPrefix = 'M1';
+const String ean13Prefix = 'N3';
+const String ean13AddOnPrefix = 'M2';
+const String ean8Prefix = 'N4';
+const String ean8AddOnPrefix = 'M3';
+const String code39Prefix = 'M4';
+const String codabarPrefix = 'M5';
+const String industrial2of5Prefix = 'M6';
+const String interleaved2of5Prefix = 'M7';
+const String sCodePrefix = 'MB';
+const String matrix2of5Prefix = 'GL';
+const String iataPrefix = 'I8';
+const String code93Prefix = 'M8';
+const String code128Prefix = 'M9';
+const String gs1128Prefix = 'XMX';
+const String msiPlesseyPrefix = 'MSI';
+const String telepenPrefix = 'L8';
+const String ukPlesseyPrefix = 'MA';
+const String dataMatrixPrefix = 'MD';
+const String qrCodePrefix = 'MK';
+const String maxiCodePrefix = 'ML';
+const String pdf417Prefix = 'OC';
+const String microPDF417Prefix = 'OD';
+const String aztecPrefix = 'BFQ';
+const String code11Prefix = 'BLD';
+const String triOpticPrefix = 'MC';
+const String koreanPostalAuthorityPrefix = '*\$';
+const String dotCodePrefix = 'DOF';
+const String intelligentMailPrefix = 'D5I';
+const String postNetPrefix = 'D6D';
+const String planetPrefix = 'DG5';
+const String japanesePostalPrefix = 'DSS';
+const String netherlandsKIXPrefix = 'DSN';
+const String ukPostalPrefix = 'DGA';
+const String australianPostalPrefix = 'D6P';
+const String mailMark4StatePostalPrefix = 'D6Q';
+const String gs1DatabarOmnidirectionalPrefix = 'D6G';
+const String gs1DatabarLimitedPrefix = 'D5Q';
+const String gs1DatabarExpandedPrefix = 'D6I';
+const String gs1CompositeCodePrefix = 'RR';
+const String codablockFPrefix = 'D4S';
+const String chineseSensibleCodePrefix = 'D4N';
+const String machineReadablePassportsPrefix = 'DJJ';
+const String machineReadableVisaAPrefix = 'DJK';
+const String machineReadableVisaBPrefix = 'DJI';
+const String officialTravelDocuments1Prefix = 'DJM';
+const String officialTravelDocuments2Prefix = 'DJN';
+const String isbnPrefix = 'DJO';
+const String japaneseBookPricePrefix = 'DJY';
+const String japaneseDriverLicensePrefix = 'DJX';
+const String japanesePrivateNumberPrefix = 'DKR';
+const String clearPrefixes = 'MG';
+
+/// Suffix codes for symbologies.
+const String suffixAllCodes = 'RZ';
+const String upcASuffix = 'N6';
+const String upcAAddOnSuffix = 'Q0';
+const String upcESuffix = 'N7';
+const String upcEAddOnSuffix = 'Q1';
+const String ean13Suffix = 'O1';
+const String ean13AddOnSuffix = 'O2';
+const String ean8Suffix = 'N9';
+const String ean8AddOnSuffix = 'O3';
+const String code39Suffix = 'O4';
+const String codabarSuffix = 'O5';
+const String industrial2of5Suffix = 'O6';
+const String interleaved2of5Suffix = 'O7';
+const String sCodeSuffix = 'OB';
+const String matrix2of5Suffix = 'GM';
+const String iataSuffix = 'I9';
+const String code93Suffix = 'O8';
+const String code128Suffix = 'O9';
+const String gs1128Suffix = 'X0X';
+const String msiPlesseySuffix = 'N5';
+const String telepenSuffix = 'L9';
+const String ukPlesseySuffix = 'O0';
+const String dataMatrixSuffix = 'PW';
+const String qrCodeSuffix = 'PQ';
+const String maxiCodeSuffix = 'PX';
+const String pdf417Suffix = 'PY';
+const String gs1DatabarSuffix = 'PQ';
+const String microPDF417Suffix = 'PZ';
+const String aztecSuffix = 'BF1';
+const String code11Suffix = 'BLE';
+const String triOpticSuffix = 'PN';
+const String koreanPostalAuthoritySuffix = '*%';
+const String dotCodeSuffix = 'DOG';
+const String intelligentMailSuffix = 'D5J';
+const String postNetSuffix = 'D6D';
+const String planetSuffix = 'D6E';
+const String japanesePostalSuffix = 'D5T';
+const String netherlandsKIXSuffix = 'DS0';
+const String ukPostalSuffix = 'DBG';
+const String australianPostalSuffix = 'D6Q';
+const String mailMark4StatePostalSuffix = 'DGW';
+const String gs1DatabarOmnidirectionalSuffix = 'D6J';
+const String gs1DatabarLimitedSuffix = 'D5Q';
+const String gs1DatabarExpandedSuffix = 'D6L';
+const String gs1CompositeCodeSuffix = 'D6I';
+const String codablockFSuffix = 'D4T';
+const String chineseSensibleCodeSuffix = 'D40';
+const String machineReadablePassportsSuffix = 'DJQ';
+const String machineReadableVisaASuffix = 'DJQ';
+const String machineReadableVisaBSuffix = 'DJR';
+const String officialTravelDocuments1Suffix = 'DJS';
+const String officialTravelDocuments2Suffix = 'DJT';
+const String isbnSuffix = 'DJU';
+const String japaneseBookPriceSuffix = 'DJV';
+const String japaneseDriverLicenseSuffix = 'DJS';
+const String japanesePrivateNumberSuffix = 'DKT';
+const String clearSuffixes = 'PR';
 
 const String aimCodeIdentification = '\$1';
 const String codeIdentification = '\$2';
@@ -429,6 +582,19 @@ const String option6 = 'Q6';
 
 const String directKeyM = '0M';
 const String directKeyN = '0N';
+
+/// Commands for configuring communication settings.
+const String bluetoothLowEnergyDefault = 'EBLE';
+const String usbCDCOptiConnectDefault = 'BQO';
+const String enableAckNack = 'WC';
+const String transmitSoftwareVersion = 'Z1';
+const String saveSettings = 'Z2';
+
+const String transmitDeviceInformation = 'EFK';
+
+const String fetchSettings = 'BPT';
+
+const String setDownloadMode = 'XLT';
 
 const String setBluetoothName = 'BLNS';
 const String endSetBluetoothName = 'BLNE';
@@ -447,3 +613,42 @@ const String barcodeValidationResend = 'NAK';
 
 const String setConnectionPoolId = 'BBP';
 const String simpleSoundResponseCommand = 'BQS';
+
+const String dataWizardCommandPrefix0 = 'A0';
+const String dataWizardCommandPrefix1 = 'A1';
+
+const String dataWizardConfiguration0 = 'A00';
+const String dataWizardConfiguration1 = 'A01';
+const String dataWizardConfiguration2 = 'A02';
+const String dataWizardConfiguration3 = 'A03';
+const String dataWizardConfiguration4 = 'A04';
+const String dataWizardConfiguration5 = 'A05';
+const String dataWizardConfiguration6 = 'A06';
+const String dataWizardConfiguration7 = 'A07';
+
+const String dataWizardEnableConfiguration0 = 'A0A';
+const String dataWizardEnableConfiguration1 = 'A0B';
+const String dataWizardEnableConfiguration2 = 'A0C';
+const String dataWizardEnableConfiguration3 = 'A0D';
+const String dataWizardEnableConfiguration4 = 'A0E';
+const String dataWizardEnableConfiguration5 = 'A0F';
+const String dataWizardEnableConfiguration6 = 'A0G';
+const String dataWizardEnableConfiguration7 = 'A0H';
+
+const String dataWizardDisableConfiguration0 = 'A0K';
+const String dataWizardDisableConfiguration1 = 'A0L';
+const String dataWizardDisableConfiguration2 = 'A0M';
+const String dataWizardDisableConfiguration3 = 'A0N';
+const String dataWizardDisableConfiguration4 = 'A0O';
+const String dataWizardDisableConfiguration5 = 'A0P';
+const String dataWizardDisableConfiguration6 = 'A0Q';
+const String dataWizardDisableConfiguration7 = 'A0R';
+
+const String dataWizardEnableUnprocessedBeep = 'A0+';
+const String dataWizardDisableUnprocessedBeep = 'A0-';
+
+const String dataWizardReset = 'A0\$';
+const String dataWizardTransmitConfigurationSettings = 'A0/';
+
+const String dataWizardTransmitAllBarcodes = 'A0U';
+const String dataWizardTransmitValidatedBarcodes = 'A0V';

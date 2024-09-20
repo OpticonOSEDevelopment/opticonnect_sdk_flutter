@@ -7,7 +7,6 @@ import 'package:opticonnect_sdk/scanner_settings/connection_pool_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/enable_codes_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/formatting_options.dart';
 import 'package:opticonnect_sdk/scanner_settings/inidicator_options.dart';
-import 'package:opticonnect_sdk/scanner_settings/led_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/scan_options_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/volume_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
@@ -53,9 +52,6 @@ class ScannerSettingsManager extends BaseScannerSettings {
   /// Settings related to adjusting the scanner's volume.
   late final VolumeSettings volumeSettings;
 
-  /// Settings to configure the scanner's LED behavior.
-  late final LEDSettings ledSettings;
-
   /// Settings to manage the connection pool settings of scanners.
   late final ConnectionPoolSettings connectionPoolSettings;
 
@@ -76,7 +72,6 @@ class ScannerSettingsManager extends BaseScannerSettings {
     inidicatorOptions = InidicatorOptions(sdk);
     formattingOptions = FormattingOptions(sdk);
     volumeSettings = VolumeSettings(sdk);
-    ledSettings = LEDSettings(sdk);
     connectionPoolSettings = ConnectionPoolSettings(sdk);
     _commandHandlersManager = getIt<CommandHandlersManager>();
     _scannerSettingsCompressor = getIt<ScannerSettingsCompressor>();
@@ -88,7 +83,9 @@ class ScannerSettingsManager extends BaseScannerSettings {
   ///
   /// The [deviceId] specifies the BLE device to send the command to.
   /// The [command] represents the command to be sent, along with any associated parameters.
-  /// Single 3 or 4-letter commands should be sent without the square brackets. Multiple commands in one request should be sent with square brackets.
+  /// Single 3 or 4-letter commands sent should not use square brackets as they are auto-added.
+  /// For multiple commands in one request, 3-letter commands should always start with '[',
+  /// and 4-letter commands should start with ']'.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> executeCommand(

@@ -21,6 +21,7 @@ class ScannerSettingsDatabaseManager {
     if (_database != null) {
       return _database!;
     }
+
     return await _initializeDatabase();
   }
 

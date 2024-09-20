@@ -18,6 +18,7 @@ class BleConnectionStatesService {
   }
 
   bool isConnecting(String deviceId) {
+    // ignore: deprecated_member_use
     return _connectionStates[deviceId] == BluetoothConnectionState.connecting;
   }
 

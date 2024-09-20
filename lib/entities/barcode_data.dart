@@ -1,7 +1,7 @@
 /// A class representing the data retrieved from a barcode scan.
 ///
 /// This class holds information about the scanned barcode, included the processed
-/// barcode data, the symbology used, the time of the scan, and the quantity of the scanned item.
+/// barcode data, the symbology of the barcode, the time of the scan, and the quantity of the scanned item.
 class BarcodeData {
   /// The processed barcode data retrieved from the scan.
   ///

@@ -150,9 +150,24 @@ class EnableCodesSettings extends BaseScannerSettings {
     return sendCommand(deviceId, enableUPCAPlus5Only);
   }
 
+  /// Enables only UPCAE symbology.
+  Future<CommandResponse> setUPCAEOnly(String deviceId) async {
+    return sendCommand(deviceId, enableUPCAEOnly);
+  }
+
+  /// Enables only UPCAE symbology with a 2-character add-on.
+  Future<CommandResponse> setUPCAEPlus2Only(String deviceId) async {
+    return sendCommand(deviceId, enableUPCAEPlus2Only);
+  }
+
+  /// Enables only UPCAE symbology with a 5-character add-on.
+  Future<CommandResponse> setUPCAEPlus5Only(String deviceId) async {
+    return sendCommand(deviceId, enableUPCAEPlus5Only);
+  }
+
   /// Enables only UPCE symbology.
   Future<CommandResponse> setUPCEOnly(String deviceId) async {
-    return sendCommand(deviceId, enableUPCAEOnly);
+    return sendCommand(deviceId, enableUPCEOnly);
   }
 
   /// Enables only UPCE symbology with a 2-character add-on.
@@ -591,6 +606,56 @@ class EnableCodesSettings extends BaseScannerSettings {
     return sendCommand(deviceId, upcADisabled);
   }
 
+  /// Enables UPC-A symbology with a 2-character add-on.
+  Future<CommandResponse> enableUPCAPlus2(String deviceId) async {
+    return sendCommand(deviceId, upcAAddOn2Enabled);
+  }
+
+  /// Disables UPC-A symbology with a 2-character add-on.
+  Future<CommandResponse> disableUPCAPlus2(String deviceId) async {
+    return sendCommand(deviceId, upcAAddOn2Disabled);
+  }
+
+  /// Enables UPC-A symbology with a 5-character add-on.
+  Future<CommandResponse> enableUPCAPlus5(String deviceId) async {
+    return sendCommand(deviceId, upcAAddOn5Enabled);
+  }
+
+  /// Disables UPC-A symbology with a 5-character add-on.
+  Future<CommandResponse> disableUPCAPlus5(String deviceId) async {
+    return sendCommand(deviceId, upcAAddOn5Disabled);
+  }
+
+  /// Enables UPC-A/E symbology.
+  Future<CommandResponse> enableUPCAE(String deviceId) async {
+    return sendCommand(deviceId, upcAEEnabled);
+  }
+
+  /// Disables UPC-A/E symbology.
+  Future<CommandResponse> disableUPCAE(String deviceId) async {
+    return sendCommand(deviceId, upcAEDisabled);
+  }
+
+  /// Enables UPC-A/E symbology with a 2-character add-on.
+  Future<CommandResponse> enableUPCAEPlus2(String deviceId) async {
+    return sendCommand(deviceId, upcAEAddOn2Enabled);
+  }
+
+  /// Disables UPC-A/E symbology with a 2-character add-on.
+  Future<CommandResponse> disableUPCAEPlus2(String deviceId) async {
+    return sendCommand(deviceId, upcAEAddOn2Disabled);
+  }
+
+  /// Enables UPC-A/E symbology with a 5-character add-on.
+  Future<CommandResponse> enableUPCAEPlus5(String deviceId) async {
+    return sendCommand(deviceId, upcAEAddOn5Enabled);
+  }
+
+  /// Disables UPC-A/E symbology with a 5-character add-on.
+  Future<CommandResponse> disableUPCAEPlus5(String deviceId) async {
+    return sendCommand(deviceId, upcAEAddOn5Disabled);
+  }
+
   /// Enables UPC-E symbology.
   Future<CommandResponse> enableUPCE(String deviceId) async {
     return sendCommand(deviceId, upcEEnabled);
@@ -599,6 +664,56 @@ class EnableCodesSettings extends BaseScannerSettings {
   /// Disables UPC-E symbology.
   Future<CommandResponse> disableUPCE(String deviceId) async {
     return sendCommand(deviceId, upcEDisabled);
+  }
+
+  /// Enables UPC-E symbology with a 2-character add-on.
+  Future<CommandResponse> enableUPCEPlus2(String deviceId) async {
+    return sendCommand(deviceId, upcEAddOn2Enabled);
+  }
+
+  /// Disables UPC-E symbology with a 2-character add-on.
+  Future<CommandResponse> disableUPCEPlus2(String deviceId) async {
+    return sendCommand(deviceId, upcEAddOn2Disabled);
+  }
+
+  /// Enables UPC-E symbology with a 5-character add-on.
+  Future<CommandResponse> enableUPCEPlus5(String deviceId) async {
+    return sendCommand(deviceId, upcEAddOn5Enabled);
+  }
+
+  /// Disables UPC-E symbology with a 5-character add-on.
+  Future<CommandResponse> disableUPCEPlus5(String deviceId) async {
+    return sendCommand(deviceId, upcEAddOn5Disabled);
+  }
+
+  /// Enables UPC-E1 symbology.
+  Future<CommandResponse> enableUPCE1(String deviceId) async {
+    return sendCommand(deviceId, upcE1Enabled);
+  }
+
+  /// Disables UPC-E1 symbology.
+  Future<CommandResponse> disableUPCE1(String deviceId) async {
+    return sendCommand(deviceId, upcE1Disabled);
+  }
+
+  /// Enables UPC-E1 symbology with a 2-character add-on.
+  Future<CommandResponse> enableUPCE1Plus2(String deviceId) async {
+    return sendCommand(deviceId, upcE1AddOn2Enabled);
+  }
+
+  /// Disables UPC-E1 symbology with a 2-character add-on.
+  Future<CommandResponse> disableUPCE1Plus2(String deviceId) async {
+    return sendCommand(deviceId, upcE1AddOn2Disabled);
+  }
+
+  /// Enables UPC-E1 symbology with a 5-character add-on.
+  Future<CommandResponse> enableUPCE1Plus5(String deviceId) async {
+    return sendCommand(deviceId, upcE1AddOn5Enabled);
+  }
+
+  /// Disables UPC-E1 symbology with a 5-character add-on.
+  Future<CommandResponse> disableUPCE1Plus5(String deviceId) async {
+    return sendCommand(deviceId, upcE1AddOn5Disabled);
   }
 
   /// Enables GS1 DataBar symbology.
