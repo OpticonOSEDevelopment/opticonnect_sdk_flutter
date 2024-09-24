@@ -1,7 +1,7 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/enums/direct_input_key.dart';
-import 'package:opticonnect_sdk/enums/symbology.dart';
+import 'package:opticonnect_sdk/enums/formattable_symbology.dart';
 import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
@@ -19,122 +19,130 @@ class FormattingOptions extends BaseScannerSettings {
   /// - [sdk]: The instance of the SDK to communicate with the scanner.
   FormattingOptions(super.sdk);
 
-  /// Maps the [Symbology] to the corresponding prefix command string.
-  final Map<Symbology, String> _prefixSymbologyCodesMap = {
-    Symbology.allCodes: prefixAllCodes,
-    Symbology.upcA: upcAPrefix,
-    Symbology.upcAAddOn: upcAAddOnPrefix,
-    Symbology.upcE: upcEPrefix,
-    Symbology.upcEAddOn: upcEAddOnPrefix,
-    Symbology.ean13: ean13Prefix,
-    Symbology.ean13AddOn: ean13AddOnPrefix,
-    Symbology.ean8: ean8Prefix,
-    Symbology.ean8AddOn: ean8AddOnPrefix,
-    Symbology.code39: code39Prefix,
-    Symbology.codabar: codabarPrefix,
-    Symbology.industrial2of5: industrial2of5Prefix,
-    Symbology.interleaved2of5: interleaved2of5Prefix,
-    Symbology.sCode: sCodePrefix,
-    Symbology.matrix2of5: matrix2of5Prefix,
-    Symbology.iata: iataPrefix,
-    Symbology.code93: code93Prefix,
-    Symbology.code128: code128Prefix,
-    Symbology.gs1128: gs1128Prefix,
-    Symbology.msiPlessey: msiPlesseyPrefix,
-    Symbology.telepen: telepenPrefix,
-    Symbology.ukPlessey: ukPlesseyPrefix,
-    Symbology.dataMatrix: dataMatrixPrefix,
-    Symbology.qrCode: qrCodePrefix,
-    Symbology.maxiCode: maxiCodePrefix,
-    Symbology.pdf417: pdf417Prefix,
-    Symbology.microPDF417: microPDF417Prefix,
-    Symbology.aztec: aztecPrefix,
-    Symbology.code11: code11Prefix,
-    Symbology.triOptic: triOpticPrefix,
-    Symbology.koreanPostalAuthority: koreanPostalAuthorityPrefix,
-    Symbology.dotCode: dotCodePrefix,
-    Symbology.intelligentMail: intelligentMailPrefix,
-    Symbology.postNet: postNetPrefix,
-    Symbology.planet: planetPrefix,
-    Symbology.japanesePostal: japanesePostalPrefix,
-    Symbology.netherlandsKIX: netherlandsKIXPrefix,
-    Symbology.ukPostal: ukPostalPrefix,
-    Symbology.australianPostal: australianPostalPrefix,
-    Symbology.mailMark4StatePostal: mailMark4StatePostalPrefix,
-    Symbology.gs1DatabarOmnidirectional: gs1DatabarOmnidirectionalPrefix,
-    Symbology.gs1DatabarLimited: gs1DatabarLimitedPrefix,
-    Symbology.gs1DatabarExpanded: gs1DatabarExpandedPrefix,
-    Symbology.gs1CompositeCode: gs1CompositeCodePrefix,
-    Symbology.codablockF: codablockFPrefix,
-    Symbology.chineseSensibleCode: chineseSensibleCodePrefix,
-    Symbology.machineReadablePassports: machineReadablePassportsPrefix,
-    Symbology.machineReadableVisaA: machineReadableVisaAPrefix,
-    Symbology.machineReadableVisaB: machineReadableVisaBPrefix,
-    Symbology.officialTravelDocuments1: officialTravelDocuments1Prefix,
-    Symbology.officialTravelDocuments2: officialTravelDocuments2Prefix,
-    Symbology.isbn: isbnPrefix,
-    Symbology.japaneseBookPrice: japaneseBookPricePrefix,
-    Symbology.japaneseDriverLicense: japaneseDriverLicensePrefix,
-    Symbology.japanesePrivateNumber: japanesePrivateNumberPrefix,
+  /// Maps the [FormattableSymbology] to the corresponding prefix command string.
+  final Map<FormattableSymbology, String> _prefixSymbologyCodesMap = {
+    FormattableSymbology.allCodes: prefixAllCodes,
+    FormattableSymbology.upcA: upcAPrefix,
+    FormattableSymbology.upcAAddOn: upcAAddOnPrefix,
+    FormattableSymbology.upcE: upcEPrefix,
+    FormattableSymbology.upcEAddOn: upcEAddOnPrefix,
+    FormattableSymbology.ean13: ean13Prefix,
+    FormattableSymbology.ean13AddOn: ean13AddOnPrefix,
+    FormattableSymbology.ean8: ean8Prefix,
+    FormattableSymbology.ean8AddOn: ean8AddOnPrefix,
+    FormattableSymbology.code39: code39Prefix,
+    FormattableSymbology.codabar: codabarPrefix,
+    FormattableSymbology.industrial2of5: industrial2of5Prefix,
+    FormattableSymbology.interleaved2of5: interleaved2of5Prefix,
+    FormattableSymbology.sCode: sCodePrefix,
+    FormattableSymbology.matrix2of5: matrix2of5Prefix,
+    FormattableSymbology.iata: iataPrefix,
+    FormattableSymbology.code93: code93Prefix,
+    FormattableSymbology.code128: code128Prefix,
+    FormattableSymbology.gs1128: gs1128Prefix,
+    FormattableSymbology.msiPlessey: msiPlesseyPrefix,
+    FormattableSymbology.telepen: telepenPrefix,
+    FormattableSymbology.ukPlessey: ukPlesseyPrefix,
+    FormattableSymbology.dataMatrix: dataMatrixPrefix,
+    FormattableSymbology.qrCode: qrCodePrefix,
+    FormattableSymbology.maxiCode: maxiCodePrefix,
+    FormattableSymbology.pdf417: pdf417Prefix,
+    FormattableSymbology.microPDF417: microPDF417Prefix,
+    FormattableSymbology.aztec: aztecPrefix,
+    FormattableSymbology.code11: code11Prefix,
+    FormattableSymbology.triOptic: triOpticPrefix,
+    FormattableSymbology.koreanPostalAuthority: koreanPostalAuthorityPrefix,
+    FormattableSymbology.dotCode: dotCodePrefix,
+    FormattableSymbology.intelligentMail: intelligentMailPrefix,
+    FormattableSymbology.postNet: postNetPrefix,
+    FormattableSymbology.planet: planetPrefix,
+    FormattableSymbology.japanesePostal: japanesePostalPrefix,
+    FormattableSymbology.netherlandsKIX: netherlandsKIXPrefix,
+    FormattableSymbology.ukPostal: ukPostalPrefix,
+    FormattableSymbology.australianPostal: australianPostalPrefix,
+    FormattableSymbology.mailMark4StatePostal: mailMark4StatePostalPrefix,
+    FormattableSymbology.gs1DatabarOmnidirectional:
+        gs1DatabarOmnidirectionalPrefix,
+    FormattableSymbology.gs1DatabarLimited: gs1DatabarLimitedPrefix,
+    FormattableSymbology.gs1DatabarExpanded: gs1DatabarExpandedPrefix,
+    FormattableSymbology.gs1CompositeCode: gs1CompositeCodePrefix,
+    FormattableSymbology.codablockF: codablockFPrefix,
+    FormattableSymbology.chineseSensibleCode: chineseSensibleCodePrefix,
+    FormattableSymbology.machineReadablePassports:
+        machineReadablePassportsPrefix,
+    FormattableSymbology.machineReadableVisaA: machineReadableVisaAPrefix,
+    FormattableSymbology.machineReadableVisaB: machineReadableVisaBPrefix,
+    FormattableSymbology.officialTravelDocuments1:
+        officialTravelDocuments1Prefix,
+    FormattableSymbology.officialTravelDocuments2:
+        officialTravelDocuments2Prefix,
+    FormattableSymbology.isbn: isbnPrefix,
+    FormattableSymbology.japaneseBookPrice: japaneseBookPricePrefix,
+    FormattableSymbology.japaneseDriverLicense: japaneseDriverLicensePrefix,
+    FormattableSymbology.japanesePrivateNumber: japanesePrivateNumberPrefix,
   };
 
-  /// Maps the [Symbology] to the corresponding suffix command string.
-  final Map<Symbology, String> _suffixSymbologyCodesMap = {
-    Symbology.allCodes: suffixAllCodes,
-    Symbology.upcA: upcASuffix,
-    Symbology.upcAAddOn: upcAAddOnSuffix,
-    Symbology.upcE: upcESuffix,
-    Symbology.upcEAddOn: upcEAddOnSuffix,
-    Symbology.ean13: ean13Suffix,
-    Symbology.ean13AddOn: ean13AddOnSuffix,
-    Symbology.ean8: ean8Suffix,
-    Symbology.ean8AddOn: ean8AddOnSuffix,
-    Symbology.code39: code39Suffix,
-    Symbology.codabar: codabarSuffix,
-    Symbology.industrial2of5: industrial2of5Suffix,
-    Symbology.interleaved2of5: interleaved2of5Suffix,
-    Symbology.sCode: sCodeSuffix,
-    Symbology.matrix2of5: matrix2of5Suffix,
-    Symbology.iata: iataSuffix,
-    Symbology.code93: code93Suffix,
-    Symbology.code128: code128Suffix,
-    Symbology.gs1128: gs1128Suffix,
-    Symbology.msiPlessey: msiPlesseySuffix,
-    Symbology.telepen: telepenSuffix,
-    Symbology.ukPlessey: ukPlesseySuffix,
-    Symbology.dataMatrix: dataMatrixSuffix,
-    Symbology.qrCode: qrCodeSuffix,
-    Symbology.maxiCode: maxiCodeSuffix,
-    Symbology.pdf417: pdf417Suffix,
-    Symbology.microPDF417: microPDF417Suffix,
-    Symbology.aztec: aztecSuffix,
-    Symbology.code11: code11Suffix,
-    Symbology.triOptic: triOpticSuffix,
-    Symbology.koreanPostalAuthority: koreanPostalAuthoritySuffix,
-    Symbology.dotCode: dotCodeSuffix,
-    Symbology.intelligentMail: intelligentMailSuffix,
-    Symbology.postNet: postNetSuffix,
-    Symbology.planet: planetSuffix,
-    Symbology.japanesePostal: japanesePostalSuffix,
-    Symbology.netherlandsKIX: netherlandsKIXSuffix,
-    Symbology.ukPostal: ukPostalSuffix,
-    Symbology.australianPostal: australianPostalSuffix,
-    Symbology.mailMark4StatePostal: mailMark4StatePostalSuffix,
-    Symbology.gs1DatabarOmnidirectional: gs1DatabarOmnidirectionalSuffix,
-    Symbology.gs1DatabarLimited: gs1DatabarLimitedSuffix,
-    Symbology.gs1DatabarExpanded: gs1DatabarExpandedSuffix,
-    Symbology.gs1CompositeCode: gs1CompositeCodeSuffix,
-    Symbology.codablockF: codablockFSuffix,
-    Symbology.chineseSensibleCode: chineseSensibleCodeSuffix,
-    Symbology.machineReadablePassports: machineReadablePassportsSuffix,
-    Symbology.machineReadableVisaA: machineReadableVisaASuffix,
-    Symbology.machineReadableVisaB: machineReadableVisaBSuffix,
-    Symbology.officialTravelDocuments1: officialTravelDocuments1Suffix,
-    Symbology.officialTravelDocuments2: officialTravelDocuments2Suffix,
-    Symbology.isbn: isbnSuffix,
-    Symbology.japaneseBookPrice: japaneseBookPriceSuffix,
-    Symbology.japaneseDriverLicense: japaneseDriverLicenseSuffix,
-    Symbology.japanesePrivateNumber: japanesePrivateNumberSuffix,
+  /// Maps the [FormattableSymbology] to the corresponding suffix command string.
+  final Map<FormattableSymbology, String> _suffixSymbologyCodesMap = {
+    FormattableSymbology.allCodes: suffixAllCodes,
+    FormattableSymbology.upcA: upcASuffix,
+    FormattableSymbology.upcAAddOn: upcAAddOnSuffix,
+    FormattableSymbology.upcE: upcESuffix,
+    FormattableSymbology.upcEAddOn: upcEAddOnSuffix,
+    FormattableSymbology.ean13: ean13Suffix,
+    FormattableSymbology.ean13AddOn: ean13AddOnSuffix,
+    FormattableSymbology.ean8: ean8Suffix,
+    FormattableSymbology.ean8AddOn: ean8AddOnSuffix,
+    FormattableSymbology.code39: code39Suffix,
+    FormattableSymbology.codabar: codabarSuffix,
+    FormattableSymbology.industrial2of5: industrial2of5Suffix,
+    FormattableSymbology.interleaved2of5: interleaved2of5Suffix,
+    FormattableSymbology.sCode: sCodeSuffix,
+    FormattableSymbology.matrix2of5: matrix2of5Suffix,
+    FormattableSymbology.iata: iataSuffix,
+    FormattableSymbology.code93: code93Suffix,
+    FormattableSymbology.code128: code128Suffix,
+    FormattableSymbology.gs1128: gs1128Suffix,
+    FormattableSymbology.msiPlessey: msiPlesseySuffix,
+    FormattableSymbology.telepen: telepenSuffix,
+    FormattableSymbology.ukPlessey: ukPlesseySuffix,
+    FormattableSymbology.dataMatrix: dataMatrixSuffix,
+    FormattableSymbology.qrCode: qrCodeSuffix,
+    FormattableSymbology.maxiCode: maxiCodeSuffix,
+    FormattableSymbology.pdf417: pdf417Suffix,
+    FormattableSymbology.microPDF417: microPDF417Suffix,
+    FormattableSymbology.aztec: aztecSuffix,
+    FormattableSymbology.code11: code11Suffix,
+    FormattableSymbology.triOptic: triOpticSuffix,
+    FormattableSymbology.koreanPostalAuthority: koreanPostalAuthoritySuffix,
+    FormattableSymbology.dotCode: dotCodeSuffix,
+    FormattableSymbology.intelligentMail: intelligentMailSuffix,
+    FormattableSymbology.postNet: postNetSuffix,
+    FormattableSymbology.planet: planetSuffix,
+    FormattableSymbology.japanesePostal: japanesePostalSuffix,
+    FormattableSymbology.netherlandsKIX: netherlandsKIXSuffix,
+    FormattableSymbology.ukPostal: ukPostalSuffix,
+    FormattableSymbology.australianPostal: australianPostalSuffix,
+    FormattableSymbology.mailMark4StatePostal: mailMark4StatePostalSuffix,
+    FormattableSymbology.gs1DatabarOmnidirectional:
+        gs1DatabarOmnidirectionalSuffix,
+    FormattableSymbology.gs1DatabarLimited: gs1DatabarLimitedSuffix,
+    FormattableSymbology.gs1DatabarExpanded: gs1DatabarExpandedSuffix,
+    FormattableSymbology.gs1CompositeCode: gs1CompositeCodeSuffix,
+    FormattableSymbology.codablockF: codablockFSuffix,
+    FormattableSymbology.chineseSensibleCode: chineseSensibleCodeSuffix,
+    FormattableSymbology.machineReadablePassports:
+        machineReadablePassportsSuffix,
+    FormattableSymbology.machineReadableVisaA: machineReadableVisaASuffix,
+    FormattableSymbology.machineReadableVisaB: machineReadableVisaBSuffix,
+    FormattableSymbology.officialTravelDocuments1:
+        officialTravelDocuments1Suffix,
+    FormattableSymbology.officialTravelDocuments2:
+        officialTravelDocuments2Suffix,
+    FormattableSymbology.isbn: isbnSuffix,
+    FormattableSymbology.japaneseBookPrice: japaneseBookPriceSuffix,
+    FormattableSymbology.japaneseDriverLicense: japaneseDriverLicenseSuffix,
+    FormattableSymbology.japanesePrivateNumber: japanesePrivateNumberSuffix,
   };
 
   static const int _maxPrefixChars = 4;
@@ -247,7 +255,7 @@ class FormattingOptions extends BaseScannerSettings {
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPrefixFromKeys(
       String deviceId, List<DirectInputKey> keys,
-      {Symbology symbology = Symbology.allCodes}) async {
+      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodes(keys, _maxPrefixChars);
     return sendCommand(deviceId, _prefixSymbologyCodesMap[symbology]!,
@@ -263,7 +271,7 @@ class FormattingOptions extends BaseScannerSettings {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPrefixFromString(String deviceId, String prefix,
-      {Symbology symbology = Symbology.allCodes}) async {
+      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodesFromString(prefix, _maxPrefixChars);
     return sendCommand(deviceId, _prefixSymbologyCodesMap[symbology]!,
@@ -289,7 +297,7 @@ class FormattingOptions extends BaseScannerSettings {
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setSuffixFromKeys(
       String deviceId, List<DirectInputKey> keys,
-      {Symbology symbology = Symbology.allCodes}) async {
+      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodes(keys, _maxSuffixChars);
     return sendCommand(deviceId, _suffixSymbologyCodesMap[symbology]!,
@@ -305,7 +313,7 @@ class FormattingOptions extends BaseScannerSettings {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setSuffixFromString(String deviceId, String suffix,
-      {Symbology symbology = Symbology.allCodes}) async {
+      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodesFromString(suffix, _maxSuffixChars);
     return sendCommand(deviceId, _suffixSymbologyCodesMap[symbology]!,

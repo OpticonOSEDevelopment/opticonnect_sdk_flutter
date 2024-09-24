@@ -1,4 +1,4 @@
-enum Symbology {
+enum FormattableSymbology {
   allCodes,
   upcA,
   upcAAddOn,

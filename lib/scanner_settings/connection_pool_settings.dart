@@ -96,8 +96,15 @@ class ConnectionPoolSettings extends BaseScannerSettings {
     _appLogger.warning('received ID: $id');
     final directInputKeys = _getDirectInputKeysFromHexId(id);
     _appLogger.warning('directInputKeys: ${directInputKeys.join(', ')}');
-    return sendCommand(deviceId, setConnectionPoolId,
+    final result = await sendCommand(deviceId, setConnectionPoolId,
         parameters: directInputKeys);
+    if (!result.succeeded) {
+      _appLogger
+          .warning('Failed to set connection pool ID: ${result.response}');
+      return result;
+    } else {
+      return sendCommand(deviceId, saveSettings);
+    }
   }
 
   /// Resets the connection pool ID of the device to the default value '0000'.
