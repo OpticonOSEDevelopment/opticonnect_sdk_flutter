@@ -14,6 +14,8 @@ import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/msi_ples
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/telepen_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/uk_plessey_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/upc_a_settings.dart';
+import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/upc_e1_settings.dart';
+import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/upc_e_settings.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
 /// A class providing access to settings for specific barcode symbologies.
@@ -84,7 +86,10 @@ class CodeSpecificSettings extends BaseScannerSettings {
   late final UPCASettings upcASettings;
 
   /// Settings related to UPC-E symbology.
-  late final UPCASettings upcESettings;
+  late final UPCESettings upcESettings;
+
+  /// Settings related to UPC-E1 symbology.
+  late final UPCE1Settings upcE1Settings;
 
   /// Initializes the properties that provide access to settings for specific barcode symbologies.
   ///
@@ -107,6 +112,7 @@ class CodeSpecificSettings extends BaseScannerSettings {
     telepenSettings = TelepenSettings(sdk);
     ukPlesseySettings = UKPlesseySettings(sdk);
     upcASettings = UPCASettings(sdk);
-    upcESettings = UPCASettings(sdk);
+    upcESettings = UPCESettings(sdk);
+    upcE1Settings = UPCE1Settings(sdk);
   }
 }

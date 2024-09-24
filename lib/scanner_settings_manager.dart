@@ -4,11 +4,10 @@ import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/code_specific_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/connection_pool_settings.dart';
-import 'package:opticonnect_sdk/scanner_settings/enable_codes_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/formatting_options.dart';
 import 'package:opticonnect_sdk/scanner_settings/inidicator_options.dart';
 import 'package:opticonnect_sdk/scanner_settings/scan_options_settings.dart';
-import 'package:opticonnect_sdk/scanner_settings/volume_settings.dart';
+import 'package:opticonnect_sdk/scanner_settings/symbology_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
@@ -35,7 +34,7 @@ class ScannerSettingsManager extends BaseScannerSettings {
   ScannerSettingsManager(super.sdk);
 
   /// Settings related to enabling specific barcode symbologies.
-  late final EnableCodesSettings enableCodesSettings;
+  late final SymbologySettings symbologySettings;
 
   /// Settings specific to the configuration of individual barcode symbologies.
   late final CodeSpecificSettings codeSpecificSettings;
@@ -48,9 +47,6 @@ class ScannerSettingsManager extends BaseScannerSettings {
 
   /// Options for customizing the formatting of scanned barcode data.
   late final FormattingOptions formattingOptions;
-
-  /// Settings related to adjusting the scanner's volume.
-  late final VolumeSettings volumeSettings;
 
   /// Settings to manage the connection pool settings of scanners.
   late final ConnectionPoolSettings connectionPoolSettings;
@@ -66,12 +62,11 @@ class ScannerSettingsManager extends BaseScannerSettings {
   /// This method is automatically called during the SDK initialization (`OptiConnectSDK.initialize()`),
   /// so it is not necessary to call this method manually.
   Future<void> initialize() async {
-    enableCodesSettings = EnableCodesSettings(sdk);
+    symbologySettings = SymbologySettings(sdk);
     codeSpecificSettings = CodeSpecificSettings(sdk);
     scanOptionsSettings = ScanOptionsSettings(sdk);
     inidicatorOptions = InidicatorOptions(sdk);
     formattingOptions = FormattingOptions(sdk);
-    volumeSettings = VolumeSettings(sdk);
     connectionPoolSettings = ConnectionPoolSettings(sdk);
     _commandHandlersManager = getIt<CommandHandlersManager>();
     _scannerSettingsCompressor = getIt<ScannerSettingsCompressor>();

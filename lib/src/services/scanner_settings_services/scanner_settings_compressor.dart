@@ -82,6 +82,19 @@ class ScannerSettingsCompressor {
       } else if (currentChar == ']') {
         commandsList.add(CommandData(settings.substring(i + 1, i + 5)));
         i += 4;
+      } else if (currentChar == "'") {
+        final start = i;
+        i++; // Move to the next character after opening quote
+        while (i < settings.length &&
+            settings.codeUnitAt(i) != "'".codeUnitAt(0)) {
+          i++;
+        }
+        // Add the entire quoted string (inclusive of quotes) as parameter
+        final parameter =
+            settings.substring(start, i + 1); // Include the closing quote
+        if (commandsList.isNotEmpty) {
+          commandsList.last.parameters.add(parameter);
+        }
       } else {
         commandsList.add(CommandData(settings.substring(i, i + 2)));
         i++;

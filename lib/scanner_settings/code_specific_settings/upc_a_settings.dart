@@ -41,21 +41,21 @@ class UPCASettings extends BaseScannerSettings {
 
   /// Enables the 2-character add-on for UPCA symbology.
   Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, upcAEnableAddon2);
+    return sendCommand(deviceId, enableUPCAPlus2);
   }
 
   /// Disables the 2-character add-on for UPCA symbology.
   Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, upcADisableAddon2);
+    return sendCommand(deviceId, disableUPCAPlus2);
   }
 
   /// Enables the 5-character add-on for UPCA symbology.
   Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, upcAEnableAddon5);
+    return sendCommand(deviceId, enableUPCAPlus5);
   }
 
   /// Disables the 5-character add-on for UPCA symbology.
   Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, upcADisableAddon5);
+    return sendCommand(deviceId, disableUPCAPlus5);
   }
 }

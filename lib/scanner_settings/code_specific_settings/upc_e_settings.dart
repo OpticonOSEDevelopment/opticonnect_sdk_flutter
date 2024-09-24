@@ -61,21 +61,21 @@ class UPCESettings extends BaseScannerSettings {
 
   /// Enables the 2-character add-on for UPCE symbology.
   Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, upcEEnableAddon2);
+    return sendCommand(deviceId, enableUPCEPlus2);
   }
 
   /// Disables the 2-character add-on for UPCE symbology.
   Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, upcEDisableAddon2);
+    return sendCommand(deviceId, disableUPCEPlus2);
   }
 
   /// Enables the 5-character add-on for UPCE symbology.
   Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, upcEEnableAddon5);
+    return sendCommand(deviceId, enableUPCEPlus5);
   }
 
   /// Disables the 5-character add-on for UPCE symbology.
   Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, upcEDisableAddon5);
+    return sendCommand(deviceId, disableUPCEPlus5);
   }
 }

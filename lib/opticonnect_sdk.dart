@@ -54,8 +54,8 @@ class OptiConnectSDK {
     }
   }
 
-  /// Public property getter for [scannerSettingsManager].
-  ScannerSettingsManager get scannerSettingsManager {
+  /// Public property getter for [settingsManager].
+  ScannerSettingsManager get settingsManager {
     _ensureInitialized(); // Check if SDK is initialized before accessing
     return _scannerSettingsManager;
   }

@@ -1,18 +1,18 @@
 /// Enable 1D symbologies for scanning.
 /// These commands enable or disable individual 1D barcode symbologies.
-const String enable1DAllCodesOnly = 'BCA';
+const String enable1DAllCodesExclAddonOnly = 'BCA';
 const String enableCode11Only = 'BLB';
 const String enableCode39Only = 'A2';
 const String enableCode93Only = 'A5';
 const String enableCode128Only = 'A6';
 const String enableCodabarOnly = 'A3';
 const String enableEANOnly = 'J4';
+const String enableEAN8Only = 'JA';
+const String enableEAN13Only = 'JG';
 const String enableEANPlus2Only = 'J5';
 const String enableEANPlus5Only = 'J6';
-const String enableEAN8Only = 'JA';
 const String enableEAN8Plus2Only = 'JB';
 const String enableEAN8Plus5Only = 'JC';
-const String enableEAN13Only = 'JG';
 const String enableEAN13Plus2Only = 'JH';
 const String enableEAN13Plus5Only = 'JI';
 const String enableIATAOnly = 'A4';
@@ -20,12 +20,10 @@ const String enableIndustrial2of5Only = 'J7';
 const String enableInterleaved2of5Only = 'J8';
 const String enableMatrix2of5Only = 'AB';
 const String enableMSIPlesseyOnly = 'A7';
-const String enableNixdorfOnly = 'A8';
 const String enableSCodeOnly = 'RA';
 const String enableTelepenOnly = 'A9';
 const String enableTriOpticOnly = 'JD';
 const String enableUKPlesseyOnly = 'A1';
-const String enableUPCOnly = 'J0';
 const String enableUPCAOnly = 'J1A';
 const String enableUPCAPlus2Only = 'J2A';
 const String enableUPCAPlus5Only = 'J3A';
@@ -38,6 +36,7 @@ const String enableUPCEPlus5Only = 'J3B';
 const String enableUPCE1Only = 'J1C';
 const String enableUPCE1Plus2Only = 'J2C';
 const String enableUPCE1Plus5Only = 'J3C';
+const String enableGS1AllTypesOnly = 'BC6';
 const String enableGS1DataBarOnly = 'J9';
 const String enableGS1DataBarLimitedOnly = 'JJ';
 const String enableGS1DataBarExpandedOnly = 'JK';
@@ -57,6 +56,8 @@ const String enableMicroPDF417Only = 'BC4';
 const String enableMicroQRCodeOnly = 'D38';
 const String enablePDF417Only = 'BC3';
 const String enableQRCodeOnly = 'BC1';
+
+/// Commands for enabling postal only symbologies.
 const String enableAustralianPostalOnly = 'D6O';
 const String enableChinesePostMatrix2of5Only = 'JE';
 const String enableIntelligentMailBarcodeOnly = 'D5H';
@@ -68,111 +69,149 @@ const String enablePlanetOnly = 'DG2';
 const String enablePostnetOnly = 'D6C';
 const String enableUKPostalOnly = 'DG7';
 
-/// Commands for enabling or disabling symbologies (Aztec, DotCode, etc.).
-const String aztecEnabled = 'BCH';
-const String aztecDisabled = 'BCT';
-const String aztecRunesEnabled = 'BF2';
-const String aztecRunesDisabled = 'BF3';
-const String chineseSensibleCodeEnabled = 'D4L';
-const String chineseSensibleCodeDisabled = 'D4M';
-const String codablockFEnabled = 'D4P';
-const String codablockFDisabled = 'D4Q';
-const String dataMatrixEnabled = 'BCC';
-const String dataMatrixDisabled = 'BCO';
-const String maxicodeEnabled = 'BCE';
-const String maxicodeDisabled = 'BCQ';
-const String microPdf417Enabled = 'BCG';
-const String microPdf417Disabled = 'BCS';
-const String microQrCodeEnabled = 'D2U';
-const String microQrCodeDisabled = 'D2V';
-const String pdf417CodeEnabled = 'BCF';
-const String pdf417CodeDisabled = 'BCR';
-const String qrCodeEnabled = 'BCD';
-const String qrCodeDisabled = 'BCP';
-const String dotCodeEnabled = 'DOD';
-const String dotCodeDisabled = 'DOE';
-const String codaBarEnabled = 'B3';
-const String codaBarDisabled = 'VC';
-const String code11Enabled = 'BLC';
-const String code11Disabled = 'BLA';
-const String code39Enabled = 'B2';
-const String code39Disabled = 'VB';
-const String code93Enabled = 'B5';
-const String code93Disabled = 'VD';
-const String code128Enabled = 'B6';
-const String code128Disabled = 'VE';
-const String ean8Enabled = 'JO';
-const String ean8Disabled = 'DDN';
-const String ean13Enabled = 'JU';
-const String ean13Disabled = 'DDM';
-const String iataEnabled = 'B4';
-const String iataDisabled = 'VH';
-const String industrial2of5Enabled = 'R7';
-const String industrial2of5Disabled = 'X4K';
-const String interleaved2of5Enabled = 'R8';
-const String interleaved2of5Disabled = 'X4L';
-const String matrix2of5Enabled = 'BB';
-const String matrix2of5Disabled = 'DDL';
-const String msiPlesseyEnabled = 'B7';
-const String msiPlesseyDisabled = 'VF';
-const String sCodeEnabled = 'R9';
-const String sCodeDisabled = 'DDK';
-const String telepenEnabled = 'B9';
-const String telepenDisabled = 'VG';
-const String triOpticEnabled = 'JZ';
-const String triOpticDisabled = 'DDJ';
-const String ukPlesseyEnabled = 'B1';
-const String ukPlesseyDisabled = 'VA';
-const String upcAEnabled = 'R1A';
-const String upcADisabled = 'V1A';
-const String upcAAddOn2Enabled = 'R2A';
-const String upcAAddOn2Disabled = 'V2A';
-const String upcAAddOn5Enabled = 'R3A';
-const String upcAAddOn5Disabled = 'V3A';
-const String upcAEEnabled = 'R1';
-const String upcAEDisabled = 'X4B';
-const String upcAEAddOn2Enabled = 'R2';
-const String upcAEAddOn2Disabled = 'X4C';
-const String upcAEAddOn5Enabled = 'R3';
-const String upcAEAddOn5Disabled = 'X4D';
-const String upcEEnabled = 'R1B';
-const String upcEDisabled = 'V1B';
-const String upcEAddOn2Enabled = 'R2B';
-const String upcEAddOn2Disabled = 'V2B';
-const String upcEAddOn5Enabled = 'R3B';
-const String upcEAddOn5Disabled = 'V3B';
-const String upcE1Enabled = 'KG';
-const String upcE1Disabled = 'KP';
-const String upcE1AddOn2Enabled = 'R2C';
-const String upcE1AddOn2Disabled = 'V2C';
-const String upcE1AddOn5Enabled = 'R3C';
-const String upcE1AddOn5Disabled = 'V3C';
-const String gs1DataBarEnabled = 'JX';
-const String gs1DataBarDisabled = 'SJ';
-const String gs1DataBarExpandedEnabled = 'DR';
-const String gs1DataBarExpandedDisabled = 'SL';
-const String gs1DataBarLimitedEnabled = 'JY';
-const String gs1DataBarLimitedDisabled = 'SK';
-const String australianPostalEnabled = 'D6M';
-const String australianPostalDisabled = 'D6N';
-const String chinesePostMatrix2of5Enabled = 'JS';
-const String chinesePostMatrix2of5Disabled = 'JT';
-const String intelligentMailBarcodeEnabled = 'D5F';
-const String intelligentMailBarcodeDisabled = 'D5G';
-const String japanesePostalEnabled = 'D5P';
-const String japanesePostalDisabled = 'D5Q';
-const String koreanPostalAuthorityEnabled = 'WH';
-const String koreanPostalAuthorityDisabled = 'WI';
-const String mailmark4StatePostalEnabled = 'DGT';
-const String mailmark4StatePostalDisabled = 'DGU';
-const String netherlandsKixCodeEnabled = 'D5K';
-const String netherlandsKixCodeDisabled = 'D5L';
-const String planetEnabled = 'DG3';
-const String planetDisabled = 'DG4';
-const String postnetEnabled = 'D6A';
-const String postnetDisabled = 'D6B';
-const String ukPostalEnabled = 'DG8';
-const String ukPostalDisabled = 'DG9';
+/// Commands for disabling symbologies
+const String disableAllCodes = 'B0';
+
+/// Commands for disabling 1D symbologies
+const String disableAll1DCodes = 'BCY';
+const String disableCode11 = 'BLA';
+const String disableCode39 = 'VB';
+const String disableCode93 = 'VD';
+const String disableCode128 = 'VE';
+const String disableCodabar = 'VC';
+const String disableEAN = 'X4E';
+const String disableEAN8 = 'DDN';
+const String disableEAN13 = 'DDM';
+const String disableEANPlus2 = 'X4F';
+const String disableEANPlus5 = 'X4G';
+const String disableEAN8Plus2 = 'X4M';
+const String disableEAN8Plus5 = 'X4O';
+const String disableEAN13Plus2 = 'X4N';
+const String disableEAN13Plus5 = 'X4P';
+const String disableIATA = 'VH';
+const String disableIndustrial2of5 = 'X4K';
+const String disableInterleaved2of5 = 'X4L';
+const String disableMatrix2of5 = 'DDL';
+const String disableMsiPlessey = 'VF';
+const String disableSCode = 'DDK';
+const String disableTelepen = 'VG';
+const String disableTriOptic = 'DDJ';
+const String disableUKPlessey = 'VA';
+const String disableUPCA = 'V1A';
+const String disableUPCAPlus2 = 'V2A';
+const String disableUPCAPlus5 = 'V3A';
+const String disableUPCAE = 'X4B';
+const String disableUPCAEPlus2 = 'X4C';
+const String disableUPCAEPlus5 = 'X4D';
+const String disableUPCE = 'V1B';
+const String disableUPCEPlus2 = 'V2B';
+const String disableUPCEPlus5 = 'V3B';
+const String disableUPCE1 = 'KP';
+const String disableUPCE1Plus2 = 'V2C';
+const String disableUPCE1Plus5 = 'V3C';
+const String disableGS1AllTypes = 'BCU';
+const String disableGS1DataBar = 'SJ';
+const String disableGS1DataBarLimited = 'SK';
+const String disableGS1DataBarExpanded = 'SL';
+
+/// Commands for disabling 2D symbologies
+const String disableAll2DCodes = 'BCZ';
+const String disableAztecCode = 'BCT';
+const String disableAztecRunes = 'BF3';
+const String disableChineseSensibleCode = 'D4M';
+const String disableCodablockF = 'D4Q';
+const String disableDataMatrix = 'BCO';
+const String disableDataMatrixOldECC000_140 = 'BG1';
+const String disableDotCode = 'DOE';
+const String disableMaxicode = 'BCQ';
+const String disableMicroPDF417 = 'BCS';
+const String disableMicroQRCode = 'D2V';
+const String disablePDF417 = 'BCR';
+const String disableQRCode = 'BCP';
+
+/// Commands for disabling postal symbologies
+const String disableAustralianPostal = 'D6N';
+const String disableChinesePostMatrix2of5 = 'JT';
+const String disableIntelligentMailBarcode = 'D5G';
+const String disableJapanesePostal = 'D5Q';
+const String disableKoreanPostalAuthority = 'WI';
+const String disableMailmark4StatePostal = 'DGU';
+const String disableNetherlandsKIXCode = 'D5L';
+const String disablePlanet = 'DG4';
+const String disablePostnet = 'D6B';
+const String disableUKPostal = 'DG9';
+
+/// Commands for enabling symbologies
+const String enableAllCodesExclAddon = 'A0';
+
+/// Commands for enabling 1D symbologies
+const String enableAll1DCodesExclAddon = 'BCM';
+const String enableCode11 = 'BLC';
+const String enableCode39 = 'B2';
+const String enableCode93 = 'B5';
+const String enableCode128 = 'B6';
+const String enableCodabar = 'B3';
+const String enableEAN = 'R4';
+const String enableEAN8 = 'JO';
+const String enableEAN13 = 'JU';
+const String enableEANPlus2 = 'R5';
+const String enableEANPlus5 = 'R6';
+const String enableEAN8Plus2 = 'JP';
+const String enableEAN8Plus5 = 'JQ';
+const String enableEAN13Plus2 = 'JV';
+const String enableEAN13Plus5 = 'JW';
+const String enableIATA = 'B4';
+const String enableIndustrial2of5 = 'R7';
+const String enableInterleaved2of5 = 'R8';
+const String enableMatrix2of5 = 'BB';
+const String enableMSIPlessey = 'B7';
+const String enableSCode = 'R9';
+const String enableTelepen = 'B9';
+const String enableTriOptic = 'JZ';
+const String enableUKPlessey = 'B1';
+const String enableUPCA = 'R1A';
+const String enableUPCAPlus2 = 'R2A';
+const String enableUPCAPlus5 = 'R3A';
+const String enableUPCAE = 'R1';
+const String enableUPCAEPlus2 = 'R2';
+const String enableUPCAEPlus5 = 'R3';
+const String enableUPCE = 'R1B';
+const String enableUPCEPlus2 = 'R2B';
+const String enableUPCEPlus5 = 'R3B';
+const String enableUPCE1 = 'KQ';
+const String enableUPCE1Plus2 = 'R2C';
+const String enableUPCE1Plus5 = 'R3C';
+const String enableGS1AllTypes = 'BCI';
+const String enableGS1DataBar = 'JX';
+const String enableGS1DatabarLimited = 'JY';
+const String enableGS1DataBarExpanded = 'DR';
+
+/// Commands for enabling 2D symbologies
+const String enableAll2DCodes = 'BCN';
+const String enableAztecCode = 'BCH';
+const String enableAztecRunes = 'BF2';
+const String enableChineseSensibleCode = 'D4L';
+const String enableCodablockF = 'D4P';
+const String enableDataMatrix = 'BCC';
+const String enableDataMatrixOldECC000_140 = 'BG0';
+const String enableDotCode = 'DOD';
+const String enableMaxicode = 'BCE';
+const String enableMicroPDF417 = 'BCG';
+const String enableMicroQRCode = 'D2U';
+const String enablePDF417 = 'BCF';
+const String enableQRCode = 'BCD';
+
+/// Commands for enabling postal symbologies
+const String enableAustralianPostal = 'D6M';
+const String enableChinesePostMatrix2of5 = 'JS';
+const String enableIntelligentMailBarcode = 'D5F';
+const String enableJapanesePostal = 'D5P';
+const String enableKoreanPostalAuthority = 'WH';
+const String enableMailmark4StatePostal = 'DGT';
+const String enableNetherlandsKIXCode = 'D5K';
+const String enablePlanet = 'DG3';
+const String enablePostnet = 'D6A';
+const String enableUKPostal = 'DG8';
 
 /// Commands for configuring code-specific settings.
 const String twoOfFiveAndSCodeCheckCd = 'G1';
@@ -260,20 +299,8 @@ const String enableCompositeEanUpc = 'D1V';
 const String ean8TransmitCd = '6I';
 const String ean8DoNotTransmitCd = '6H';
 
-const String ean8EnableAddon2 = 'JP';
-const String ean8DisableAddon2 = 'X4M';
-
-const String ean8EnableAddon5 = 'JQ';
-const String ean8DisableAddon5 = 'X4O';
-
 const String ean13TransmitCd = '6K';
 const String ean13DoNotTransmitCd = '6J';
-
-const String ean13EnableAddon2 = 'JV';
-const String ean13DisableAddon2 = 'X4N';
-
-const String ean13EnableAddon5 = 'JW';
-const String ean13DisableAddon5 = 'X4P';
 
 const String gs1DataBarTransmitCd = 'DL';
 const String gs1DataBarDoNotTransmitCd = 'DM';
@@ -320,12 +347,6 @@ const String upcANoLeadingZeroDoNotTransmitCd = 'E5';
 const String upcALeadingZeroTransmitCd = 'E2';
 const String upcALeadingZeroDoNotTransmitCd = 'E4';
 
-const String upcAEnableAddon2 = 'R2A';
-const String upcADisableAddon2 = 'V2A';
-
-const String upcAEnableAddon5 = 'R3A';
-const String upcADisableAddon5 = 'V3A';
-
 const String upcENoLeadingZeroTransmitCd = 'E7';
 const String upcENoLeadingZeroDoNotTransmitCd = 'E9';
 const String upcELeadingZeroTransmitCd = 'E6';
@@ -333,12 +354,6 @@ const String upcELeadingZeroDoNotTransmitCd = 'E8';
 
 const String upcETransmitAsIs = '6Q';
 const String upcETransmitAsUPCA = '6P';
-
-const String upcEEnableAddon2 = 'R2B';
-const String upcEDisableAddon2 = 'V2B';
-
-const String upcEEnableAddon5 = 'R3B';
-const String upcEDisableAddon5 = 'V3B';
 
 /// Commands for configuring read settings.
 const String singleRead = 'S0';

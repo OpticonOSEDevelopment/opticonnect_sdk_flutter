@@ -21,21 +21,21 @@ class EAN8Settings extends BaseScannerSettings {
 
   /// Enables the 2-character add-on for EAN-8 symbology.
   Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, ean8EnableAddon2);
+    return sendCommand(deviceId, enableEAN8Plus2);
   }
 
   /// Disables the 2-character add-on for EAN-8 symbology.
   Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, ean8DisableAddon2);
+    return sendCommand(deviceId, disableEAN8Plus2);
   }
 
   /// Enables the 5-character add-on for EAN-8 symbology.
   Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, ean8EnableAddon5);
+    return sendCommand(deviceId, enableEAN8Plus5);
   }
 
   /// Disables the 5-character add-on for EAN-8 symbology.
   Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, ean8DisableAddon5);
+    return sendCommand(deviceId, disableEAN8Plus5);
   }
 }
