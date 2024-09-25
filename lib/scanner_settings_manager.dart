@@ -101,7 +101,13 @@ class ScannerSettingsManager extends BaseScannerSettings {
   Future<bool> persistSettings(String deviceId) async {
     try {
       final result = await _commandHandlersManager.sendCommand(
-          deviceId, ScannerCommand(saveSettings));
+          deviceId,
+          ScannerCommand(
+            saveSettings,
+            ledFeedback: false,
+            buzzerFeedback: false,
+            vibrationFeedback: false,
+          ));
       return result.succeeded;
     } catch (e) {
       _appLogger.error("Error persisting settings for device $deviceId: $e");
@@ -125,7 +131,11 @@ class ScannerSettingsManager extends BaseScannerSettings {
   Future<List<CommandData>> getSettings(String deviceId) async {
     try {
       final result = await _commandHandlersManager.sendCommand(
-          deviceId, ScannerCommand(fetchSettings));
+          deviceId,
+          ScannerCommand(fetchSettings,
+              ledFeedback: false,
+              buzzerFeedback: false,
+              vibrationFeedback: false));
 
       if (!result.succeeded) {
         throw ("Error fetching settings for device $deviceId: ${result.response}");

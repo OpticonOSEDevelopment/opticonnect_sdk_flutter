@@ -130,7 +130,7 @@ class BluetoothManager {
   ///
   /// [deviceId] - The identifier of the target device.
   ///
-  /// Returns a stream of barcode data received from the device.
+  /// Returns a stream of [BarcodeData] received from the device.
   Future<Stream<BarcodeData>> subscribeToBarcodeDataStream(
       String deviceId) async {
     try {

@@ -22,9 +22,9 @@ class ScannerSettingsCompressor {
 
     StringBuffer compressedCommandData = StringBuffer();
     for (final commandData in compressedSettingsList) {
-      compressedCommandData.write(Command.formatCode(commandData.command));
+      compressedCommandData.write(commandData.command);
       for (final parameter in commandData.parameters) {
-        compressedCommandData.write(Command.formatCode(parameter));
+        compressedCommandData.write(parameter);
       }
     }
     _appLogger.warning('Compressed settings: $compressedCommandData');
@@ -77,10 +77,10 @@ class ScannerSettingsCompressor {
     for (int i = 0; i < settings.length; i++) {
       final currentChar = settings[i];
       if (currentChar == '[') {
-        commandsList.add(CommandData(settings.substring(i + 1, i + 4)));
+        commandsList.add(CommandData(settings.substring(i, i + 4)));
         i += 3;
       } else if (currentChar == ']') {
-        commandsList.add(CommandData(settings.substring(i + 1, i + 5)));
+        commandsList.add(CommandData(settings.substring(i, i + 5)));
         i += 4;
       } else if (currentChar == "'") {
         final start = i;

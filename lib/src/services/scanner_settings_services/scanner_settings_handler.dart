@@ -45,12 +45,18 @@ class ScannerSettingsHandler {
     return _directInputKeysSet.contains(code);
   }
 
+  String _getStrippedCode(String code) {
+    return code.startsWith('[') || code.startsWith(']')
+        ? code.substring(1)
+        : code;
+  }
+
   List<String> getGroupsToDisableForCode(String code) {
-    return [...?_groupsToDisableForCode[code]];
+    return [...?_groupsToDisableForCode[_getStrippedCode(code)]];
   }
 
   List<String> getGroupsForCode(String code) {
-    return [...?_groupsForCode[code]];
+    return [...?_groupsForCode[_getStrippedCode(code)]];
   }
 
   List<String> _convertCommaSeparatedToLowerCaseList(String commaSeparated) {

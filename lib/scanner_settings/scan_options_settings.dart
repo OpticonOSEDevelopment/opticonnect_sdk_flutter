@@ -1,5 +1,7 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
+import 'package:opticonnect_sdk/src/injection/injection.config.dart';
+import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
 /// Enum representing different modes for reading positive and negative barcodes.
@@ -123,6 +125,10 @@ class ScanOptionsSettings extends BaseScannerSettings {
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setIlluminationMode(
       String deviceId, IlluminationMode mode) async {
+    final appLogger = getIt<AppLogger>();
+    appLogger.warning(
+        'Setting illumination mode to $mode with code ${illuminationModeCommands[mode]!}');
+
     return await sendCommand(deviceId, illuminationModeCommands[mode]!);
   }
 

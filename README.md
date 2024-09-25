@@ -6,7 +6,7 @@ OptiConnect SDK enables seamless integration with Opticon's BLE OPN-2500 and OPN
 - Bluetooth discovery and connection management for OPN-2500 and OPN-6000 BLE scanners.
 - Real-time data streaming, including barcode data reception and BLE device state monitoring.
 - Programmatic control of scanner settings (e.g., scan modes, illumination, connection pooling, etc.).
-- Handling connection pooling via 4-character hexadecimal IDs to manage exclusive scanner-device pairing.
+- Exclusive Connection Management: Manage connection pools using 4-character hexadecimal IDs to ensure exclusive device pairing. Prevent previously paired devices from hijacking active connections by assigning unique connection pool IDs.
 - Command management and customization for BLE services and scanner configurations.
 
 ## Getting Started
