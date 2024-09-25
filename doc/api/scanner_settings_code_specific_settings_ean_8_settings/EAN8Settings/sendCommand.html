@@ -86,7 +86,7 @@
   <pre class="language-dart"><code class="language-dart">@protected
 Future&lt;CommandResponse&gt; sendCommand(String deviceId, String command,
     {List&lt;String&gt; parameters = const []}) {
-  return sdk.sendCommand(
+  return sdk.settingsManager.executeCommand(
       deviceId, ScannerCommand(command, parameters: parameters));
 }</code></pre>
 </section>

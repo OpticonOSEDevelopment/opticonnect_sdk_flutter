@@ -64,9 +64,10 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
-<span class="name ">setSuffixFromKeys</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="setSuffixFromKeys-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span>, </span></li>
-<li><span class="parameter" id="setSuffixFromKeys-param-keys"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a></span>&gt;</span></span> <span class="parameter-name">keys</span></span></li>
-</ol>)
+<span class="name ">setSuffixFromKeys</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="setSuffixFromKeys-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span>, </span></li>
+<li><span class="parameter" id="setSuffixFromKeys-param-keys"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a></span>&gt;</span></span> <span class="parameter-name">keys</span>, {</span></li>
+<li><span class="parameter" id="setSuffixFromKeys-param-symbology"><span class="type-annotation"><a href="../../enums_formattable_symbology/FormattableSymbology.html">FormattableSymbology</a></span> <span class="parameter-name">symbology</span> = <span class="default-value">FormattableSymbology.allCodes</span>, </span></li>
+</ol>})
 
       
 
@@ -74,11 +75,8 @@
     
 <section class="desc markdown">
   <p>Sets the suffix formatting using a list of <a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a>.</p>
-<ul>
-<li><code>deviceId</code>: The ID of the BLE device.</li>
-<li><code>keys</code>: A list of <a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a> values to be used for the suffix.</li>
-</ul>
-<p>The suffix can have a maximum of 4 characters.</p>
+<p><code>deviceId</code> - The identifier of the target device.
+<code>keys</code> - A list of <a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a> values to be used for the suffix.</p>
 <p>Returns a <a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a> indicating the success or failure of the operation.</p>
 </section>
 
@@ -87,9 +85,11 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;CommandResponse&gt; setSuffixFromKeys(
-    String deviceId, List&lt;DirectInputKey&gt; keys) async {
-  final directInputKeysCodes = _getDirectInputKeysCodes(keys, 4);
-  return sendCommand(deviceId, suffixAllCodes,
+    String deviceId, List&lt;DirectInputKey&gt; keys,
+    {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
+  final directInputKeysCodes =
+      _getDirectInputKeysCodes(keys, _maxSuffixChars);
+  return sendCommand(deviceId, _suffixSymbologyCodesMap[symbology]!,
       parameters: directInputKeysCodes);
 }</code></pre>
 </section>

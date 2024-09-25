@@ -50,7 +50,10 @@ class MSIPlesseySettings extends BaseScannerSettings {
 
   /// Sets the check digit validation mode for MSI Plessey symbology.
   ///
-  /// [deviceId] is the ID of the BLE device, and [setting] is the desired check digit validation mode.
+  /// [deviceId] - The identifier of the target device.
+  /// [setting] - The desired check digit validation mode.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCheckCD(
       String deviceId, MSIPlesseyCheckCDSettings setting) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
@@ -58,7 +61,10 @@ class MSIPlesseySettings extends BaseScannerSettings {
 
   /// Sets the check digit transmission mode for MSI Plessey symbology.
   ///
-  /// [deviceId] is the ID of the BLE device, and [setting] is the desired check digit transmission mode.
+  /// [deviceId] - The identifier of the target device.
+  /// [setting] - The desired check digit transmission mode.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCDTransmission(
       String deviceId, MSIPlesseyCDTransmissionSettings setting) async {
     return sendCommand(deviceId, _cdTransmissionCommands[setting]!);

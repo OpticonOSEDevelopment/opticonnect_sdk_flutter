@@ -90,9 +90,9 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Handles the volume command by validating the volume range and sending the command to the device.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [volume]: The volume value to be set, ranging from 0 to 100.
-  /// - [command]: The command string representing either persistent or non-persistent volume settings.
+  /// [deviceId] - The identifier of the target device.
+  /// [volume] - The volume value to be set, ranging from 0 to 100.
+  /// [command] - The command string representing either persistent or non-persistent volume settings.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> _handleBuzzerVolumeCommand(
@@ -109,7 +109,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Enables the buzzer on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableBuzzer(String deviceId) async {
@@ -118,7 +118,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Disables the buzzer on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableBuzzer(String deviceId) async {
@@ -127,8 +127,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Tests the volume without storing it (non-persistent).
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [volume]: The volume value to be set, ranging from 0 to 100.
+  /// [deviceId] - The identifier of the target device.
+  /// [volume] - The volume value to be set, ranging from 0 to 100.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> testBuzzerVolume(String deviceId, int volume) async {
@@ -137,8 +137,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Sets the buzzer volume (persistent).
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [volume]: The volume value to be set, ranging from 0 to 100.
+  /// [deviceId] - The identifier of the target device.
+  /// [volume] - The volume value to be set, ranging from 0 to 100.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setBuzzerVolume(String deviceId, int volume) async {
@@ -147,8 +147,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Sets the buzzer type on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [type]: The type of buzzer sound, specified by the [BuzzerType] enum.
+  /// [deviceId] - The identifier of the target device.
+  /// [type] - The type of buzzer sound, specified by the [BuzzerType] enum.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setBuzzerType(
@@ -158,8 +158,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Sets the buzzer duration on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [duration]: The duration of the buzzer, specified by the [BuzzerDuration] enum.
+  /// [deviceId] - The identifier of the target device.
+  /// [duration] - The duration of the buzzer, specified by the [BuzzerDuration] enum.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setBuzzerDuration(
@@ -169,7 +169,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Enables the buzzer sound when pressing any button on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableBuzzerOnKeyclick(String deviceId) async {
@@ -178,7 +178,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Disables the buzzer sound when pressing any button on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableBuzzerOnKeyclick(String deviceId) async {
@@ -187,7 +187,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Enables the battery charging indicator on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableBatteryChargingIndicator(
@@ -197,7 +197,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Disables the battery charging indicator on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableBatteryChargingIndicator(
@@ -207,7 +207,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Enables the vibrator on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableVibrator(String deviceId) async {
@@ -216,7 +216,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Disables the vibrator on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableVibrator(String deviceId) async {
@@ -225,8 +225,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Sets the vibration duration on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [duration]: The duration of the vibration, specified by the [VibratorDuration] enum.
+  /// [deviceId] - The identifier of the target device.
+  /// [duration] - The duration of the vibration, specified by the [VibratorDuration] enum.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setVibratorDuration(
@@ -236,7 +236,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Enables vibration when the scan button is pressed.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableVibrateOnScanButtonPress(
@@ -246,7 +246,7 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Disables vibration when the scan button is pressed.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableVibrateOnScanButtonPress(
@@ -256,8 +256,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Tests the LED by setting the color temporarily (non-persistent).
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [color]: The [LEDColor] object that contains the red, green, and blue values.
+  /// [deviceId] - The identifier of the target device.
+  /// [color] - The [LEDColor] object that contains the red, green, and blue values.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> testLED(String deviceId, LEDColor color) async {
@@ -267,8 +267,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Sets the LED color permanently (persistent).
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [color]: The [LEDColor] object that contains the red, green, and blue values.
+  /// [deviceId] - The identifier of the target device.
+  /// [color] - The [LEDColor] object that contains the red, green, and blue values.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setLED(String deviceId, LEDColor color) async {
@@ -278,8 +278,8 @@ class InidicatorOptions extends BaseScannerSettings {
 
   /// Sets the good read LED duration on the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [duration]: The duration of the LED, specified by the [GoodReadLedDuration] enum.
+  /// [deviceId] - The identifier of the target device.
+  /// [duration] - The duration of the vibration, specified by the [VibratorDuration] enum.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setGoodReadLedDuration(

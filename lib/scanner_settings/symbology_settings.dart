@@ -200,6 +200,7 @@ class SymbologySettings extends BaseScannerSettings {
   ///
   /// [deviceId] is the ID of the device where the symbology should be enabled.
   /// [symbologyType] is the symbology to enable exclusively.
+  ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableOnlySymbology(
       String deviceId, SymbologyType symbologyType) async {
@@ -218,6 +219,7 @@ class SymbologySettings extends BaseScannerSettings {
   ///
   /// [deviceId] is the ID of the device where the symbology should be enabled exclusively.
   /// [symbologyType] is the symbology to enable.
+  ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableSymbology(
       String deviceId, SymbologyType symbologyType) async {
@@ -236,6 +238,7 @@ class SymbologySettings extends BaseScannerSettings {
   ///
   /// [deviceId] is the ID of the device where the symbology should be disabled.
   /// [symbologyType] is the symbology to disable.
+  ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableSymbology(
       String deviceId, SymbologyType symbologyType) async {

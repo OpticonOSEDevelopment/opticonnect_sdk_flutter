@@ -76,8 +76,8 @@
   <p>Sets the connection pool ID to the specified 4-character hexadecimal value.</p>
 <p>The ID must pass validation checks for both format and reserved ID status. If the validation
 succeeds, the ID is converted into direct input key codes and sent to the device.</p>
+<p><code>deviceId</code> - The identifier of the target device.</p>
 <ul>
-<li><code>deviceId</code>: The ID of the BLE device.</li>
 <li><code>id</code>: A valid 4-character hexadecimal connection pool ID.</li>
 </ul>
 <p>Returns a <a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a> indicating the success or failure of the operation.</p>
@@ -87,7 +87,10 @@ succeeds, the ID is converted into direct input key codes and sent to the device
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;CommandResponse&gt; setHexId(String deviceId, String id) async {
+  <pre class="language-dart"><code class="language-dart">&#47;&#47;&#47; - [id]: A valid 4-character hexadecimal connection pool ID.
+&#47;&#47;&#47;
+&#47;&#47;&#47; Returns a [CommandResponse] indicating the success or failure of the operation.
+Future&lt;CommandResponse&gt; setHexId(String deviceId, String id) async {
   final validationResponse = _validateHexId(id);
   if (!validationResponse.succeeded) {
     return validationResponse;
@@ -95,8 +98,15 @@ succeeds, the ID is converted into direct input key codes and sent to the device
   _appLogger.warning(&#39;received ID: $id&#39;);
   final directInputKeys = _getDirectInputKeysFromHexId(id);
   _appLogger.warning(&#39;directInputKeys: ${directInputKeys.join(&#39;, &#39;)}&#39;);
-  return sendCommand(deviceId, setConnectionPoolId,
+  final result = await sendCommand(deviceId, setConnectionPoolId,
       parameters: directInputKeys);
+  if (!result.succeeded) {
+    _appLogger
+        .warning(&#39;Failed to set connection pool ID: ${result.response}&#39;);
+    return result;
+  } else {
+    return sendCommand(deviceId, saveSettings);
+  }
 }</code></pre>
 </section>
 

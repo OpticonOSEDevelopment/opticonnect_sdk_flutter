@@ -26,17 +26,29 @@ class Code11Settings extends BaseScannerSettings {
   };
 
   /// Sets the check digit validation mode for Code 11 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCheckCD(
       String deviceId, Code11CheckCDSettings setting) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
   /// Enables the transmission of the check digit for Code 11 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, code11TransmitCd);
   }
 
   /// Disables the transmission of the check digit for Code 11 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, code11DoNotTransmitCd);
   }

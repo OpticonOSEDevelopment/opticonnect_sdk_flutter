@@ -83,16 +83,16 @@ scanner settings.</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; initialize() async {
   configureSdkDependencyInjection();
-  _bleDevicesDiscoverer = getIt&lt;BleDevicesDiscoverer&gt;();
-  _bleConnectivityHandler = getIt&lt;BleConnectivityHandler&gt;();
-  _bleDevicesStreamsHandler = getIt&lt;BleDevicesStreamsHandler&gt;();
-  _commandHandlersManager = getIt&lt;CommandHandlersManager&gt;();
-  _scannerSettingsHandler = getIt&lt;ScannerSettingsHandler&gt;();
-  _appLogger = getIt&lt;AppLogger&gt;();
 
-  _scannerSettings = ScannerSettings(this);
-  await _scannerSettings.initialize();
+  _scannerSettingsManager = ScannerSettingsManager(this);
+  await _scannerSettingsManager.initialize();
+
+  _scannerSettingsHandler = getIt&lt;ScannerSettingsHandler&gt;();
   await _scannerSettingsHandler.initialize();
+
+  _bluetoothManager = getIt&lt;BluetoothManager&gt;();
+
+  _appLogger = getIt&lt;AppLogger&gt;();
 
   _isInitialized = true;
 }</code></pre>

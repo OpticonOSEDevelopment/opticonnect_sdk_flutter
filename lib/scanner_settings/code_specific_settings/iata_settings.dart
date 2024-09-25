@@ -26,17 +26,29 @@ class IATASettings extends BaseScannerSettings {
   };
 
   /// Sets the check digit validation mode for IATA symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCheckCD(
       String deviceId, IATACheckCDSettings setting) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
   /// Enables the transmission of the check digit for IATA symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, iataTransmitCd);
   }
 
   /// Disables the transmission of the check digit for IATA symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, iataDoNotTransmitCd);
   }

@@ -72,12 +72,10 @@
     </section>
     
 <section class="desc markdown">
-  <p>Generates the QR code data for the specified connection pool ID.</p>
-<p>This method converts the ID into its corresponding direct input key codes and returns a formatted
-string that can be used to generate a QR code for the connection pool.</p>
-<ul>
-<li><code>id</code>: A valid 4-character hexadecimal connection pool ID.</li>
-</ul>
+  <p>Generates a configuration command string that can be encoded into a QR code.
+The QR code data contains the necessary information to configure the device with the provided
+connection pool ID when scanned.</p>
+<p><code>id</code> - A valid 4-character hexadecimal connection pool ID.</p>
 <p>Returns the QR code data string, or an empty string if the ID is invalid.</p>
 </section>
 

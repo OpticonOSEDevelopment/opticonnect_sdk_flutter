@@ -71,6 +71,17 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Converts an integer value to a list of corresponding direct input key codes.</p>
+<p>The method takes an integer value, converts it to its string representation, and then
+maps each character to its respective <a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a> and key code. This is useful for
+generating commands based on numeric input.</p>
+<p>Example:</p>
+<pre class="language-dart"><code class="language-dart">List&lt;String&gt; keys = DirectInputKeysHelper.convertIntToDirectInputKeys(123);
+// Returns ['Q1', 'Q2', 'Q3']
+</code></pre>
+<p><code>value</code> is the integer value to be converted to a list of direct input key codes.</p>
+</section>
 
 
     

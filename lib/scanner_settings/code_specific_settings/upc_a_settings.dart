@@ -32,7 +32,10 @@ class UPCASettings extends BaseScannerSettings {
 
   /// Sets the leading zero and check digit transmission mode for UPCA symbology.
   ///
-  /// [deviceId] is the ID of the BLE device, and [mode] is the desired leading zero and check digit transmission mode.
+  /// [deviceId] - The identifier of the target device.
+  /// [mode] - The desired leading zero and check digit transmission mode.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setLeadingZeroAndTransmitCDMode(
       String deviceId, UPCALeadingZeroAndTransmitCDMode mode) async {
     return sendCommand(
@@ -40,21 +43,37 @@ class UPCASettings extends BaseScannerSettings {
   }
 
   /// Enables the 2-character add-on for UPCA symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
     return sendCommand(deviceId, enableUPCAPlus2);
   }
 
   /// Disables the 2-character add-on for UPCA symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
     return sendCommand(deviceId, disableUPCAPlus2);
   }
 
   /// Enables the 5-character add-on for UPCA symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
     return sendCommand(deviceId, enableUPCAPlus5);
   }
 
   /// Disables the 5-character add-on for UPCA symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
     return sendCommand(deviceId, disableUPCAPlus5);
   }

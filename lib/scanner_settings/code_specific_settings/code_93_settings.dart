@@ -10,31 +10,37 @@ class Code93Settings extends BaseScannerSettings {
   Code93Settings(super.sdk);
 
   /// Enables check digit validation for Code 93 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableCheckCD(String deviceId) async {
     return sendCommand(deviceId, code93CheckCd);
   }
 
   /// Disables check digit validation for Code 93 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableCheckCD(String deviceId) async {
     return sendCommand(deviceId, code93DoNotCheckCd);
   }
 
-  /// Enables the transmission of the check digit for Code 93 symbology.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, code93TransmitCd);
-  }
-
-  /// Disables the transmission of the check digit for Code 93 symbology.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, code93DoNotTransmitCd);
-  }
-
   /// Enables concatenation for Code 93 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableConcatenation(String deviceId) async {
     return sendCommand(deviceId, code93EnableConcatenation);
   }
 
   /// Disables concatenation for Code 93 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableConcatenation(String deviceId) async {
     return sendCommand(deviceId, code93DisableConcatenation);
   }

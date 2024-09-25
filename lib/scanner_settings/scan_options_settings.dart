@@ -85,8 +85,8 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Sets the mode for reading positive and negative barcodes.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [mode]: The mode to set for barcode reading, specified by [PositiveAndNegativeBarcodesMode].
+  /// [deviceId] - The identifier of the target device.
+  /// [mode] - The mode to set for barcode reading, specified by [PositiveAndNegativeBarcodesMode].
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPositiveAndNegativeBarcodesMode(
@@ -97,8 +97,8 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Sets the read mode for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [mode]: The mode to set for reading, specified by [ReadMode].
+  /// [deviceId] - The identifier of the target device.
+  /// [mode] - The mode to set for reading, specified by [ReadMode].
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setReadMode(String deviceId, ReadMode mode) async {
@@ -107,8 +107,8 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Sets the read time for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [time]: The duration for reading, specified by [ReadTime].
+  /// [deviceId] - The identifier of the target device.
+  /// [time] - The duration for reading, specified by [ReadTime].
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setReadTime(String deviceId, ReadTime time) async {
@@ -117,8 +117,8 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Sets the illumination mode for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [mode]: The illumination mode to set, specified by [IlluminationMode].
+  /// [deviceId] - The identifier of the target device.
+  /// [mode] - The illumination mode to set, specified by [IlluminationMode].
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setIlluminationMode(
@@ -128,7 +128,7 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Enables the aiming feature for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableAiming(String deviceId) async {
@@ -137,7 +137,7 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Disables the aiming feature for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableAiming(String deviceId) async {
@@ -146,7 +146,7 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Enables the trigger repeat feature for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableTriggerRepeat(String deviceId) async {
@@ -155,7 +155,7 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Disables the trigger repeat feature for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableTriggerRepeat(String deviceId) async {
@@ -164,7 +164,7 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Enables the delete key feature for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableDeleteKey(String deviceId) async {
@@ -173,7 +173,7 @@ class ScanOptionsSettings extends BaseScannerSettings {
 
   /// Disables the delete key feature for the scanner.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableDeleteKey(String deviceId) async {

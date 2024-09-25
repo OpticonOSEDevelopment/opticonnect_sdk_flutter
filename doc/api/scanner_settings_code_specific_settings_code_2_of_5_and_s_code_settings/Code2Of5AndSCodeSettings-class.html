@@ -63,8 +63,8 @@
     
 <section class="desc markdown">
   <p>A class representing settings for Code 2 of 5 and S-Code symbologies.</p>
-<p>This class provides methods to enable or disable the check digit validation and
-the transmission of the check digit for the respective symbologies.</p>
+<p>This class provides methods to configure space checks, data length, and S-code
+transmission for Code 2 of 5 and S-Code symbologies.</p>
 </section>
 
 
@@ -132,54 +132,41 @@ the transmission of the check digit for the respective symbologies.</p>
       id="instance-methods">
     <h2>Methods</h2>
     <dl class="callables">
-        <dt id="disableCode2of5andSCodeCheckCD" class="callable">
-  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/disableCode2of5andSCodeCheckCD.html">disableCode2of5andSCodeCheckCD</a></span><span class="signature">(<wbr><span class="parameter" id="disableCode2of5andSCodeCheckCD-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
+        <dt id="disableSpaceCheck" class="callable">
+  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/disableSpaceCheck.html">disableSpaceCheck</a></span><span class="signature">(<wbr><span class="parameter" id="disableSpaceCheck-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-  Disables the check digit validation for Code 2 of 5 and S-Code symbologies.
+  Disables the space check for Industrial 2 of 5 symbology.
   
 
 </dd>
 
-        <dt id="disableCode2of5andSCodeTransmitCD" class="callable">
-  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/disableCode2of5andSCodeTransmitCD.html">disableCode2of5andSCodeTransmitCD</a></span><span class="signature">(<wbr><span class="parameter" id="disableCode2of5andSCodeTransmitCD-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
+        <dt id="doNotTransmitSCodeAsInterleaved" class="callable">
+  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/doNotTransmitSCodeAsInterleaved.html">doNotTransmitSCodeAsInterleaved</a></span><span class="signature">(<wbr><span class="parameter" id="doNotTransmitSCodeAsInterleaved-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-  Disables the transmission of the check digit for Code 2 of 5 and S-Code symbologies.
+  Does not transmit the S-Code as Interleaved 2 of 5.
   
 
 </dd>
 
-        <dt id="enableCode2of5andSCodeCheckCD" class="callable">
-  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/enableCode2of5andSCodeCheckCD.html">enableCode2of5andSCodeCheckCD</a></span><span class="signature">(<wbr><span class="parameter" id="enableCode2of5andSCodeCheckCD-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
+        <dt id="enableSpaceCheck" class="callable">
+  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/enableSpaceCheck.html">enableSpaceCheck</a></span><span class="signature">(<wbr><span class="parameter" id="enableSpaceCheck-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-  Enables the check digit validation for Code 2 of 5 and S-Code symbologies.
-  
-
-</dd>
-
-        <dt id="enableCode2of5andSCodeTransmitCD" class="callable">
-  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/enableCode2of5andSCodeTransmitCD.html">enableCode2of5andSCodeTransmitCD</a></span><span class="signature">(<wbr><span class="parameter" id="enableCode2of5andSCodeTransmitCD-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  Enables the transmission of the check digit for Code 2 of 5 and S-Code symbologies.
+  Enables the space check for Industrial 2 of 5 symbology.
   
 
 </dd>
@@ -210,6 +197,19 @@ the transmission of the check digit for the respective symbologies.</p>
 
 </dd>
 
+        <dt id="setMinimumDataLength" class="callable">
+  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/setMinimumDataLength.html">setMinimumDataLength</a></span><span class="signature">(<wbr><span class="parameter" id="setMinimumDataLength-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span>, </span><span class="parameter" id="setMinimumDataLength-param-dataLength"><span class="type-annotation"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/DataLength.html">DataLength</a></span> <span class="parameter-name">dataLength</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Sets the minimum data length for Code 2 of 5 and S-Code symbologies.
+  
+
+</dd>
+
         <dt id="toString" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
@@ -220,6 +220,19 @@ the transmission of the check digit for the respective symbologies.</p>
 <dd class="inherited">
   A string representation of this object.
   <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="transmitSCodeAsInterleaved" class="callable">
+  <span class="name"><a href="../scanner_settings_code_specific_settings_code_2_of_5_and_s_code_settings/Code2Of5AndSCodeSettings/transmitSCodeAsInterleaved.html">transmitSCodeAsInterleaved</a></span><span class="signature">(<wbr><span class="parameter" id="transmitSCodeAsInterleaved-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Transmits the S-Code as Interleaved 2 of 5.
+  
 
 </dd>
 

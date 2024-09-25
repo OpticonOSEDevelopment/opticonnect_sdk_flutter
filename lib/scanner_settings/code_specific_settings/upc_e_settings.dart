@@ -44,7 +44,8 @@ class UPCESettings extends BaseScannerSettings {
 
   /// Sets the leading zero and check digit transmission mode for UPCE symbology.
   ///
-  /// [deviceId] is the ID of the BLE device, and [mode] is the desired leading zero and check digit transmission mode.
+  /// [deviceId] - The identifier of the target device.and [mode] is the desired leading zero and check digit transmission mode.
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setLeadingZeroAndTransmitCDMode(
       String deviceId, UPCELeadingZeroAndTransmitCDMode mode) async {
     return sendCommand(
@@ -53,28 +54,47 @@ class UPCESettings extends BaseScannerSettings {
 
   /// Sets the conversion mode for UPCE symbology.
   ///
-  /// [deviceId] is the ID of the BLE device, and [mode] is the desired conversion mode for UPCE symbology.
+  /// [deviceId] - The identifier of the target device.
+  /// [mode] - The desired conversion mode for UPCE symbology.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setConversionMode(
       String deviceId, UPCEConversionMode mode) async {
     return sendCommand(deviceId, _upcEConversionModeCommands[mode]!);
   }
 
   /// Enables the 2-character add-on for UPCE symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
     return sendCommand(deviceId, enableUPCEPlus2);
   }
 
   /// Disables the 2-character add-on for UPCE symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
     return sendCommand(deviceId, disableUPCEPlus2);
   }
 
   /// Enables the 5-character add-on for UPCE symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
     return sendCommand(deviceId, enableUPCEPlus5);
   }
 
   /// Disables the 5-character add-on for UPCE symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
     return sendCommand(deviceId, disableUPCEPlus5);
   }

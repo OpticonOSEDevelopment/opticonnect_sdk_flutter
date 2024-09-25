@@ -74,11 +74,8 @@
     
 <section class="desc markdown">
   <p>Sets the preamble formatting using a string.</p>
-<ul>
-<li><code>deviceId</code>: The ID of the BLE device.</li>
-<li><code>preamble</code>: A string to be used as the preamble.</li>
-</ul>
-<p>The preamble can have a maximum of 8 characters.</p>
+<p><code>deviceId</code> - The identifier of the target device.
+<code>preamble</code>: A string to be used as the preamble, , with a maximum length of 8.</p>
 <p>Returns a <a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a> indicating the success or failure of the operation.</p>
 </section>
 
@@ -89,7 +86,7 @@
   <pre class="language-dart"><code class="language-dart">Future&lt;CommandResponse&gt; setPreambleFromString(
     String deviceId, String preamble) {
   final directInputKeysCodes =
-      _getDirectInputKeysCodesFromString(preamble, 8);
+      _getDirectInputKeysCodesFromString(preamble, _maxPreambleChars);
   return sendCommand(deviceId, preamble, parameters: directInputKeysCodes);
 }</code></pre>
 </section>

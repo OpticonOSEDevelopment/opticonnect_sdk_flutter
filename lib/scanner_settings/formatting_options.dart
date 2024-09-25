@@ -181,10 +181,10 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Converts a string into a list of corresponding input key codes.
   ///
-  /// - [input]: The input string to convert.
-  /// - [maxChars]: The maximum allowed number of characters.
+  /// [input] - The input string to convert.
+  /// [maxChars] - The maximum allowed number of characters.
   ///
-  /// Any unrecognized characters will be logged and ignored.
+  /// Returns a list of direct input keys.
   List<String> _getDirectInputKeysCodesFromString(String input, int maxChars) {
     if (input.length > maxChars) {
       _appLogger.warning(
@@ -208,10 +208,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the preamble formatting using a list of [DirectInputKey].
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [keys]: A list of [DirectInputKey] values to be used for the preamble.
-  ///
-  /// The preamble can have a maximum of 8 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [keys] - A list of [DirectInputKey] values to be used for the preamble, with a maximum length of 8.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPreambleFromKeys(
@@ -223,10 +221,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the preamble formatting using a string.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [preamble]: A string to be used as the preamble.
-  ///
-  /// The preamble can have a maximum of 8 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [preamble]: A string to be used as the preamble, , with a maximum length of 8.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPreambleFromString(
@@ -238,7 +234,7 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Clears the preamble formatting on the device.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> clearPreamble(String deviceId) async {
@@ -247,10 +243,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the prefix formatting using a list of [DirectInputKey].
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [keys]: A list of [DirectInputKey] values to be used for the prefix.
-  ///
-  /// The prefix can have a maximum of 4 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [keys] - A list of [DirectInputKey] values to be used for the prefix, with a maximum length of 4.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPrefixFromKeys(
@@ -264,10 +258,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the prefix formatting using a string.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [prefix]: A string to be used as the prefix.
-  ///
-  /// The prefix can have a maximum of 4 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [prefix] - A string to be used as the prefix, with a maximum length of 4.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPrefixFromString(String deviceId, String prefix,
@@ -280,7 +272,7 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Clears the prefix formatting on the device.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> clearAllPrefixes(String deviceId) async {
@@ -289,10 +281,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the suffix formatting using a list of [DirectInputKey].
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [keys]: A list of [DirectInputKey] values to be used for the suffix.
-  ///
-  /// The suffix can have a maximum of 4 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [keys] - A list of [DirectInputKey] values to be used for the suffix.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setSuffixFromKeys(
@@ -306,10 +296,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the suffix formatting using a string.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [suffix]: A string to be used as the suffix.
-  ///
-  /// The suffix can have a maximum of 4 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [suffix] - A string to be used as the suffix, with a maximum length of 4.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setSuffixFromString(String deviceId, String suffix,
@@ -322,7 +310,7 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Clears the suffix formatting on the device.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> clearAllSuffixes(String deviceId) async {
@@ -331,10 +319,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the postamble formatting using a list of [DirectInputKey].
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [keys]: A list of [DirectInputKey] values to be used for the postamble.
-  ///
-  /// The postamble can have a maximum of 8 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [keys] - A list of [DirectInputKey] values to be used for the postamble, with a maximum length of 8.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPostambleFromKeys(
@@ -346,10 +332,8 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Sets the postamble formatting using a string.
   ///
-  /// - [deviceId]: The ID of the BLE device.
-  /// - [postamble]: A string to be used as the postamble.
-  ///
-  /// The postamble can have a maximum of 8 characters.
+  /// [deviceId] - The identifier of the target device.
+  /// [postamble] - A string to be used as the postamble, with a maximum length of 8.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPostambleFromString(
@@ -361,7 +345,7 @@ class FormattingOptions extends BaseScannerSettings {
 
   /// Clears the postamble formatting on the device.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> clearPostamble(String deviceId) async {

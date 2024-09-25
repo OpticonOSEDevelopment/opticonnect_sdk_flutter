@@ -70,7 +70,7 @@ class BluetoothManager {
 
   /// A stream of [BleDiscoveredDevice] representing discovered BLE devices.
   ///
-  /// Provides real-time updates of devices found during discovery.
+  /// Returns a stream of BLE devices discovered during the discovery process.
   Stream<BleDiscoveredDevice> get bleDeviceStream async* {
     try {
       await for (final results in _bleDevicesDiscoverer.bleDeviceStream) {
@@ -83,6 +83,8 @@ class BluetoothManager {
   }
 
   /// Connects to the BLE device with the given [deviceId].
+  ///
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Attempts to establish a connection to the BLE device and logs the result.
   Future<void> connect(String deviceId) async {
@@ -97,6 +99,8 @@ class BluetoothManager {
 
   /// Disconnects from the BLE device with the given [deviceId].
   ///
+  /// [deviceId] - The identifier of the target device.
+  ///
   /// Disconnects the BLE device and logs the result.
   Future<void> disconnect(String deviceId) async {
     try {
@@ -110,6 +114,8 @@ class BluetoothManager {
 
   /// Listens to the connection state of the BLE device with the given [deviceId].
   ///
+  /// [deviceId] - The identifier of the target device.
+  ///
   /// Returns a stream of [BleDeviceConnectionState] indicating the connection state.
   Stream<BleDeviceConnectionState> listenToConnectionState(String deviceId) {
     try {
@@ -122,7 +128,9 @@ class BluetoothManager {
 
   /// Subscribes to the barcode data stream from the BLE device with the given [deviceId].
   ///
-  /// This method provides a stream of barcode data received from the device.
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a stream of barcode data received from the device.
   Future<Stream<BarcodeData>> subscribeToBarcodeDataStream(
       String deviceId) async {
     try {

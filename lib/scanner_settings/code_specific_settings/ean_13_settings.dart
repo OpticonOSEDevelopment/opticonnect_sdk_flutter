@@ -10,31 +10,55 @@ class EAN13Settings extends BaseScannerSettings {
   EAN13Settings(super.sdk);
 
   /// Enables the transmission of the check digit for EAN-13 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, ean13TransmitCd);
   }
 
   /// Disables the transmission of the check digit for EAN-13 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableTransmitCD(String deviceId) async {
     return sendCommand(deviceId, ean13DoNotTransmitCd);
   }
 
   /// Enables the 2-character add-on for EAN-13 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
     return sendCommand(deviceId, enableEAN13Plus2);
   }
 
   /// Disables the 2-character add-on for EAN-13 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
     return sendCommand(deviceId, disableEAN13Plus2);
   }
 
   /// Enables the 5-character add-on for EAN-13 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
     return sendCommand(deviceId, enableEAN13Plus5);
   }
 
   /// Disables the 5-character add-on for EAN-13 symbology.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
     return sendCommand(deviceId, disableEAN13Plus5);
   }

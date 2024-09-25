@@ -22,9 +22,11 @@ class TelepenSettings extends BaseScannerSettings {
 
   /// Sets the code mode for Telepen symbology.
   ///
-  /// [deviceId] is the ID of the BLE device, and [setting] is the desired Telepen code mode.
-  Future<CommandResponse> setMode(
-      String deviceId, TelepenCodeMode setting) async {
-    return sendCommand(deviceId, _telepenCodeModeCommands[setting]!);
+  /// [deviceId] - The identifier of the target device.
+  /// [mode] - The desired Telepen code mode.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
+  Future<CommandResponse> setMode(String deviceId, TelepenCodeMode mode) async {
+    return sendCommand(deviceId, _telepenCodeModeCommands[mode]!);
   }
 }

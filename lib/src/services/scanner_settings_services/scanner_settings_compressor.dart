@@ -112,8 +112,6 @@ class ScannerSettingsCompressor {
       }
     }
 
-    _appLogger.warning('tot commands: ${commandsList.length}');
-
     return await _compressCommandList(commandsList);
   }
 }

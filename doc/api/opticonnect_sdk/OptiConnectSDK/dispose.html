@@ -84,8 +84,7 @@ clean up resources such as BLE connections and discovery.</p>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; dispose() async {
   try {
     _ensureInitialized();
-    await _bleConnectivityHandler.dispose();
-    await _bleDevicesDiscoverer.dispose();
+    await _bluetoothManager.dispose();
     _appLogger.info(&quot;SDK disposed successfully.&quot;);
     _isInitialized = false;
   } catch (e) {

@@ -84,7 +84,8 @@ class ConnectionPoolSettings extends BaseScannerSettings {
   /// The ID must pass validation checks for both format and reserved ID status. If the validation
   /// succeeds, the ID is converted into direct input key codes and sent to the device.
   ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
+
   /// - [id]: A valid 4-character hexadecimal connection pool ID.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
@@ -107,11 +108,9 @@ class ConnectionPoolSettings extends BaseScannerSettings {
     }
   }
 
-  /// Resets the connection pool ID of the device to the default value '0000'.
+  /// Sends the reset command to the device, which reverts the connection pool ID to the default ('0000').
   ///
-  /// This method sends the reset command to the device, which reverts the connection pool ID to the default.
-  ///
-  /// - [deviceId]: The ID of the BLE device.
+  /// [deviceId] - The identifier of the target device.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> resetHexId(String deviceId) async {
@@ -132,12 +131,11 @@ class ConnectionPoolSettings extends BaseScannerSettings {
     return validationResponse.succeeded;
   }
 
-  /// Generates the QR code data for the specified connection pool ID.
+  /// Generates a configuration command string that can be encoded into a QR code.
+  /// The QR code data contains the necessary information to configure the device with the provided
+  /// connection pool ID when scanned.
   ///
-  /// This method converts the ID into its corresponding direct input key codes and returns a formatted
-  /// string that can be used to generate a QR code for the connection pool.
-  ///
-  /// - [id]: A valid 4-character hexadecimal connection pool ID.
+  /// [id] - A valid 4-character hexadecimal connection pool ID.
   ///
   /// Returns the QR code data string, or an empty string if the ID is invalid.
   String getConnectionPoolQRData(String id) {

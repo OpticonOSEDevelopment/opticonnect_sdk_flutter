@@ -7,6 +7,7 @@ import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/code_93_
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/composite_codes_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/ean_13_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/ean_8_settings.dart';
+import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/ean_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/gs1_databar_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/iata_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/korean_postal_authority_code_settings.dart';
@@ -57,6 +58,9 @@ class CodeSpecificSettings extends BaseScannerSettings {
   /// Settings related to composite codes.
   late final CompositeCodesSettings compositeCodesSettings;
 
+  /// Settings related to both EAN-8 and EAN-13 symbologies.
+  late final EANSettings eanSettings;
+
   /// Settings related to EAN-8 symbology.
   late final EAN8Settings ean8Settings;
 
@@ -103,6 +107,7 @@ class CodeSpecificSettings extends BaseScannerSettings {
     code93Settings = Code93Settings(sdk);
     code128AndGS1128Settings = Code128AndGS1128Settings(sdk);
     compositeCodesSettings = CompositeCodesSettings(sdk);
+    eanSettings = EANSettings(sdk);
     ean8Settings = EAN8Settings(sdk);
     ean13Settings = EAN13Settings(sdk);
     gs1DatabarSettings = GS1DatabarSettings(sdk);

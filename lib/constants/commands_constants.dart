@@ -220,6 +220,16 @@ const String twoOfFiveAndSCodeDoNotCheckCd = 'G0';
 const String twoOfFiveAndSCodeTransmitCd = 'E0';
 const String twoOfFiveAndSCodeDoNotTransmitCd = 'E1';
 
+const String twoOfFiveAndSCodeEnableSpaceCheckIndustrial2of5 = 'GJ';
+const String twoOfFiveAndSCodeDisableSpaceCheckIndustrial2of5 = 'GK';
+
+const String twoOfFiveAndSCodeDoNotTransmitAsInterleaved2of5 = 'GH';
+const String twoOfFiveAndSCodeTransmitAsInterleaved2of5 = 'GG';
+
+const String twoOfFiveAndSCodeMinimumLengthOneChar = 'GE';
+const String twoOfFiveAndSCodeMinimumLengthThreeChars = 'GF';
+const String twoOfFiveAndSCodeMinimumLengthFiveChars = 'GI';
+
 const String codabarNormal = 'HA';
 const String codabarABCCodeOnly = 'H4';
 const String codabarCXCodeOnly = 'H5';
@@ -240,6 +250,13 @@ const String codabarStSpDC1DC2DC3DC4 = 'HJ';
 
 const String codabarDisableSpaceInsertion = 'HE';
 const String codabarEnableSpaceInsertion = 'HD';
+
+const String codabarEnableIntercharacterGapCheck = 'HH';
+const String codabarDisableIntercharacterGapCheck = 'HI';
+
+const String codabarMinimumLengthOneChar = 'HC';
+const String codabarMinimumLengthThreeChars = 'HB';
+const String codabarMinimumLengthFiveChars = 'HF';
 
 const String code11DoNotCheckCd = 'BLF';
 const String code11Check1Cd = 'BLG';
@@ -264,6 +281,12 @@ const String code39DoNotTransmitCd = 'D8';
 const String code39TransmitStSp = 'D0';
 const String code39DoNotTransmitStSp = 'D1';
 
+const String code39DoNotTransmitLeadingAForItPharm = 'DA';
+const String code39TransmitLeadingAForItPharm = 'DB';
+
+const String code39MinLength3Digits = '8D';
+const String code39MinLength1Digit = '8E';
+
 const String code39EnableConcatenation = '+L';
 const String code39DisableConcatenation = '+M';
 
@@ -279,6 +302,15 @@ const String code93DisableConcatenation = '+W';
 const String code128DisableGS1_128 = 'OF';
 const String code128EnableGS1_128Only = 'JF';
 const String code128EnableGS1_128IfPossible = 'OG';
+
+const String code128DisableGS1_128Conversion = 'X/0';
+const String code128EnableGS1_128ConversionMode1 = 'X/1';
+const String code128EnableGS1_128ConversionMode2 = 'X/2';
+const String code128EnableGS1_128ConversionMode3 = 'X/3';
+const String code128EnableGS1_128ConversionMode4 = 'X/4';
+
+const String code128DisableLeadingC1Output = 'X/Q';
+const String code128EnableLeadingC1Output = 'X/R';
 
 const String code128DisableConcatenation = 'MP';
 const String code128EnableConcatenation = 'MO';
@@ -302,6 +334,24 @@ const String ean8DoNotTransmitCd = '6H';
 const String ean13TransmitCd = '6K';
 const String ean13DoNotTransmitCd = '6J';
 
+const String eanDisableISSNTranslation = 'HN';
+const String eanEnableISSNTranslation = 'HO';
+const String eanEnableISSNIfPossible = '4V';
+
+const String eanDisableISMNTranslation = 'IO';
+const String eanEnableISMNTranslation = 'IP';
+const String eanEnableISMNIfPossible = 'IQ';
+
+const String eanDisableISBNTranslation = 'IB';
+const String eanEnableISBNTranslation = 'IA';
+const String eanEnableISBNIfPossible = 'IK';
+
+const String eanEnableForcedAddon378_379_529 = '-G';
+const String eanDisableForcedAddon378_379_529 = '-H';
+
+const String eanEnableForcedAddon434_439_414_419_977_978 = '-C';
+const String eanDisableForcedAddon434_439_414_419_977_978 = '-D';
+
 const String gs1DataBarTransmitCd = 'DL';
 const String gs1DataBarDoNotTransmitCd = 'DM';
 
@@ -322,6 +372,12 @@ const String koreanPostalDoNotTransmitCd = '*-';
 const String koreanPostalTransmitDash = '*.';
 const String koreanPostalDoNotTransmitDash = '*/';
 
+const String koreanPostalOrientationNormal = '*A';
+const String koreanPostalOrientationUpsideDown = '*B';
+
+const String koreanPostalUpsideDownReadingDisabled = '*8';
+const String koreanPostalUpsideDownReadingEnabled = '*9';
+
 const String msiPlesseyDoNotCheckCd = '4A';
 const String msiPlesseyCheck1CdMod10 = '4B';
 const String msiPlesseyCheck2CdsMod10Mod10 = '4C';
@@ -341,6 +397,9 @@ const String ukPlesseyDoNotTransmitCds = '4O';
 
 const String ukPlesseyDisableSpaceInsertion = 'DO';
 const String ukPlesseyEnableSpaceInsertion = 'DN';
+
+const String ukPlesseyDisableAtoXConversion = 'DP';
+const String ukPlesseyEnableAtoXConversion = 'DQ';
 
 const String upcANoLeadingZeroTransmitCd = 'E3';
 const String upcANoLeadingZeroDoNotTransmitCd = 'E5';

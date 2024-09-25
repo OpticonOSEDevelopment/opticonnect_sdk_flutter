@@ -65,7 +65,7 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a></span>&gt;</span></span>
 <span class="name ">setMode</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="setMode-param-deviceId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">deviceId</span>, </span></li>
-<li><span class="parameter" id="setMode-param-setting"><span class="type-annotation"><a href="../../scanner_settings_code_specific_settings_telepen_settings/TelepenCodeMode.html">TelepenCodeMode</a></span> <span class="parameter-name">setting</span></span></li>
+<li><span class="parameter" id="setMode-param-mode"><span class="type-annotation"><a href="../../scanner_settings_code_specific_settings_telepen_settings/TelepenCodeMode.html">TelepenCodeMode</a></span> <span class="parameter-name">mode</span></span></li>
 </ol>)
 
       
@@ -74,16 +74,17 @@
     
 <section class="desc markdown">
   <p>Sets the code mode for Telepen symbology.</p>
-<p><code>deviceId</code> is the ID of the BLE device, and <code>setting</code> is the desired Telepen code mode.</p>
+<p><code>deviceId</code> - The identifier of the target device.
+<code>mode</code> - The desired Telepen code mode.</p>
+<p>Returns a <a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a> indicating the success or failure of the operation.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;CommandResponse&gt; setMode(
-    String deviceId, TelepenCodeMode setting) async {
-  return sendCommand(deviceId, _telepenCodeModeCommands[setting]!);
+  <pre class="language-dart"><code class="language-dart">Future&lt;CommandResponse&gt; setMode(String deviceId, TelepenCodeMode mode) async {
+  return sendCommand(deviceId, _telepenCodeModeCommands[mode]!);
 }</code></pre>
 </section>
 

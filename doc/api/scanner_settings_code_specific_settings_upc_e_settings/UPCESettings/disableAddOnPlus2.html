@@ -73,6 +73,8 @@
     
 <section class="desc markdown">
   <p>Disables the 2-character add-on for UPCE symbology.</p>
+<p><code>deviceId</code> - The identifier of the target device.</p>
+<p>Returns a <a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a> indicating the success or failure of the operation.</p>
 </section>
 
 
@@ -80,7 +82,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;CommandResponse&gt; disableAddOnPlus2(String deviceId) async {
-  return sendCommand(deviceId, upcEDisableAddon2);
+  return sendCommand(deviceId, disableUPCEPlus2);
 }</code></pre>
 </section>
 

@@ -74,11 +74,8 @@
     
 <section class="desc markdown">
   <p>Sets the preamble formatting using a list of <a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a>.</p>
-<ul>
-<li><code>deviceId</code>: The ID of the BLE device.</li>
-<li><code>keys</code>: A list of <a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a> values to be used for the preamble.</li>
-</ul>
-<p>The preamble can have a maximum of 8 characters.</p>
+<p><code>deviceId</code> - The identifier of the target device.
+<code>keys</code> - A list of <a href="../../enums_direct_input_key/DirectInputKey.html">DirectInputKey</a> values to be used for the preamble, with a maximum length of 8.</p>
 <p>Returns a <a href="../../entities_command_response/CommandResponse-class.html">CommandResponse</a> indicating the success or failure of the operation.</p>
 </section>
 
@@ -88,7 +85,8 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;CommandResponse&gt; setPreambleFromKeys(
     String deviceId, List&lt;DirectInputKey&gt; keys) async {
-  final directInputKeysCodes = _getDirectInputKeysCodes(keys, 8);
+  final directInputKeysCodes =
+      _getDirectInputKeysCodes(keys, _maxPreambleChars);
   return sendCommand(deviceId, preamble, parameters: directInputKeysCodes);
 }</code></pre>
 </section>

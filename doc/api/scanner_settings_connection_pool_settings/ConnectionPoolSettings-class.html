@@ -161,7 +161,9 @@ and generating the corresponding QR data for a connection pool.</p>
 
 </dt>
 <dd>
-  Generates the QR code data for the specified connection pool ID.
+  Generates a configuration command string that can be encoded into a QR code.
+The QR code data contains the necessary information to configure the device with the provided
+connection pool ID when scanned.
   
 
 </dd>
@@ -200,7 +202,7 @@ and generating the corresponding QR data for a connection pool.</p>
 
 </dt>
 <dd>
-  Resets the connection pool ID of the device to the default value '0000'.
+  Sends the reset command to the device, which reverts the connection pool ID to the default ('0000').
   
 
 </dd>
