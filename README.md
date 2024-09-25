@@ -1,39 +1,24 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# OptiConnect SDK
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+OptiConnect SDK enables seamless integration with Opticon's BLE OPN-2500 and OPN-6000 barcode scanners. This SDK allows you to manage Bluetooth Low Energy (BLE) connections, handle scanner data streams, and programmatically control scanner settings via commands.
 
 ## Features
+- Bluetooth discovery and connection management for OPN-2500 and OPN-6000 BLE scanners.
+- Real-time data streaming, including barcode data reception and BLE device state monitoring.
+- Programmatic control of scanner settings (e.g., scan modes, illumination, connection pooling, etc.).
+- Handling connection pooling via 4-character hexadecimal IDs to manage exclusive scanner-device pairing.
+- Command management and customization for BLE services and scanner configurations.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Getting Started
 
-## Getting started
+### Prerequisites
+- Flutter SDK version 2.12.0 or above.
+- Opticon BLE OPN-2500 or OPN-6000 barcode scanner(s).
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Installation
 
-## Usage
+To install the SDK, add the following dependency to your `pubspec.yaml` file:
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```yaml
+dependencies:
+  opticonnect_sdk: ^1.0.0

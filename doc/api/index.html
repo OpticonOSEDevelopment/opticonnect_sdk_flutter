@@ -51,34 +51,27 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-<p>TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.</p>
+  <h1 id="opticonnect-sdk">OptiConnect SDK</h1>
+<p>OptiConnect SDK enables seamless integration with Opticon's BLE OPN-2500 and OPN-6000 barcode scanners. This SDK allows you to manage Bluetooth Low Energy (BLE) connections, handle scanner data streams, and programmatically control scanner settings via commands.</p>
 <h2 id="features">Features</h2>
-<p>TODO: List what your package can do. Maybe include images, gifs, or videos.</p>
-<h2 id="getting-started">Getting started</h2>
-<p>TODO: List prerequisites and provide or point to information on how to
-start using the package.</p>
-<h2 id="usage">Usage</h2>
-<p>TODO: Include short and useful examples for package users. Add longer examples
-to <code>/example</code> folder.</p>
-<pre class="language-dart"><code class="language-dart">const like = 'sample';
+<ul>
+<li>Bluetooth discovery and connection management for OPN-2500 and OPN-6000 BLE scanners.</li>
+<li>Real-time data streaming, including barcode data reception and BLE device state monitoring.</li>
+<li>Programmatic control of scanner settings (e.g., scan modes, illumination, connection pooling, etc.).</li>
+<li>Handling connection pooling via 4-character hexadecimal IDs to manage exclusive scanner-device pairing.</li>
+<li>Command management and customization for BLE services and scanner configurations.</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Flutter SDK version 2.12.0 or above.</li>
+<li>Opticon BLE OPN-2500 or OPN-6000 barcode scanner(s).</li>
+</ul>
+<h3 id="installation">Installation</h3>
+<p>To install the SDK, add the following dependency to your <code>pubspec.yaml</code> file:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  opticonnect_sdk: ^1.0.0
 </code></pre>
-<h2 id="additional-information">Additional information</h2>
-<p>TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.</p>
 </section>
 
 
@@ -430,7 +423,7 @@ from the package authors, and more.</p>
 <footer>
   <span class="no-break">
     opticonnect_sdk
-      0.0.1
+      1.0.0
   </span>
 
   
