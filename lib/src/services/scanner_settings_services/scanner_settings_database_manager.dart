@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/src/services/database/database_path_helper.dart';
 import 'package:path/path.dart' as path;
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 @lazySingleton
 class ScannerSettingsDatabaseManager {
@@ -26,6 +26,11 @@ class ScannerSettingsDatabaseManager {
   }
 
   Future<Database> _initializeDatabase() async {
+    if (Platform.isWindows || Platform.isLinux) {
+      sqfliteFfiInit();
+      databaseFactory = databaseFactoryFfi;
+    }
+
     final databasePath = path.join(
       await _databasePathHelper.getDatabasesPath(),
       dbName,

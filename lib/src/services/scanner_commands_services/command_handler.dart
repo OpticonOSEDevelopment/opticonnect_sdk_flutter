@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:mutex/mutex.dart';
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
@@ -72,12 +71,6 @@ class CommandHandler implements ICommandSender {
     try {
       final bytes = _commandBytesProvider.getCommandBytes(command);
       _bleDataWriter.writeData(_deviceId, command.code, bytes);
-// Convert bytes to comma-separated hex list and log it
-      if (command.code == setConnectionPoolId) {
-        final hexList =
-            bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join(', ');
-        _appLogger.warning('Connection Pool cmd bytes in hex: $hexList');
-      }
     } catch (e) {
       _appLogger.error('Error sending command: ${command.code}, Error: $e');
 

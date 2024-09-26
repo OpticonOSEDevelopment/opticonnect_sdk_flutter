@@ -16,8 +16,6 @@ class ScannerSettingsCompressor {
       this._datawizardSettingsManager, this._appLogger);
 
   Future<Command> getCompressedSettingsCommand(String settings) async {
-    _appLogger.warning('initial settings: $settings');
-
     final compressedSettingsList = await getCompressedSettingsList(settings);
 
     StringBuffer compressedCommandData = StringBuffer();
@@ -27,8 +25,6 @@ class ScannerSettingsCompressor {
         compressedCommandData.write(parameter);
       }
     }
-    _appLogger.warning('Compressed settings: $compressedCommandData');
-
     return RawCommand(compressedCommandData.toString());
   }
 

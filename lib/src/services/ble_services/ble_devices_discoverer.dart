@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
@@ -30,7 +30,8 @@ class BleDevicesDiscoverer {
   Future<void> startDiscovery() async {
     try {
       final adapterState = await FlutterBluePlus.adapterState.first;
-      if (adapterState != BluetoothAdapterState.on) {
+
+      if (adapterState == BluetoothAdapterState.off) {
         throw Exception('Bluetooth is not enabled.');
       }
 

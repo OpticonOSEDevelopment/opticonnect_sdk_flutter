@@ -1,8 +1,9 @@
 name: opticonnect_sdk
 description: >
-   OptiConnect SDK enables seamless integration with Opticon's BLE OPN-2500 and OPN-6000 barcode scanners. 
-   This SDK allows developers to manage Bluetooth Low Energy (BLE) connections, handle scanner data streams, 
-   and set various commands programmatically for these devices.
+   OptiConnect SDK enables seamless integration with Opticon's BLE OPN-2500 and
+   OPN-6000 barcode scanners.  This SDK allows developers to manage Bluetooth Low
+   Energy (BLE) connections, handle scanner data streams,  and set various
+   commands programmatically for these devices.
 version: 1.0.0
 homepage: https://github.com/TBD/opticonnect_sdk
 repository: https://github.com/TBD/opticonnect_sdk
@@ -18,16 +19,17 @@ dependencies:
    device_info_plus: ^10.1.2
    flutter:
       sdk: flutter
-   flutter_blue_plus: ^1.32.12
    get_it: ^7.7.0
    injectable: ^2.4.4
-   mockito: ^5.4.4
    permission_handler: ^11.3.1
    mutex: ^3.1.0
    logger: ^2.4.0
    sqflite: ^2.3.3+1
    path_provider: ^2.1.4
    path: ^1.9.0
+   sqflite_common_ffi: ^2.3.3
+   flutter_blue_plus_windows: ^1.24.6
+   path_provider_windows: ^2.3.0
 
 dev_dependencies:
    flutter_test:

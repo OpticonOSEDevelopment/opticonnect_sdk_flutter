@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton

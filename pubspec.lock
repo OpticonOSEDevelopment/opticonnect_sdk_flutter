@@ -228,13 +228,21 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_blue_plus:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_blue_plus
       sha256: "55d37e9339765fef9439f3759a2bddaf9c8db1f90d46ba5a5d834fb28e0ab809"
       url: "https://pub.dev"
     source: hosted
     version: "1.32.12"
+  flutter_blue_plus_windows:
+    dependency: "direct main"
+    description:
+      name: flutter_blue_plus_windows
+      sha256: "2e5aa2aae3ded74c4ebb72c1e49846585a288604799cd65781db8b1804d192b6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.24.6"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -429,14 +437,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  mockito:
-    dependency: "direct main"
-    description:
-      name: mockito
-      sha256: "6841eed20a7befac0ce07df8116c8b8233ed1f4486a7647c7fc5a02ae6163917"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.4.4"
   mutex:
     dependency: "direct main"
     description:
@@ -502,7 +502,7 @@ packages:
     source: hosted
     version: "2.1.2"
   path_provider_windows:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider_windows
       sha256: bd6f00dbd873bfb70d0761682da2b3a2c2fccc2b9e84c495821639601d81afe7
@@ -658,6 +658,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.4+2"
+  sqflite_common_ffi:
+    dependency: "direct main"
+    description:
+      name: sqflite_common_ffi
+      sha256: "4d6137c29e930d6e4a8ff373989dd9de7bac12e3bc87bce950f6e844e8ad3bb5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.3"
+  sqlite3:
+    dependency: transitive
+    description:
+      name: sqlite3
+      sha256: "45f168ae2213201b54e09429ed0c593dc2c88c924a1488d6f9c523a255d567cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.6"
   stack_trace:
     dependency: transitive
     description:
@@ -682,6 +698,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  stream_with_value:
+    dependency: transitive
+    description:
+      name: stream_with_value
+      sha256: "483d79bf604fdea5274e31207956b2f624f5f03a506cacf081b65cdfcfa647a6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   string_scanner:
     dependency: transitive
     description:
@@ -794,6 +818,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.4"
+  win_ble:
+    dependency: transitive
+    description:
+      name: win_ble
+      sha256: "2a867e13c4b355b101fc2c6e2ac85eeebf965db34eca46856f8b478e93b41e96"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   xdg_directories:
     dependency: transitive
     description:
