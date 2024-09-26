@@ -2,7 +2,6 @@ import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/entities/raw_command.dart';
-import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/datawizard_settings_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
 
@@ -10,10 +9,9 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_s
 class ScannerSettingsCompressor {
   final ScannerSettingsHandler _scannerSettingsHandler;
   final DatawizardSettingsManager _datawizardSettingsManager;
-  final AppLogger _appLogger;
 
-  ScannerSettingsCompressor(this._scannerSettingsHandler,
-      this._datawizardSettingsManager, this._appLogger);
+  ScannerSettingsCompressor(
+      this._scannerSettingsHandler, this._datawizardSettingsManager);
 
   Future<Command> getCompressedSettingsCommand(String settings) async {
     final compressedSettingsList = await getCompressedSettingsList(settings);

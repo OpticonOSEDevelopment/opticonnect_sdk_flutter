@@ -17,6 +17,8 @@ class BleDevicesDiscoverer {
 
   BleDevicesDiscoverer(this._permissionHandler, this._appLogger);
 
+  final Map<String, String> _connectionPoolIds = {};
+
   Future<void> _checkBluetoothPermissions() async {
     if (!await _permissionHandler.hasBluetoothPermissions()) {
       final permissionStatus =
@@ -24,6 +26,16 @@ class BleDevicesDiscoverer {
       if (permissionStatus != PermissionStatus.granted) {
         throw Exception('Bluetooth permissions not granted.');
       }
+    }
+  }
+
+  void _cacheConnectionPoolId(
+      String deviceId, Map<int, List<int>> manufacturerData) {
+    final connectionPoolId = _getConnectionPoolIdFromManufacturerData(
+      manufacturerData,
+    );
+    if (connectionPoolId.isNotEmpty) {
+      _connectionPoolIds[deviceId] = connectionPoolId;
     }
   }
 
@@ -55,14 +67,19 @@ class BleDevicesDiscoverer {
 
       FlutterBluePlus.scanResults.listen((results) {
         for (final result in results) {
+          final deviceId = result.device.remoteId.str;
+
+          _cacheConnectionPoolId(
+              deviceId, result.advertisementData.manufacturerData);
+
           final discoveredDevice = BleDiscoveredDevice(
             name: result.device.platformName,
-            deviceId: result.device.remoteId.toString(),
+            deviceId: deviceId,
             rssi: result.rssi,
             timeStamp: DateTime.now(),
-            connectionPoolId: _getConnectionPoolIdFromManufacturerData(
-              result.advertisementData.manufacturerData,
-            ),
+            connectionPoolId: _connectionPoolIds.containsKey(deviceId)
+                ? _connectionPoolIds[deviceId]!
+                : '',
           );
           if (_isValidDeviceName(discoveredDevice.name)) {
             _deviceDiscoveryStreamController!.add(discoveredDevice);

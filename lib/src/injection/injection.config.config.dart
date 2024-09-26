@@ -98,7 +98,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i925.ScannerSettingsCompressor(
               gh<_i659.ScannerSettingsHandler>(),
               gh<_i707.DatawizardSettingsManager>(),
-              gh<_i801.AppLogger>(),
             ));
     gh.lazySingleton<_i569.CommandHandlersManager>(
         () => _i569.CommandHandlersManager(
