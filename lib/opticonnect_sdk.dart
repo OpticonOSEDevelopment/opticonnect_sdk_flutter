@@ -41,7 +41,7 @@ class OptiConnectSDK {
     _scannerSettingsHandler = getIt<ScannerSettingsHandler>();
     await _scannerSettingsHandler.initialize();
 
-    _scannerFeedbackManager = ScannerFeedbackManager();
+    _scannerFeedbackManager = getIt<ScannerFeedbackManager>();
 
     _bluetoothManager = getIt<BluetoothManager>();
 

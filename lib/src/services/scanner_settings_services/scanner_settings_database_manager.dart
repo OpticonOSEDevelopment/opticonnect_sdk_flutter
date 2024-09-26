@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
+import 'package:opticonnect_sdk/src/injection/injection.config.dart';
+import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/database/database_path_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -35,6 +37,9 @@ class ScannerSettingsDatabaseManager {
       await _databasePathHelper.getDatabasesPath(),
       dbName,
     );
+
+    final appLogger = getIt<AppLogger>();
+    appLogger.error('Database path: $databasePath');
 
     if (!await Directory(path.dirname(databasePath)).exists()) {
       await Directory(path.dirname(databasePath)).create(recursive: true);

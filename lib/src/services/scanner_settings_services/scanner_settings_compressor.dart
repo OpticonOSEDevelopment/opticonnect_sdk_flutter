@@ -2,6 +2,8 @@ import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/entities/raw_command.dart';
+import 'package:opticonnect_sdk/src/injection/injection.config.dart';
+import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/datawizard_settings_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
 
@@ -23,7 +25,12 @@ class ScannerSettingsCompressor {
         compressedCommandData.write(parameter);
       }
     }
-    return RawCommand(compressedCommandData.toString());
+
+    final appLogger = getIt<AppLogger>();
+    appLogger.error(
+        'compressed settings string: ${compressedCommandData.toString()}');
+
+    return RawCommand(compressedCommandData.toString(), sendFeedback: false);
   }
 
   bool _isDirectInputCommand(String command) {
@@ -35,6 +42,16 @@ class ScannerSettingsCompressor {
       CommandData commandData, List<CommandData> compressedList) async {
     final groupsToDisable =
         _scannerSettingsHandler.getGroupsToDisableForCode(commandData.command);
+
+    final appLogger = getIt<AppLogger>();
+
+    if (commandData.command.contains('BCB')) {
+      //print groupsToDisable for this code with appLogger.error
+      appLogger.error('groupsToDisable for BCB: $groupsToDisable');
+      final groupsForCode = _scannerSettingsHandler.getGroupsForCode('JQ');
+      //print DOD groups
+      appLogger.error('groupsForCode for JQ: $groupsForCode');
+    }
 
     compressedList.removeWhere((e) {
       if (e.command == commandData.command) {

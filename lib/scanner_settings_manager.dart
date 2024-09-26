@@ -86,6 +86,8 @@ class ScannerSettingsManager extends BaseScannerSettings {
   Future<CommandResponse> executeCommand(
       String deviceId, ScannerCommand command) async {
     try {
+      final appLogger = getIt<AppLogger>();
+      appLogger.error('send buzzer feedback: ${command.buzzerFeedback}');
       return await _commandHandlersManager.sendCommand(deviceId, command);
     } catch (e) {
       _appLogger.error("Error sending command to device $deviceId: $e");

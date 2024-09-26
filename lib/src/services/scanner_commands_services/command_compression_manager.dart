@@ -12,7 +12,7 @@ class CommandCompressionManager {
   CommandCompressionManager(
       this._commandHandler, this._scannerSettingsCompressor, this._appLogger);
 
-  static const int _compressionThreshold = 10;
+  static const int _compressionThreshold = 30;
   int _commandsSentCounter = 0;
 
   Future<void> checkAndHandleCompressionThreshold() async {
