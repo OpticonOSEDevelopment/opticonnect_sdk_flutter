@@ -72,7 +72,8 @@ class BleDevicesStreamsHandler
         final dataProcessor = DataProcessor(
             readCharacteristic: readCharacteristic,
             writeCharacteristic: writeCharacteristic,
-            opcDataHandler: OpcDataHandler());
+            opcDataHandler: OpcDataHandler(deviceId),
+            deviceId: deviceId);
 
         _appLogger.error('setting up streams');
 

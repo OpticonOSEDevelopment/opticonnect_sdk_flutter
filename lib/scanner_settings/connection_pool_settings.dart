@@ -1,7 +1,7 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
-import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
@@ -19,10 +19,11 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// - Use [setHexId] to set a specific hex ID for the device.
 /// - Use [resetHexId] to reset the device's connection pool ID to the default '0000'.
 /// - Use [getConnectionPoolQRData] to generate QR code data based on the current connection pool ID.
+@lazySingleton
 class ConnectionPoolSettings extends BaseScannerSettings {
-  ConnectionPoolSettings(super.sdk);
+  final AppLogger _appLogger;
 
-  final _appLogger = getIt<AppLogger>();
+  ConnectionPoolSettings(this._appLogger);
 
   /// A list of reserved 4-character hexadecimal IDs that cannot be used for connection pooling.
   ///
@@ -94,14 +95,10 @@ class ConnectionPoolSettings extends BaseScannerSettings {
     if (!validationResponse.succeeded) {
       return validationResponse;
     }
-    _appLogger.warning('received ID: $id');
     final directInputKeys = _getDirectInputKeysFromHexId(id);
-    _appLogger.warning('directInputKeys: ${directInputKeys.join(', ')}');
     final result = await sendCommand(deviceId, setConnectionPoolId,
         parameters: directInputKeys);
     if (!result.succeeded) {
-      _appLogger
-          .warning('Failed to set connection pool ID: ${result.response}');
       return result;
     } else {
       return sendCommand(deviceId, saveSettings);

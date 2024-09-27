@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
@@ -8,7 +9,6 @@ import 'package:opticonnect_sdk/scanner_settings/formatting_options.dart';
 import 'package:opticonnect_sdk/scanner_settings/inidicator_options.dart';
 import 'package:opticonnect_sdk/scanner_settings/scan_options_settings.dart';
 import 'package:opticonnect_sdk/scanner_settings/symbology_settings.dart';
-import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
@@ -28,51 +28,46 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_s
 /// sdk.initialize();
 /// final scannerSettings = sdk.scannerSettings;
 /// ```
+@lazySingleton
 class ScannerSettingsManager extends BaseScannerSettings {
-  final _appLogger = getIt<AppLogger>();
-
-  ScannerSettingsManager(super.sdk);
-
   /// Settings related to enabling specific barcode symbologies.
-  late final SymbologySettings symbologySettings;
+  final SymbologySettings symbologySettings;
 
   /// Settings specific to the configuration of individual barcode symbologies.
-  late final CodeSpecificSettings codeSpecificSettings;
+  final CodeSpecificSettings codeSpecificSettings;
 
   /// Settings related to scanning options such as trigger modes.
-  late final ScanOptionsSettings scanOptionsSettings;
+  final ScanOptionsSettings scanOptionsSettings;
 
   /// Options for configuring scanner indicators like buzzer, LEDs and vibration.
-  late final InidicatorOptions inidicatorOptions;
+  final InidicatorOptions inidicatorOptions;
 
   /// Options for customizing the formatting of scanned barcode data.
-  late final FormattingOptions formattingOptions;
+  final FormattingOptions formattingOptions;
 
   /// Settings to manage the connection pool settings of scanners.
-  late final ConnectionPoolSettings connectionPoolSettings;
+  final ConnectionPoolSettings connectionPoolSettings;
 
   /// The command handlers manager instance to send commands to the scanner.
-  late final CommandHandlersManager _commandHandlersManager;
+  final CommandHandlersManager _commandHandlersManager;
 
   /// The scanner settings compressor instance to decompress settings.
-  late final ScannerSettingsCompressor _scannerSettingsCompressor;
+  final ScannerSettingsCompressor _scannerSettingsCompressor;
 
-  /// Initializes the properties that provide access to the various scanner settings categories.
-  ///
-  /// This method is automatically called during the SDK initialization (`OptiConnectSDK.initialize()`),
-  /// so it is not necessary to call this method manually.
-  Future<void> initialize() async {
-    symbologySettings = SymbologySettings(sdk);
-    codeSpecificSettings = CodeSpecificSettings(sdk);
-    scanOptionsSettings = ScanOptionsSettings(sdk);
-    inidicatorOptions = InidicatorOptions(sdk);
-    formattingOptions = FormattingOptions(sdk);
-    connectionPoolSettings = ConnectionPoolSettings(sdk);
-    _commandHandlersManager = getIt<CommandHandlersManager>();
-    _scannerSettingsCompressor = getIt<ScannerSettingsCompressor>();
+  /// The application logger instance to log messages.
+  final AppLogger _appLogger;
 
-    await codeSpecificSettings.initialize();
-  }
+  /// Injects the dependencies.
+  ScannerSettingsManager(
+      this.symbologySettings,
+      this.codeSpecificSettings,
+      this.scanOptionsSettings,
+      this.inidicatorOptions,
+      this.formattingOptions,
+      this.connectionPoolSettings,
+      this._commandHandlersManager,
+      this._scannerSettingsCompressor,
+      this._appLogger);
 
   /// Sends a command to the connected BLE device.
   ///
@@ -86,33 +81,9 @@ class ScannerSettingsManager extends BaseScannerSettings {
   Future<CommandResponse> executeCommand(
       String deviceId, ScannerCommand command) async {
     try {
-      final appLogger = getIt<AppLogger>();
-      appLogger.error('send buzzer feedback: ${command.buzzerFeedback}');
       return await _commandHandlersManager.sendCommand(deviceId, command);
     } catch (e) {
       _appLogger.error("Error sending command to device $deviceId: $e");
-      rethrow;
-    }
-  }
-
-  /// Persists the current scanner settings on the device.
-  ///
-  /// The [deviceId] specifies the BLE device whose settings will be persisted.
-  ///
-  /// Returns a boolean indicating whether the settings were successfully saved.
-  Future<bool> persistSettings(String deviceId) async {
-    try {
-      final result = await _commandHandlersManager.sendCommand(
-          deviceId,
-          ScannerCommand(
-            saveSettings,
-            ledFeedback: false,
-            buzzerFeedback: false,
-            vibrationFeedback: false,
-          ));
-      return result.succeeded;
-    } catch (e) {
-      _appLogger.error("Error persisting settings for device $deviceId: $e");
       rethrow;
     }
   }

@@ -646,16 +646,19 @@ const String aimCodeIdentification = '\$1';
 const String codeIdentification = '\$2';
 const String codeLength = '\$6';
 
-const String option0 = 'Q0';
-const String option1 = 'Q1';
-const String option2 = 'Q2';
-const String option3 = 'Q3';
-const String option4 = 'Q4';
-const String option5 = 'Q5';
-const String option6 = 'Q6';
+const String directInputKey0 = 'Q0';
+const String directInputKey1 = 'Q1';
+const String directInputKey2 = 'Q2';
+const String directInputKey3 = 'Q3';
+const String directInputKey4 = 'Q4';
+const String directInputKey5 = 'Q5';
+const String directInputKey6 = 'Q6';
+const String directInputKey7 = 'Q7';
+const String directInputKey8 = 'Q8';
+const String directInputKey9 = 'Q9';
 
-const String directKeyM = '0M';
-const String directKeyN = '0N';
+const String directInputKeyM = '0M';
+const String directInputKeyN = '0N';
 
 /// Commands for configuring communication settings.
 const String bluetoothLowEnergyDefault = ']EBLE';

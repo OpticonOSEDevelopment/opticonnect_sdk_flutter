@@ -14,6 +14,7 @@ class ScannerCommand extends BaseCommand {
   ScannerCommand(
     super.code, {
     super.parameters,
+    super.sendFeedback,
     super.ledFeedback,
     super.buzzerFeedback,
     super.vibrationFeedback,

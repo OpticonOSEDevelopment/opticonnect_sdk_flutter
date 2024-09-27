@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
@@ -18,9 +19,8 @@ enum TranslationMode {
 ///
 /// This class provides methods to enable or disable the transmission of check digits,
 /// and to manage add-on settings for EAN-13 symbology.
+@lazySingleton
 class EAN13Settings extends BaseScannerSettings {
-  EAN13Settings(super.sdk);
-
   /// A map linking the translation modes for ISSN to their respective command strings.
   final Map<TranslationMode, String> _issnTranslationCommands = {
     TranslationMode.disable: eanDisableISSNTranslation,

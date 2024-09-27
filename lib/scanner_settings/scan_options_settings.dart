@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
@@ -41,12 +42,8 @@ enum IlluminationMode {
 }
 
 /// Class responsible for configuring scan options, including read modes, illumination, and barcode settings.
+@lazySingleton
 class ScanOptionsSettings extends BaseScannerSettings {
-  /// Constructor for [ScanOptionsSettings].
-  ///
-  /// - [sdk]: The SDK instance to send commands to the scanner.
-  ScanOptionsSettings(super.sdk);
-
   /// A mapping of [PositiveAndNegativeBarcodesMode] to the corresponding command string.
   final Map<PositiveAndNegativeBarcodesMode, String>
       _positiveAndNegativeBarcodesReadModeCommands = {

@@ -8,6 +8,7 @@ class CommandFactory {
     return Command(
       scannerCommand.code,
       parameters: scannerCommand.parameters,
+      sendFeedback: scannerCommand.sendFeedback,
       ledFeedback: scannerCommand.ledFeedback,
       buzzerFeedback: scannerCommand.buzzerFeedback,
       vibrationFeedback: scannerCommand.vibrationFeedback,

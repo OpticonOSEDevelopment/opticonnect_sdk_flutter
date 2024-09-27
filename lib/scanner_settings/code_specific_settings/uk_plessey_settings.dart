@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
@@ -5,9 +6,8 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// A class representing settings for UK Plessey symbology.
 ///
 /// This class provides methods to configure check digit transmission and space insertion for UK Plessey symbology.
+@lazySingleton
 class UKPlesseySettings extends BaseScannerSettings {
-  UKPlesseySettings(super.sdk);
-
   /// Enables the transmission of check digits for UK Plessey symbology.
   ///
   /// [deviceId] - The identifier of the target device.

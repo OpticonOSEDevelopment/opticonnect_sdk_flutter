@@ -10,6 +10,7 @@ class DataProcessor {
   final BluetoothCharacteristic readCharacteristic;
   final BluetoothCharacteristic writeCharacteristic;
   final OpcDataHandler _opcDataHandler;
+  final String deviceId;
   final _appLogger = getIt<AppLogger>();
 
   final StreamController<String> _commandStreamController =
@@ -20,6 +21,7 @@ class DataProcessor {
   DataProcessor({
     required this.readCharacteristic,
     required this.writeCharacteristic,
+    required this.deviceId,
     required OpcDataHandler opcDataHandler,
   }) : _opcDataHandler = opcDataHandler {
     _initializeStreams();

@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
@@ -24,9 +25,8 @@ enum Code39Mode {
 ///
 /// This class provides methods to configure the mode, check digit validation,
 /// and transmission options for Code 39 symbology.
+@lazySingleton
 class Code39Settings extends BaseScannerSettings {
-  Code39Settings(super.sdk);
-
   /// A map linking the modes to their respective command strings.
   final Map<Code39Mode, String> _modeCommands = {
     Code39Mode.normal: normalCode39,

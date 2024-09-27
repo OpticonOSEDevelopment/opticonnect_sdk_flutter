@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
-import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/command_bytes_provider.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
@@ -65,9 +64,6 @@ class CommandHandlersManager {
     try {
       final commandHandler = getCommandHandler(deviceId);
       final command = _commandFactory.createCommand(scannerCommand);
-
-      final appLogger = getIt<AppLogger>();
-      appLogger.error('send buzzer feedback2: ${command.buzzerFeedback}');
 
       commandHandler.sendCommand(command);
 

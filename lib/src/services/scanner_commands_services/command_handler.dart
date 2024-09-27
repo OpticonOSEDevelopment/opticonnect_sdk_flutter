@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:mutex/mutex.dart';
+import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
+import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/ble_command_response_reader.dart';
 import 'package:opticonnect_sdk/src/interfaces/ble_data_writer.dart';
@@ -120,6 +122,10 @@ class CommandHandler implements ICommandSender {
           _completeCommand(command, responseData, hasFailed);
 
           _commandQueue.removeFirst();
+
+          if (command.code != saveSettings) {
+            _persistSettings();
+          }
         }
         if (_commandQueue.isNotEmpty) {
           _sendCommand(_commandQueue.first);
@@ -166,6 +172,17 @@ class CommandHandler implements ICommandSender {
     } else {
       _responseData.write(data);
     }
+  }
+
+  Timer? _saveToNonVolatileMemoryTimer;
+  void _persistSettings() {
+    _saveToNonVolatileMemoryTimer?.cancel();
+    _saveToNonVolatileMemoryTimer = Timer(const Duration(seconds: 5), () {
+      final appLogger = getIt<AppLogger>();
+      appLogger.warning('persist settings!');
+      sendCommand(Command(saveSettings, sendFeedback: false));
+      _saveToNonVolatileMemoryTimer?.cancel();
+    });
   }
 
   void dispose() {

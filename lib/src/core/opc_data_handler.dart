@@ -19,6 +19,10 @@ enum OpcRxState {
 }
 
 class OpcDataHandler {
+  final String deviceId;
+
+  OpcDataHandler(this.deviceId);
+
   final _mutex = Mutex();
 
   final StreamController<String> _commandDataController =
@@ -275,6 +279,7 @@ class OpcDataHandler {
       symbologyId: symbologyId,
       symbology: symbology,
       timeOfScan: timeOfScan.toUtc().toIso8601String(),
+      deviceId: deviceId,
     );
 
     _barcodeDataController.sink.add(barcodeData);

@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
@@ -22,9 +23,8 @@ enum GS1128ConversionMode {
 ///
 /// This class provides methods to configure the mode and manage concatenation for
 /// these symbologies.
+@lazySingleton
 class Code128AndGS1128Settings extends BaseScannerSettings {
-  Code128AndGS1128Settings(super.sdk);
-
   /// A map linking the modes to their corresponding commands.
   final Map<Code128GS1128Mode, String> _modeCommands = {
     Code128GS1128Mode.disableGS1128: code128DisableGS1_128,

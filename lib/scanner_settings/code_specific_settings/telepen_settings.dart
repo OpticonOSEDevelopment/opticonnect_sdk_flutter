@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
@@ -11,9 +12,8 @@ enum TelepenCodeMode {
 /// A class representing settings for Telepen symbology.
 ///
 /// This class provides methods to configure the code mode for Telepen symbology.
+@lazySingleton
 class TelepenSettings extends BaseScannerSettings {
-  TelepenSettings(super.sdk);
-
   /// A map linking the Telepen code modes to their corresponding commands.
   final Map<TelepenCodeMode, String> _telepenCodeModeCommands = {
     TelepenCodeMode.numericMode: telepenNumericMode,

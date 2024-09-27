@@ -34,6 +34,9 @@ class BarcodeData {
   /// or real-time tracking of scans.
   final String timeOfScan;
 
+  /// The device ID of the scanner that scanned the barcode.
+  final String deviceId;
+
   /// Constructs a [BarcodeData] object containing the processed barcode data and other details.
   ///
   /// - [data]: The processed barcode data.
@@ -47,5 +50,6 @@ class BarcodeData {
     required this.symbologyId,
     required this.symbology,
     required this.timeOfScan,
+    required this.deviceId,
   });
 }

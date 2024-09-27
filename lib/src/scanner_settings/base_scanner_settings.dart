@@ -7,12 +7,11 @@ import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 
 abstract class BaseScannerSettings {
-  @protected
-  final OptiConnectSDK sdk;
-  BaseScannerSettings(this.sdk);
-
-  late final ScannerFeedbackManager feedbackManager =
+  final ScannerFeedbackManager feedbackManager =
       getIt<ScannerFeedbackManager>();
+
+  @protected
+  final OptiConnectSDK sdk = OptiConnectSDK.instance;
 
   @protected
   Future<CommandResponse> sendCommand(String deviceId, String command,

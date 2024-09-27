@@ -35,8 +35,7 @@ class OptiConnectSDK {
   Future<void> initialize() async {
     configureSdkDependencyInjection();
 
-    _scannerSettingsManager = ScannerSettingsManager(this);
-    await _scannerSettingsManager.initialize();
+    _scannerSettingsManager = getIt<ScannerSettingsManager>();
 
     _scannerSettingsHandler = getIt<ScannerSettingsHandler>();
     await _scannerSettingsHandler.initialize();

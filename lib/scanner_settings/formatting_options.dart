@@ -1,9 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/enums/direct_input_key.dart';
 import 'package:opticonnect_sdk/enums/formattable_symbology.dart';
 import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
-import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
@@ -11,13 +11,11 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 ///
 /// This class allows the setting of these formatting options using direct input keys or strings
 /// and sends the corresponding commands to the BLE device.
+@lazySingleton
 class FormattingOptions extends BaseScannerSettings {
-  final _appLogger = getIt<AppLogger>();
+  final AppLogger _appLogger;
 
-  /// Creates a [FormattingOptions] object for handling formatting settings of the scanner.
-  ///
-  /// - [sdk]: The instance of the SDK to communicate with the scanner.
-  FormattingOptions(super.sdk);
+  FormattingOptions(this._appLogger);
 
   /// Maps the [FormattableSymbology] to the corresponding prefix command string.
   final Map<FormattableSymbology, String> _prefixSymbologyCodesMap = {

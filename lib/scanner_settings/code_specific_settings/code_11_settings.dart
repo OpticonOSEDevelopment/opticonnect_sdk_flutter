@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
@@ -14,9 +15,8 @@ enum Code11CheckCDSettings {
 ///
 /// This class provides methods to configure check digit validation and transmission
 /// settings for Code 11 symbology.
+@lazySingleton
 class Code11Settings extends BaseScannerSettings {
-  Code11Settings(super.sdk);
-
   /// A map linking the check digit settings to the corresponding command strings.
   final Map<Code11CheckCDSettings, String> _checkCDCommands = {
     Code11CheckCDSettings.doNotCheckCD: code11DoNotCheckCd,

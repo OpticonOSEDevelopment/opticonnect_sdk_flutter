@@ -8,6 +8,7 @@ import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connection_states_service.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_helper.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
+import 'package:opticonnect_sdk/src/services/devices_info_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
 
 @lazySingleton
@@ -16,6 +17,7 @@ class BleConnectivityHandler {
   final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
   final BleDevicesHelper _bleDevicesHelper;
   final CommandHandlersManager _commandHandlersManager;
+  final DevicesInfoManager _devicesInfoManager;
   final AppLogger _appLogger;
   final Map<String, StreamSubscription<BluetoothConnectionState>?>
       _connectionStateSubscriptions = {};
@@ -26,6 +28,7 @@ class BleConnectivityHandler {
       this._bleDevicesStreamsHandler,
       this._bleDevicesHelper,
       this._commandHandlersManager,
+      this._devicesInfoManager,
       this._appLogger);
 
   Future<void> connect(String deviceId) async {
@@ -120,6 +123,7 @@ class BleConnectivityHandler {
 
   Future<void> _initDevice(String deviceId) async {
     _commandHandlersManager.createCommandHandler(deviceId);
+    _devicesInfoManager.fetchDeviceInfo(deviceId);
   }
 
   Future<void> disconnect(String deviceId) async {

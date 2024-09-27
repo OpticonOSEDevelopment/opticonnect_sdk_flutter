@@ -1,8 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/led_color.dart';
 import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
-import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 
@@ -44,14 +44,11 @@ enum GoodReadLedDuration {
 /// A class that manages various indicators for the scanner such as buzzer, vibrator, and battery charging indicator.
 ///
 /// This class allows for enabling/disabling these indicators and configuring buzzer and vibrator options.
+@lazySingleton
 class InidicatorOptions extends BaseScannerSettings {
-  /// Constructor for [InidicatorOptions].
-  ///
-  /// - [sdk]: The SDK instance to send commands to the scanner.
-  InidicatorOptions(super.sdk);
+  final AppLogger _appLogger;
 
-  /// Logger for warnings and errors.
-  final _appLogger = getIt<AppLogger>();
+  InidicatorOptions(this._appLogger);
 
   /// A mapping of [BuzzerType] to the corresponding command string.
   final Map<BuzzerType, String> _buzzerTypeCommands = {
