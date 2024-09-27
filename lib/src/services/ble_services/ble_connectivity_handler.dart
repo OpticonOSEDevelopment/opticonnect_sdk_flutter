@@ -61,7 +61,7 @@ class BleConnectivityHandler {
           return;
         } catch (e) {
           retryCount++;
-          _appLogger.error('Failed to connect to device: $e');
+          _appLogger.warning('Failed to connect to device: $e');
           if (retryCount >= maxRetries) {
             _bleConnectionStatesService.setConnectionState(
                 deviceId, BluetoothConnectionState.disconnected);

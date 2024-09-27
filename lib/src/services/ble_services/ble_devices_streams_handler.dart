@@ -75,8 +75,6 @@ class BleDevicesStreamsHandler
             opcDataHandler: OpcDataHandler(deviceId),
             deviceId: deviceId);
 
-        _appLogger.error('setting up streams');
-
         await dataProcessor.subscribeToDataStream();
 
         _dataProcessors[deviceId] = dataProcessor;

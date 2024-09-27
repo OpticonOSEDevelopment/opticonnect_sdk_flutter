@@ -9,8 +9,8 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_s
 
 /// The main class for interacting with Opticon's BLE OPN-2500 and OPN-6000 scanners.
 /// Provides methods to discover, connect, and manage devices.
-class OptiConnectSDK {
-  static OptiConnectSDK? _instance;
+class OptiConnect {
+  static OptiConnect? _instance;
 
   late final ScannerSettingsManager _scannerSettingsManager;
   late final ScannerSettingsHandler _scannerSettingsHandler;
@@ -20,12 +20,12 @@ class OptiConnectSDK {
 
   bool _isInitialized = false;
 
-  static OptiConnectSDK get instance {
-    _instance ??= OptiConnectSDK._internal();
+  static OptiConnect get instance {
+    _instance ??= OptiConnect._internal();
     return _instance!;
   }
 
-  OptiConnectSDK._internal();
+  OptiConnect._internal();
 
   /// Initializes the SDK and sets up the necessary services.
   ///

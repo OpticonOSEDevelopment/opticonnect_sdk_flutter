@@ -17,29 +17,6 @@ build/
 **/Flutter.podspec
 **/Generated.xcconfig
 
-# Android files
-**/android/**/gradle-wrapper.jar
-**/android/.gradle
-**/android/captures/
-**/android/local.properties
-
-# iOS/MacOS files
-**/ios/**/*.generated.xcconfig
-**/ios/**/*.xcworkspace
-**/ios/**/*.xcuserstate
-**/ios/**/Pods/
-**/ios/**/Flutter/ephemeral
-**/ios/**/Flutter/.last_build_id
-**/ios/**/Flutter/flutter_export_environment.sh
-**/ios/Flutter/Generated.xcconfig
-**/macos/Flutter/ephemeral
-**/macos/Pods/
-**/macos/Podfile.lock
-
-# Windows files
-**/windows/flutter/ephemeral/
-
-# Exceptions to above rules.
-!**/ios/Flutter/flutter_export_environment.sh
-!**/ios/Runner.xcworkspace/contents.xcworkspacedata
-!**/ios/Flutter/Generated.xcconfig
+# Miscellaneous
+**/Thumbs.db
+**/UserInterfaceState.xcuserstate
