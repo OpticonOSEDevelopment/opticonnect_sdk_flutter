@@ -36,13 +36,10 @@ class OptiConnect {
     configureSdkDependencyInjection();
 
     _scannerSettingsManager = getIt<ScannerSettingsManager>();
-
+    _scannerFeedbackManager = getIt<ScannerFeedbackManager>();
+    _bluetoothManager = getIt<BluetoothManager>();
     _scannerSettingsHandler = getIt<ScannerSettingsHandler>();
     await _scannerSettingsHandler.initialize();
-
-    _scannerFeedbackManager = getIt<ScannerFeedbackManager>();
-
-    _bluetoothManager = getIt<BluetoothManager>();
 
     _appLogger = getIt<AppLogger>();
 
