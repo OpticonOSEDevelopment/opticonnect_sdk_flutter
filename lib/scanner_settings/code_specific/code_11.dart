@@ -16,7 +16,7 @@ enum Code11CheckCDSettings {
 /// This class provides methods to configure check digit validation and transmission
 /// settings for Code 11 symbology.
 @lazySingleton
-class Code11Settings extends BaseScannerSettings {
+class Code11 extends BaseScannerSettings {
   /// A map linking the check digit settings to the corresponding command strings.
   final Map<Code11CheckCDSettings, String> _checkCDCommands = {
     Code11CheckCDSettings.doNotCheckCD: code11DoNotCheckCd,

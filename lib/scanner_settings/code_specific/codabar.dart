@@ -59,7 +59,7 @@ enum CodabarMinimumLength {
 ///
 /// It is recommended to use this class through the `ScannerSettings` API of the `OptiConnectSDK`.
 @lazySingleton
-class CodabarSettings extends BaseScannerSettings {
+class Codabar extends BaseScannerSettings {
   /// A map linking the Codabar mode to the corresponding command strings.
   final Map<CodabarMode, String> _modeCommands = {
     CodabarMode.normal: codabarNormal,

@@ -16,7 +16,7 @@ enum UPCALeadingZeroAndTransmitCDMode {
 /// This class provides methods to configure leading zero and check digit transmission settings,
 /// as well as add-on support for UPCA symbology.
 @lazySingleton
-class UPCASettings extends BaseScannerSettings {
+class UPCA extends BaseScannerSettings {
   /// A map linking the leading zero and check digit transmission settings to their corresponding commands.
   final Map<UPCALeadingZeroAndTransmitCDMode, String>
       _upcALeadingZeroAndTransmitCDModeCommands = {

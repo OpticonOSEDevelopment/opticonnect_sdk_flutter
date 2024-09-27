@@ -8,7 +8,7 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// This class provides methods to configure leading zero, check digit transmission settings,
 /// conversion modes, and add-on support for UPCE1 symbology.
 @lazySingleton
-class UPCE1Settings extends BaseScannerSettings {
+class UPCE1 extends BaseScannerSettings {
   /// Enables the 2-character add-on for UPCE symbology.
   ///
   /// [deviceId] - The identifier of the target device.

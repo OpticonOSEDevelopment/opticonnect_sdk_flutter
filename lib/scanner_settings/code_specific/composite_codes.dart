@@ -19,7 +19,7 @@ enum CompositeCodesOutputMode {
 ///
 /// This class provides methods to configure the output mode, and manage settings for GS1 and EAN/UPC composite codes.
 @lazySingleton
-class CompositeCodesSettings extends BaseScannerSettings {
+class CompositeCodes extends BaseScannerSettings {
   /// A map linking the output modes to their corresponding commands.
   final Map<CompositeCodesOutputMode, String> _outputModeCommands = {
     CompositeCodesOutputMode.only1DAnd2DComponentsAllowed:

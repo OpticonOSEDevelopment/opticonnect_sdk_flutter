@@ -22,7 +22,7 @@ enum UPCEConversionMode {
 /// This class provides methods to configure leading zero, check digit transmission settings,
 /// conversion modes, and add-on support for UPCE symbology.
 @lazySingleton
-class UPCESettings extends BaseScannerSettings {
+class UPCE extends BaseScannerSettings {
   /// A map linking the leading zero and check digit transmission settings to their corresponding commands.
   final Map<UPCELeadingZeroAndTransmitCDMode, String>
       _upcELeadingZeroAndTransmitCDModeCommands = {

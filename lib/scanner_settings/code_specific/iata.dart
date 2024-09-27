@@ -16,7 +16,7 @@ enum IATACheckCDSettings {
 /// This class provides methods to configure the check digit validation mode
 /// and manage the transmission of check digits for IATA symbology.
 @lazySingleton
-class IATASettings extends BaseScannerSettings {
+class IATA extends BaseScannerSettings {
   /// A map linking the check digit settings to their respective commands.
   final Map<IATACheckCDSettings, String> _checkCDCommands = {
     IATACheckCDSettings.doNetCheckCD: iataDoNotCheckCd,

@@ -3,12 +3,12 @@ import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
-import 'package:opticonnect_sdk/scanner_settings/code_specific_settings/code_specific_settings.dart';
-import 'package:opticonnect_sdk/scanner_settings/connection_pool_settings.dart';
-import 'package:opticonnect_sdk/scanner_settings/formatting_options.dart';
+import 'package:opticonnect_sdk/scanner_settings/code_specific/code_specific.dart';
+import 'package:opticonnect_sdk/scanner_settings/connection_pool.dart';
+import 'package:opticonnect_sdk/scanner_settings/formatting.dart';
 import 'package:opticonnect_sdk/scanner_settings/inidicator_options.dart';
-import 'package:opticonnect_sdk/scanner_settings/scan_options_settings.dart';
-import 'package:opticonnect_sdk/scanner_settings/symbology_settings.dart';
+import 'package:opticonnect_sdk/scanner_settings/read_options.dart';
+import 'package:opticonnect_sdk/scanner_settings/symbology.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
@@ -31,22 +31,22 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_s
 @lazySingleton
 class ScannerSettingsManager extends BaseScannerSettings {
   /// Settings related to enabling specific barcode symbologies.
-  final SymbologySettings symbologySettings;
+  final Symbology symbology;
 
   /// Settings specific to the configuration of individual barcode symbologies.
-  final CodeSpecificSettings codeSpecificSettings;
+  final CodeSpecific codeSpecific;
 
   /// Settings related to scanning options such as trigger modes.
-  final ScanOptionsSettings scanOptionsSettings;
+  final ReadOptions readOptions;
 
   /// Options for configuring scanner indicators like buzzer, LEDs and vibration.
-  final InidicatorOptions inidicatorOptions;
+  final InidicatorOptions inidicator;
 
   /// Options for customizing the formatting of scanned barcode data.
-  final FormattingOptions formattingOptions;
+  final Formatting formatting;
 
   /// Settings to manage the connection pool settings of scanners.
-  final ConnectionPoolSettings connectionPoolSettings;
+  final ConnectionPool connectionPool;
 
   /// The command handlers manager instance to send commands to the scanner.
   final CommandHandlersManager _commandHandlersManager;
@@ -59,12 +59,12 @@ class ScannerSettingsManager extends BaseScannerSettings {
 
   /// Injects the dependencies.
   ScannerSettingsManager(
-      this.symbologySettings,
-      this.codeSpecificSettings,
-      this.scanOptionsSettings,
-      this.inidicatorOptions,
-      this.formattingOptions,
-      this.connectionPoolSettings,
+      this.symbology,
+      this.codeSpecific,
+      this.readOptions,
+      this.inidicator,
+      this.formatting,
+      this.connectionPool,
       this._commandHandlersManager,
       this._scannerSettingsCompressor,
       this._appLogger);

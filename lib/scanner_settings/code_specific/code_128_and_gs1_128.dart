@@ -24,7 +24,7 @@ enum GS1128ConversionMode {
 /// This class provides methods to configure the mode and manage concatenation for
 /// these symbologies.
 @lazySingleton
-class Code128AndGS1128Settings extends BaseScannerSettings {
+class Code128AndGS1128 extends BaseScannerSettings {
   /// A map linking the modes to their corresponding commands.
   final Map<Code128GS1128Mode, String> _modeCommands = {
     Code128GS1128Mode.disableGS1128: code128DisableGS1_128,

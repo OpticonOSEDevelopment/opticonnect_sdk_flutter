@@ -20,7 +20,7 @@ enum TranslationMode {
 /// This class provides methods to enable or disable the transmission of check digits,
 /// and to manage add-on settings for EAN-13 symbology.
 @lazySingleton
-class EAN13Settings extends BaseScannerSettings {
+class EAN13 extends BaseScannerSettings {
   /// A map linking the translation modes for ISSN to their respective command strings.
   final Map<TranslationMode, String> _issnTranslationCommands = {
     TranslationMode.disable: eanDisableISSNTranslation,

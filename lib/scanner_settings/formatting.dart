@@ -12,10 +12,10 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// This class allows the setting of these formatting options using direct input keys or strings
 /// and sends the corresponding commands to the BLE device.
 @lazySingleton
-class FormattingOptions extends BaseScannerSettings {
+class Formatting extends BaseScannerSettings {
   final AppLogger _appLogger;
 
-  FormattingOptions(this._appLogger);
+  Formatting(this._appLogger);
 
   /// Maps the [FormattableSymbology] to the corresponding prefix command string.
   final Map<FormattableSymbology, String> _prefixSymbologyCodesMap = {

@@ -13,7 +13,7 @@ enum TelepenCodeMode {
 ///
 /// This class provides methods to configure the code mode for Telepen symbology.
 @lazySingleton
-class TelepenSettings extends BaseScannerSettings {
+class Telepen extends BaseScannerSettings {
   /// A map linking the Telepen code modes to their corresponding commands.
   final Map<TelepenCodeMode, String> _telepenCodeModeCommands = {
     TelepenCodeMode.numericMode: telepenNumericMode,

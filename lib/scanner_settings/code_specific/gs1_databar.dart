@@ -7,7 +7,7 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 ///
 /// This class provides methods to manage the transmission of check digits and AI (Application Identifier) settings for GS1 Databar symbology.
 @lazySingleton
-class GS1DatabarSettings extends BaseScannerSettings {
+class GS1Databar extends BaseScannerSettings {
   /// Enables the transmission of the check digit for GS1 Databar symbology.
   ///
   /// [deviceId] - The identifier of the target device.

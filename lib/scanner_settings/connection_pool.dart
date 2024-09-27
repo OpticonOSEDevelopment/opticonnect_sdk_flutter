@@ -20,10 +20,10 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// - Use [resetHexId] to reset the device's connection pool ID to the default '0000'.
 /// - Use [getConnectionPoolQRData] to generate QR code data based on the current connection pool ID.
 @lazySingleton
-class ConnectionPoolSettings extends BaseScannerSettings {
+class ConnectionPool extends BaseScannerSettings {
   final AppLogger _appLogger;
 
-  ConnectionPoolSettings(this._appLogger);
+  ConnectionPool(this._appLogger);
 
   /// A list of reserved 4-character hexadecimal IDs that cannot be used for connection pooling.
   ///

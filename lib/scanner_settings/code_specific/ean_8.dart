@@ -8,7 +8,7 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// This class provides methods to enable or disable the transmission of check digits,
 /// and to manage add-on settings for EAN-8 symbology.
 @lazySingleton
-class EAN8Settings extends BaseScannerSettings {
+class EAN8 extends BaseScannerSettings {
   /// Enables the transmission of the check digit for EAN-8 symbology.
   ///
   /// [deviceId] - The identifier of the target device.

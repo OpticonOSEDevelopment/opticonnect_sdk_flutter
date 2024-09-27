@@ -15,7 +15,7 @@ enum DataLength {
 /// This class provides methods to configure space checks, data length, and S-code
 /// transmission for Code 2 of 5 and S-Code symbologies.
 @lazySingleton
-class Code2Of5AndSCodeSettings extends BaseScannerSettings {
+class Code2Of5AndSCode extends BaseScannerSettings {
   /// A map linking the data length options to their corresponding commands.
   final Map<DataLength, String> _dataLengthCommands = {
     DataLength.oneCharacter: twoOfFiveAndSCodeMinimumLengthOneChar,

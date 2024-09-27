@@ -24,7 +24,7 @@ enum MSIPlesseyCDTransmissionSettings {
 ///
 /// This class provides methods to configure check digit validation and transmission settings for MSI Plessey symbology.
 @lazySingleton
-class MSIPlesseySettings extends BaseScannerSettings {
+class MSIPlessey extends BaseScannerSettings {
   /// A map linking check digit settings to their corresponding commands.
   final Map<MSIPlesseyCheckCDSettings, String> _checkCDCommands = {
     MSIPlesseyCheckCDSettings.doNotCheckCD: msiPlesseyDoNotCheckCd,

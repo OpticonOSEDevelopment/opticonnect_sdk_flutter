@@ -13,49 +13,33 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../../bluetooth_manager.dart' as _i186;
 import '../../scanner_feedback_manager.dart' as _i610;
-import '../../scanner_settings/code_specific_settings/codabar_settings.dart'
-    as _i60;
-import '../../scanner_settings/code_specific_settings/code_11_settings.dart'
-    as _i536;
-import '../../scanner_settings/code_specific_settings/code_128_and_gs1_128_settings.dart'
-    as _i224;
-import '../../scanner_settings/code_specific_settings/code_2_of_5_and_s_code_settings.dart'
-    as _i448;
-import '../../scanner_settings/code_specific_settings/code_39_settings.dart'
-    as _i904;
-import '../../scanner_settings/code_specific_settings/code_93_settings.dart'
-    as _i1073;
-import '../../scanner_settings/code_specific_settings/code_specific_settings.dart'
-    as _i450;
-import '../../scanner_settings/code_specific_settings/composite_codes_settings.dart'
-    as _i846;
-import '../../scanner_settings/code_specific_settings/ean_13_settings.dart'
-    as _i179;
-import '../../scanner_settings/code_specific_settings/ean_8_settings.dart'
-    as _i828;
-import '../../scanner_settings/code_specific_settings/gs1_databar_settings.dart'
-    as _i865;
-import '../../scanner_settings/code_specific_settings/iata_settings.dart'
-    as _i662;
-import '../../scanner_settings/code_specific_settings/korean_postal_authority_code_settings.dart'
-    as _i807;
-import '../../scanner_settings/code_specific_settings/msi_plessey_settings.dart'
-    as _i674;
-import '../../scanner_settings/code_specific_settings/telepen_settings.dart'
-    as _i977;
-import '../../scanner_settings/code_specific_settings/uk_plessey_settings.dart'
-    as _i231;
-import '../../scanner_settings/code_specific_settings/upc_a_settings.dart'
-    as _i229;
-import '../../scanner_settings/code_specific_settings/upc_e1_settings.dart'
-    as _i417;
-import '../../scanner_settings/code_specific_settings/upc_e_settings.dart'
-    as _i616;
-import '../../scanner_settings/connection_pool_settings.dart' as _i915;
-import '../../scanner_settings/formatting_options.dart' as _i56;
+import '../../scanner_settings/code_specific/codabar.dart' as _i784;
+import '../../scanner_settings/code_specific/code_11.dart' as _i0;
+import '../../scanner_settings/code_specific/code_128_and_gs1_128.dart'
+    as _i628;
+import '../../scanner_settings/code_specific/code_2_of_5_and_s_code.dart'
+    as _i808;
+import '../../scanner_settings/code_specific/code_39.dart' as _i229;
+import '../../scanner_settings/code_specific/code_93.dart' as _i136;
+import '../../scanner_settings/code_specific/code_specific.dart' as _i316;
+import '../../scanner_settings/code_specific/composite_codes.dart' as _i5;
+import '../../scanner_settings/code_specific/ean_13.dart' as _i894;
+import '../../scanner_settings/code_specific/ean_8.dart' as _i11;
+import '../../scanner_settings/code_specific/gs1_databar.dart' as _i772;
+import '../../scanner_settings/code_specific/iata.dart' as _i920;
+import '../../scanner_settings/code_specific/korean_postal_authority.dart'
+    as _i308;
+import '../../scanner_settings/code_specific/msi_plessey.dart' as _i248;
+import '../../scanner_settings/code_specific/telepen.dart' as _i296;
+import '../../scanner_settings/code_specific/uk_plessey.dart' as _i708;
+import '../../scanner_settings/code_specific/upc_a.dart' as _i198;
+import '../../scanner_settings/code_specific/upc_e.dart' as _i491;
+import '../../scanner_settings/code_specific/upc_e1.dart' as _i153;
+import '../../scanner_settings/connection_pool.dart' as _i325;
+import '../../scanner_settings/formatting.dart' as _i676;
 import '../../scanner_settings/inidicator_options.dart' as _i378;
-import '../../scanner_settings/scan_options_settings.dart' as _i722;
-import '../../scanner_settings/symbology_settings.dart' as _i112;
+import '../../scanner_settings/read_options.dart' as _i381;
+import '../../scanner_settings/symbology.dart' as _i916;
 import '../../scanner_settings_manager.dart' as _i981;
 import '../interfaces/app_logger.dart' as _i801;
 import '../interfaces/command_bytes_provider.dart' as _i22;
@@ -100,32 +84,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i610.ScannerFeedbackManager>(
         () => _i610.ScannerFeedbackManager());
-    gh.lazySingleton<_i60.CodabarSettings>(() => _i60.CodabarSettings());
-    gh.lazySingleton<_i536.Code11Settings>(() => _i536.Code11Settings());
-    gh.lazySingleton<_i224.Code128AndGS1128Settings>(
-        () => _i224.Code128AndGS1128Settings());
-    gh.lazySingleton<_i448.Code2Of5AndSCodeSettings>(
-        () => _i448.Code2Of5AndSCodeSettings());
-    gh.lazySingleton<_i904.Code39Settings>(() => _i904.Code39Settings());
-    gh.lazySingleton<_i1073.Code93Settings>(() => _i1073.Code93Settings());
-    gh.lazySingleton<_i846.CompositeCodesSettings>(
-        () => _i846.CompositeCodesSettings());
-    gh.lazySingleton<_i179.EAN13Settings>(() => _i179.EAN13Settings());
-    gh.lazySingleton<_i828.EAN8Settings>(() => _i828.EAN8Settings());
-    gh.lazySingleton<_i865.GS1DatabarSettings>(
-        () => _i865.GS1DatabarSettings());
-    gh.lazySingleton<_i662.IATASettings>(() => _i662.IATASettings());
-    gh.lazySingleton<_i807.KoreanPostalAuthorityCodeSettings>(
-        () => _i807.KoreanPostalAuthorityCodeSettings());
-    gh.lazySingleton<_i674.MSIPlesseySettings>(
-        () => _i674.MSIPlesseySettings());
-    gh.lazySingleton<_i977.TelepenSettings>(() => _i977.TelepenSettings());
-    gh.lazySingleton<_i231.UKPlesseySettings>(() => _i231.UKPlesseySettings());
-    gh.lazySingleton<_i229.UPCASettings>(() => _i229.UPCASettings());
-    gh.lazySingleton<_i417.UPCE1Settings>(() => _i417.UPCE1Settings());
-    gh.lazySingleton<_i616.UPCESettings>(() => _i616.UPCESettings());
-    gh.lazySingleton<_i722.ScanOptionsSettings>(
-        () => _i722.ScanOptionsSettings());
     gh.lazySingleton<_i61.BleConnectionStatesService>(
         () => _i61.BleConnectionStatesService());
     gh.lazySingleton<_i26.BleDevicesHelper>(() => _i26.BleDevicesHelper());
@@ -141,38 +99,57 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i707.DatawizardSettingsManager>(
         () => _i707.DatawizardSettingsManager());
     gh.lazySingleton<_i11.SymbologyHandler>(() => _i11.SymbologyHandler());
-    gh.lazySingleton<_i450.CodeSpecificSettings>(
-        () => _i450.CodeSpecificSettings(
-              gh<_i60.CodabarSettings>(),
-              gh<_i536.Code11Settings>(),
-              gh<_i448.Code2Of5AndSCodeSettings>(),
-              gh<_i904.Code39Settings>(),
-              gh<_i1073.Code93Settings>(),
-              gh<_i224.Code128AndGS1128Settings>(),
-              gh<_i846.CompositeCodesSettings>(),
-              gh<_i828.EAN8Settings>(),
-              gh<_i179.EAN13Settings>(),
-              gh<_i865.GS1DatabarSettings>(),
-              gh<_i662.IATASettings>(),
-              gh<_i807.KoreanPostalAuthorityCodeSettings>(),
-              gh<_i674.MSIPlesseySettings>(),
-              gh<_i977.TelepenSettings>(),
-              gh<_i231.UKPlesseySettings>(),
-              gh<_i229.UPCASettings>(),
-              gh<_i616.UPCESettings>(),
-              gh<_i417.UPCE1Settings>(),
-            ));
+    gh.lazySingleton<_i784.Codabar>(() => _i784.Codabar());
+    gh.lazySingleton<_i0.Code11>(() => _i0.Code11());
+    gh.lazySingleton<_i628.Code128AndGS1128>(() => _i628.Code128AndGS1128());
+    gh.lazySingleton<_i808.Code2Of5AndSCode>(() => _i808.Code2Of5AndSCode());
+    gh.lazySingleton<_i229.Code39>(() => _i229.Code39());
+    gh.lazySingleton<_i136.Code93>(() => _i136.Code93());
+    gh.lazySingleton<_i5.CompositeCodes>(() => _i5.CompositeCodes());
+    gh.lazySingleton<_i894.EAN13>(() => _i894.EAN13());
+    gh.lazySingleton<_i11.EAN8>(() => _i11.EAN8());
+    gh.lazySingleton<_i772.GS1Databar>(() => _i772.GS1Databar());
+    gh.lazySingleton<_i920.IATA>(() => _i920.IATA());
+    gh.lazySingleton<_i308.KoreanPostalAuthority>(
+        () => _i308.KoreanPostalAuthority());
+    gh.lazySingleton<_i248.MSIPlessey>(() => _i248.MSIPlessey());
+    gh.lazySingleton<_i296.Telepen>(() => _i296.Telepen());
+    gh.lazySingleton<_i708.UKPlessey>(() => _i708.UKPlessey());
+    gh.lazySingleton<_i198.UPCA>(() => _i198.UPCA());
+    gh.lazySingleton<_i491.UPCE>(() => _i491.UPCE());
+    gh.lazySingleton<_i153.UPCE1>(() => _i153.UPCE1());
+    gh.lazySingleton<_i381.ReadOptions>(() => _i381.ReadOptions());
+    gh.lazySingleton<_i316.CodeSpecific>(() => _i316.CodeSpecific(
+          gh<_i808.Code2Of5AndSCode>(),
+          gh<_i784.Codabar>(),
+          gh<_i0.Code11>(),
+          gh<_i229.Code39>(),
+          gh<_i136.Code93>(),
+          gh<_i628.Code128AndGS1128>(),
+          gh<_i5.CompositeCodes>(),
+          gh<_i11.EAN8>(),
+          gh<_i894.EAN13>(),
+          gh<_i772.GS1Databar>(),
+          gh<_i920.IATA>(),
+          gh<_i308.KoreanPostalAuthority>(),
+          gh<_i248.MSIPlessey>(),
+          gh<_i296.Telepen>(),
+          gh<_i708.UKPlessey>(),
+          gh<_i198.UPCA>(),
+          gh<_i491.UPCE>(),
+          gh<_i153.UPCE1>(),
+        ));
     gh.lazySingleton<_i801.AppLogger>(() => _i652.OptiConnectLogger());
     gh.lazySingleton<_i211.ScannerSettingsDatabaseManager>(() =>
         _i211.ScannerSettingsDatabaseManager(gh<_i904.DatabasePathHelper>()));
-    gh.lazySingleton<_i915.ConnectionPoolSettings>(
-        () => _i915.ConnectionPoolSettings(gh<_i801.AppLogger>()));
-    gh.lazySingleton<_i56.FormattingOptions>(
-        () => _i56.FormattingOptions(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i378.InidicatorOptions>(
         () => _i378.InidicatorOptions(gh<_i801.AppLogger>()));
-    gh.lazySingleton<_i112.SymbologySettings>(
-        () => _i112.SymbologySettings(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i325.ConnectionPool>(
+        () => _i325.ConnectionPool(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i676.Formatting>(
+        () => _i676.Formatting(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i916.Symbology>(
+        () => _i916.Symbology(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i22.CommandBytesProvider>(
         () => _i643.OpcCommandProtocolHandler(
               gh<_i974.CRC16Handler>(),
@@ -208,6 +185,18 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i925.ScannerSettingsCompressor>(),
               gh<_i801.AppLogger>(),
             ));
+    gh.lazySingleton<_i981.ScannerSettingsManager>(
+        () => _i981.ScannerSettingsManager(
+              gh<_i916.Symbology>(),
+              gh<_i316.CodeSpecific>(),
+              gh<_i381.ReadOptions>(),
+              gh<_i378.InidicatorOptions>(),
+              gh<_i676.Formatting>(),
+              gh<_i325.ConnectionPool>(),
+              gh<_i569.CommandHandlersManager>(),
+              gh<_i925.ScannerSettingsCompressor>(),
+              gh<_i801.AppLogger>(),
+            ));
     gh.lazySingleton<_i664.DevicesInfoManager>(() => _i664.DevicesInfoManager(
           gh<_i569.CommandHandlersManager>(),
           gh<_i801.AppLogger>(),
@@ -219,18 +208,6 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i26.BleDevicesHelper>(),
               gh<_i569.CommandHandlersManager>(),
               gh<_i664.DevicesInfoManager>(),
-              gh<_i801.AppLogger>(),
-            ));
-    gh.lazySingleton<_i981.ScannerSettingsManager>(
-        () => _i981.ScannerSettingsManager(
-              gh<_i112.SymbologySettings>(),
-              gh<_i450.CodeSpecificSettings>(),
-              gh<_i722.ScanOptionsSettings>(),
-              gh<_i378.InidicatorOptions>(),
-              gh<_i56.FormattingOptions>(),
-              gh<_i915.ConnectionPoolSettings>(),
-              gh<_i569.CommandHandlersManager>(),
-              gh<_i925.ScannerSettingsCompressor>(),
               gh<_i801.AppLogger>(),
             ));
     gh.lazySingleton<_i186.BluetoothManager>(() => _i186.BluetoothManager(

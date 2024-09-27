@@ -26,7 +26,7 @@ enum Code39Mode {
 /// This class provides methods to configure the mode, check digit validation,
 /// and transmission options for Code 39 symbology.
 @lazySingleton
-class Code39Settings extends BaseScannerSettings {
+class Code39 extends BaseScannerSettings {
   /// A map linking the modes to their respective command strings.
   final Map<Code39Mode, String> _modeCommands = {
     Code39Mode.normal: normalCode39,

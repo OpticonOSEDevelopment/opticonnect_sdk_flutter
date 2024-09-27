@@ -8,7 +8,7 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// This class provides methods to enable or disable check digit validation,
 /// transmission of check digits, and concatenation for Code 93 symbology.
 @lazySingleton
-class Code93Settings extends BaseScannerSettings {
+class Code93 extends BaseScannerSettings {
   /// Enables check digit validation for Code 93 symbology.
   ///
   /// [deviceId] - The identifier of the target device.

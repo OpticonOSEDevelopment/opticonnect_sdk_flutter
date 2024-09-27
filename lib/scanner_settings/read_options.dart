@@ -43,7 +43,7 @@ enum IlluminationMode {
 
 /// Class responsible for configuring scan options, including read modes, illumination, and barcode settings.
 @lazySingleton
-class ScanOptionsSettings extends BaseScannerSettings {
+class ReadOptions extends BaseScannerSettings {
   /// A mapping of [PositiveAndNegativeBarcodesMode] to the corresponding command string.
   final Map<PositiveAndNegativeBarcodesMode, String>
       _positiveAndNegativeBarcodesReadModeCommands = {

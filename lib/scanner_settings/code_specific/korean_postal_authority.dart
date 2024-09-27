@@ -8,7 +8,7 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// This class provides methods to enable or disable the transmission of check digits,
 /// and to manage the transmission of dashes in the barcode data.
 @lazySingleton
-class KoreanPostalAuthorityCodeSettings extends BaseScannerSettings {
+class KoreanPostalAuthority extends BaseScannerSettings {
   /// Enables the transmission of the check digit for Korean Postal Authority Code symbology.
   ///
   /// [deviceId] - The identifier of the target device.
