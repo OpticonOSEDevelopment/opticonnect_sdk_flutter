@@ -2,6 +2,7 @@ library opticonnect_sdk;
 
 import 'package:opticonnect_sdk/bluetooth_manager.dart';
 import 'package:opticonnect_sdk/scanner_feedback.dart';
+import 'package:opticonnect_sdk/scanner_info.dart';
 import 'package:opticonnect_sdk/scanner_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
@@ -14,6 +15,7 @@ class OptiConnect {
   static late final SettingsHandler _settingsHandler;
   static late final ScannerFeedback _scannerFeedback;
   static late final BluetoothManager _bluetoothManager;
+  static late final ScannerInfo _scannerInfo;
   static late final AppLogger _appLogger;
 
   static bool _isInitialized = false;
@@ -32,9 +34,11 @@ class OptiConnect {
     configureSdkDependencyInjection();
 
     _scannerSettings = getIt<ScannerSettings>();
+    _settingsHandler = getIt<SettingsHandler>();
     _scannerFeedback = getIt<ScannerFeedback>();
     _bluetoothManager = getIt<BluetoothManager>();
-    _settingsHandler = getIt<SettingsHandler>();
+    _scannerInfo = getIt<ScannerInfo>();
+
     await _settingsHandler.initialize();
 
     _appLogger = getIt<AppLogger>();
@@ -66,6 +70,12 @@ class OptiConnect {
   static BluetoothManager get bluetoothManager {
     _ensureInitialized(); // Check if SDK is initialized before accessing
     return _bluetoothManager;
+  }
+
+  /// Public property getter for [scannerInfo].
+  static ScannerInfo get scannerInfo {
+    _ensureInitialized(); // Check if SDK is initialized before accessing
+    return _scannerInfo;
   }
 
   /// Disposes of the SDK resources, stopping any active processes.

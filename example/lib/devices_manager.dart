@@ -5,6 +5,7 @@ import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
+import 'package:opticonnect_sdk/entities/device_info.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk/enums/symbology_type.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
@@ -14,6 +15,7 @@ import 'package:opticonnect_sdk/scanner_settings/read_options.dart';
 class DevicesManager extends ChangeNotifier {
   final Map<String, BleDiscoveredDevice> discoveredDevices = {};
   final Map<String, BleDeviceConnectionState> connectionStates = {};
+  final Map<String, DeviceInfo> deviceInfo = {};
   final List<BarcodeData> barcodeData = [];
   final Map<String, StreamSubscription> _connectionSubscriptions = {};
   final Map<String, StreamSubscription> _barcodeSubscriptions = {};
@@ -25,6 +27,14 @@ class DevicesManager extends ChangeNotifier {
     await OptiConnect.initialize();
     OptiConnect.scannerFeedback.set(buzzer: true, led: true, vibration: true);
     await _startDiscovery();
+  }
+
+  Future<void> connect(String deviceId) async {
+    await OptiConnect.bluetoothManager.connect(deviceId);
+  }
+
+  Future<void> disconnect(String deviceId) async {
+    OptiConnect.bluetoothManager.disconnect(deviceId);
   }
 
   /// Starts BLE device discovery and listens for new devices
@@ -53,6 +63,7 @@ class DevicesManager extends ChangeNotifier {
       connectionStates[deviceId] = state;
       notifyListeners();
       if (state == BleDeviceConnectionState.connected) {
+        deviceInfo[deviceId] = OptiConnect.scannerInfo.getInfo(deviceId);
         _startListeningToBarcodeData(deviceId);
       } else if (state == BleDeviceConnectionState.disconnected) {
         _stopListeningToBarcodeData(deviceId);
@@ -111,7 +122,8 @@ class DevicesManager extends ChangeNotifier {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
+    await OptiConnect.dispose();
     for (var subscription in _connectionSubscriptions.values) {
       subscription.cancel();
     }

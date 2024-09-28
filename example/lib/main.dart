@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk/opticonnect.dart';
 import 'package:opticonnect_sdk_client/devices_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Opticonnect SDK Client Example',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const OpticonnectSDKClient(),
     );
@@ -52,8 +52,7 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.detached) {
       // App is terminating, clean up resources
-      await OptiConnect.dispose();
-      _devicesManager.dispose();
+      await _devicesManager.dispose();
     }
   }
 
@@ -69,7 +68,7 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
   /// Connects to a BLE device
   void _connectToDevice(String deviceId) async {
     try {
-      await OptiConnect.bluetoothManager.connect(deviceId);
+      await _devicesManager.connect(deviceId);
     } catch (e) {
       debugPrint('Error connecting to device: $e');
     }
@@ -78,7 +77,7 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
   /// Disconnects from a BLE device
   void _disconnectFromDevice(String deviceId) async {
     try {
-      await OptiConnect.bluetoothManager.disconnect(deviceId);
+      await _devicesManager.disconnect(deviceId);
     } catch (e) {
       debugPrint('Error disconnecting from device: $e');
     }
@@ -154,6 +153,37 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
         : const SizedBox();
   }
 
+  /// UI component for displaying barcode data and device info
+  Widget _buildBarcodeDataAndDeviceInfo(String deviceId) {
+    final deviceInfo = _devicesManager.deviceInfo[deviceId];
+    final barcodeData = _devicesManager.barcodeData.isNotEmpty
+        ? _devicesManager.barcodeData.last
+        : null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (barcodeData != null) ...[
+          Text('Data: ${barcodeData.data}'),
+          Text('Symbology: ${barcodeData.symbology}'),
+          Text('Quantity: ${barcodeData.quantity}'),
+          Text('Time of Scan: ${barcodeData.timeOfScan}'),
+        ],
+        if (deviceInfo != null) ...[
+          const SizedBox(height: 16),
+          const Text('Device Info:',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('MAC Address: ${deviceInfo.macAddress}'),
+          Text('Serial Number: ${deviceInfo.serialNumber}'),
+          Text('Local Name: ${deviceInfo.localName}'),
+          Text('Firmware Version: ${deviceInfo.firmwareVersion}'),
+        ] else ...[
+          const Text('No device info available.'),
+        ]
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -168,72 +198,65 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
               ),
               body: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Discovered Scanners',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    _devicesManager.discoveredDevices.isEmpty
-                        ? const Text('No devices found.')
-                        : Column(
-                            children: [
-                              ..._devicesManager.discoveredDevices.values
-                                  .map((device) {
-                                final deviceId = device.deviceId;
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(device.name),
-                                      subtitle: Text(deviceId),
-                                      trailing: _buildConnectionState(deviceId),
-                                    ),
-                                    if (_devicesManager
-                                            .connectionStates[deviceId] ==
-                                        BleDeviceConnectionState.connected)
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 16.0), // Align the buttons
-                                        child: Column(
-                                          children: [
-                                            _buildFloodlightToggleButton(
-                                                deviceId),
-                                            _buildSymbologyToggleButton(
-                                                deviceId),
-                                          ],
-                                        ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Discovered Scanners',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      _devicesManager.discoveredDevices.isEmpty
+                          ? const Text('No devices found.')
+                          : Column(
+                              children: [
+                                ..._devicesManager.discoveredDevices.values
+                                    .map((device) {
+                                  final deviceId = device.deviceId;
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(device.name),
+                                        subtitle: Text(deviceId),
+                                        trailing:
+                                            _buildConnectionState(deviceId),
                                       ),
-                                  ],
-                                );
-                              }), // Convert the mapped widgets to a list.
-                            ],
-                          ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Latest Barcode Data',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    _devicesManager.barcodeData.isNotEmpty
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                  'Data: ${_devicesManager.barcodeData.last.data}'),
-                              Text(
-                                  'Symbology: ${_devicesManager.barcodeData.last.symbology}'),
-                              Text(
-                                  'Quantity: ${_devicesManager.barcodeData.last.quantity}'),
-                              Text(
-                                  'Time of Scan: ${_devicesManager.barcodeData.last.timeOfScan}'),
-                              Text(
-                                  'Device ID: ${_devicesManager.barcodeData.last.deviceId}'),
-                            ],
-                          )
-                        : const Text('No barcode data available.'),
-                  ],
+                                      if (_devicesManager
+                                              .connectionStates[deviceId] ==
+                                          BleDeviceConnectionState.connected)
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 16.0), // Align the buttons
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              _buildFloodlightToggleButton(
+                                                  deviceId),
+                                              const SizedBox(height: 8),
+                                              _buildSymbologyToggleButton(
+                                                  deviceId),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  );
+                                }), // Convert the mapped widgets to a list.
+                              ],
+                            ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Latest Barcode Data',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      _devicesManager.barcodeData.isNotEmpty
+                          ? _buildBarcodeDataAndDeviceInfo(
+                              _devicesManager.barcodeData.last.deviceId)
+                          : const Text('No barcode data available.'),
+                    ],
+                  ),
                 ),
               ),
             ),

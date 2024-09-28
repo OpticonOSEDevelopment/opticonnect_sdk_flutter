@@ -13,6 +13,7 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../../bluetooth_manager.dart' as _i186;
 import '../../scanner_feedback.dart' as _i816;
+import '../../scanner_info.dart' as _i456;
 import '../../scanner_settings.dart' as _i863;
 import '../../scanner_settings/code_specific/codabar.dart' as _i784;
 import '../../scanner_settings/code_specific/code_11.dart' as _i0;
@@ -211,6 +212,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i976.DevicesInfoManager>(),
               gh<_i801.AppLogger>(),
             ));
+    gh.lazySingleton<_i456.ScannerInfo>(
+        () => _i456.ScannerInfo(gh<_i976.DevicesInfoManager>()));
     gh.lazySingleton<_i186.BluetoothManager>(() => _i186.BluetoothManager(
           gh<_i314.BleDevicesDiscoverer>(),
           gh<_i721.BleConnectivityHandler>(),

@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
+import 'package:opticonnect_sdk/entities/device_info.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
@@ -16,7 +17,16 @@ class DevicesInfoManager {
   final Map<String, String> _localNames = {};
   final Map<String, String> _firmwareVersions = {};
 
-  Future<void> fetchDeviceInfo(String deviceId) async {
+  DeviceInfo getInfo(String deviceId) {
+    return DeviceInfo(
+        deviceId: deviceId,
+        macAddress: _macAddresses[deviceId] ?? '',
+        serialNumber: _serialNumbers[deviceId] ?? '',
+        localName: _localNames[deviceId] ?? '',
+        firmwareVersion: _firmwareVersions[deviceId] ?? '');
+  }
+
+  Future<void> fetchInfo(String deviceId) async {
     await _fetchAndStoreInfo(deviceId, _macAddresses, directInputKeyM);
     await _fetchAndStoreInfo(deviceId, _serialNumbers, directInputKey5);
     await _fetchAndStoreInfo(deviceId, _localNames, directInputKeyN);

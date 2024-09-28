@@ -148,7 +148,7 @@ class BleConnectivityHandler {
 
       await _bleDevicesStreamsHandler.addDataProcessor(deviceId, opcService);
       _commandHandlersManager.createCommandHandler(deviceId);
-      _devicesInfoManager.fetchDeviceInfo(deviceId);
+      await _devicesInfoManager.fetchInfo(deviceId);
     } catch (e) {
       _appLogger.error('Failed to initialize device $deviceId: $e');
       await disconnect(deviceId);
