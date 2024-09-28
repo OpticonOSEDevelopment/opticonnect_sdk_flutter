@@ -48,7 +48,6 @@ class BluetoothManager {
   Future<void> startDiscovery() async {
     try {
       await _bleDevicesDiscoverer.startDiscovery();
-      _appLogger.info("Discovery started successfully.");
     } catch (e) {
       _appLogger.error("Error starting discovery: $e");
       rethrow;
@@ -61,7 +60,6 @@ class BluetoothManager {
   Future<void> stopDiscovery() async {
     try {
       await _bleDevicesDiscoverer.stopDiscovery();
-      _appLogger.info("Discovery stopped successfully.");
     } catch (e) {
       _appLogger.error("Error stopping discovery: $e");
       rethrow;
@@ -90,7 +88,6 @@ class BluetoothManager {
   Future<void> connect(String deviceId) async {
     try {
       await _bleConnectivityHandler.connect(deviceId);
-      _appLogger.info("Connected to device $deviceId successfully.");
     } catch (e) {
       _appLogger.error("Error connecting to device $deviceId: $e");
       rethrow;
@@ -105,7 +102,6 @@ class BluetoothManager {
   Future<void> disconnect(String deviceId) async {
     try {
       await _bleConnectivityHandler.disconnect(deviceId);
-      _appLogger.info("Disconnected from device $deviceId successfully.");
     } catch (e) {
       _appLogger.error("Error disconnecting from device $deviceId: $e");
       rethrow;
@@ -148,7 +144,6 @@ class BluetoothManager {
     try {
       await _bleConnectivityHandler.dispose();
       await _bleDevicesDiscoverer.dispose();
-      _appLogger.info("Bluetooth resources disposed successfully.");
     } catch (e) {
       _appLogger.error("Error disposing Bluetooth resources: $e");
       rethrow;
