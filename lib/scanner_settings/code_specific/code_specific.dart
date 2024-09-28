@@ -24,9 +24,8 @@ import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 /// This class includes settings for individual barcode types such as Codabar, Code 39,
 /// UPC, EAN, and others. It allows you to configure scanner behavior for specific barcode formats.
 ///
-/// It is recommended that you access this class through the `ScannerSettings` provided
-/// by the `OptiConnectSDK`. There is no need to manually initialize or modify the settings
-/// directly.
+/// It is recommended that you access this class via the `OptiConnect` class
+/// and avoid direct initialization.
 @lazySingleton
 class CodeSpecific extends SettingsBase {
   /// Settings related to Code 2 of 5 and S-Code symbologies.

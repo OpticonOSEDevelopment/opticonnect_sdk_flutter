@@ -13,6 +13,8 @@ import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_ha
 /// This class is responsible for handling all the Bluetooth-related operations and
 /// can be injected as a lazy singleton using a dependency injection system.
 ///
+/// It is recommended that you access this class via the `OptiConnect` class
+/// and avoid direct initialization.
 @lazySingleton
 class BluetoothManager {
   final BleDevicesDiscoverer _bleDevicesDiscoverer;
@@ -21,12 +23,6 @@ class BluetoothManager {
   final AppLogger _appLogger;
 
   /// Constructs the [BluetoothManager] with injected dependencies.
-  ///
-  /// This constructor is typically used with dependency injection to ensure
-  /// that all required services (device discoverer, connectivity handler, and
-  ///
-  /// It is recommended that you access this class through the `OptiConnectSDK` and
-  /// avoid initializing or modifying the settings manually.
   BluetoothManager(
     this._bleDevicesDiscoverer,
     this._bleConnectivityHandler,

@@ -57,7 +57,8 @@ enum CodabarMinimumLength {
 /// such as enabling or disabling check digits, transmitting start and stop characters,
 /// and setting the Codabar mode.
 ///
-/// It is recommended to use this class through the `ScannerSettings` API of the `OptiConnectSDK`.
+/// It is recommended that you access this class via the `OptiConnect` class
+/// and avoid direct initialization.
 @lazySingleton
 class Codabar extends SettingsBase {
   /// A map linking the Codabar mode to the corresponding command strings.
