@@ -3,7 +3,7 @@ import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing different modes for reading positive and negative barcodes.
 enum PositiveAndNegativeBarcodesMode {
@@ -43,7 +43,7 @@ enum IlluminationMode {
 
 /// Class responsible for configuring scan options, including read modes, illumination, and barcode settings.
 @lazySingleton
-class ReadOptions extends BaseScannerSettings {
+class ReadOptions extends SettingsBase {
   /// A mapping of [PositiveAndNegativeBarcodesMode] to the corresponding command string.
   final Map<PositiveAndNegativeBarcodesMode, String>
       _positiveAndNegativeBarcodesReadModeCommands = {

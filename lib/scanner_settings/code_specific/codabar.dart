@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing different modes for Codabar symbology.
 enum CodabarMode {
@@ -59,7 +59,7 @@ enum CodabarMinimumLength {
 ///
 /// It is recommended to use this class through the `ScannerSettings` API of the `OptiConnectSDK`.
 @lazySingleton
-class Codabar extends BaseScannerSettings {
+class Codabar extends SettingsBase {
   /// A map linking the Codabar mode to the corresponding command strings.
   final Map<CodabarMode, String> _modeCommands = {
     CodabarMode.normal: codabarNormal,

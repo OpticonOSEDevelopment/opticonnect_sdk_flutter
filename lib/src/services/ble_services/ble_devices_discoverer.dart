@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/permission_handler.dart';
+import 'package:opticonnect_sdk/src/services/core/permission_handler.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @lazySingleton

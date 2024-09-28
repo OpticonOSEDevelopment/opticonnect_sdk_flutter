@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing the output mode for composite codes.
 enum CompositeCodesOutputMode {
@@ -19,7 +19,7 @@ enum CompositeCodesOutputMode {
 ///
 /// This class provides methods to configure the output mode, and manage settings for GS1 and EAN/UPC composite codes.
 @lazySingleton
-class CompositeCodes extends BaseScannerSettings {
+class CompositeCodes extends SettingsBase {
   /// A map linking the output modes to their corresponding commands.
   final Map<CompositeCodesOutputMode, String> _outputModeCommands = {
     CompositeCodesOutputMode.only1DAnd2DComponentsAllowed:

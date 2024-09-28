@@ -1,6 +1,6 @@
 import 'dart:async';
 
-class CommandTimeoutManager {
+class TimeoutManager {
   Timer? _timeoutTimer;
 
   void startTimeout(Duration timeoutDuration, void Function() onTimeout) {

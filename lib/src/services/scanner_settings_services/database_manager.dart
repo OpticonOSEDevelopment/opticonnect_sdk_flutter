@@ -7,7 +7,7 @@ import 'package:path/path.dart' as path;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 @lazySingleton
-class ScannerSettingsDatabaseManager {
+class DatabaseManager {
   final DatabasePathHelper _databasePathHelper;
   static const String dbName = 'commands.db';
   static const String dbPath =
@@ -15,7 +15,7 @@ class ScannerSettingsDatabaseManager {
 
   Database? _database;
 
-  ScannerSettingsDatabaseManager(this._databasePathHelper);
+  DatabaseManager(this._databasePathHelper);
 
   Future<Database> get database async {
     if (_database != null) {

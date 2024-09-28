@@ -10,6 +10,12 @@ class BarcodeData {
   /// the raw data directly from the barcode, but rather the processed output.
   final String data;
 
+  /// The raw bytes of the barcode data retrieved from the scan.
+  ///
+  /// This contains the unprocessed, encoded form of the data as bytes (e.g., UTF-8 or Unicode).
+  /// Clients can use this field for custom decoding.
+  final List<int> dataBytes;
+
   /// The quantity of the scanned item.
   ///
   /// This represents the number of items scanned. With the delete key we can scan a product with a quantity of -1, which signifies the removal of a
@@ -46,6 +52,7 @@ class BarcodeData {
   /// - [timeOfScan]: The timestamp when the scan occurred.
   BarcodeData({
     required this.data,
+    required this.dataBytes,
     required this.quantity,
     required this.symbologyId,
     required this.symbology,

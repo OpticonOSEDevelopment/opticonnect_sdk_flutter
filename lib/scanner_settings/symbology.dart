@@ -3,13 +3,13 @@ import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/enums/symbology_type.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// A class representing settings for enabling and disabling symbologies in the scanner.
 ///
 /// This class provides methods to enable, disable, or enable-only specific symbologies on a scanner.
 @lazySingleton
-class Symbology extends BaseScannerSettings {
+class Symbology extends SettingsBase {
   final AppLogger _appLogger;
 
   Symbology(this._appLogger);

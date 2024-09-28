@@ -1,20 +1,20 @@
 library opticonnect_sdk;
 
 import 'package:opticonnect_sdk/bluetooth_manager.dart';
-import 'package:opticonnect_sdk/scanner_feedback_manager.dart';
-import 'package:opticonnect_sdk/scanner_settings_manager.dart';
+import 'package:opticonnect_sdk/scanner_feedback.dart';
+import 'package:opticonnect_sdk/scanner_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_handler.dart';
 
 /// The main class for interacting with Opticon's BLE OPN-2500 and OPN-6000 scanners.
 /// Provides methods to discover, connect, and manage devices.
 class OptiConnect {
   static OptiConnect? _instance;
 
-  late final ScannerSettingsManager _scannerSettingsManager;
-  late final ScannerSettingsHandler _scannerSettingsHandler;
-  late final ScannerFeedbackManager _scannerFeedbackManager;
+  late final ScannerSettings _scannerSettings;
+  late final SettingsHandler _settingsHandler;
+  late final ScannerFeedback _scannerFeedback;
   late final BluetoothManager _bluetoothManager;
   late final AppLogger _appLogger;
 
@@ -35,11 +35,11 @@ class OptiConnect {
   Future<void> initialize() async {
     configureSdkDependencyInjection();
 
-    _scannerSettingsManager = getIt<ScannerSettingsManager>();
-    _scannerFeedbackManager = getIt<ScannerFeedbackManager>();
+    _scannerSettings = getIt<ScannerSettings>();
+    _scannerFeedback = getIt<ScannerFeedback>();
     _bluetoothManager = getIt<BluetoothManager>();
-    _scannerSettingsHandler = getIt<ScannerSettingsHandler>();
-    await _scannerSettingsHandler.initialize();
+    _settingsHandler = getIt<SettingsHandler>();
+    await _settingsHandler.initialize();
 
     _appLogger = getIt<AppLogger>();
 
@@ -54,15 +54,15 @@ class OptiConnect {
     }
   }
 
-  /// Public property getter for [settingsManager].
-  ScannerSettingsManager get settingsManager {
+  /// Public property getter for [scannerSettings].
+  ScannerSettings get scannerSettings {
     _ensureInitialized(); // Check if SDK is initialized before accessing
-    return _scannerSettingsManager;
+    return _scannerSettings;
   }
 
-  ScannerFeedbackManager get feedbackManager {
+  ScannerFeedback get scannerFeedback {
     _ensureInitialized(); // Check if SDK is initialized before accessing
-    return _scannerFeedbackManager;
+    return _scannerFeedback;
   }
 
   /// Public property getter for [bluetoothManager].

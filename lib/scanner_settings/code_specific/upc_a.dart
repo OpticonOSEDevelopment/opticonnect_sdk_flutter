@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing the leading zero and check digit transmission settings for UPCA symbology.
 enum UPCALeadingZeroAndTransmitCDMode {
@@ -16,7 +16,7 @@ enum UPCALeadingZeroAndTransmitCDMode {
 /// This class provides methods to configure leading zero and check digit transmission settings,
 /// as well as add-on support for UPCA symbology.
 @lazySingleton
-class UPCA extends BaseScannerSettings {
+class UPCA extends SettingsBase {
   /// A map linking the leading zero and check digit transmission settings to their corresponding commands.
   final Map<UPCALeadingZeroAndTransmitCDMode, String>
       _upcALeadingZeroAndTransmitCDModeCommands = {

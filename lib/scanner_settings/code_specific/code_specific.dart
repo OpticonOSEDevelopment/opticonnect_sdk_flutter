@@ -17,7 +17,7 @@ import 'package:opticonnect_sdk/scanner_settings/code_specific/uk_plessey.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific/upc_a.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific/upc_e.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific/upc_e1.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// A class providing access to settings for specific barcode symbologies.
 ///
@@ -35,7 +35,7 @@ import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart'
 /// final codeSettings = sdk.scannerSettings.codeSpecificSettings;
 /// ```
 @lazySingleton
-class CodeSpecific extends BaseScannerSettings {
+class CodeSpecific extends SettingsBase {
   /// Settings related to Code 2 of 5 and S-Code symbologies.
   final Code2Of5AndSCode code2of5andSCode;
 

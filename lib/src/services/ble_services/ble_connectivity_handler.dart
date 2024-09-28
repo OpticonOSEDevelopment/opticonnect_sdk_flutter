@@ -8,7 +8,7 @@ import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connection_states_service.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_helper.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
-import 'package:opticonnect_sdk/src/services/devices_info_manager.dart';
+import 'package:opticonnect_sdk/src/services/core/devices_info_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
 
 @lazySingleton

@@ -5,14 +5,14 @@ import 'package:opticonnect_sdk/enums/direct_input_key.dart';
 import 'package:opticonnect_sdk/enums/formattable_symbology.dart';
 import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// A class responsible for configuring formatting options such as preambles, prefixes, suffixes, and postambles.
 ///
 /// This class allows the setting of these formatting options using direct input keys or strings
 /// and sends the corresponding commands to the BLE device.
 @lazySingleton
-class Formatting extends BaseScannerSettings {
+class Formatting extends SettingsBase {
   final AppLogger _appLogger;
 
   Formatting(this._appLogger);

@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing the minimum data length for Code 2 of 5 and S-Code symbologies.
 enum DataLength {
@@ -15,7 +15,7 @@ enum DataLength {
 /// This class provides methods to configure space checks, data length, and S-code
 /// transmission for Code 2 of 5 and S-Code symbologies.
 @lazySingleton
-class Code2Of5AndSCode extends BaseScannerSettings {
+class Code2Of5AndSCode extends SettingsBase {
   /// A map linking the data length options to their corresponding commands.
   final Map<DataLength, String> _dataLengthCommands = {
     DataLength.oneCharacter: twoOfFiveAndSCodeMinimumLengthOneChar,

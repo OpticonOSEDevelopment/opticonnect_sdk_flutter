@@ -2,18 +2,18 @@ import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/database/constants/database_fields.dart';
 import 'package:opticonnect_sdk/src/services/database/database_tables_helper.dart';
-import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_database_manager.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings_services/database_manager.dart';
 import 'package:sqflite/sqflite.dart';
 
 @lazySingleton
-class ScannerSettingsHandler {
+class SettingsHandler {
   final DatabaseTablesHelper _databaseTablesHelper;
-  final ScannerSettingsDatabaseManager _scannerSettingsDatabaseManager;
+  final DatabaseManager _databaseManager;
   final AppLogger _appLogger;
 
-  ScannerSettingsHandler(
+  SettingsHandler(
     this._databaseTablesHelper,
-    this._scannerSettingsDatabaseManager,
+    this._databaseManager,
     this._appLogger,
   );
 
@@ -31,11 +31,11 @@ class ScannerSettingsHandler {
 
   Future<void> initialize() async {
     try {
-      final database = await _scannerSettingsDatabaseManager.database;
+      final database = await _databaseManager.database;
       await _initializeCodesDataStructures(database);
       await _setDescriptions(database);
       await _setDirectInputKeys();
-      await _scannerSettingsDatabaseManager.closeDatabase();
+      await _databaseManager.closeDatabase();
     } catch (e) {
       _appLogger.error('Failed to initialize ScannerSettingsHandler: $e');
     }

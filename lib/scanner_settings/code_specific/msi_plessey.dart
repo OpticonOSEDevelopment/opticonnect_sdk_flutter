@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing the check digit validation settings for MSI Plessey symbology.
 enum MSIPlesseyCheckCDSettings {
@@ -24,7 +24,7 @@ enum MSIPlesseyCDTransmissionSettings {
 ///
 /// This class provides methods to configure check digit validation and transmission settings for MSI Plessey symbology.
 @lazySingleton
-class MSIPlessey extends BaseScannerSettings {
+class MSIPlessey extends SettingsBase {
   /// A map linking check digit settings to their corresponding commands.
   final Map<MSIPlesseyCheckCDSettings, String> _checkCDCommands = {
     MSIPlesseyCheckCDSettings.doNotCheckCD: msiPlesseyDoNotCheckCd,

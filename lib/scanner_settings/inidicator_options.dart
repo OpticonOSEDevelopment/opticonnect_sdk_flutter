@@ -4,7 +4,7 @@ import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/led_color.dart';
 import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing the different types of buzzer sounds.
 enum BuzzerType {
@@ -45,7 +45,7 @@ enum GoodReadLedDuration {
 ///
 /// This class allows for enabling/disabling these indicators and configuring buzzer and vibrator options.
 @lazySingleton
-class InidicatorOptions extends BaseScannerSettings {
+class InidicatorOptions extends SettingsBase {
   final AppLogger _appLogger;
 
   InidicatorOptions(this._appLogger);

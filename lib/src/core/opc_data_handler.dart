@@ -7,8 +7,8 @@ import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/src/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/crc_16_handler.dart';
-import 'package:opticonnect_sdk/src/services/symbology_handler.dart';
+import 'package:opticonnect_sdk/src/services/core/crc_16_handler.dart';
+import 'package:opticonnect_sdk/src/services/core/symbology_handler.dart';
 
 enum OpcRxState {
   isIdle,
@@ -275,6 +275,7 @@ class OpcDataHandler {
 
     final barcodeData = BarcodeData(
       data: data,
+      dataBytes: dataBytes,
       quantity: quantity,
       symbologyId: symbologyId,
       symbology: symbology,

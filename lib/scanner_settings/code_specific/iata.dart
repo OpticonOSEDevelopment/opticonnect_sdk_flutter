@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing the check digit validation settings for IATA symbology.
 enum IATACheckCDSettings {
@@ -16,7 +16,7 @@ enum IATACheckCDSettings {
 /// This class provides methods to configure the check digit validation mode
 /// and manage the transmission of check digits for IATA symbology.
 @lazySingleton
-class IATA extends BaseScannerSettings {
+class IATA extends SettingsBase {
   /// A map linking the check digit settings to their respective commands.
   final Map<IATACheckCDSettings, String> _checkCDCommands = {
     IATACheckCDSettings.doNetCheckCD: iataDoNotCheckCd,

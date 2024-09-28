@@ -1,16 +1,16 @@
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handler.dart';
-import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_compressor.dart';
+import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_executor.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_compressor.dart';
 
-class CommandCompressionManager {
-  final CommandHandler _commandHandler;
-  final ScannerSettingsCompressor _scannerSettingsCompressor;
+class CompressionManager {
+  final CommandExecutor _commandHandler;
+  final SettingsCompressor _settingsCompressor;
   final AppLogger _appLogger;
 
-  CommandCompressionManager(
-      this._commandHandler, this._scannerSettingsCompressor, this._appLogger);
+  CompressionManager(
+      this._commandHandler, this._settingsCompressor, this._appLogger);
 
   static const int _compressionThreshold = 30;
   int _commandsSentCounter = 0;
@@ -29,7 +29,7 @@ class CommandCompressionManager {
         final settingsResult = await command.completer.future;
 
         // Compress settings and send them
-        final compressedCommand = await _scannerSettingsCompressor
+        final compressedCommand = await _settingsCompressor
             .getCompressedSettingsCommand(settingsResult.response);
 
         _commandHandler.sendCommand(compressedCommand);

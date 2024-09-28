@@ -12,22 +12,22 @@ import 'package:opticonnect_sdk/src/interfaces/ble_command_response_reader.dart'
 import 'package:opticonnect_sdk/src/interfaces/ble_data_writer.dart';
 import 'package:opticonnect_sdk/src/interfaces/command_bytes_provider.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_feedback_service.dart';
-import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_timeout_manager.dart';
+import 'package:opticonnect_sdk/src/services/scanner_commands_services/timeout_manager.dart';
 
 abstract class ICommandSender {
   void sendCommand(Command command);
 }
 
-class CommandHandler implements ICommandSender {
+class CommandExecutor implements ICommandSender {
   final String _deviceId;
   final BleDataWriter _bleDataWriter;
   final BleCommandResponseReader _bleCommandResponseReader;
   final CommandBytesProvider _commandBytesProvider;
   final CommandFeedbackService _commandFeedbackService;
   final AppLogger _appLogger;
-  late final CommandTimeoutManager _commandTimeoutManager;
+  late final TimeoutManager _timeoutManager;
 
-  CommandHandler(
+  CommandExecutor(
       this._deviceId,
       this._bleDataWriter,
       this._bleCommandResponseReader,
@@ -35,7 +35,7 @@ class CommandHandler implements ICommandSender {
       this._commandFeedbackService,
       this._appLogger) {
     _initializeResponseListener();
-    _commandTimeoutManager = CommandTimeoutManager();
+    _timeoutManager = TimeoutManager();
   }
 
   final _commandQueue = Queue<Command>();
@@ -81,7 +81,7 @@ class CommandHandler implements ICommandSender {
   }
 
   void _startCommandTimeout(Command command) {
-    _commandTimeoutManager.startTimeout(
+    _timeoutManager.startTimeout(
       const Duration(seconds: 2),
       () => _onCommandTimeout(command),
     );
@@ -106,7 +106,7 @@ class CommandHandler implements ICommandSender {
   }
 
   void _completeCommand(Command command, String responseData, bool hasFailed) {
-    _commandTimeoutManager.cancelTimeout();
+    _timeoutManager.cancelTimeout();
 
     if (!command.completer.isCompleted) {
       command.completer.complete(CommandResponse(responseData, !hasFailed));
@@ -187,6 +187,6 @@ class CommandHandler implements ICommandSender {
 
   void dispose() {
     _commandQueue.clear();
-    _commandTimeoutManager.dispose();
+    _timeoutManager.dispose();
   }
 }

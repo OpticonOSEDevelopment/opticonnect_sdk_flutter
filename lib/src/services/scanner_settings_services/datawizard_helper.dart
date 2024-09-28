@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 
 @lazySingleton
-class DatawizardSettingsManager {
+class DataWizardHelper {
   final Set<String> _dataWizardCommands = {
     dataWizardConfiguration0,
     dataWizardConfiguration1,

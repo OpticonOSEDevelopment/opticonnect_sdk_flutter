@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/src/scanner_settings/base_scanner_settings.dart';
+import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 
 /// Enum representing the leading zero and check digit transmission settings for UPCE symbology.
 enum UPCELeadingZeroAndTransmitCDMode {
@@ -22,7 +22,7 @@ enum UPCEConversionMode {
 /// This class provides methods to configure leading zero, check digit transmission settings,
 /// conversion modes, and add-on support for UPCE symbology.
 @lazySingleton
-class UPCE extends BaseScannerSettings {
+class UPCE extends SettingsBase {
   /// A map linking the leading zero and check digit transmission settings to their corresponding commands.
   final Map<UPCELeadingZeroAndTransmitCDMode, String>
       _upcELeadingZeroAndTransmitCDModeCommands = {

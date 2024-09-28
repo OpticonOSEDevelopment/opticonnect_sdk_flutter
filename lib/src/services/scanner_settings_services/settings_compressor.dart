@@ -2,16 +2,15 @@ import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/entities/raw_command.dart';
-import 'package:opticonnect_sdk/src/services/scanner_settings_services/datawizard_settings_manager.dart';
-import 'package:opticonnect_sdk/src/services/scanner_settings_services/scanner_settings_handler.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings_services/datawizard_helper.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_handler.dart';
 
 @lazySingleton
-class ScannerSettingsCompressor {
-  final ScannerSettingsHandler _scannerSettingsHandler;
-  final DatawizardSettingsManager _datawizardSettingsManager;
+class SettingsCompressor {
+  final SettingsHandler _settingsHandler;
+  final DataWizardHelper _datawizardHelper;
 
-  ScannerSettingsCompressor(
-      this._scannerSettingsHandler, this._datawizardSettingsManager);
+  SettingsCompressor(this._settingsHandler, this._datawizardHelper);
 
   Future<Command> getCompressedSettingsCommand(String settings) async {
     final compressedSettingsList = await getCompressedSettingsList(settings);
@@ -27,14 +26,13 @@ class ScannerSettingsCompressor {
   }
 
   bool _isDirectInputCommand(String command) {
-    return _scannerSettingsHandler.isDirectInputKey(command) ||
-        command[0] == '\$';
+    return _settingsHandler.isDirectInputKey(command) || command[0] == '\$';
   }
 
   Future<void> _addCommandToCompressedList(
       CommandData commandData, List<CommandData> compressedList) async {
     final groupsToDisable =
-        _scannerSettingsHandler.getGroupsToDisableForCode(commandData.command);
+        _settingsHandler.getGroupsToDisableForCode(commandData.command);
 
     compressedList.removeWhere((e) {
       if (e.command == commandData.command) {
@@ -42,8 +40,7 @@ class ScannerSettingsCompressor {
       }
 
       if (groupsToDisable.isNotEmpty) {
-        final groupsForCode =
-            _scannerSettingsHandler.getGroupsForCode(e.command);
+        final groupsForCode = _settingsHandler.getGroupsForCode(e.command);
         if (groupsForCode.isNotEmpty) {
           return groupsToDisable.any((g) => groupsForCode.contains(g));
         }
@@ -96,8 +93,7 @@ class ScannerSettingsCompressor {
 
       if (commandsList.isNotEmpty &&
               _isDirectInputCommand(commandsList.last.command) ||
-          _datawizardSettingsManager
-              .isDataWizardParameter(commandsList.last.command)) {
+          _datawizardHelper.isDataWizardParameter(commandsList.last.command)) {
         final parameter = commandsList.last.command;
         commandsList.removeLast();
         if (commandsList.isNotEmpty) {

@@ -1,36 +1,34 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/src/injection/injection.config.dart';
-import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 
 /// Manages the default feedback settings for a scanner, including LED, buzzer, and vibration feedback.
 ///
 /// The feedback settings control the visual, auditory, and tactile feedback
 /// that the scanner provides when executing certain commands, such as setting configuration options.
 @lazySingleton
-class ScannerFeedbackManager {
-  bool _ledFeedback = true;
+class ScannerFeedback {
+  bool _led = true;
 
   /// Indicates whether LED feedback is enabled.
   ///
   /// When `true`, the scanner will emit a light (LED) as a form of feedback when executing commands.
   /// Default value is `true`.
-  bool get ledFeedback => _ledFeedback;
+  bool get led => _led;
 
-  bool _buzzerFeedback = true;
+  bool _buzzer = true;
 
   /// Indicates whether buzzer feedback is enabled.
   ///
   /// When `true`, the scanner will emit a sound (buzzer) as a form of feedback when executing commands.
   /// Default value is `true`.
-  bool get buzzerFeedback => _buzzerFeedback;
+  bool get buzzer => _buzzer;
 
-  bool _vibrationFeedback = true;
+  bool _vibration = true;
 
   /// Indicates whether vibration feedback is enabled.
   ///
   /// When `true`, the scanner will vibrate as a form of feedback when executing commands, if the scanner supports vibration.
   /// Default value is `true`.
-  bool get vibrationFeedback => _vibrationFeedback;
+  bool get vibration => _vibration;
 
   /// Sets the feedback preferences for the scanner.
   ///
@@ -45,11 +43,8 @@ class ScannerFeedbackManager {
     bool? buzzer,
     bool? vibration,
   }) {
-    if (led != null) _ledFeedback = led;
-    if (buzzer != null) _buzzerFeedback = buzzer;
-    if (vibration != null) _vibrationFeedback = vibration;
-    final appLogger = getIt<AppLogger>();
-    appLogger.warning(
-        'Scanner feedback settings updated: LED=$ledFeedback, buzzer=$buzzerFeedback, vibration=$vibrationFeedback');
+    if (led != null) _led = led;
+    if (buzzer != null) _buzzer = buzzer;
+    if (vibration != null) _vibration = vibration;
   }
 }
