@@ -200,17 +200,17 @@ class Symbology extends SettingsBase {
   /// Enables a specific symbology on the device.
   ///
   /// [deviceId] is the ID of the device where the symbology should be enabled.
-  /// [symbologyType] is the symbology to enable exclusively.
+  /// [type] is the symbology to enable exclusively.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> enableOnlySymbology(
-      String deviceId, SymbologyType symbologyType) async {
-    final String? command = _enableOnlySymbologyCommands[symbologyType];
+      {required deviceId, required SymbologyType type}) async {
+    final String? command = _enableOnlySymbologyCommands[type];
 
     if (command != null) {
       return sendCommand(deviceId, command);
     } else {
-      final msg = 'Command not found for $symbologyType';
+      final msg = 'Command not found for $type';
       _appLogger.error(msg);
       return CommandResponse.failed(msg);
     }
@@ -219,21 +219,22 @@ class Symbology extends SettingsBase {
   /// Toggles a specific symbology on the device based on the [enabled] flag.
   ///
   /// [deviceId] is the ID of the device where the symbology should be enabled or disabled.
-  /// [symbologyType] is the symbology to enable or disable.
+  /// [type] is the symbology to enable or disable.
   /// [enabled] is a boolean flag indicating whether to enable (true) or disable (false) the symbology.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setSymbology(
-      String deviceId, SymbologyType symbologyType,
-      {required bool enabled}) async {
+      {required deviceId,
+      required SymbologyType type,
+      required bool enabled}) async {
     final String? command = enabled
-        ? _enableSymbologyCommands[symbologyType]
-        : _disableSymbologyCommands[symbologyType];
+        ? _enableSymbologyCommands[type]
+        : _disableSymbologyCommands[type];
 
     if (command != null) {
       return sendCommand(deviceId, command);
     } else {
-      final msg = 'Command not found for $symbologyType';
+      final msg = 'Command not found for $type';
       _appLogger.error(msg);
       return CommandResponse.failed(msg);
     }

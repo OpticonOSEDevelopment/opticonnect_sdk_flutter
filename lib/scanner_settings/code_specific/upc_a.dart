@@ -37,7 +37,8 @@ class UPCA extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setLeadingZeroAndTransmitCDMode(
-      String deviceId, UPCALeadingZeroAndTransmitCDMode mode) async {
+      {required String deviceId,
+      required UPCALeadingZeroAndTransmitCDMode mode}) async {
     return sendCommand(
         deviceId, _upcALeadingZeroAndTransmitCDModeCommands[mode]!);
   }
@@ -48,8 +49,8 @@ class UPCA extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 2-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus2(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus2(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableUPCAPlus2 : disableUPCAPlus2;
     return sendCommand(deviceId, command);
   }
@@ -60,8 +61,8 @@ class UPCA extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 5-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus5(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus5(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableUPCAPlus5 : disableUPCAPlus5;
     return sendCommand(deviceId, command);
   }

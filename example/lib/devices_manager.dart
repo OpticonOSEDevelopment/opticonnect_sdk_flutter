@@ -91,8 +91,8 @@ class DevicesManager extends ChangeNotifier {
     }
 
     await OptiConnect.scannerSettings.readOptions.setIlluminationMode(
-        deviceId,
-        floodlightEnabled
+        deviceId: deviceId,
+        mode: floodlightEnabled
             ? IlluminationMode.disableFloodlight
             : IlluminationMode.enableFloodlight);
     floodlightStatus[deviceId] = !floodlightEnabled;
@@ -103,7 +103,8 @@ class DevicesManager extends ChangeNotifier {
   Future<void> toggleSymbology(String deviceId) async {
     final symbologyEnabled = symbologyStatus[deviceId] ?? true;
     await OptiConnect.scannerSettings.symbology.setSymbology(
-        deviceId, SymbologyType.ean13,
+        deviceId: deviceId,
+        type: SymbologyType.ean13,
         enabled: !symbologyEnabled);
     symbologyStatus[deviceId] = !symbologyEnabled;
     notifyListeners();

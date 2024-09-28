@@ -15,8 +15,8 @@ class KoreanPostalAuthority extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitCD(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? koreanPostalTransmitCd : koreanPostalDoNotTransmitCd;
     return sendCommand(deviceId, command);
@@ -28,20 +28,11 @@ class KoreanPostalAuthority extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of dashes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitDash(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitDash(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? koreanPostalTransmitDash : koreanPostalDoNotTransmitDash;
     return sendCommand(deviceId, command);
-  }
-
-  /// Sets the orientation of the scan engine to normal for Korean Postal Authority Code symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setOrientationNormal(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalOrientationNormal);
   }
 
   /// Sets the orientation of the scan engine for Korean Postal Authority Code symbology.
@@ -53,7 +44,7 @@ class KoreanPostalAuthority extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setKoreanPostalOrientation(
-      String deviceId, bool setUpsideDown) async {
+      {required String deviceId, required bool setUpsideDown}) async {
     // Choose the appropriate command based on the desired orientation
     final command = setUpsideDown
         ? koreanPostalOrientationUpsideDown
@@ -69,8 +60,8 @@ class KoreanPostalAuthority extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) upside-down reading.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setUpsideDownReading(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setUpsideDownReading(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? koreanPostalUpsideDownReadingEnabled
         : koreanPostalUpsideDownReadingDisabled;

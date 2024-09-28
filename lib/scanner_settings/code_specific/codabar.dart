@@ -93,7 +93,8 @@ class Codabar extends SettingsBase {
   /// [mode] - The Codabar mode to set.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> setMode(String deviceId, CodabarMode mode) async {
+  Future<CommandResponse> setMode(
+      {required deviceId, required CodabarMode mode}) async {
     return sendCommand(deviceId, _modeCommands[mode]!);
   }
 
@@ -103,8 +104,8 @@ class Codabar extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> setCheckCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setCheckCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? codabarCheckCd : codabarDoNotCheckCd;
     return sendCommand(deviceId, command);
   }
@@ -115,8 +116,8 @@ class Codabar extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> setTransmitCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? codabarTransmitCd : codabarDoNotTransmitCd;
     return sendCommand(deviceId, command);
   }
@@ -127,8 +128,8 @@ class Codabar extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) space insertion.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> setSpaceInsertion(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setSpaceInsertion(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? codabarEnableSpaceInsertion : codabarDisableSpaceInsertion;
     return sendCommand(deviceId, command);
@@ -141,7 +142,7 @@ class Codabar extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
   Future<CommandResponse> setMinimumLength(
-      String deviceId, CodabarMinimumLength length) async {
+      {required deviceId, required CodabarMinimumLength length}) async {
     return sendCommand(deviceId, _minLengthCommands[length]!);
   }
 
@@ -151,8 +152,8 @@ class Codabar extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the intercharacter gap check.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> setIntercharacterGapCheck(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setIntercharacterGapCheck(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? codabarEnableIntercharacterGapCheck
         : codabarDisableIntercharacterGapCheck;
@@ -166,7 +167,8 @@ class Codabar extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
   Future<CommandResponse> setStartStopTransmission(
-      String deviceId, CodabarStartStopTransmission transmission) async {
+      {required deviceId,
+      required CodabarStartStopTransmission transmission}) async {
     return sendCommand(deviceId, _startStopTransmissionCommands[transmission]!);
   }
 }

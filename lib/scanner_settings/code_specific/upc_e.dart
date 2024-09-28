@@ -47,7 +47,8 @@ class UPCE extends SettingsBase {
   /// [deviceId] - The identifier of the target device.and [mode] is the desired leading zero and check digit transmission mode.
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setLeadingZeroAndTransmitCDMode(
-      String deviceId, UPCELeadingZeroAndTransmitCDMode mode) async {
+      {required deviceId,
+      required UPCELeadingZeroAndTransmitCDMode mode}) async {
     return sendCommand(
         deviceId, _upcELeadingZeroAndTransmitCDModeCommands[mode]!);
   }
@@ -59,7 +60,7 @@ class UPCE extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setConversionMode(
-      String deviceId, UPCEConversionMode mode) async {
+      {required deviceId, required UPCEConversionMode mode}) async {
     return sendCommand(deviceId, _upcEConversionModeCommands[mode]!);
   }
 
@@ -69,8 +70,8 @@ class UPCE extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 2-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus2(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus2(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableUPCEPlus2 : disableUPCEPlus2;
     return sendCommand(deviceId, command);
   }
@@ -81,8 +82,8 @@ class UPCE extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 5-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus5(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus5(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableUPCEPlus5 : disableUPCEPlus5;
     return sendCommand(deviceId, command);
   }

@@ -211,7 +211,7 @@ class Formatting extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPreambleFromKeys(
-      String deviceId, List<DirectInputKey> keys) async {
+      {required deviceId, required List<DirectInputKey> keys}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodes(keys, _maxPreambleChars);
     return sendCommand(deviceId, preamble, parameters: directInputKeysCodes);
@@ -224,7 +224,7 @@ class Formatting extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPreambleFromString(
-      String deviceId, String preamble) {
+      {required deviceId, required String preamble}) {
     final directInputKeysCodes =
         _getDirectInputKeysCodesFromString(preamble, _maxPreambleChars);
     return sendCommand(deviceId, preamble, parameters: directInputKeysCodes);
@@ -246,8 +246,9 @@ class Formatting extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPrefixFromKeys(
-      String deviceId, List<DirectInputKey> keys,
-      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
+      {required deviceId,
+      required List<DirectInputKey> keys,
+      FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodes(keys, _maxPrefixChars);
     return sendCommand(deviceId, _prefixSymbologyCodesMap[symbology]!,
@@ -260,8 +261,10 @@ class Formatting extends SettingsBase {
   /// [prefix] - A string to be used as the prefix, with a maximum length of 4.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setPrefixFromString(String deviceId, String prefix,
-      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
+  Future<CommandResponse> setPrefixFromString(
+      {required deviceId,
+      required String prefix,
+      FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodesFromString(prefix, _maxPrefixChars);
     return sendCommand(deviceId, _prefixSymbologyCodesMap[symbology]!,
@@ -284,8 +287,9 @@ class Formatting extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setSuffixFromKeys(
-      String deviceId, List<DirectInputKey> keys,
-      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
+      {required deviceId,
+      required List<DirectInputKey> keys,
+      FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodes(keys, _maxSuffixChars);
     return sendCommand(deviceId, _suffixSymbologyCodesMap[symbology]!,
@@ -298,8 +302,10 @@ class Formatting extends SettingsBase {
   /// [suffix] - A string to be used as the suffix, with a maximum length of 4.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setSuffixFromString(String deviceId, String suffix,
-      {FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
+  Future<CommandResponse> setSuffixFromString(
+      {required deviceId,
+      required String suffix,
+      FormattableSymbology symbology = FormattableSymbology.allCodes}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodesFromString(suffix, _maxSuffixChars);
     return sendCommand(deviceId, _suffixSymbologyCodesMap[symbology]!,
@@ -322,7 +328,7 @@ class Formatting extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPostambleFromKeys(
-      String deviceId, List<DirectInputKey> keys) async {
+      {required deviceId, required List<DirectInputKey> keys}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodes(keys, _maxPostambleChars);
     return sendCommand(deviceId, postamble, parameters: directInputKeysCodes);
@@ -335,7 +341,7 @@ class Formatting extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPostambleFromString(
-      String deviceId, String postamble) async {
+      {required deviceId, required String postamble}) async {
     final directInputKeysCodes =
         _getDirectInputKeysCodesFromString(postamble, _maxPostambleChars);
     return sendCommand(deviceId, postamble, parameters: directInputKeysCodes);

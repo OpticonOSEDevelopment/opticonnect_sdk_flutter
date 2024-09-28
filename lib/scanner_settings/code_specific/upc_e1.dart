@@ -15,8 +15,8 @@ class UPCE1 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 2-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus2(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus2(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableUPCE1Plus2 : disableUPCE1Plus2;
     return sendCommand(deviceId, command);
   }
@@ -27,8 +27,8 @@ class UPCE1 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 5-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus5(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus5(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableUPCE1Plus5 : disableUPCE1Plus5;
     return sendCommand(deviceId, command);
   }

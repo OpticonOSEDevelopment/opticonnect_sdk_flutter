@@ -29,8 +29,8 @@ class Code2Of5AndSCode extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the space check.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setSpaceCheck(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setSpaceCheck(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? twoOfFiveAndSCodeEnableSpaceCheckIndustrial2of5
         : twoOfFiveAndSCodeDisableSpaceCheckIndustrial2of5;
@@ -43,8 +43,8 @@ class Code2Of5AndSCode extends SettingsBase {
   /// [enabled] - A boolean indicating whether to transmit (`true`) or not transmit (`false`) the S-Code as Interleaved 2 of 5.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setSCodeTransmissionAsInterleaved(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setSCodeTransmissionAsInterleaved(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? twoOfFiveAndSCodeTransmitAsInterleaved2of5
         : twoOfFiveAndSCodeDoNotTransmitAsInterleaved2of5;
@@ -58,7 +58,7 @@ class Code2Of5AndSCode extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setMinimumDataLength(
-      String deviceId, DataLength dataLength) async {
+      {required deviceId, required DataLength dataLength}) async {
     return sendCommand(deviceId, _dataLengthCommands[dataLength]!);
   }
 }

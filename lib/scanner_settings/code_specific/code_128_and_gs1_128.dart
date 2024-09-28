@@ -48,7 +48,7 @@ class Code128AndGS1128 extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setGS1128Mode(
-      String deviceId, Code128GS1128Mode mode) async {
+      {required deviceId, required Code128GS1128Mode mode}) async {
     return sendCommand(deviceId, _modeCommands[mode]!);
   }
 
@@ -59,7 +59,7 @@ class Code128AndGS1128 extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setGS1128ConversionMode(
-      String deviceId, GS1128ConversionMode mode) async {
+      {required deviceId, required GS1128ConversionMode mode}) async {
     return sendCommand(deviceId, _gs1ConversionCommands[mode]!);
   }
 
@@ -69,8 +69,8 @@ class Code128AndGS1128 extends SettingsBase {
   /// [enabled] is a boolean indicating whether to enable (`true`) or disable (`false`) concatenation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setConcatenation(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setConcatenation(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? code128EnableConcatenation : code128DisableConcatenation;
     return sendCommand(deviceId, command);
@@ -82,8 +82,8 @@ class Code128AndGS1128 extends SettingsBase {
   /// [enabled] is a boolean indicating whether to enable (`true`) or disable (`false`) the leading ]C1 output.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setLeadingC1Output(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setLeadingC1Output(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? code128EnableLeadingC1Output : code128DisableLeadingC1Output;
     return sendCommand(deviceId, command);

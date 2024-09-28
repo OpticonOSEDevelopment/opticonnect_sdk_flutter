@@ -26,7 +26,8 @@ class Telepen extends SettingsBase {
   /// [mode] - The desired Telepen code mode.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setMode(String deviceId, TelepenCodeMode mode) async {
+  Future<CommandResponse> setMode(
+      {required deviceId, required TelepenCodeMode mode}) async {
     return sendCommand(deviceId, _telepenCodeModeCommands[mode]!);
   }
 }

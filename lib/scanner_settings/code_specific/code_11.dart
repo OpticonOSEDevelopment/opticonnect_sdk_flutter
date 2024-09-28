@@ -28,10 +28,11 @@ class Code11 extends SettingsBase {
   /// Sets the check digit validation mode for Code 11 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [setting] - The [Code11CheckCDSettings] enum value representing the desired setting.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCheckCD(
-      String deviceId, Code11CheckCDSettings setting) async {
+      {required deviceId, required Code11CheckCDSettings setting}) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
@@ -41,8 +42,8 @@ class Code11 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> setTransmitCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? code11TransmitCd : code11DoNotTransmitCd;
     return sendCommand(deviceId, command);
   }

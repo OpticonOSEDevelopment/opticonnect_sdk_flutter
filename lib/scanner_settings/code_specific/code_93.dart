@@ -15,8 +15,8 @@ class Code93 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the check digit validation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setCheckCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setCheckCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? code93CheckCd : code93DoNotCheckCd;
     return sendCommand(deviceId, command);
   }
@@ -27,8 +27,8 @@ class Code93 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) concatenation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setConcatenation(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setConcatenation(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? code93EnableConcatenation : code93DisableConcatenation;
     return sendCommand(deviceId, command);

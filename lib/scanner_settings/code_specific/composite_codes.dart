@@ -34,7 +34,7 @@ class CompositeCodes extends SettingsBase {
   /// [outputMode] - The [CompositeCodesOutputMode] enum value representing the desired output mode.
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setOutputMode(
-      String deviceId, CompositeCodesOutputMode outputMode) async {
+      {required deviceId, required CompositeCodesOutputMode outputMode}) async {
     return sendCommand(deviceId, _outputModeCommands[outputMode]!);
   }
 
@@ -44,8 +44,8 @@ class CompositeCodes extends SettingsBase {
   /// [enabled] - A boolean indicating whether to ignore (`true`) or not ignore (`false`) the link flag.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setIgnoreLinkFlag(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setIgnoreLinkFlag(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? compositeIgnoreLinkFlag : compositeDoNotIgnoreLinkFlag;
     return sendCommand(deviceId, command);
@@ -57,8 +57,8 @@ class CompositeCodes extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) GS1 composite codes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setCompositeGS1DatabarGS1128(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setCompositeGS1DatabarGS1128(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableCompositeGs1 : disableCompositeGs1;
     return sendCommand(deviceId, command);
   }
@@ -69,8 +69,8 @@ class CompositeCodes extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) EAN/UPC composite codes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setCompositeEANUPC(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setCompositeEANUPC(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? enableCompositeEanUpc : disableCompositeEanUpc;
     return sendCommand(deviceId, command);

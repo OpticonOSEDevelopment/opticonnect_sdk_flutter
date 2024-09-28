@@ -32,7 +32,7 @@ class IATA extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCheckCD(
-      String deviceId, IATACheckCDSettings setting) async {
+      {required deviceId, required IATACheckCDSettings setting}) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
@@ -42,8 +42,8 @@ class IATA extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? iataTransmitCd : iataDoNotTransmitCd;
     return sendCommand(deviceId, command);
   }

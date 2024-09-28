@@ -14,8 +14,8 @@ class UKPlessey extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of check digits.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitCDs(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitCDs(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? ukPlesseyTransmitCds : ukPlesseyDoNotTransmitCds;
     return sendCommand(deviceId, command);
@@ -27,8 +27,8 @@ class UKPlessey extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) space insertion.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setSpaceInsertion(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setSpaceInsertion(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? ukPlesseyEnableSpaceInsertion
         : ukPlesseyDisableSpaceInsertion;
@@ -41,8 +41,8 @@ class UKPlessey extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the A to X conversion.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAToXConversion(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAToXConversion(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? ukPlesseyEnableAtoXConversion
         : ukPlesseyDisableAtoXConversion;

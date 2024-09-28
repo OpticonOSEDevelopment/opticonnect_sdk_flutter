@@ -55,7 +55,7 @@ class MSIPlessey extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCheckCD(
-      String deviceId, MSIPlesseyCheckCDSettings setting) async {
+      {required deviceId, required MSIPlesseyCheckCDSettings setting}) async {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
@@ -66,7 +66,8 @@ class MSIPlessey extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCDTransmission(
-      String deviceId, MSIPlesseyCDTransmissionSettings setting) async {
+      {required deviceId,
+      required MSIPlesseyCDTransmissionSettings setting}) async {
     return sendCommand(deviceId, _cdTransmissionCommands[setting]!);
   }
 }

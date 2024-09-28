@@ -41,7 +41,8 @@ class Code39 extends SettingsBase {
   /// [deviceId] - The identifier of the target device.
   /// [mode] - The [Code39Mode] enum value representing the desired mode.
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setMode(String deviceId, Code39Mode mode) async {
+  Future<CommandResponse> setMode(
+      {required deviceId, required Code39Mode mode}) async {
     return sendCommand(deviceId, _modeCommands[mode]!);
   }
 
@@ -51,8 +52,8 @@ class Code39 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the check digit validation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setCheckCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setCheckCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? code39CheckCd : code39DoNotCheckCd;
     return sendCommand(deviceId, command);
   }
@@ -63,8 +64,8 @@ class Code39 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? code39TransmitCd : code39DoNotTransmitCd;
     return sendCommand(deviceId, command);
   }
@@ -75,8 +76,8 @@ class Code39 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of start/stop characters.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitSTSP(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitSTSP(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? code39TransmitStSp : code39DoNotTransmitStSp;
     return sendCommand(deviceId, command);
@@ -88,8 +89,8 @@ class Code39 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) concatenation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setConcatenation(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setConcatenation(
+      {required deviceId, required bool enabled}) async {
     final String command =
         enabled ? code39EnableConcatenation : code39DisableConcatenation;
     return sendCommand(deviceId, command);
@@ -101,8 +102,8 @@ class Code39 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the leading 'A'.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitLdAForItPharm(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitLdAForItPharm(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? code39TransmitLeadingAForItPharm
         : code39DoNotTransmitLeadingAForItPharm;

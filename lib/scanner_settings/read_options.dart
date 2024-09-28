@@ -89,7 +89,8 @@ class ReadOptions extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setPositiveAndNegativeBarcodesMode(
-      String deviceId, PositiveAndNegativeBarcodesMode mode) async {
+      {required deviceId,
+      required PositiveAndNegativeBarcodesMode mode}) async {
     return await sendCommand(
         deviceId, _positiveAndNegativeBarcodesReadModeCommands[mode]!);
   }
@@ -100,7 +101,8 @@ class ReadOptions extends SettingsBase {
   /// [mode] - The mode to set for reading, specified by [ReadMode].
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setReadMode(String deviceId, ReadMode mode) async {
+  Future<CommandResponse> setReadMode(
+      {required deviceId, required ReadMode mode}) async {
     return await sendCommand(deviceId, _readModeCommands[mode]!);
   }
 
@@ -110,7 +112,8 @@ class ReadOptions extends SettingsBase {
   /// [time] - The duration for reading, specified by [ReadTime].
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setReadTime(String deviceId, ReadTime time) async {
+  Future<CommandResponse> setReadTime(
+      {required deviceId, required ReadTime time}) async {
     return await sendCommand(deviceId, _readTimeCommands[time]!);
   }
 
@@ -121,7 +124,7 @@ class ReadOptions extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setIlluminationMode(
-      String deviceId, IlluminationMode mode) async {
+      {required deviceId, required IlluminationMode mode}) async {
     final appLogger = getIt<AppLogger>();
     appLogger.warning(
         'Setting illumination mode to $mode with code ${illuminationModeCommands[mode]!}');
@@ -133,8 +136,8 @@ class ReadOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable aiming.
-  Future<CommandResponse> setAiming(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAiming(
+      {required deviceId, required bool enabled}) async {
     return await sendCommand(
         deviceId, enabled ? aimingEnabled : aimingDisabled);
   }
@@ -143,8 +146,8 @@ class ReadOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable trigger repeat.
-  Future<CommandResponse> setTriggerRepeat(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTriggerRepeat(
+      {required deviceId, required bool enabled}) async {
     return await sendCommand(
         deviceId, enabled ? triggerRepeatEnabled : triggerRepeatDisabled);
   }
@@ -153,8 +156,8 @@ class ReadOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable the delete key.
-  Future<CommandResponse> setDeleteKey(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setDeleteKey(
+      {required deviceId, required bool enabled}) async {
     return await sendCommand(
         deviceId, enabled ? deleteKeyEnabled : deleteKeyDisabled);
   }

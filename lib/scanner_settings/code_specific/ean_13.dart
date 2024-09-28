@@ -48,8 +48,8 @@ class EAN13 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setTransmitCD(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setTransmitCD(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? ean13TransmitCd : ean13DoNotTransmitCd;
     return sendCommand(deviceId, command);
   }
@@ -60,8 +60,8 @@ class EAN13 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 2-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus2(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus2(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableEAN13Plus2 : disableEAN13Plus2;
     return sendCommand(deviceId, command);
   }
@@ -72,8 +72,8 @@ class EAN13 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 5-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setAddOnPlus5(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setAddOnPlus5(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled ? enableEAN13Plus5 : disableEAN13Plus5;
     return sendCommand(deviceId, command);
   }
@@ -84,7 +84,7 @@ class EAN13 extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
   Future<CommandResponse> setISSNTranslationMode(
-      String deviceId, TranslationMode mode) async {
+      {required deviceId, required TranslationMode mode}) async {
     return sendCommand(deviceId, _issnTranslationCommands[mode]!);
   }
 
@@ -95,7 +95,7 @@ class EAN13 extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
   Future<CommandResponse> setISMNTranslationMode(
-      String deviceId, TranslationMode mode) async {
+      {required deviceId, required TranslationMode mode}) async {
     return sendCommand(deviceId, _ismnTranslationCommands[mode]!);
   }
 
@@ -106,7 +106,7 @@ class EAN13 extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the command.
   Future<CommandResponse> setISBNTranslationMode(
-      String deviceId, TranslationMode mode) async {
+      {required deviceId, required TranslationMode mode}) async {
     return sendCommand(deviceId, _isbnTranslationCommands[mode]!);
   }
 
@@ -116,8 +116,8 @@ class EAN13 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the forced add-on for these prefixes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setForcedAddon378_379_529(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setForcedAddon378_379_529(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? eanEnableForcedAddon378_379_529
         : eanDisableForcedAddon378_379_529;
@@ -130,8 +130,8 @@ class EAN13 extends SettingsBase {
   /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the forced add-on for these prefixes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setForcedAddon434_439_414_419_977_978(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> setForcedAddon434_439_414_419_977_978(
+      {required deviceId, required bool enabled}) async {
     final String command = enabled
         ? eanEnableForcedAddon434_439_414_419_977_978
         : eanDisableForcedAddon434_439_414_419_977_978;

@@ -108,8 +108,8 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable the buzzer.
-  Future<CommandResponse> toggleBuzzer(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> toggleBuzzer(
+      {required deviceId, required bool enabled}) async {
     return sendCommand(deviceId, enabled ? buzzerEnabled : buzzerDisabled);
   }
 
@@ -119,7 +119,8 @@ class InidicatorOptions extends SettingsBase {
   /// [volume] - The volume value to be set, ranging from 0 to 100.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> testBuzzerVolume(String deviceId, int volume) async {
+  Future<CommandResponse> testBuzzerVolume(
+      {required deviceId, required int volume}) async {
     return _handleBuzzerVolumeCommand(deviceId, volume, nonPersistentSetBuzzer);
   }
 
@@ -129,7 +130,8 @@ class InidicatorOptions extends SettingsBase {
   /// [volume] - The volume value to be set, ranging from 0 to 100.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setBuzzerVolume(String deviceId, int volume) async {
+  Future<CommandResponse> setBuzzerVolume(
+      {required deviceId, required int volume}) async {
     return _handleBuzzerVolumeCommand(deviceId, volume, persistentSetBuzzer);
   }
 
@@ -140,7 +142,7 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setBuzzerType(
-      String deviceId, BuzzerType type) async {
+      {required deviceId, required BuzzerType type}) async {
     return sendCommand(deviceId, _buzzerTypeCommands[type]!);
   }
 
@@ -151,7 +153,7 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setBuzzerDuration(
-      String deviceId, BuzzerDuration duration) async {
+      {required deviceId, required BuzzerDuration duration}) async {
     return sendCommand(deviceId, _buzzerDurationCommands[duration]!);
   }
 
@@ -159,8 +161,8 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable the buzzer on key press.
-  Future<CommandResponse> toggleBuzzerOnKeyclick(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> toggleBuzzerOnKeyclick(
+      {required deviceId, required bool enabled}) async {
     return sendCommand(
         deviceId, enabled ? buzzerOnKeyclickOn : buzzerOnKeyclickOff);
   }
@@ -169,8 +171,8 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable the battery charging indicator.
-  Future<CommandResponse> toggleBatteryChargingIndicator(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> toggleBatteryChargingIndicator(
+      {required deviceId, required bool enabled}) async {
     return sendCommand(
         deviceId,
         enabled
@@ -182,8 +184,8 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable the vibrator.
-  Future<CommandResponse> toggleVibrator(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> toggleVibrator(
+      {required deviceId, required bool enabled}) async {
     return sendCommand(deviceId, enabled ? vibratorEnabled : vibratorDisabled);
   }
 
@@ -194,7 +196,7 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setVibratorDuration(
-      String deviceId, VibratorDuration duration) async {
+      {required deviceId, required VibratorDuration duration}) async {
     return sendCommand(deviceId, _vibratorDuration[duration]!);
   }
 
@@ -202,8 +204,8 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable the vibration on button press.
-  Future<CommandResponse> toggleVibrateOnScanButtonPress(String deviceId,
-      {required bool enabled}) async {
+  Future<CommandResponse> toggleVibrateOnScanButtonPress(
+      {required deviceId, required bool enabled}) async {
     return sendCommand(deviceId,
         enabled ? enableVibratonOnButtonPress : disableVibratonOnButtonPress);
   }
@@ -214,7 +216,8 @@ class InidicatorOptions extends SettingsBase {
   /// [color] - The [LEDColor] object that contains the red, green, and blue values.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> testLED(String deviceId, LEDColor color) async {
+  Future<CommandResponse> testLED(
+      {required deviceId, required LEDColor color}) async {
     return sendCommand(deviceId, nonPersistentSetLED,
         parameters: color.toParameters());
   }
@@ -225,7 +228,8 @@ class InidicatorOptions extends SettingsBase {
   /// [color] - The [LEDColor] object that contains the red, green, and blue values.
   ///
   /// - Returns: A [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setLED(String deviceId, LEDColor color) async {
+  Future<CommandResponse> setLED(
+      {required deviceId, required LEDColor color}) async {
     return sendCommand(deviceId, persistentSetLED,
         parameters: color.toParameters());
   }
@@ -237,7 +241,7 @@ class InidicatorOptions extends SettingsBase {
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setGoodReadLedDuration(
-      String deviceId, GoodReadLedDuration duration) async {
+      {required deviceId, required GoodReadLedDuration duration}) async {
     return sendCommand(deviceId, _goodReadLedDurationCommands[duration]!);
   }
 }

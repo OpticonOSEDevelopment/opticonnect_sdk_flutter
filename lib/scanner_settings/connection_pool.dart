@@ -86,16 +86,16 @@ class ConnectionPool extends SettingsBase {
   /// succeeds, the ID is converted into direct input key codes and sent to the device.
   ///
   /// [deviceId] - The identifier of the target device.
-
-  /// - [id]: A valid 4-character hexadecimal connection pool ID.
+  /// [poolId] 0 A valid 4-character hexadecimal connection pool ID.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setHexId(String deviceId, String id) async {
-    final validationResponse = _validateHexId(id);
+  Future<CommandResponse> setHexId(
+      {required deviceId, required String poolId}) async {
+    final validationResponse = _validateHexId(poolId);
     if (!validationResponse.succeeded) {
       return validationResponse;
     }
-    final directInputKeys = _getDirectInputKeysFromHexId(id);
+    final directInputKeys = _getDirectInputKeysFromHexId(poolId);
     final result = await sendCommand(deviceId, setConnectionPoolId,
         parameters: directInputKeys);
     if (!result.succeeded) {
@@ -120,11 +120,11 @@ class ConnectionPool extends SettingsBase {
   ///
   /// This method returns a boolean indicating whether the ID passes validation.
   ///
-  /// - [id]: The ID to validate.
+  /// [poolId] - The connection pool ID to validate.
   ///
   /// Returns `true` if the ID is valid, `false` otherwise.
-  bool isValidHexId(String id) {
-    final validationResponse = _validateHexId(id);
+  bool isValidHexId(String poolId) {
+    final validationResponse = _validateHexId(poolId);
     return validationResponse.succeeded;
   }
 
@@ -132,14 +132,14 @@ class ConnectionPool extends SettingsBase {
   /// The QR code data contains the necessary information to configure the device with the provided
   /// connection pool ID when scanned.
   ///
-  /// [id] - A valid 4-character hexadecimal connection pool ID.
+  /// [poolId] - A valid 4-character hexadecimal connection pool ID.
   ///
   /// Returns the QR code data string, or an empty string if the ID is invalid.
-  String getConnectionPoolQRData(String id) {
-    if (!isValidHexId(id)) {
+  String getConnectionPoolQRData(String poolId) {
+    if (!isValidHexId(poolId)) {
       return '';
     }
-    final directInputKeys = _getDirectInputKeysFromHexId(id);
+    final directInputKeys = _getDirectInputKeysFromHexId(poolId);
     return '@MENU_OPTO@ZZ@BBP@${directInputKeys.join('@')}@ZZ@OTPO_UNEM@';
   }
 }
