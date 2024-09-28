@@ -15,6 +15,7 @@ dependencies:
    opticonnect_sdk:
       path: ../.
    provider: ^6.1.2
+   intl: ^0.19.0
 
 dev_dependencies:
    flutter_test:

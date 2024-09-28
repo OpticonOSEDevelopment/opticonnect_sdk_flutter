@@ -1,29 +1,25 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk_client/devices_manager.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const OptiConnectSDKClient());
 }
 
-/// The main entry point of the app, demonstrating the OptiConnect SDK usage
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class OptiConnectSDKClient extends StatelessWidget {
+  const OptiConnectSDKClient({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Opticonnect SDK Client Example',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const OpticonnectSDKClient(),
     );
   }
 }
 
-/// Main UI for demonstrating device discovery, connection, and settings
 class OpticonnectSDKClient extends StatefulWidget {
   const OpticonnectSDKClient({super.key});
 
@@ -51,12 +47,10 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.detached) {
-      // App is terminating, clean up resources
       await _devicesManager.dispose();
     }
   }
 
-  /// Initializes the OptiConnect SDK when the app starts
   Future<void> _initializeSDK() async {
     try {
       await _devicesManager.initialize();
@@ -65,73 +59,63 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
     }
   }
 
-  /// Connects to a BLE device
-  void _connectToDevice(String deviceId) async {
-    try {
-      await _devicesManager.connect(deviceId);
-    } catch (e) {
-      debugPrint('Error connecting to device: $e');
-    }
-  }
-
-  /// Disconnects from a BLE device
-  void _disconnectFromDevice(String deviceId) async {
-    try {
-      await _devicesManager.disconnect(deviceId);
-    } catch (e) {
-      debugPrint('Error disconnecting from device: $e');
-    }
-  }
-
-  /// UI component for displaying the device's connection state
   Widget _buildConnectionState(String deviceId) {
     final connectionState = _devicesManager.connectionStates[deviceId];
     final isConnected = connectionState == BleDeviceConnectionState.connected;
     final isConnecting = connectionState == BleDeviceConnectionState.connecting;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          isConnected
-              ? Icons.check_circle
-              : (isConnecting ? Icons.hourglass_empty : Icons.cancel),
-          color: isConnected
-              ? Colors.green
-              : (isConnecting ? Colors.lightBlue : Colors.red),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          isConnected
-              ? 'Connected'
-              : (isConnecting ? 'Connecting...' : 'Disconnected'),
-          style: TextStyle(
+    return Container(
+      decoration: BoxDecoration(
+        color: isConnected
+            ? Colors.green.shade100
+            : (isConnecting ? Colors.blue.shade100 : Colors.red.shade100),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            isConnected
+                ? Icons.check_circle
+                : (isConnecting ? Icons.hourglass_empty : Icons.cancel),
             color: isConnected
                 ? Colors.green
-                : (isConnecting ? Colors.lightBlue : Colors.red),
+                : (isConnecting ? Colors.blue : Colors.red),
           ),
-        ),
-        const SizedBox(width: 16),
-        ElevatedButton(
-          onPressed: isConnecting
-              ? null // Disable the button while connecting
-              : isConnected
-                  ? () => _disconnectFromDevice(deviceId)
-                  : () => _connectToDevice(deviceId),
-          style: ElevatedButton.styleFrom(
-            foregroundColor: isConnected ? Colors.red : Colors.green,
+          const SizedBox(width: 8),
+          Text(
+            isConnected
+                ? 'Connected'
+                : (isConnecting ? 'Connecting...' : 'Disconnected'),
+            style: TextStyle(
+              color: isConnected
+                  ? Colors.green
+                  : (isConnecting ? Colors.blue : Colors.red),
+            ),
           ),
-          child: Text(isConnected ? 'Disconnect' : 'Connect'),
-        ),
-      ],
+          const SizedBox(width: 16),
+          ElevatedButton(
+            onPressed: isConnecting
+                ? null
+                : isConnected
+                    ? () => _disconnectFromDevice(deviceId)
+                    : () => _connectToDevice(deviceId),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: isConnected ? Colors.red : Colors.green,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+            ),
+            child: Text(isConnected ? 'Disconnect' : 'Connect',
+                style: const TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
     );
   }
 
-  /// UI component for toggling the floodlight setting
   Widget _buildFloodlightToggleButton(String deviceId) {
     final isConnected = _devicesManager.connectionStates[deviceId] ==
         BleDeviceConnectionState.connected;
-
     return isConnected
         ? ElevatedButton(
             onPressed: () => _devicesManager.toggleFloodlight(deviceId),
@@ -140,11 +124,9 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
         : const SizedBox();
   }
 
-  /// UI component for toggling symbology (e.g., EAN-13) setting
   Widget _buildSymbologyToggleButton(String deviceId) {
     final isConnected = _devicesManager.connectionStates[deviceId] ==
         BleDeviceConnectionState.connected;
-
     return isConnected
         ? ElevatedButton(
             onPressed: () => _devicesManager.toggleSymbology(deviceId),
@@ -153,34 +135,69 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
         : const SizedBox();
   }
 
-  /// UI component for displaying barcode data and device info
+  String _formatToLocalTime(String isoDateString) {
+    DateTime dateTime = DateTime.parse(isoDateString).toLocal();
+    return DateFormat.yMd().add_jm().format(dateTime);
+  }
+
   Widget _buildBarcodeDataAndDeviceInfo(String deviceId) {
     final deviceInfo = _devicesManager.deviceInfo[deviceId];
-    final barcodeData = _devicesManager.barcodeData.isNotEmpty
-        ? _devicesManager.barcodeData.last
+    final barcodeData = _devicesManager.receivedBarcodeData.isNotEmpty
+        ? _devicesManager.receivedBarcodeData[deviceId]?.lastOrNull
         : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (barcodeData != null) ...[
-          Text('Data: ${barcodeData.data}'),
-          Text('Symbology: ${barcodeData.symbology}'),
-          Text('Quantity: ${barcodeData.quantity}'),
-          Text('Time of Scan: ${barcodeData.timeOfScan}'),
+          _buildDataCard(
+            title: 'Latest Barcode Data',
+            content: [
+              Text('Data: ${barcodeData.data}'),
+              Text('Symbology: ${barcodeData.symbology}'),
+              Text('Quantity: ${barcodeData.quantity}'),
+              Text(
+                  'Time of scan: ${_formatToLocalTime(barcodeData.timeOfScan)}'),
+            ],
+          ),
         ],
         if (deviceInfo != null) ...[
           const SizedBox(height: 16),
-          const Text('Device Info:',
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('MAC Address: ${deviceInfo.macAddress}'),
-          Text('Serial Number: ${deviceInfo.serialNumber}'),
-          Text('Local Name: ${deviceInfo.localName}'),
-          Text('Firmware Version: ${deviceInfo.firmwareVersion}'),
+          _buildDataCard(
+            title: 'Device Info',
+            content: [
+              Text('MAC Address: ${deviceInfo.macAddress}'),
+              Text('Serial Number: ${deviceInfo.serialNumber}'),
+              Text('Local Name: ${deviceInfo.localName}'),
+              Text('Firmware Version: ${deviceInfo.firmwareVersion}'),
+            ],
+          ),
         ] else ...[
           const Text('No device info available.'),
         ]
       ],
+    );
+  }
+
+  Widget _buildDataCard(
+      {required String title, required List<Widget> content}) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 3,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Divider(),
+            ...content,
+          ],
+        ),
+      ),
     );
   }
 
@@ -226,8 +243,8 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
                                               .connectionStates[deviceId] ==
                                           BleDeviceConnectionState.connected)
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 16.0), // Align the buttons
+                                          padding:
+                                              const EdgeInsets.only(left: 16.0),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -237,24 +254,16 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
                                               const SizedBox(height: 8),
                                               _buildSymbologyToggleButton(
                                                   deviceId),
+                                              _buildBarcodeDataAndDeviceInfo(
+                                                  deviceId),
                                             ],
                                           ),
                                         ),
                                     ],
                                   );
-                                }), // Convert the mapped widgets to a list.
+                                }),
                               ],
                             ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Latest Barcode Data',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      _devicesManager.barcodeData.isNotEmpty
-                          ? _buildBarcodeDataAndDeviceInfo(
-                              _devicesManager.barcodeData.last.deviceId)
-                          : const Text('No barcode data available.'),
                     ],
                   ),
                 ),
@@ -264,5 +273,21 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
         },
       ),
     );
+  }
+
+  void _connectToDevice(String deviceId) async {
+    try {
+      await _devicesManager.connect(deviceId);
+    } catch (e) {
+      debugPrint('Error connecting to device: $e');
+    }
+  }
+
+  void _disconnectFromDevice(String deviceId) async {
+    try {
+      await _devicesManager.disconnect(deviceId);
+    } catch (e) {
+      debugPrint('Error disconnecting from device: $e');
+    }
   }
 }

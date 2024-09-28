@@ -73,7 +73,7 @@ class BluetoothManager {
   ///
   /// [deviceId] - The identifier of the target device.
   ///
-  /// Attempts to establish a connection to the BLE device and logs the result.
+  /// Attempts to establish a connection to the BLE device.
   Future<void> connect(String deviceId) async {
     try {
       await _bleConnectivityHandler.connect(deviceId);
@@ -87,7 +87,7 @@ class BluetoothManager {
   ///
   /// [deviceId] - The identifier of the target device.
   ///
-  /// Disconnects the BLE device and logs the result.
+  /// Disconnects the BLE device.
   Future<void> disconnect(String deviceId) async {
     try {
       await _bleConnectivityHandler.disconnect(deviceId);

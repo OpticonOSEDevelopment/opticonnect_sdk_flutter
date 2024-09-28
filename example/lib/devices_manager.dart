@@ -16,9 +16,9 @@ class DevicesManager extends ChangeNotifier {
   final Map<String, BleDiscoveredDevice> discoveredDevices = {};
   final Map<String, BleDeviceConnectionState> connectionStates = {};
   final Map<String, DeviceInfo> deviceInfo = {};
-  final List<BarcodeData> barcodeData = [];
   final Map<String, StreamSubscription> _connectionSubscriptions = {};
   final Map<String, StreamSubscription> _barcodeSubscriptions = {};
+  final Map<String, List<BarcodeData>> receivedBarcodeData = {};
   final Map<String, bool> floodlightStatus = {};
   final Map<String, bool> symbologyStatus = {};
 
@@ -29,10 +29,12 @@ class DevicesManager extends ChangeNotifier {
     await _startDiscovery();
   }
 
+  /// Connect to the selected BLE device
   Future<void> connect(String deviceId) async {
     await OptiConnect.bluetoothManager.connect(deviceId);
   }
 
+  /// Disconnect from the selected BLE device
   Future<void> disconnect(String deviceId) async {
     OptiConnect.bluetoothManager.disconnect(deviceId);
   }
@@ -74,10 +76,11 @@ class DevicesManager extends ChangeNotifier {
   /// Starts listening to the barcode data stream from the device
   void _startListeningToBarcodeData(String deviceId) async {
     if (!_barcodeSubscriptions.containsKey(deviceId)) {
+      receivedBarcodeData.putIfAbsent(deviceId, () => []);
       final barcodeStream = await OptiConnect.bluetoothManager
           .subscribeToBarcodeDataStream(deviceId);
       _barcodeSubscriptions[deviceId] = barcodeStream.listen((data) {
-        barcodeData.add(data);
+        receivedBarcodeData[deviceId]!.add(data);
         notifyListeners();
       });
     }
@@ -121,6 +124,7 @@ class DevicesManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Disposes the subscriptions and OptiConnect SDK
   @override
   Future<void> dispose() async {
     await OptiConnect.dispose();
