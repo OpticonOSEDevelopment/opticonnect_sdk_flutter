@@ -129,57 +129,33 @@ class ReadOptions extends SettingsBase {
     return await sendCommand(deviceId, illuminationModeCommands[mode]!);
   }
 
-  /// Enables the aiming feature for the scanner.
+  /// Toggles the aiming feature for the scanner based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAiming(String deviceId) async {
-    return await sendCommand(deviceId, aimingEnabled);
+  /// [enabled] - A boolean indicating whether to enable or disable aiming.
+  Future<CommandResponse> setAiming(String deviceId,
+      {required bool enabled}) async {
+    return await sendCommand(
+        deviceId, enabled ? aimingEnabled : aimingDisabled);
   }
 
-  /// Disables the aiming feature for the scanner.
+  /// Toggles the trigger repeat feature for the scanner based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAiming(String deviceId) async {
-    return await sendCommand(deviceId, aimingDisabled);
+  /// [enabled] - A boolean indicating whether to enable or disable trigger repeat.
+  Future<CommandResponse> setTriggerRepeat(String deviceId,
+      {required bool enabled}) async {
+    return await sendCommand(
+        deviceId, enabled ? triggerRepeatEnabled : triggerRepeatDisabled);
   }
 
-  /// Enables the trigger repeat feature for the scanner.
+  /// Toggles the delete key feature for the scanner based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTriggerRepeat(String deviceId) async {
-    return await sendCommand(deviceId, triggerRepeatEnabled);
-  }
-
-  /// Disables the trigger repeat feature for the scanner.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTriggerRepeat(String deviceId) async {
-    return await sendCommand(deviceId, triggerRepeatDisabled);
-  }
-
-  /// Enables the delete key feature for the scanner.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableDeleteKey(String deviceId) async {
-    return await sendCommand(deviceId, deleteKeyEnabled);
-  }
-
-  /// Disables the delete key feature for the scanner.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableDeleteKey(String deviceId) async {
-    return await sendCommand(deviceId, deleteKeyDisabled);
+  /// [enabled] - A boolean indicating whether to enable or disable the delete key.
+  Future<CommandResponse> setDeleteKey(String deviceId,
+      {required bool enabled}) async {
+    return await sendCommand(
+        deviceId, enabled ? deleteKeyEnabled : deleteKeyDisabled);
   }
 }

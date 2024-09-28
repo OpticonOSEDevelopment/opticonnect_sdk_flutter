@@ -23,44 +23,32 @@ class Code2Of5AndSCode extends SettingsBase {
     DataLength.fiveCharacters: twoOfFiveAndSCodeMinimumLengthFiveChars,
   };
 
-  /// Enables the space check for Industrial 2 of 5 symbology.
+  /// Sets the space check mode for Industrial 2 of 5 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the space check.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableSpaceCheck(String deviceId) async {
-    return sendCommand(
-        deviceId, twoOfFiveAndSCodeEnableSpaceCheckIndustrial2of5);
+  Future<CommandResponse> setSpaceCheck(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? twoOfFiveAndSCodeEnableSpaceCheckIndustrial2of5
+        : twoOfFiveAndSCodeDisableSpaceCheckIndustrial2of5;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the space check for Industrial 2 of 5 symbology.
+  /// Sets the transmission mode of S-Code as Interleaved 2 of 5.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to transmit (`true`) or not transmit (`false`) the S-Code as Interleaved 2 of 5.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableSpaceCheck(String deviceId) async {
-    return sendCommand(
-        deviceId, twoOfFiveAndSCodeDisableSpaceCheckIndustrial2of5);
-  }
-
-  /// Transmits the S-Code as Interleaved 2 of 5.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> transmitSCodeAsInterleaved(String deviceId) async {
-    return sendCommand(deviceId, twoOfFiveAndSCodeTransmitAsInterleaved2of5);
-  }
-
-  /// Does not transmit the S-Code as Interleaved 2 of 5.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> doNotTransmitSCodeAsInterleaved(
-      String deviceId) async {
-    return sendCommand(
-        deviceId, twoOfFiveAndSCodeDoNotTransmitAsInterleaved2of5);
+  Future<CommandResponse> setSCodeTransmissionAsInterleaved(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? twoOfFiveAndSCodeTransmitAsInterleaved2of5
+        : twoOfFiveAndSCodeDoNotTransmitAsInterleaved2of5;
+    return sendCommand(deviceId, command);
   }
 
   /// Sets the minimum data length for Code 2 of 5 and S-Code symbologies.

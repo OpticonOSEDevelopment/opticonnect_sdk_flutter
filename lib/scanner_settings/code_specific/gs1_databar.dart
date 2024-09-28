@@ -8,39 +8,29 @@ import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 /// This class provides methods to manage the transmission of check digits and AI (Application Identifier) settings for GS1 Databar symbology.
 @lazySingleton
 class GS1Databar extends SettingsBase {
-  /// Enables the transmission of the check digit for GS1 Databar symbology.
+  /// Sets the transmission of the check digit for GS1 Databar symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, gs1DataBarTransmitCd);
+  Future<CommandResponse> setTransmitCD(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? gs1DataBarTransmitCd : gs1DataBarDoNotTransmitCd;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the transmission of the check digit for GS1 Databar symbology.
+  /// Sets the transmission of the AI (Application Identifier) for GS1 Databar symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the AI.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, gs1DataBarDoNotTransmitCd);
-  }
-
-  /// Enables the transmission of the AI (Application Identifier) for GS1 Databar symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitAI(String deviceId) async {
-    return sendCommand(deviceId, gs1DataBarTransmitAI);
-  }
-
-  /// Disables the transmission of the AI (Application Identifier) for GS1 Databar symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitAI(String deviceId) async {
-    return sendCommand(deviceId, gs1DataBarDoNotTransmitAI);
+  Future<CommandResponse> setTransmitAI(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? gs1DataBarTransmitAI : gs1DataBarDoNotTransmitAI;
+    return sendCommand(deviceId, command);
   }
 }

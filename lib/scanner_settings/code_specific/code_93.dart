@@ -9,39 +9,28 @@ import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 /// transmission of check digits, and concatenation for Code 93 symbology.
 @lazySingleton
 class Code93 extends SettingsBase {
-  /// Enables check digit validation for Code 93 symbology.
+  /// Sets the check digit validation for Code 93 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the check digit validation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableCheckCD(String deviceId) async {
-    return sendCommand(deviceId, code93CheckCd);
+  Future<CommandResponse> setCheckCD(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? code93CheckCd : code93DoNotCheckCd;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables check digit validation for Code 93 symbology.
+  /// Sets the concatenation mode for Code 93 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) concatenation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableCheckCD(String deviceId) async {
-    return sendCommand(deviceId, code93DoNotCheckCd);
-  }
-
-  /// Enables concatenation for Code 93 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableConcatenation(String deviceId) async {
-    return sendCommand(deviceId, code93EnableConcatenation);
-  }
-
-  /// Disables concatenation for Code 93 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableConcatenation(String deviceId) async {
-    return sendCommand(deviceId, code93DisableConcatenation);
+  Future<CommandResponse> setConcatenation(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? code93EnableConcatenation : code93DisableConcatenation;
+    return sendCommand(deviceId, command);
   }
 }

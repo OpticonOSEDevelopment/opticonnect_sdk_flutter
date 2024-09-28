@@ -38,59 +38,41 @@ class CompositeCodes extends SettingsBase {
     return sendCommand(deviceId, _outputModeCommands[outputMode]!);
   }
 
-  /// Ignores the link flag for composite codes.
+  /// Sets whether to ignore the link flag for composite codes.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to ignore (`true`) or not ignore (`false`) the link flag.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> ignoreLinkFlag(String deviceId) async {
-    return sendCommand(deviceId, compositeIgnoreLinkFlag);
+  Future<CommandResponse> setIgnoreLinkFlag(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? compositeIgnoreLinkFlag : compositeDoNotIgnoreLinkFlag;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables ignoring the link flag for composite codes.
+  /// Sets the state for GS1 Databar and GS1-128 composite codes.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) GS1 composite codes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> doNotIgnoreLinkFlag(String deviceId) async {
-    return sendCommand(deviceId, compositeDoNotIgnoreLinkFlag);
+  Future<CommandResponse> setCompositeGS1DatabarGS1128(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? enableCompositeGs1 : disableCompositeGs1;
+    return sendCommand(deviceId, command);
   }
 
-  /// Enables GS1 Databar and GS1-128 composite codes.
+  /// Sets the state for EAN/UPC composite codes.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) EAN/UPC composite codes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableCompositeGS1DatabarGS1128(
-      String deviceId) async {
-    return sendCommand(deviceId, enableCompositeGs1);
-  }
-
-  /// Disables GS1 Databar and GS1-128 composite codes.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableCompositeGS1DatabarGS1128(
-      String deviceId) async {
-    return sendCommand(deviceId, disableCompositeGs1);
-  }
-
-  /// Enables EAN/UPC composite codes.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableCompositeEANUPC(String deviceId) async {
-    return sendCommand(deviceId, enableCompositeEanUpc);
-  }
-
-  /// Disables EAN/UPC composite codes.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableCompositeEANUPC(String deviceId) async {
-    return sendCommand(deviceId, disableCompositeEanUpc);
+  Future<CommandResponse> setCompositeEANUPC(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? enableCompositeEanUpc : disableCompositeEanUpc;
+    return sendCommand(deviceId, command);
   }
 }

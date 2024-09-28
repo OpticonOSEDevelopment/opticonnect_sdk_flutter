@@ -216,34 +216,19 @@ class Symbology extends SettingsBase {
     }
   }
 
-  /// Enables only the specified symbology on the device, excluding all others.
+  /// Toggles a specific symbology on the device based on the [enabled] flag.
   ///
-  /// [deviceId] is the ID of the device where the symbology should be enabled exclusively.
-  /// [symbologyType] is the symbology to enable.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableSymbology(
-      String deviceId, SymbologyType symbologyType) async {
-    final String? command = _enableSymbologyCommands[symbologyType];
-
-    if (command != null) {
-      return sendCommand(deviceId, command);
-    } else {
-      final msg = 'Command not found for $symbologyType';
-      _appLogger.error(msg);
-      return CommandResponse.failed(msg);
-    }
-  }
-
-  /// Disables a specific symbology on the device.
-  ///
-  /// [deviceId] is the ID of the device where the symbology should be disabled.
-  /// [symbologyType] is the symbology to disable.
+  /// [deviceId] is the ID of the device where the symbology should be enabled or disabled.
+  /// [symbologyType] is the symbology to enable or disable.
+  /// [enabled] is a boolean flag indicating whether to enable (true) or disable (false) the symbology.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableSymbology(
-      String deviceId, SymbologyType symbologyType) async {
-    final String? command = _disableSymbologyCommands[symbologyType];
+  Future<CommandResponse> setSymbology(
+      String deviceId, SymbologyType symbologyType,
+      {required bool enabled}) async {
+    final String? command = enabled
+        ? _enableSymbologyCommands[symbologyType]
+        : _disableSymbologyCommands[symbologyType];
 
     if (command != null) {
       return sendCommand(deviceId, command);

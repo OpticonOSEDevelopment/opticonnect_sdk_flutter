@@ -35,21 +35,15 @@ class Code11 extends SettingsBase {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
-  /// Enables the transmission of the check digit for Code 11 symbology.
+  /// Sets the transmission state of the check digit for Code 11 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, code11TransmitCd);
-  }
-
-  /// Disables the transmission of the check digit for Code 11 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, code11DoNotTransmitCd);
+  /// Returns a [CommandResponse] indicating the success or failure of the command.
+  Future<CommandResponse> setTransmitCD(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? code11TransmitCd : code11DoNotTransmitCd;
+    return sendCommand(deviceId, command);
   }
 }

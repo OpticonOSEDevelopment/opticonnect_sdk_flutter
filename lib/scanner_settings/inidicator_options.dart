@@ -104,22 +104,13 @@ class InidicatorOptions extends SettingsBase {
     return sendCommand(deviceId, command, parameters: volumeInDirectInputKeys);
   }
 
-  /// Enables the buzzer on the scanner.
+  /// Toggles the buzzer on or off based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableBuzzer(String deviceId) async {
-    return sendCommand(deviceId, buzzerEnabled);
-  }
-
-  /// Disables the buzzer on the scanner.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableBuzzer(String deviceId) async {
-    return sendCommand(deviceId, buzzerDisabled);
+  /// [enabled] - A boolean indicating whether to enable or disable the buzzer.
+  Future<CommandResponse> toggleBuzzer(String deviceId,
+      {required bool enabled}) async {
+    return sendCommand(deviceId, enabled ? buzzerEnabled : buzzerDisabled);
   }
 
   /// Tests the volume without storing it (non-persistent).
@@ -164,22 +155,14 @@ class InidicatorOptions extends SettingsBase {
     return sendCommand(deviceId, _buzzerDurationCommands[duration]!);
   }
 
-  /// Enables the buzzer sound when pressing any button on the scanner.
+  /// Toggles the buzzer sound when pressing any button on the scanner based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableBuzzerOnKeyclick(String deviceId) async {
-    return sendCommand(deviceId, buzzerOnKeyclickOn);
-  }
-
-  /// Disables the buzzer sound when pressing any button on the scanner.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableBuzzerOnKeyclick(String deviceId) async {
-    return sendCommand(deviceId, buzzerOnKeyclickOff);
+  /// [enabled] - A boolean indicating whether to enable or disable the buzzer on key press.
+  Future<CommandResponse> toggleBuzzerOnKeyclick(String deviceId,
+      {required bool enabled}) async {
+    return sendCommand(
+        deviceId, enabled ? buzzerOnKeyclickOn : buzzerOnKeyclickOff);
   }
 
   /// Enables the battery charging indicator on the scanner.
@@ -202,22 +185,13 @@ class InidicatorOptions extends SettingsBase {
     return sendCommand(deviceId, batteryChargingIndicatorDisabled);
   }
 
-  /// Enables the vibrator on the scanner.
+  /// Toggles the vibrator on or off based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableVibrator(String deviceId) async {
-    return sendCommand(deviceId, vibratorEnabled);
-  }
-
-  /// Disables the vibrator on the scanner.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableVibrator(String deviceId) async {
-    return sendCommand(deviceId, vibratorDisabled);
+  /// [enabled] - A boolean indicating whether to enable or disable the vibrator.
+  Future<CommandResponse> toggleVibrator(String deviceId,
+      {required bool enabled}) async {
+    return sendCommand(deviceId, enabled ? vibratorEnabled : vibratorDisabled);
   }
 
   /// Sets the vibration duration on the scanner.
@@ -231,24 +205,14 @@ class InidicatorOptions extends SettingsBase {
     return sendCommand(deviceId, _vibratorDuration[duration]!);
   }
 
-  /// Enables vibration when the scan button is pressed.
+  /// Toggles the vibration when the scan button is pressed based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableVibrateOnScanButtonPress(
-      String deviceId) async {
-    return sendCommand(deviceId, enableVibratonOnButtonPress);
-  }
-
-  /// Disables vibration when the scan button is pressed.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableVibrateOnScanButtonPress(
-      String deviceId) async {
-    return sendCommand(deviceId, disableVibratonOnButtonPress);
+  /// [enabled] - A boolean indicating whether to enable or disable the vibration on button press.
+  Future<CommandResponse> toggleVibrateOnScanButtonPress(String deviceId,
+      {required bool enabled}) async {
+    return sendCommand(deviceId,
+        enabled ? enableVibratonOnButtonPress : disableVibratonOnButtonPress);
   }
 
   /// Tests the LED by setting the color temporarily (non-persistent).

@@ -9,40 +9,30 @@ import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 /// and to manage the transmission of dashes in the barcode data.
 @lazySingleton
 class KoreanPostalAuthority extends SettingsBase {
-  /// Enables the transmission of the check digit for Korean Postal Authority Code symbology.
+  /// Sets the transmission of the check digit for Korean Postal Authority Code symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalTransmitCd);
+  Future<CommandResponse> setTransmitCD(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? koreanPostalTransmitCd : koreanPostalDoNotTransmitCd;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the transmission of the check digit for Korean Postal Authority Code symbology.
+  /// Sets the transmission of dashes in the barcode data for Korean Postal Authority Code symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of dashes.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalDoNotTransmitCd);
-  }
-
-  /// Enables the transmission of dashes in the barcode data for Korean Postal Authority Code symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> transmitDash(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalTransmitDash);
-  }
-
-  /// Disables the transmission of dashes in the barcode data for Korean Postal Authority Code symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> doNotTransmitDash(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalDoNotTransmitDash);
+  Future<CommandResponse> setTransmitDash(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? koreanPostalTransmitDash : koreanPostalDoNotTransmitDash;
+    return sendCommand(deviceId, command);
   }
 
   /// Sets the orientation of the scan engine to normal for Korean Postal Authority Code symbology.
@@ -54,30 +44,36 @@ class KoreanPostalAuthority extends SettingsBase {
     return sendCommand(deviceId, koreanPostalOrientationNormal);
   }
 
-  /// Sets the orientation of the scan engine to upside-down for Korean Postal Authority Code symbology.
+  /// Sets the orientation of the scan engine for Korean Postal Authority Code symbology.
+  ///
+  /// If [setUpsideDown] is true, sets the orientation to upside-down, otherwise sets it to normal.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [setUpsideDown] - A boolean flag indicating whether to set the orientation to upside-down (true) or normal (false).
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> setOrientationUpsideDown(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalOrientationUpsideDown);
+  Future<CommandResponse> setKoreanPostalOrientation(
+      String deviceId, bool setUpsideDown) async {
+    // Choose the appropriate command based on the desired orientation
+    final command = setUpsideDown
+        ? koreanPostalOrientationUpsideDown
+        : koreanPostalOrientationNormal;
+
+    // Send the selected command to the device
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables upside-down reading for Korean Postal Authority Code symbology.
+  /// Sets upside-down reading for Korean Postal Authority Code symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) upside-down reading.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableUpsideDownReading(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalUpsideDownReadingDisabled);
-  }
-
-  /// Enables upside-down reading for Korean Postal Authority Code symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableUpsideDownReading(String deviceId) async {
-    return sendCommand(deviceId, koreanPostalUpsideDownReadingEnabled);
+  Future<CommandResponse> setUpsideDownReading(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? koreanPostalUpsideDownReadingEnabled
+        : koreanPostalUpsideDownReadingDisabled;
+    return sendCommand(deviceId, command);
   }
 }

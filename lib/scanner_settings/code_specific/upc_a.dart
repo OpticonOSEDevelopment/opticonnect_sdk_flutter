@@ -42,39 +42,27 @@ class UPCA extends SettingsBase {
         deviceId, _upcALeadingZeroAndTransmitCDModeCommands[mode]!);
   }
 
-  /// Enables the 2-character add-on for UPCA symbology.
+  /// Sets the 2-character add-on for UPCA symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 2-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, enableUPCAPlus2);
+  Future<CommandResponse> setAddOnPlus2(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? enableUPCAPlus2 : disableUPCAPlus2;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the 2-character add-on for UPCA symbology.
+  /// Sets the 5-character add-on for UPCA symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 5-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, disableUPCAPlus2);
-  }
-
-  /// Enables the 5-character add-on for UPCA symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, enableUPCAPlus5);
-  }
-
-  /// Disables the 5-character add-on for UPCA symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, disableUPCAPlus5);
+  Future<CommandResponse> setAddOnPlus5(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? enableUPCAPlus5 : disableUPCAPlus5;
+    return sendCommand(deviceId, command);
   }
 }

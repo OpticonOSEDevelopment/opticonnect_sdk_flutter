@@ -42,58 +42,40 @@ class EAN13 extends SettingsBase {
     TranslationMode.enableIfPossible: eanEnableISBNIfPossible,
   };
 
-  /// Enables the transmission of the check digit for EAN-13 symbology.
+  /// Sets the transmission of the check digit for EAN-13 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, ean13TransmitCd);
+  Future<CommandResponse> setTransmitCD(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? ean13TransmitCd : ean13DoNotTransmitCd;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the transmission of the check digit for EAN-13 symbology.
+  /// Sets the 2-character add-on for EAN-13 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 2-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, ean13DoNotTransmitCd);
+  Future<CommandResponse> setAddOnPlus2(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? enableEAN13Plus2 : disableEAN13Plus2;
+    return sendCommand(deviceId, command);
   }
 
-  /// Enables the 2-character add-on for EAN-13 symbology.
+  /// Sets the 5-character add-on for EAN-13 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 5-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, enableEAN13Plus2);
-  }
-
-  /// Disables the 2-character add-on for EAN-13 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, disableEAN13Plus2);
-  }
-
-  /// Enables the 5-character add-on for EAN-13 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, enableEAN13Plus5);
-  }
-
-  /// Disables the 5-character add-on for EAN-13 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, disableEAN13Plus5);
+  Future<CommandResponse> setAddOnPlus5(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? enableEAN13Plus5 : disableEAN13Plus5;
+    return sendCommand(deviceId, command);
   }
 
   /// If enabled, EAN-13 label is verified for the correct format and transmitted as an 8 digit ISSN number.
@@ -128,41 +110,31 @@ class EAN13 extends SettingsBase {
     return sendCommand(deviceId, _isbnTranslationCommands[mode]!);
   }
 
-  /// Enables forced add-on for EAN symbology with 378, 379, and 529 prefixes.
+  /// Sets the forced add-on for EAN symbology with 378, 379, and 529 prefixes.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the forced add-on for these prefixes.
   ///
-  /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> enableForcedAddon378_379_529(String deviceId) async {
-    return sendCommand(deviceId, eanEnableForcedAddon378_379_529);
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
+  Future<CommandResponse> setForcedAddon378_379_529(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? eanEnableForcedAddon378_379_529
+        : eanDisableForcedAddon378_379_529;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables forced add-on for EAN symbology with 378, 379, and 529 prefixes.
+  /// Sets the forced add-on for EAN-13 symbology with 434, 439, 414, 419, 977, and 978 prefixes.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the forced add-on for these prefixes.
   ///
-  /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> disableForcedAddon378_379_529(String deviceId) async {
-    return sendCommand(deviceId, eanDisableForcedAddon378_379_529);
-  }
-
-  /// Enables forced add-on for EAN-13 symbology with 434, 439, 414, 419, 977, 978 prefixes.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> enableForcedAddon434_439_414_419_977_978(
-      String deviceId) async {
-    return sendCommand(deviceId, eanEnableForcedAddon434_439_414_419_977_978);
-  }
-
-  /// Disables forced add-on for EAN-13 symbology with 434, 439, 414, 419, 977, 978 prefixes.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> disableForcedAddon434_439_414_419_977_978(
-      String deviceId) async {
-    return sendCommand(deviceId, eanDisableForcedAddon434_439_414_419_977_978);
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
+  Future<CommandResponse> setForcedAddon434_439_414_419_977_978(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? eanEnableForcedAddon434_439_414_419_977_978
+        : eanDisableForcedAddon434_439_414_419_977_978;
+    return sendCommand(deviceId, command);
   }
 }

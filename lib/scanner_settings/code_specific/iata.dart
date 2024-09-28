@@ -28,6 +28,7 @@ class IATA extends SettingsBase {
   /// Sets the check digit validation mode for IATA symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [setting] - The [IATACheckCDSettings] enum value representing the desired setting.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setCheckCD(
@@ -35,21 +36,15 @@ class IATA extends SettingsBase {
     return sendCommand(deviceId, _checkCDCommands[setting]!);
   }
 
-  /// Enables the transmission of the check digit for IATA symbology.
+  /// Sets the transmission of the check digit for IATA symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, iataTransmitCd);
-  }
-
-  /// Disables the transmission of the check digit for IATA symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, iataDoNotTransmitCd);
+  Future<CommandResponse> setTransmitCD(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? iataTransmitCd : iataDoNotTransmitCd;
+    return sendCommand(deviceId, command);
   }
 }

@@ -8,57 +8,44 @@ import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 /// This class provides methods to configure check digit transmission and space insertion for UK Plessey symbology.
 @lazySingleton
 class UKPlessey extends SettingsBase {
-  /// Enables the transmission of check digits for UK Plessey symbology.
+  /// Sets the transmission of check digits for UK Plessey symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of check digits.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCDs(String deviceId) async {
-    return sendCommand(deviceId, ukPlesseyTransmitCds);
+  Future<CommandResponse> setTransmitCDs(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? ukPlesseyTransmitCds : ukPlesseyDoNotTransmitCds;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the transmission of check digits for UK Plessey symbology.
+  /// Sets space insertion between characters for UK Plessey symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) space insertion.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCDs(String deviceId) async {
-    return sendCommand(deviceId, ukPlesseyDoNotTransmitCds);
+  Future<CommandResponse> setSpaceInsertion(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? ukPlesseyEnableSpaceInsertion
+        : ukPlesseyDisableSpaceInsertion;
+    return sendCommand(deviceId, command);
   }
 
-  /// Enables space insertion between characters for UK Plessey symbology.
+  /// Sets the A to X conversion for UK Plessey symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the A to X conversion.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableSpaceInsertion(String deviceId) async {
-    return sendCommand(deviceId, ukPlesseyEnableSpaceInsertion);
-  }
-
-  /// Disables space insertion between characters for UK Plessey symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableSpaceInsertion(String deviceId) async {
-    return sendCommand(deviceId, ukPlesseyDisableSpaceInsertion);
-  }
-
-  /// Enables A to X conversion for UK Plessey symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAToXConversion(String deviceId) async {
-    return sendCommand(deviceId, ukPlesseyEnableAtoXConversion);
-  }
-
-  /// Disables A to X conversion for UK Plessey symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAToXConversion(String deviceId) async {
-    return sendCommand(deviceId, ukPlesseyDisableAtoXConversion);
+  Future<CommandResponse> setAToXConversion(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? ukPlesseyEnableAtoXConversion
+        : ukPlesseyDisableAtoXConversion;
+    return sendCommand(deviceId, command);
   }
 }

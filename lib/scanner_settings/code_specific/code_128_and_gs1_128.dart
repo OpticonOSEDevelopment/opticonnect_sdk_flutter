@@ -63,39 +63,29 @@ class Code128AndGS1128 extends SettingsBase {
     return sendCommand(deviceId, _gs1ConversionCommands[mode]!);
   }
 
-  /// Enables concatenation for Code 128 symbology.
+  /// Sets the concatenation mode for Code 128 symbology.
   ///
   /// [deviceId] is the identifier of the device.
+  /// [enabled] is a boolean indicating whether to enable (`true`) or disable (`false`) concatenation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableConcatenation(String deviceId) async {
-    return sendCommand(deviceId, code128EnableConcatenation);
+  Future<CommandResponse> setConcatenation(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? code128EnableConcatenation : code128DisableConcatenation;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables concatenation for Code 128 symbology.
+  /// Sets the output mode for the leading ]C1 character in Code 128 symbology.
   ///
   /// [deviceId] is the identifier of the device.
+  /// [enabled] is a boolean indicating whether to enable (`true`) or disable (`false`) the leading ]C1 output.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableConcatenation(String deviceId) async {
-    return sendCommand(deviceId, code128DisableConcatenation);
-  }
-
-  /// Enables the output of the leading ]C1 character in Code 128.
-  ///
-  /// [deviceId] is the identifier of the device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableLeadingC1Output(String deviceId) async {
-    return sendCommand(deviceId, code128EnableLeadingC1Output);
-  }
-
-  /// Disables the output of the leading ]C1 character in Code 128.
-  ///
-  /// [deviceId] is the identifier of the device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableLeadingC1Output(String deviceId) async {
-    return sendCommand(deviceId, code128DisableLeadingC1Output);
+  Future<CommandResponse> setLeadingC1Output(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? code128EnableLeadingC1Output : code128DisableLeadingC1Output;
+    return sendCommand(deviceId, command);
   }
 }

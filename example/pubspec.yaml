@@ -1,0 +1,26 @@
+name: opticonnect_sdk_client
+description: >
+   An example client app demonstrating the usage of the OptiConnect SDK for integrating with Opticon's BLE OPN-2500 and OPN-6000 barcode scanners.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+   sdk: ^3.5.1
+
+dependencies:
+   flutter:
+      sdk: flutter
+
+   cupertino_icons: ^1.0.8
+   opticonnect_sdk:
+      path: ../.
+   provider: ^6.1.2
+
+dev_dependencies:
+   flutter_test:
+      sdk: flutter
+
+   flutter_lints: ^4.0.0
+
+flutter:
+   uses-material-design: true

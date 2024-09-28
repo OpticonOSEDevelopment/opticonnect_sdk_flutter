@@ -9,57 +9,39 @@ import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 /// and to manage add-on settings for EAN-8 symbology.
 @lazySingleton
 class EAN8 extends SettingsBase {
-  /// Enables the transmission of the check digit for EAN-8 symbology.
+  /// Sets the transmission of the check digit for EAN-8 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, ean8TransmitCd);
+  Future<CommandResponse> setTransmitCD(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? ean8TransmitCd : ean8DoNotTransmitCd;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the transmission of the check digit for EAN-8 symbology.
+  /// Sets the 2-character add-on for EAN-8 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 2-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, ean8DoNotTransmitCd);
+  Future<CommandResponse> setAddOnPlus2(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? enableEAN8Plus2 : disableEAN8Plus2;
+    return sendCommand(deviceId, command);
   }
 
-  /// Enables the 2-character add-on for EAN-8 symbology.
+  /// Sets the 5-character add-on for EAN-8 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the 5-character add-on.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, enableEAN8Plus2);
-  }
-
-  /// Disables the 2-character add-on for EAN-8 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAddOnPlus2(String deviceId) async {
-    return sendCommand(deviceId, disableEAN8Plus2);
-  }
-
-  /// Enables the 5-character add-on for EAN-8 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, enableEAN8Plus5);
-  }
-
-  /// Disables the 5-character add-on for EAN-8 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableAddOnPlus5(String deviceId) async {
-    return sendCommand(deviceId, disableEAN8Plus5);
+  Future<CommandResponse> setAddOnPlus5(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? enableEAN8Plus5 : disableEAN8Plus5;
+    return sendCommand(deviceId, command);
   }
 }

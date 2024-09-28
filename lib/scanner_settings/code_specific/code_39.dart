@@ -45,94 +45,68 @@ class Code39 extends SettingsBase {
     return sendCommand(deviceId, _modeCommands[mode]!);
   }
 
-  /// Enables check digit validation for Code 39 symbology.
+  /// Sets the check digit validation for Code 39 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the check digit validation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableCheckCD(String deviceId) async {
-    return sendCommand(deviceId, code39CheckCd);
+  Future<CommandResponse> setCheckCD(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? code39CheckCd : code39DoNotCheckCd;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables check digit validation for Code 39 symbology.
+  /// Sets the transmission of the check digit for Code 39 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the check digit.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableCheckCD(String deviceId) async {
-    return sendCommand(deviceId, code39DoNotCheckCd);
+  Future<CommandResponse> setTransmitCD(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled ? code39TransmitCd : code39DoNotTransmitCd;
+    return sendCommand(deviceId, command);
   }
 
-  /// Enables the transmission of the check digit for Code 39 symbology.
+  /// Sets the transmission of start/stop characters for Code 39 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of start/stop characters.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, code39TransmitCd);
+  Future<CommandResponse> setTransmitSTSP(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? code39TransmitStSp : code39DoNotTransmitStSp;
+    return sendCommand(deviceId, command);
   }
 
-  /// Disables the transmission of the check digit for Code 39 symbology.
+  /// Sets the concatenation mode for Code 39 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) concatenation.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitCD(String deviceId) async {
-    return sendCommand(deviceId, code39DoNotTransmitCd);
+  Future<CommandResponse> setConcatenation(String deviceId,
+      {required bool enabled}) async {
+    final String command =
+        enabled ? code39EnableConcatenation : code39DisableConcatenation;
+    return sendCommand(deviceId, command);
   }
 
-  /// Enables the transmission of start/stop characters for Code 39 symbology.
+  /// Sets the transmission of the leading 'A' for IT Pharmaceutical mode in Code 39 symbology.
   ///
   /// [deviceId] - The identifier of the target device.
+  /// [enabled] - A boolean indicating whether to enable (`true`) or disable (`false`) the transmission of the leading 'A'.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableTransmitSTSP(String deviceId) async {
-    return sendCommand(deviceId, code39TransmitStSp);
-  }
-
-  /// Disables the transmission of start/stop characters for Code 39 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableTransmitSTSP(String deviceId) async {
-    return sendCommand(deviceId, code39DoNotTransmitStSp);
-  }
-
-  /// Enables concatenation for Code 39 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableConcatenation(String deviceId) async {
-    return sendCommand(deviceId, code39EnableConcatenation);
-  }
-
-  /// Disables concatenation for Code 39 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableConcatenation(String deviceId) async {
-    return sendCommand(deviceId, code39DisableConcatenation);
-  }
-
-  /// Enables the transmission of the leading 'A' for IT Pharmaceutical mode in Code 39 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> enableTransmitLdAForItPharm(String deviceId) async {
-    return sendCommand(deviceId, code39TransmitLeadingAForItPharm);
-  }
-
-  /// Disables the transmission of the leading 'A' for IT Pharmaceutical mode in Code 39 symbology.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the command.
-  Future<CommandResponse> disableTransmitLdAForItPharm(String deviceId) async {
-    return sendCommand(deviceId, code39DoNotTransmitLeadingAForItPharm);
+  Future<CommandResponse> setTransmitLdAForItPharm(String deviceId,
+      {required bool enabled}) async {
+    final String command = enabled
+        ? code39TransmitLeadingAForItPharm
+        : code39DoNotTransmitLeadingAForItPharm;
+    return sendCommand(deviceId, command);
   }
 
   /// Sets the minimum length for Code 39 symbology to 3 digits.
