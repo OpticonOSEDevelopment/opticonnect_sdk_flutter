@@ -165,24 +165,17 @@ class InidicatorOptions extends SettingsBase {
         deviceId, enabled ? buzzerOnKeyclickOn : buzzerOnKeyclickOff);
   }
 
-  /// Enables the battery charging indicator on the scanner.
+  /// Toggles the battery charging indicator on or off based on the [enabled] flag.
   ///
   /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> enableBatteryChargingIndicator(
-      String deviceId) async {
-    return sendCommand(deviceId, batteryChargingIndicatorEnabled);
-  }
-
-  /// Disables the battery charging indicator on the scanner.
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a [CommandResponse] indicating the success or failure of the operation.
-  Future<CommandResponse> disableBatteryChargingIndicator(
-      String deviceId) async {
-    return sendCommand(deviceId, batteryChargingIndicatorDisabled);
+  /// [enabled] - A boolean indicating whether to enable or disable the battery charging indicator.
+  Future<CommandResponse> toggleBatteryChargingIndicator(String deviceId,
+      {required bool enabled}) async {
+    return sendCommand(
+        deviceId,
+        enabled
+            ? batteryChargingIndicatorEnabled
+            : batteryChargingIndicatorDisabled);
   }
 
   /// Toggles the vibrator on or off based on the [enabled] flag.
