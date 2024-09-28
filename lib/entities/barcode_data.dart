@@ -1,19 +1,26 @@
-/// A class representing the data retrieved from a barcode scan.
-///
-/// This class holds information about the scanned barcode, included the processed
-/// barcode data, the symbology of the barcode, the time of the scan, and the quantity of the scanned item.
+/// This class holds detailed information about a scanned barcode, including:
+/// - The processed barcode data ([data]), which may have undergone transformations
+///   based on scanner settings (e.g., preamble, prefix, suffix, postamble).
+/// - The raw byte representation ([dataBytes]) of the processed barcode data.
+/// - The quantity of the scanned item ([quantity]), which can be negative to indicate removal.
+/// - Information about the barcode symbology ([symbology] and [symbologyId]).
+/// - The time of the scan ([timeOfScan]).
+/// - The ID of the scanning device ([deviceId]).
 class BarcodeData {
   /// The processed barcode data retrieved from the scan.
   ///
   /// The barcode data may have undergone transformations or additions such as preamble,
   /// prefix, suffix, or postamble based on scanner settings. Therefore, this is not necessarily
   /// the raw data directly from the barcode, but rather the processed output.
+  ///
+  /// This data is decoded from the raw bytes using UTF-8 encoding.
   final String data;
 
-  /// The raw bytes of the barcode data retrieved from the scan.
+  /// The byte representation of the processed barcode data retrieved from the scan.
   ///
-  /// This contains the unprocessed, encoded form of the data as bytes (e.g., UTF-8 or Unicode).
-  /// Clients can use this field for custom decoding.
+  /// Like the `data` field, this data may have undergone transformations or additions
+  /// such as preamble, prefix, suffix, or postamble based on scanner settings. This field
+  /// provides the byte-level representation (e.g., UTF-8 or Unicode) of the processed data.
   final List<int> dataBytes;
 
   /// The quantity of the scanned item.

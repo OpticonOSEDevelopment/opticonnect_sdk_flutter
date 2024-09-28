@@ -9,12 +9,9 @@ abstract class SettingsBase {
   final ScannerFeedback _scannerFeedback = getIt<ScannerFeedback>();
 
   @protected
-  final OptiConnect sdk = OptiConnect.instance;
-
-  @protected
   Future<CommandResponse> sendCommand(String deviceId, String command,
       {List<String> parameters = const []}) {
-    return sdk.scannerSettings.executeCommand(
+    return OptiConnect.scannerSettings.executeCommand(
         deviceId,
         ScannerCommand(command,
             parameters: parameters,

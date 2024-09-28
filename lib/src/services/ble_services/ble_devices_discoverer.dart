@@ -44,6 +44,7 @@ class BleDevicesDiscoverer {
       final adapterState = await FlutterBluePlus.adapterState.first;
 
       if (adapterState == BluetoothAdapterState.off) {
+        _appLogger.error('Bluetooth is not enabled. Cannot start discovery.');
         throw Exception('Bluetooth is not enabled.');
       }
 

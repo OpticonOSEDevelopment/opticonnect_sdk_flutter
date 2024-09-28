@@ -38,7 +38,8 @@ class BleConnectionStatesService {
     return _connectionControllers[deviceId]!.stream;
   }
 
-  void setConnectionState(String deviceId, BluetoothConnectionState state) {
+  void setConnectionState(String deviceId, BluetoothConnectionState state,
+      {bool notifySubscribers = true}) {
     _setConnectionStateController(deviceId);
     _connectionControllers[deviceId]?.add(state);
     _connectionStates[deviceId] = state;

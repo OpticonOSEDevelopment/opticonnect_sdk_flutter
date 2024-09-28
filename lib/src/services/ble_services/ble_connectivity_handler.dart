@@ -4,6 +4,7 @@ import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mutex/mutex.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connection_states_service.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_helper.dart';
@@ -88,11 +89,13 @@ class BleConnectivityHandler {
     try {
       _connectionStateSubscriptions[deviceId] =
           device.connectionState.listen((BluetoothConnectionState state) async {
-        _bleConnectionStatesService.setConnectionState(deviceId, state);
-
+        bool notifySubscribers = true;
         switch (state) {
           case BluetoothConnectionState.connected:
-            await _initDevice(deviceId);
+            if (!await _initDevice(deviceId)) {
+              state = BluetoothConnectionState.disconnected;
+              notifySubscribers = false;
+            }
             break;
           case BluetoothConnectionState.disconnected:
             await _processDisconnect(deviceId);
@@ -100,6 +103,9 @@ class BleConnectivityHandler {
           default:
             break;
         }
+
+        _bleConnectionStatesService.setConnectionState(deviceId, state,
+            notifySubscribers: notifySubscribers);
       });
     } catch (e) {
       _appLogger.error(
@@ -121,9 +127,34 @@ class BleConnectivityHandler {
         _bleConnectionStatesService.getConnectionState(deviceId));
   }
 
-  Future<void> _initDevice(String deviceId) async {
-    _commandHandlersManager.createCommandHandler(deviceId);
-    _devicesInfoManager.fetchDeviceInfo(deviceId);
+  Future<bool> _initDevice(String deviceId) async {
+    try {
+      final bleDevice = _bleDevicesHelper.getDeviceFromId(deviceId);
+
+      final services = await bleDevice.discoverServices();
+      BluetoothService? opcService;
+
+      for (final service in services) {
+        if (service.uuid.str128 == opcServiceUuid) {
+          opcService = service;
+          break;
+        }
+      }
+
+      if (opcService == null) {
+        await disconnect(deviceId);
+        throw ('OPC service not found for device $deviceId');
+      }
+
+      await _bleDevicesStreamsHandler.addDataProcessor(deviceId, opcService);
+      _commandHandlersManager.createCommandHandler(deviceId);
+      _devicesInfoManager.fetchDeviceInfo(deviceId);
+    } catch (e) {
+      _appLogger.error('Failed to initialize device $deviceId: $e');
+      await disconnect(deviceId);
+      return false;
+    }
+    return true;
   }
 
   Future<void> disconnect(String deviceId) async {

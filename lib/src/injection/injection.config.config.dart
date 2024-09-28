@@ -141,11 +141,6 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i401.PermissionHandler>(),
               gh<_i801.AppLogger>(),
             ));
-    gh.lazySingleton<_i726.BleDevicesStreamsHandler>(
-        () => _i726.BleDevicesStreamsHandler(
-              gh<_i26.BleDevicesHelper>(),
-              gh<_i801.AppLogger>(),
-            ));
     gh.lazySingleton<_i618.DatabaseManager>(
         () => _i618.DatabaseManager(gh<_i904.DatabasePathHelper>()));
     gh.lazySingleton<_i325.ConnectionPool>(
@@ -154,6 +149,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i676.Formatting(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i378.InidicatorOptions>(
         () => _i378.InidicatorOptions(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i726.BleDevicesStreamsHandler>(
+        () => _i726.BleDevicesStreamsHandler(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i916.Symbology>(
         () => _i916.Symbology(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i22.CommandBytesProvider>(

@@ -1,9 +1,10 @@
 import 'package:injectable/injectable.dart';
 
-/// Manages the default feedback settings for a scanner, including LED, buzzer, and vibration feedback.
+/// Configures the feedback behavior of the scanner when executing commands.
 ///
-/// The feedback settings control the visual, auditory, and tactile feedback
-/// that the scanner provides when executing certain commands, such as setting configuration options.
+/// This method allows you to update the individual feedback settings for LED, buzzer,
+/// and vibration. The feedback is applied when the scanner executes certain commands,
+/// controlling the visual (LED), auditory (buzzer), and tactile (vibration) responses.
 @lazySingleton
 class ScannerFeedback {
   bool _led = true;
@@ -38,7 +39,7 @@ class ScannerFeedback {
   /// - [led]: Set this to `true` to enable LED feedback, or `false` to disable it. If `null`, the setting remains unchanged.
   /// - [buzzer]: Set this to `true` to enable buzzer feedback, or `false` to disable it. If `null`, the setting remains unchanged.
   /// - [vibration]: Set this to `true` to enable vibration feedback, or `false` to disable it. If `null`, the setting remains unchanged.
-  void setFeedback({
+  void set({
     bool? led,
     bool? buzzer,
     bool? vibration,
