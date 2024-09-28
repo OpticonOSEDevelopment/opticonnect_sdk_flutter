@@ -27,13 +27,6 @@ import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
 /// It is recommended that you access this class through the `ScannerSettings` provided
 /// by the `OptiConnectSDK`. There is no need to manually initialize or modify the settings
 /// directly.
-///
-/// Example usage:
-/// ```dart
-/// final sdk = OptiConnectSDK.instance;
-/// sdk.initialize();
-/// final codeSettings = sdk.scannerSettings.codeSpecificSettings;
-/// ```
 @lazySingleton
 class CodeSpecific extends SettingsBase {
   /// Settings related to Code 2 of 5 and S-Code symbologies.

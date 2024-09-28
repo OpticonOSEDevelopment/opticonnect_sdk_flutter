@@ -34,7 +34,7 @@ class ScannerFeedback {
   /// Sets the feedback preferences for the scanner.
   ///
   /// Allows updating the individual feedback settings for LED, buzzer, and vibration.
-  /// These settings are applied to the commands sent to the scanner to adjust scanner behavior.
+  /// These settings are applied to the commands sent to the scanner to adjust scanner feedback behavior.
   ///
   /// - [led]: Set this to `true` to enable LED feedback, or `false` to disable it. If `null`, the setting remains unchanged.
   /// - [buzzer]: Set this to `true` to enable buzzer feedback, or `false` to disable it. If `null`, the setting remains unchanged.

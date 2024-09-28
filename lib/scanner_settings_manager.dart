@@ -18,16 +18,6 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_
 ///
 /// This class provides access to various settings, including enabling specific codes,
 /// configuring scan options, and managing formatting options.
-///
-/// It is recommended that you access this class through the `OptiConnectSDK` and
-/// avoid initializing or modifying the settings manually.
-///
-/// Example usage:
-/// ```dart
-/// final sdk = OptiConnectSDK.instance;
-/// sdk.initialize();
-/// final scannerSettings = sdk.scannerSettings;
-/// ```
 @lazySingleton
 class ScannerSettings extends SettingsBase {
   /// Settings related to enabling specific barcode symbologies.

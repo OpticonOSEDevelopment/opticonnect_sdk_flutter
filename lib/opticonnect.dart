@@ -56,6 +56,7 @@ class OptiConnect {
     return _scannerSettings;
   }
 
+  /// Public property getter for [scannerFeedback].
   static ScannerFeedback get scannerFeedback {
     _ensureInitialized(); // Check if SDK is initialized before accessing
     return _scannerFeedback;

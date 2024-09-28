@@ -27,13 +27,6 @@ class BluetoothManager {
   ///
   /// It is recommended that you access this class through the `OptiConnectSDK` and
   /// avoid initializing or modifying the settings manually.
-  ///
-  /// Example usage:
-  /// ```dart
-  /// final sdk = OptiConnectSDK.instance;
-  /// sdk.initialize();
-  /// final bluetoothManager = sdk.bluetoothManager;
-  /// ```
   BluetoothManager(
     this._bleDevicesDiscoverer,
     this._bleConnectivityHandler,

@@ -228,6 +228,8 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
                                   'Quantity: ${_devicesManager.barcodeData.last.quantity}'),
                               Text(
                                   'Time of Scan: ${_devicesManager.barcodeData.last.timeOfScan}'),
+                              Text(
+                                  'Device ID: ${_devicesManager.barcodeData.last.deviceId}'),
                             ],
                           )
                         : const Text('No barcode data available.'),
