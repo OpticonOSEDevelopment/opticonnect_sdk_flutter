@@ -38,7 +38,7 @@ class CommandExecutor implements ICommandSender {
     _timeoutManager = TimeoutManager();
   }
 
-  final _commandQueue = Queue<Command>();
+  final _pendingCommandsQueue = Queue<Command>();
   final _responseData = StringBuffer();
   final _mutex = Mutex();
 
@@ -60,13 +60,13 @@ class CommandExecutor implements ICommandSender {
   }
 
   void _enqueueCommand(Command command) {
-    _commandQueue.addLast(command);
-    if (_commandQueue.length == 1) {
-      _sendCommand(_commandQueue.first);
+    _pendingCommandsQueue.addLast(command);
+    if (_pendingCommandsQueue.length == 1) {
+      _executeCommand(_pendingCommandsQueue.first);
     }
   }
 
-  Future<void> _sendCommand(Command command) async {
+  Future<void> _executeCommand(Command command) async {
     _responseData.clear();
     _startCommandTimeout(command);
 
@@ -114,21 +114,21 @@ class CommandExecutor implements ICommandSender {
   }
 
   void _finalizeCommandAndProcessNext(String responseData, bool hasFailed) {
-    if (_commandQueue.isNotEmpty) {
+    if (_pendingCommandsQueue.isNotEmpty) {
       _mutex.protect(() async {
-        if (_commandQueue.isNotEmpty) {
-          final command = _commandQueue.first;
+        if (_pendingCommandsQueue.isNotEmpty) {
+          final command = _pendingCommandsQueue.first;
 
           _completeCommand(command, responseData, hasFailed);
 
-          _commandQueue.removeFirst();
+          _pendingCommandsQueue.removeFirst();
 
           if (command.code != saveSettings) {
             _persistSettings();
           }
         }
-        if (_commandQueue.isNotEmpty) {
-          _sendCommand(_commandQueue.first);
+        if (_pendingCommandsQueue.isNotEmpty) {
+          _executeCommand(_pendingCommandsQueue.first);
         }
       });
     }
@@ -149,18 +149,18 @@ class CommandExecutor implements ICommandSender {
     _appLogger.warning('Retrying command: ${command.code}');
     command.retried = true;
     _mutex.protect(() async {
-      _commandQueue.removeFirst();
-      _commandQueue.add(command);
-      await _sendCommand(_commandQueue.first);
+      _pendingCommandsQueue.removeFirst();
+      _pendingCommandsQueue.add(command);
+      await _executeCommand(_pendingCommandsQueue.first);
     });
   }
 
   void _commandResponseReceivedEvent(String data) {
-    if (_commandQueue.isEmpty) {
+    if (_pendingCommandsQueue.isEmpty) {
       return;
     }
 
-    final command = _commandQueue.first;
+    final command = _pendingCommandsQueue.first;
     _appLogger
         .warning('Command response received for: ${command.code}, Data: $data');
 
@@ -186,7 +186,7 @@ class CommandExecutor implements ICommandSender {
   }
 
   void dispose() {
-    _commandQueue.clear();
+    _pendingCommandsQueue.clear();
     _timeoutManager.dispose();
   }
 }

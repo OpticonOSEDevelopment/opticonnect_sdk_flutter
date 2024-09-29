@@ -45,10 +45,10 @@ enum GoodReadLedDuration {
 ///
 /// This class allows for enabling/disabling these indicators and configuring buzzer and vibrator options.
 @lazySingleton
-class InidicatorOptions extends SettingsBase {
+class IndicatorOptions extends SettingsBase {
   final AppLogger _appLogger;
 
-  InidicatorOptions(this._appLogger);
+  IndicatorOptions(this._appLogger);
 
   /// A mapping of [BuzzerType] to the corresponding command string.
   final Map<BuzzerType, String> _buzzerTypeCommands = {
@@ -101,7 +101,8 @@ class InidicatorOptions extends SettingsBase {
     }
     final volumeInDirectInputKeys =
         DirectInputKeysHelper.convertIntToDirectInputKeys(volume);
-    return sendCommand(deviceId, command, parameters: volumeInDirectInputKeys);
+    return sendCommand(deviceId, command,
+        parameters: volumeInDirectInputKeys, sendFeedback: false);
   }
 
   /// Toggles the buzzer on or off based on the [enabled] flag.
@@ -219,7 +220,7 @@ class InidicatorOptions extends SettingsBase {
   Future<CommandResponse> testLED(
       {required deviceId, required LEDColor color}) async {
     return sendCommand(deviceId, nonPersistentSetLED,
-        parameters: color.toParameters());
+        parameters: color.toParameters(), sendFeedback: false);
   }
 
   /// Sets the LED color permanently (persistent).
@@ -231,7 +232,7 @@ class InidicatorOptions extends SettingsBase {
   Future<CommandResponse> setLED(
       {required deviceId, required LEDColor color}) async {
     return sendCommand(deviceId, persistentSetLED,
-        parameters: color.toParameters());
+        parameters: color.toParameters(), sendFeedback: false);
   }
 
   /// Sets the good read LED duration on the scanner.

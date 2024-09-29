@@ -10,14 +10,14 @@ import 'package:opticonnect_sdk/src/services/ble_services/ble_connection_states_
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_helper.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
 import 'package:opticonnect_sdk/src/services/core/devices_info_manager.dart';
-import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
+import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_executors_manager.dart';
 
 @lazySingleton
 class BleConnectivityHandler {
   final BleConnectionStatesService _bleConnectionStatesService;
   final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
   final BleDevicesHelper _bleDevicesHelper;
-  final CommandHandlersManager _commandHandlersManager;
+  final CommandExecutorsManager _commandExecutorsManager;
   final DevicesInfoManager _devicesInfoManager;
   final AppLogger _appLogger;
   final Map<String, StreamSubscription<BluetoothConnectionState>?>
@@ -28,7 +28,7 @@ class BleConnectivityHandler {
       this._bleConnectionStatesService,
       this._bleDevicesStreamsHandler,
       this._bleDevicesHelper,
-      this._commandHandlersManager,
+      this._commandExecutorsManager,
       this._devicesInfoManager,
       this._appLogger);
 
@@ -147,7 +147,7 @@ class BleConnectivityHandler {
       }
 
       await _bleDevicesStreamsHandler.addDataProcessor(deviceId, opcService);
-      _commandHandlersManager.createCommandHandler(deviceId);
+      _commandExecutorsManager.createCommandExecutor(deviceId);
       await _devicesInfoManager.fetchInfo(deviceId);
     } catch (e) {
       _appLogger.error('Failed to initialize device $deviceId: $e');
@@ -182,7 +182,7 @@ class BleConnectivityHandler {
   }
 
   Future<void> _processDisconnect(String deviceId) async {
-    _commandHandlersManager.disposeCommandHandler(deviceId);
+    _commandExecutorsManager.disposeCommandExecutor(deviceId);
     await _connectionStateSubscriptions[deviceId]?.cancel();
     _connectionStateSubscriptions.remove(deviceId);
 

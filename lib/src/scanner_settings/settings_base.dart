@@ -10,11 +10,12 @@ abstract class SettingsBase {
 
   @protected
   Future<CommandResponse> sendCommand(String deviceId, String command,
-      {List<String> parameters = const []}) {
+      {List<String> parameters = const [], bool sendFeedback = true}) {
     return OptiConnect.scannerSettings.executeCommand(
         deviceId,
         ScannerCommand(command,
             parameters: parameters,
+            sendFeedback: sendFeedback,
             ledFeedback: _scannerFeedback.led,
             buzzerFeedback: _scannerFeedback.buzzer,
             vibrationFeedback: _scannerFeedback.vibration));

@@ -9,8 +9,21 @@ class LEDColor {
   /// Blue component of the RGB color, ranging from 0 to 255.
   final int blue;
 
-  /// Constructs an [LEDColor] with the specified red, green, and blue values.
-  LEDColor({required this.red, required this.green, required this.blue});
+  /// Constructs an [LEDColor] with the specified red, green, and blue values and checks the arguments.
+  LEDColor({required this.red, required this.green, required this.blue}) {
+    if (red < 0 || red > 255) {
+      throw ArgumentError.value(
+          red, 'red', 'The red value must be between 0 and 255.');
+    }
+    if (green < 0 || green > 255) {
+      throw ArgumentError.value(
+          green, 'green', 'The green value must be between 0 and 255.');
+    }
+    if (blue < 0 || blue > 255) {
+      throw ArgumentError.value(
+          blue, 'blue', 'The blue value must be between 0 and 255.');
+    }
+  }
 
   /// Converts an integer value to a hexadecimal string.
   ///

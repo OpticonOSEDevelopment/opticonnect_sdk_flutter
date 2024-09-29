@@ -39,7 +39,7 @@ import '../../scanner_settings/code_specific/upc_e.dart' as _i491;
 import '../../scanner_settings/code_specific/upc_e1.dart' as _i153;
 import '../../scanner_settings/connection_pool.dart' as _i325;
 import '../../scanner_settings/formatting.dart' as _i676;
-import '../../scanner_settings/inidicator_options.dart' as _i378;
+import '../../scanner_settings/indicator_options.dart' as _i378;
 import '../../scanner_settings/read_options.dart' as _i381;
 import '../../scanner_settings/symbology.dart' as _i916;
 import '../../scanner_settings_manager.dart' as _i981;
@@ -57,11 +57,11 @@ import '../services/core/permission_handler.dart' as _i401;
 import '../services/core/symbology_handler.dart' as _i307;
 import '../services/database/database_path_helper.dart' as _i904;
 import '../services/database/database_tables_helper.dart' as _i422;
+import '../services/scanner_commands_services/command_executors_manager.dart'
+    as _i569;
 import '../services/scanner_commands_services/command_factory.dart' as _i5;
 import '../services/scanner_commands_services/command_feedback_service.dart'
     as _i874;
-import '../services/scanner_commands_services/command_handlers_manager.dart'
-    as _i569;
 import '../services/scanner_commands_services/opc_command_protocol_handler.dart'
     as _i643;
 import '../services/scanner_settings_services/database_manager.dart' as _i618;
@@ -148,8 +148,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i325.ConnectionPool(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i676.Formatting>(
         () => _i676.Formatting(gh<_i801.AppLogger>()));
-    gh.lazySingleton<_i378.InidicatorOptions>(
-        () => _i378.InidicatorOptions(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i378.IndicatorOptions>(
+        () => _i378.IndicatorOptions(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i726.BleDevicesStreamsHandler>(
         () => _i726.BleDevicesStreamsHandler(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i916.Symbology>(
@@ -168,8 +168,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i732.SettingsHandler>(),
           gh<_i277.DataWizardHelper>(),
         ));
-    gh.lazySingleton<_i569.CommandHandlersManager>(
-        () => _i569.CommandHandlersManager(
+    gh.lazySingleton<_i569.CommandExecutorsManager>(
+        () => _i569.CommandExecutorsManager(
               gh<_i5.CommandFactory>(),
               gh<_i726.BleDevicesStreamsHandler>(),
               gh<_i22.CommandBytesProvider>(),
@@ -181,10 +181,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i916.Symbology>(),
           gh<_i316.CodeSpecific>(),
           gh<_i381.ReadOptions>(),
-          gh<_i378.InidicatorOptions>(),
+          gh<_i378.IndicatorOptions>(),
           gh<_i676.Formatting>(),
           gh<_i325.ConnectionPool>(),
-          gh<_i569.CommandHandlersManager>(),
+          gh<_i569.CommandExecutorsManager>(),
           gh<_i869.SettingsCompressor>(),
           gh<_i801.AppLogger>(),
         ));
@@ -192,15 +192,15 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i916.Symbology>(),
           gh<_i316.CodeSpecific>(),
           gh<_i381.ReadOptions>(),
-          gh<_i378.InidicatorOptions>(),
+          gh<_i378.IndicatorOptions>(),
           gh<_i676.Formatting>(),
           gh<_i325.ConnectionPool>(),
-          gh<_i569.CommandHandlersManager>(),
+          gh<_i569.CommandExecutorsManager>(),
           gh<_i869.SettingsCompressor>(),
           gh<_i801.AppLogger>(),
         ));
     gh.lazySingleton<_i976.DevicesInfoManager>(() => _i976.DevicesInfoManager(
-          gh<_i569.CommandHandlersManager>(),
+          gh<_i569.CommandExecutorsManager>(),
           gh<_i801.AppLogger>(),
         ));
     gh.lazySingleton<_i721.BleConnectivityHandler>(
@@ -208,7 +208,7 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i61.BleConnectionStatesService>(),
               gh<_i726.BleDevicesStreamsHandler>(),
               gh<_i26.BleDevicesHelper>(),
-              gh<_i569.CommandHandlersManager>(),
+              gh<_i569.CommandExecutorsManager>(),
               gh<_i976.DevicesInfoManager>(),
               gh<_i801.AppLogger>(),
             ));

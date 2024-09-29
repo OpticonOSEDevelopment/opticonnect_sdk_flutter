@@ -5,12 +5,12 @@ import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_e
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_compressor.dart';
 
 class CompressionManager {
-  final CommandExecutor _commandHandler;
+  final CommandExecutor _commandExecutor;
   final SettingsCompressor _settingsCompressor;
   final AppLogger _appLogger;
 
   CompressionManager(
-      this._commandHandler, this._settingsCompressor, this._appLogger);
+      this._commandExecutor, this._settingsCompressor, this._appLogger);
 
   static const int _compressionThreshold = 30;
   int _commandsSentCounter = 0;
@@ -24,7 +24,7 @@ class CompressionManager {
       try {
         // Fetch the current uncompressed settings
         final command = Command(fetchSettings, sendFeedback: false);
-        _commandHandler.sendCommand(command);
+        _commandExecutor.sendCommand(command);
 
         final settingsResult = await command.completer.future;
 
@@ -32,7 +32,7 @@ class CompressionManager {
         final compressedCommand = await _settingsCompressor
             .getCompressedSettingsCommand(settingsResult.response);
 
-        _commandHandler.sendCommand(compressedCommand);
+        _commandExecutor.sendCommand(compressedCommand);
       } catch (error) {
         _appLogger.error('Error during command compression: $error');
       }

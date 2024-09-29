@@ -6,12 +6,12 @@ import 'package:opticonnect_sdk/entities/scanner_command.dart';
 import 'package:opticonnect_sdk/scanner_settings/code_specific/code_specific.dart';
 import 'package:opticonnect_sdk/scanner_settings/connection_pool.dart';
 import 'package:opticonnect_sdk/scanner_settings/formatting.dart';
-import 'package:opticonnect_sdk/scanner_settings/inidicator_options.dart';
+import 'package:opticonnect_sdk/scanner_settings/indicator_options.dart';
 import 'package:opticonnect_sdk/scanner_settings/read_options.dart';
 import 'package:opticonnect_sdk/scanner_settings/symbology.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/scanner_settings/settings_base.dart';
-import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
+import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_executors_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_compressor.dart';
 
 /// A class representing the scanner settings for Opticon BLE scanners.
@@ -30,7 +30,7 @@ class ScannerSettings extends SettingsBase {
   final ReadOptions readOptions;
 
   /// Options for configuring scanner indicators like buzzer, LEDs and vibration.
-  final InidicatorOptions inidicator;
+  final IndicatorOptions indicator;
 
   /// Options for customizing the formatting of scanned barcode data.
   final Formatting formatting;
@@ -39,7 +39,7 @@ class ScannerSettings extends SettingsBase {
   final ConnectionPool connectionPool;
 
   /// The command handlers manager instance to send commands to the scanner.
-  final CommandHandlersManager _commandHandlersManager;
+  final CommandExecutorsManager _commandExecutorsManager;
 
   /// The scanner settings compressor instance to decompress settings.
   final SettingsCompressor _scannerSettingsCompressor;
@@ -52,10 +52,10 @@ class ScannerSettings extends SettingsBase {
       this.symbology,
       this.codeSpecific,
       this.readOptions,
-      this.inidicator,
+      this.indicator,
       this.formatting,
       this.connectionPool,
-      this._commandHandlersManager,
+      this._commandExecutorsManager,
       this._scannerSettingsCompressor,
       this._appLogger);
 
@@ -63,15 +63,14 @@ class ScannerSettings extends SettingsBase {
   ///
   /// The [deviceId] specifies the BLE device to send the command to.
   /// The [command] represents the command to be sent, along with any associated parameters.
-  /// Single 3 or 4-letter commands sent should not use square brackets as they are auto-added.
-  /// For multiple commands in one request, 3-letter commands should always start with '[',
+  /// 3-letter commands should always start with '[',
   /// and 4-letter commands should start with ']'.
   ///
   /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> executeCommand(
       String deviceId, ScannerCommand command) async {
     try {
-      return await _commandHandlersManager.sendCommand(deviceId, command);
+      return await _commandExecutorsManager.sendCommand(deviceId, command);
     } catch (e) {
       _appLogger.error("Error sending command to device $deviceId: $e");
       rethrow;
@@ -93,7 +92,7 @@ class ScannerSettings extends SettingsBase {
   /// - A list of [CommandData] representing the current scanner settings.
   Future<List<CommandData>> getSettings(String deviceId) async {
     try {
-      final result = await _commandHandlersManager.sendCommand(
+      final result = await _commandExecutorsManager.sendCommand(
           deviceId,
           ScannerCommand(fetchSettings,
               ledFeedback: false,
@@ -122,7 +121,7 @@ class ScannerSettings extends SettingsBase {
   /// - A boolean indicating whether the settings were successfully reset.
   Future<bool> resetSettings(String deviceId) async {
     try {
-      final result = await _commandHandlersManager.sendCommand(
+      final result = await _commandExecutorsManager.sendCommand(
           deviceId, ScannerCommand(bluetoothLowEnergyDefault));
       return result.succeeded;
     } catch (e) {

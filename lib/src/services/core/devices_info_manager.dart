@@ -3,14 +3,14 @@ import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/device_info.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_handlers_manager.dart';
+import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_executors_manager.dart';
 
 @lazySingleton
 class DevicesInfoManager {
-  final CommandHandlersManager _commandHandlersManager;
+  final CommandExecutorsManager _commandExecutorsManager;
   final AppLogger _appLogger;
 
-  DevicesInfoManager(this._commandHandlersManager, this._appLogger);
+  DevicesInfoManager(this._commandExecutorsManager, this._appLogger);
 
   final Map<String, String> _macAddresses = {};
   final Map<String, String> _serialNumbers = {};
@@ -37,7 +37,7 @@ class DevicesInfoManager {
       String deviceId, Map<String, String> store, String parameter) async {
     try {
       if (!store.containsKey(deviceId)) {
-        final result = await _commandHandlersManager.sendCommand(
+        final result = await _commandExecutorsManager.sendCommand(
             deviceId,
             ScannerCommand(transmitDeviceInformation,
                 parameters: [parameter], sendFeedback: false));

@@ -11,12 +11,10 @@ class Command extends BaseCommand {
   late final String parsedData;
   String get data => parsedData;
 
-  final bool sendFeedback;
-
   Command(
     super.code, {
-    this.sendFeedback = true,
     super.parameters,
+    super.sendFeedback = true,
     super.ledFeedback,
     super.buzzerFeedback,
     super.vibrationFeedback,
@@ -27,23 +25,12 @@ class Command extends BaseCommand {
   @protected
   void buildParsedData() {
     final buffer = StringBuffer();
-    final finalCode = formatCode(code);
-    buffer.write(finalCode);
+    buffer.write(code);
 
     for (int i = 0; i < parameters.length; i++) {
       buffer.addCommand(parameters[i]);
     }
     parsedData = buffer.toString();
-  }
-
-  static String formatCode(String code) {
-    if (code.length == 3) {
-      return '[$code';
-    } else if (code.length == 4 && code[0] != '[') {
-      return ']$code';
-    } else {
-      return code;
-    }
   }
 
   bool retried = false;
