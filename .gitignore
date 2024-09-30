@@ -9,7 +9,22 @@
 build/
 doc/
 .vscode/
-test/
+
+# Flutter/Dart specific
+**/.generated/
+**/flutter_export_environment.sh
+**/.DS_Store
+**/Flutter.framework/
+**/Flutter.podspec
+**/Generated.xcconfig
+
+# Miscellaneous
+**/Thumbs.db
+**/UserInterfaceState.xcuserstate
+
+# Remove metadata and iml files
+/.metadata
+/opticonnect_sdk.iml
 
 # Flutter/Dart specific
 **/.generated/
