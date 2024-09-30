@@ -1,7 +1,9 @@
+import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/entities/battery_level_status.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
+import 'package:opticonnect_sdk/enums/ble_adapter_state.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handler.dart';
@@ -30,6 +32,22 @@ class BluetoothManager {
     this._bleDevicesStreamsHandler,
     this._appLogger,
   );
+
+  /// A stream of [BleAdapterState] representing the state of the Bluetooth adapter.
+  Stream<BleAdapterState> get adapterState => FlutterBluePlus.adapterState
+      .map((state) => BleAdapterState.values[state.index]);
+
+  /// Checks if the Bluetooth adapter is currently scanning for devices (discovery).
+  bool get isScanning => FlutterBluePlus.isScanningNow;
+
+  /// A stream of [bool] representing the scanning state.
+  Stream<bool> get isScanningStream => FlutterBluePlus.isScanning;
+
+  /// Checks if Bluetooth is available on the device.
+  Future<bool> get isBluetoothAvailable async {
+    return (await FlutterBluePlus.adapterState.first) ==
+        BluetoothAdapterState.on;
+  }
 
   /// Starts the BLE device discovery process.
   ///

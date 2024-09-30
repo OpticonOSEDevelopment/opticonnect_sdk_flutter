@@ -7,6 +7,7 @@ import 'package:opticonnect_sdk/entities/battery_level_status.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/entities/device_info.dart';
+import 'package:opticonnect_sdk/enums/ble_adapter_state.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk/enums/symbology_type.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
@@ -31,6 +32,8 @@ class DevicesManager extends ChangeNotifier {
   final Map<String, StreamSubscription<BatteryLevelStatus>>
       _batteryStatusSubscriptions = {};
 
+  StreamSubscription? _bleDevicesDiscoveryStream;
+
   /// Initializes the OptiConnect SDK and starts discovering devices
   Future<void> initialize() async {
     await OptiConnect.initialize();
@@ -48,16 +51,24 @@ class DevicesManager extends ChangeNotifier {
     OptiConnect.bluetoothManager.disconnect(deviceId);
   }
 
-  /// Starts BLE device discovery and listens for new devices
+  /// Starts BLE device discovery when BLE is enabled and listens for new devices
   Future<void> _startDiscovery() async {
-    await OptiConnect.bluetoothManager.startDiscovery();
-    OptiConnect.bluetoothManager.bleDeviceStream.listen((device) {
-      if (!_connectionSubscriptions.containsKey(device.deviceId)) {
-        discoveredDevices[device.deviceId] = device;
-        connectionStates[device.deviceId] =
-            BleDeviceConnectionState.disconnected;
-        _startListeningToConnectionState(device.deviceId);
-        notifyListeners();
+    StreamSubscription<BleAdapterState>? subscription;
+    subscription =
+        OptiConnect.bluetoothManager.adapterState.listen((state) async {
+      if (state == BleAdapterState.on || state == BleAdapterState.unknown) {
+        await OptiConnect.bluetoothManager.startDiscovery();
+        _bleDevicesDiscoveryStream =
+            OptiConnect.bluetoothManager.bleDeviceStream.listen((device) {
+          if (!_connectionSubscriptions.containsKey(device.deviceId)) {
+            discoveredDevices[device.deviceId] = device;
+            connectionStates[device.deviceId] =
+                BleDeviceConnectionState.disconnected;
+            _startListeningToConnectionState(device.deviceId);
+            notifyListeners();
+          }
+        });
+        subscription?.cancel();
       }
     });
   }
@@ -183,6 +194,7 @@ class DevicesManager extends ChangeNotifier {
     for (final subscription in _batteryStatusSubscriptions.values) {
       subscription.cancel();
     }
+    _bleDevicesDiscoveryStream?.cancel();
     super.dispose();
   }
 }

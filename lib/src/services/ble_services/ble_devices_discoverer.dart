@@ -41,11 +41,10 @@ class BleDevicesDiscoverer {
 
   Future<void> startDiscovery() async {
     try {
-      final adapterState = await FlutterBluePlus.adapterState.first;
-
-      if (adapterState == BluetoothAdapterState.off) {
-        _appLogger.error('Bluetooth is not enabled. Cannot start discovery.');
-        throw Exception('Bluetooth is not enabled.');
+      bool isBluetoothEnabled = await _ensureBluetoothEnabledOrListen();
+      if (!isBluetoothEnabled) {
+        // Bluetooth is off and we are waiting for it to turn on
+        return;
       }
 
       await _checkBluetoothPermissions();
@@ -93,6 +92,26 @@ class BleDevicesDiscoverer {
     }
   }
 
+  Future<bool> _ensureBluetoothEnabledOrListen() async {
+    final adapterState = await FlutterBluePlus.adapterState.first;
+
+    if (adapterState == BluetoothAdapterState.off) {
+      _appLogger.error('Bluetooth is not enabled. Waiting for it to turn on.');
+
+      FlutterBluePlus.adapterState.listen((state) async {
+        _appLogger.error('Bluetooth state changed to: $state');
+        if (state == BluetoothAdapterState.on) {
+          _appLogger.info('Bluetooth is enabled. Starting discovery.');
+          await startDiscovery(); // Start discovery when Bluetooth turns on
+        }
+      });
+
+      return false;
+    }
+
+    return true;
+  }
+
   String _getConnectionPoolIdFromManufacturerData(
       Map<int, List<int>> manufacturerData) {
     if (manufacturerData.isNotEmpty) {
@@ -130,7 +149,7 @@ class BleDevicesDiscoverer {
       return _deviceDiscoveryStreamController!.stream;
     }
     throw Exception(
-        'BLE discovery has not been started. Please call startDiscovery() before accessing the stream.');
+        'BLE discovery has not been started. Please call startDiscovery() before accessing the stream and ensure Bluetooth is enabled.');
   }
 
   bool _isValidDeviceName(String deviceName) {
