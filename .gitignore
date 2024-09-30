@@ -21,3 +21,17 @@ doc/
 # Miscellaneous
 **/Thumbs.db
 **/UserInterfaceState.xcuserstate
+
+/example/.dart_tool/
+/example/.flutter-plugins
+/example/.flutter-plugins-dependencies
+/example/.metadata
+/example/.pub/
+/example/build/
+/example/.idea/
+/example/ios/Flutter/.last_build_id
+/example/windows
+/example/android/app/debug
+/example/android/app/profile
+/example/android/app/release
+

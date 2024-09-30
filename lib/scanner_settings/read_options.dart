@@ -136,6 +136,8 @@ class ReadOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable aiming.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setAiming(
       {required deviceId, required bool enabled}) async {
     return await sendCommand(
@@ -146,6 +148,8 @@ class ReadOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable trigger repeat.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setTriggerRepeat(
       {required deviceId, required bool enabled}) async {
     return await sendCommand(
@@ -156,6 +160,8 @@ class ReadOptions extends SettingsBase {
   ///
   /// [deviceId] - The identifier of the target device.
   /// [enabled] - A boolean indicating whether to enable or disable the delete key.
+  ///
+  /// Returns a [CommandResponse] indicating the success or failure of the operation.
   Future<CommandResponse> setDeleteKey(
       {required deviceId, required bool enabled}) async {
     return await sendCommand(
