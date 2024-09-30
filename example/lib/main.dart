@@ -180,6 +180,7 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
               ),
               if (batteryStatus != null) ...[
                 Text('Battery Present: ${batteryStatus.isBatteryPresent}'),
+                Text('Battery Faulty: ${batteryStatus.isBatteryFaulty}'),
                 Text('Wireless Charging: ${batteryStatus.isWirelessCharging}'),
                 Text('Wired Charging: ${batteryStatus.isWiredCharging}'),
                 Text('Charging: ${batteryStatus.isCharging}'),

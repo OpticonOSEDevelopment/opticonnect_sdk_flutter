@@ -51,6 +51,7 @@ class BatteryHandler {
         isWirelessCharging: false,
         isWiredCharging: false,
         isCharging: false,
+        isBatteryFaulty: false,
         percentage: -1,
       ); // Default status
     }

@@ -93,6 +93,7 @@ class BatteryListener {
         isWirelessCharging: false,
         isWiredCharging: false,
         isCharging: false,
+        isBatteryFaulty: false,
         percentage: 0,
       );
     }
@@ -106,6 +107,7 @@ class BatteryListener {
       isWirelessCharging: (powerState & bleBasWirelessChargingFlag) != 0,
       isWiredCharging: (powerState & bleBasWiredChargingFlag) != 0,
       isCharging: (powerState & bleBasIsChargingFlag) != 0,
+      isBatteryFaulty: (powerState & bleBasBatteryFaultFlag) != 0,
       percentage: ((list[0] & bleBasBatteryLevelFlag) != 0) ? list[3] : -1,
     );
   }
