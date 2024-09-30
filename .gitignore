@@ -22,31 +22,6 @@ doc/
 **/Thumbs.db
 **/UserInterfaceState.xcuserstate
 
-# Android specific
-# Ignore build and intermediate files, but keep manifest and resources
-/example/android/.gradle/
-.example/android/local.properties
-/example/android/app/debug/
-.example/android/app/profile/
-.example/android/app/release/
-.example/android/build/
-
-# Ignore keystore files
-/example/android/key.properties
-/example/android/app/key.jks
-
-# Ignore crashlytics and related files
-/example/android/app/crashlytics.properties
-/example/android/app/src/debug/crashlytics.properties
-/example/android/app/src/release/crashlytics.properties
-
-# Keep AndroidManifest.xml and necessary files
-!example/android/app/src/main/AndroidManifest.xml
-!example/android/app/src/main/res/
-
-# Ignore generated files for Android Studio and IntelliJ
-/example/android/.idea/
-
 /example/.dart_tool/
 /example/.flutter-plugins
 /example/.flutter-plugins-dependencies
@@ -54,9 +29,6 @@ doc/
 /example/.pub/
 /example/build/
 /example/.idea/
-/example/ios/Flutter/.last_build_id
+/example/ios
 /example/windows
-/example/android/app/debug
-/example/android/app/profile
-/example/android/app/release
-
+/example/android
