@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/src/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/command_bytes_provider.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/data/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/services/core/crc_16_handler.dart';
 
 @LazySingleton(as: CommandBytesProvider)

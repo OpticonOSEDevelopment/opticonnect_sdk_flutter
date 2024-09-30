@@ -4,9 +4,9 @@ import 'dart:math';
 
 import 'package:mutex/mutex.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/src/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/data/constants/data_hex_constants.dart';
 import 'package:opticonnect_sdk/src/services/core/crc_16_handler.dart';
 import 'package:opticonnect_sdk/src/services/core/symbology_handler.dart';
 

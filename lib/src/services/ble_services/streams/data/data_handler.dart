@@ -2,23 +2,22 @@ import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mutex/mutex.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/src/core/data_processor.dart';
-import 'package:opticonnect_sdk/src/core/opc_data_handler.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/ble_command_response_reader.dart';
 import 'package:opticonnect_sdk/src/interfaces/ble_data_writer.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/data/data_processor.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/data/opc_data_handler.dart';
 
 @lazySingleton
-class BleDevicesStreamsHandler
-    implements BleDataWriter, BleCommandResponseReader {
+class DataHandler implements BleDataWriter, BleCommandResponseReader {
   final AppLogger _appLogger;
 
-  BleDevicesStreamsHandler(this._appLogger);
+  DataHandler(this._appLogger);
 
   final Map<String, DataProcessor> _dataProcessors = {};
   final Mutex _mutex = Mutex();
 
-  Future<Stream<BarcodeData>> getBarcodeDataStream(String deviceId) async {
+  Future<Stream<BarcodeData>> getStream(String deviceId) async {
     final dataProcessor = _getDataProcessor(deviceId);
     return dataProcessor.barcodeDataStream;
   }
@@ -77,5 +76,16 @@ class BleDevicesStreamsHandler
 
   void removeDataProcessor(String deviceId) {
     _dataProcessors.remove(deviceId);
+  }
+
+  void dispose() {
+    _dataProcessors.clear();
+  }
+
+  void disposeForDevice(String deviceId) {
+    if (_dataProcessors.containsKey(deviceId)) {
+      _dataProcessors[deviceId]!.dispose();
+      _dataProcessors.remove(deviceId);
+    }
   }
 }

@@ -39,7 +39,7 @@ import '../../scanner_settings/code_specific/upc_e.dart' as _i491;
 import '../../scanner_settings/code_specific/upc_e1.dart' as _i153;
 import '../../scanner_settings/connection_pool.dart' as _i325;
 import '../../scanner_settings/formatting.dart' as _i676;
-import '../../scanner_settings/indicator_options.dart' as _i378;
+import '../../scanner_settings/indicator_options.dart' as _i1019;
 import '../../scanner_settings/read_options.dart' as _i381;
 import '../../scanner_settings/symbology.dart' as _i916;
 import '../../scanner_settings_manager.dart' as _i981;
@@ -49,7 +49,10 @@ import '../services/ble_services/ble_connection_states_service.dart' as _i61;
 import '../services/ble_services/ble_connectivity_handler.dart' as _i721;
 import '../services/ble_services/ble_devices_discoverer.dart' as _i314;
 import '../services/ble_services/ble_devices_helper.dart' as _i26;
-import '../services/ble_services/ble_devices_streams_handler.dart' as _i726;
+import '../services/ble_services/streams/battery/battery_handler.dart' as _i964;
+import '../services/ble_services/streams/ble_devices_streams_handler.dart'
+    as _i797;
+import '../services/ble_services/streams/data/data_handler.dart' as _i175;
 import '../services/core/crc_16_handler.dart' as _i267;
 import '../services/core/devices_info_manager.dart' as _i976;
 import '../services/core/opticonnect_logger.dart' as _i207;
@@ -58,10 +61,12 @@ import '../services/core/symbology_handler.dart' as _i307;
 import '../services/database/database_path_helper.dart' as _i904;
 import '../services/database/database_tables_helper.dart' as _i422;
 import '../services/scanner_commands_services/command_executors_manager.dart'
-    as _i569;
+    as _i969;
 import '../services/scanner_commands_services/command_factory.dart' as _i5;
 import '../services/scanner_commands_services/command_feedback_service.dart'
     as _i874;
+import '../services/scanner_commands_services/command_handlers_manager.dart'
+    as _i569;
 import '../services/scanner_commands_services/opc_command_protocol_handler.dart'
     as _i643;
 import '../services/scanner_settings_services/database_manager.dart' as _i618;
@@ -81,7 +86,16 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.lazySingleton<_i816.ScannerFeedback>(() => _i816.ScannerFeedback());
+    gh.lazySingleton<_i61.BleConnectionStatesService>(
+        () => _i61.BleConnectionStatesService());
+    gh.lazySingleton<_i26.BleDevicesHelper>(() => _i26.BleDevicesHelper());
+    gh.lazySingleton<_i904.DatabasePathHelper>(
+        () => _i904.DatabasePathHelper());
+    gh.lazySingleton<_i422.DatabaseTablesHelper>(
+        () => _i422.DatabaseTablesHelper());
+    gh.lazySingleton<_i5.CommandFactory>(() => _i5.CommandFactory());
+    gh.lazySingleton<_i874.CommandFeedbackService>(
+        () => _i874.CommandFeedbackService());
     gh.lazySingleton<_i784.Codabar>(() => _i784.Codabar());
     gh.lazySingleton<_i0.Code11>(() => _i0.Code11());
     gh.lazySingleton<_i628.Code128AndGS1128>(() => _i628.Code128AndGS1128());
@@ -102,19 +116,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i491.UPCE>(() => _i491.UPCE());
     gh.lazySingleton<_i153.UPCE1>(() => _i153.UPCE1());
     gh.lazySingleton<_i381.ReadOptions>(() => _i381.ReadOptions());
-    gh.lazySingleton<_i61.BleConnectionStatesService>(
-        () => _i61.BleConnectionStatesService());
-    gh.lazySingleton<_i26.BleDevicesHelper>(() => _i26.BleDevicesHelper());
+    gh.lazySingleton<_i816.ScannerFeedback>(() => _i816.ScannerFeedback());
     gh.lazySingleton<_i267.CRC16Handler>(() => _i267.CRC16Handler());
     gh.lazySingleton<_i401.PermissionHandler>(() => _i401.PermissionHandler());
     gh.lazySingleton<_i307.SymbologyHandler>(() => _i307.SymbologyHandler());
-    gh.lazySingleton<_i904.DatabasePathHelper>(
-        () => _i904.DatabasePathHelper());
-    gh.lazySingleton<_i422.DatabaseTablesHelper>(
-        () => _i422.DatabaseTablesHelper());
-    gh.lazySingleton<_i5.CommandFactory>(() => _i5.CommandFactory());
-    gh.lazySingleton<_i874.CommandFeedbackService>(
-        () => _i874.CommandFeedbackService());
     gh.lazySingleton<_i277.DataWizardHelper>(() => _i277.DataWizardHelper());
     gh.lazySingleton<_i801.AppLogger>(() => _i207.OptiConnectLogger());
     gh.lazySingleton<_i316.CodeSpecific>(() => _i316.CodeSpecific(
@@ -148,12 +153,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i325.ConnectionPool(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i676.Formatting>(
         () => _i676.Formatting(gh<_i801.AppLogger>()));
-    gh.lazySingleton<_i378.IndicatorOptions>(
-        () => _i378.IndicatorOptions(gh<_i801.AppLogger>()));
-    gh.lazySingleton<_i726.BleDevicesStreamsHandler>(
-        () => _i726.BleDevicesStreamsHandler(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i916.Symbology>(
         () => _i916.Symbology(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i1019.IndicatorOptions>(
+        () => _i1019.IndicatorOptions(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i964.BatteryHandler>(
+        () => _i964.BatteryHandler(gh<_i801.AppLogger>()));
+    gh.lazySingleton<_i175.DataHandler>(
+        () => _i175.DataHandler(gh<_i801.AppLogger>()));
     gh.lazySingleton<_i22.CommandBytesProvider>(
         () => _i643.OpcCommandProtocolHandler(
               gh<_i267.CRC16Handler>(),
@@ -168,10 +175,24 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i732.SettingsHandler>(),
           gh<_i277.DataWizardHelper>(),
         ));
+    gh.lazySingleton<_i797.BleDevicesStreamsHandler>(
+        () => _i797.BleDevicesStreamsHandler(
+              gh<_i964.BatteryHandler>(),
+              gh<_i175.DataHandler>(),
+            ));
     gh.lazySingleton<_i569.CommandExecutorsManager>(
         () => _i569.CommandExecutorsManager(
               gh<_i5.CommandFactory>(),
-              gh<_i726.BleDevicesStreamsHandler>(),
+              gh<_i175.DataHandler>(),
+              gh<_i22.CommandBytesProvider>(),
+              gh<_i874.CommandFeedbackService>(),
+              gh<_i869.SettingsCompressor>(),
+              gh<_i801.AppLogger>(),
+            ));
+    gh.lazySingleton<_i969.CommandExecutorsManager>(
+        () => _i969.CommandExecutorsManager(
+              gh<_i5.CommandFactory>(),
+              gh<_i175.DataHandler>(),
               gh<_i22.CommandBytesProvider>(),
               gh<_i874.CommandFeedbackService>(),
               gh<_i869.SettingsCompressor>(),
@@ -181,43 +202,43 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i916.Symbology>(),
           gh<_i316.CodeSpecific>(),
           gh<_i381.ReadOptions>(),
-          gh<_i378.IndicatorOptions>(),
+          gh<_i1019.IndicatorOptions>(),
           gh<_i676.Formatting>(),
           gh<_i325.ConnectionPool>(),
-          gh<_i569.CommandExecutorsManager>(),
-          gh<_i869.SettingsCompressor>(),
-          gh<_i801.AppLogger>(),
-        ));
-    gh.lazySingleton<_i981.ScannerSettings>(() => _i981.ScannerSettings(
-          gh<_i916.Symbology>(),
-          gh<_i316.CodeSpecific>(),
-          gh<_i381.ReadOptions>(),
-          gh<_i378.IndicatorOptions>(),
-          gh<_i676.Formatting>(),
-          gh<_i325.ConnectionPool>(),
-          gh<_i569.CommandExecutorsManager>(),
+          gh<_i969.CommandExecutorsManager>(),
           gh<_i869.SettingsCompressor>(),
           gh<_i801.AppLogger>(),
         ));
     gh.lazySingleton<_i976.DevicesInfoManager>(() => _i976.DevicesInfoManager(
-          gh<_i569.CommandExecutorsManager>(),
+          gh<_i969.CommandExecutorsManager>(),
+          gh<_i801.AppLogger>(),
+        ));
+    gh.lazySingleton<_i456.ScannerInfo>(
+        () => _i456.ScannerInfo(gh<_i976.DevicesInfoManager>()));
+    gh.lazySingleton<_i981.ScannerSettings>(() => _i981.ScannerSettings(
+          gh<_i916.Symbology>(),
+          gh<_i316.CodeSpecific>(),
+          gh<_i381.ReadOptions>(),
+          gh<_i1019.IndicatorOptions>(),
+          gh<_i676.Formatting>(),
+          gh<_i325.ConnectionPool>(),
+          gh<_i969.CommandExecutorsManager>(),
+          gh<_i869.SettingsCompressor>(),
           gh<_i801.AppLogger>(),
         ));
     gh.lazySingleton<_i721.BleConnectivityHandler>(
         () => _i721.BleConnectivityHandler(
               gh<_i61.BleConnectionStatesService>(),
-              gh<_i726.BleDevicesStreamsHandler>(),
+              gh<_i797.BleDevicesStreamsHandler>(),
               gh<_i26.BleDevicesHelper>(),
-              gh<_i569.CommandExecutorsManager>(),
+              gh<_i969.CommandExecutorsManager>(),
               gh<_i976.DevicesInfoManager>(),
               gh<_i801.AppLogger>(),
             ));
-    gh.lazySingleton<_i456.ScannerInfo>(
-        () => _i456.ScannerInfo(gh<_i976.DevicesInfoManager>()));
     gh.lazySingleton<_i186.BluetoothManager>(() => _i186.BluetoothManager(
           gh<_i314.BleDevicesDiscoverer>(),
           gh<_i721.BleConnectivityHandler>(),
-          gh<_i726.BleDevicesStreamsHandler>(),
+          gh<_i797.BleDevicesStreamsHandler>(),
           gh<_i801.AppLogger>(),
         ));
     return this;

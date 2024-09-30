@@ -140,27 +140,42 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
     return DateFormat.yMd().add_jm().format(dateTime);
   }
 
+  Widget _buildBatteryInfo(String deviceId) {
+    final batteryPercentage =
+        _devicesManager.batteryPercentages[deviceId] ?? -1;
+    final batteryStatus = _devicesManager.batteryStatuses[deviceId];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Battery Percentage: ${batteryPercentage == -1 ? 'N/A' : '$batteryPercentage%'}',
+        ),
+        if (batteryStatus != null) ...[
+          Text('Battery Present: ${batteryStatus.isBatteryPresent}'),
+          Text('Wireless Charging: ${batteryStatus.isWirelessCharging}'),
+          Text('Wired Charging: ${batteryStatus.isWiredCharging}'),
+          Text('Charging: ${batteryStatus.isCharging}'),
+        ] else ...[
+          const Text('No battery status available.'),
+        ],
+      ],
+    );
+  }
+
   Widget _buildBarcodeDataAndDeviceInfo(String deviceId) {
     final deviceInfo = _devicesManager.deviceInfo[deviceId];
     final barcodeData = _devicesManager.receivedBarcodeData.isNotEmpty
         ? _devicesManager.receivedBarcodeData[deviceId]?.lastOrNull
         : null;
 
+    final batteryPercentage =
+        _devicesManager.batteryPercentages[deviceId] ?? -1;
+    final batteryStatus = _devicesManager.batteryStatuses[deviceId];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (barcodeData != null) ...[
-          _buildDataCard(
-            title: 'Latest Barcode Data',
-            content: [
-              Text('Data: ${barcodeData.data}'),
-              Text('Symbology: ${barcodeData.symbology}'),
-              Text('Quantity: ${barcodeData.quantity}'),
-              Text(
-                  'Time of scan: ${_formatToLocalTime(barcodeData.timeOfScan)}'),
-            ],
-          ),
-        ],
         if (deviceInfo != null) ...[
           const SizedBox(height: 16),
           _buildDataCard(
@@ -170,8 +185,32 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
               Text('Serial Number: ${deviceInfo.serialNumber}'),
               Text('Local Name: ${deviceInfo.localName}'),
               Text('Firmware Version: ${deviceInfo.firmwareVersion}'),
+              const Divider(), // Optional divider for better separation
+              Text(
+                'Battery Percentage: ${batteryPercentage == -1 ? 'N/A' : '$batteryPercentage%'}',
+              ),
+              if (batteryStatus != null) ...[
+                Text('Battery Present: ${batteryStatus.isBatteryPresent}'),
+                Text('Wireless Charging: ${batteryStatus.isWirelessCharging}'),
+                Text('Wired Charging: ${batteryStatus.isWiredCharging}'),
+                Text('Charging: ${batteryStatus.isCharging}'),
+              ] else ...[
+                const Text('No battery status available.'),
+              ],
             ],
           ),
+          if (barcodeData != null) ...[
+            _buildDataCard(
+              title: 'Latest Barcode Data',
+              content: [
+                Text('Data: ${barcodeData.data}'),
+                Text('Symbology: ${barcodeData.symbology}'),
+                Text('Quantity: ${barcodeData.quantity}'),
+                Text(
+                    'Time of scan: ${_formatToLocalTime(barcodeData.timeOfScan)}'),
+              ],
+            ),
+          ],
         ] else ...[
           const Text('No device info available.'),
         ]

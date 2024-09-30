@@ -4,11 +4,11 @@ import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mutex/mutex.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk/src/constants/ble_constants.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connection_states_service.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_helper.dart';
-import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/constants/ble_uuids.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/ble_devices_streams_handler.dart';
 import 'package:opticonnect_sdk/src/services/core/devices_info_manager.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_executors_manager.dart';
 
@@ -127,26 +127,59 @@ class BleConnectivityHandler {
         _bleConnectionStatesService.getConnectionState(deviceId));
   }
 
+  Future<BluetoothService?> _initOpcService(
+      String deviceId, List<BluetoothService> services) async {
+    try {
+      for (final service in services) {
+        if (service.uuid.str128 == opcServiceUuid) {
+          return service;
+        }
+      }
+      _appLogger.error('OPC service not found for device $deviceId');
+    } catch (e) {
+      _appLogger
+          .error('Failed to initialize OPC service for device $deviceId: $e');
+    }
+    return null;
+  }
+
+  Future<BluetoothService?> _initBatteryService(
+      String deviceId, List<BluetoothService> services) async {
+    try {
+      for (final service in services) {
+        if (service.uuid.str128 == batteryServiceUuid) {
+          return service;
+        }
+      }
+      _appLogger.error('Battery service not found for device $deviceId');
+    } catch (e) {
+      _appLogger.error(
+          'Failed to initialize Battery service for device $deviceId: $e');
+    }
+    return null;
+  }
+
   Future<bool> _initDevice(String deviceId) async {
     try {
       final bleDevice = _bleDevicesHelper.getDeviceFromId(deviceId);
 
       final services = await bleDevice.discoverServices();
-      BluetoothService? opcService;
 
-      for (final service in services) {
-        if (service.uuid.str128 == opcServiceUuid) {
-          opcService = service;
-          break;
-        }
-      }
-
+      final opcService = await _initOpcService(deviceId, services);
       if (opcService == null) {
         await disconnect(deviceId);
-        throw ('OPC service not found for device $deviceId');
+        return false;
       }
 
-      await _bleDevicesStreamsHandler.addDataProcessor(deviceId, opcService);
+      await _bleDevicesStreamsHandler.dataHandler
+          .addDataProcessor(deviceId, opcService);
+
+      final batteryService = await _initBatteryService(deviceId, services);
+      if (batteryService != null) {
+        await _bleDevicesStreamsHandler.batteryHandler
+            .addBatteryListener(deviceId, batteryService);
+      }
+
       _commandExecutorsManager.createCommandExecutor(deviceId);
       await _devicesInfoManager.fetchInfo(deviceId);
     } catch (e) {
@@ -185,8 +218,7 @@ class BleConnectivityHandler {
     _commandExecutorsManager.disposeCommandExecutor(deviceId);
     await _connectionStateSubscriptions[deviceId]?.cancel();
     _connectionStateSubscriptions.remove(deviceId);
-
-    _bleDevicesStreamsHandler.removeDataProcessor(deviceId);
+    _bleDevicesStreamsHandler.disposeForDevice(deviceId);
   }
 
   Future<void> dispose() async {

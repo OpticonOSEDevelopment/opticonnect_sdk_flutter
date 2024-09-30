@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
+import 'package:opticonnect_sdk/entities/battery_level_status.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/entities/device_info.dart';
@@ -21,6 +22,14 @@ class DevicesManager extends ChangeNotifier {
   final Map<String, List<BarcodeData>> receivedBarcodeData = {};
   final Map<String, bool> floodlightStatus = {};
   final Map<String, bool> symbologyStatus = {};
+
+  // Battery related data
+  final Map<String, int> batteryPercentages = {};
+  final Map<String, BatteryLevelStatus> batteryStatuses = {};
+  final Map<String, StreamSubscription<int>> _batteryPercentageSubscriptions =
+      {};
+  final Map<String, StreamSubscription<BatteryLevelStatus>>
+      _batteryStatusSubscriptions = {};
 
   /// Initializes the OptiConnect SDK and starts discovering devices
   Future<void> initialize() async {
@@ -44,7 +53,6 @@ class DevicesManager extends ChangeNotifier {
     await OptiConnect.bluetoothManager.startDiscovery();
     OptiConnect.bluetoothManager.bleDeviceStream.listen((device) {
       if (!_connectionSubscriptions.containsKey(device.deviceId)) {
-        // New discovered device
         discoveredDevices[device.deviceId] = device;
         connectionStates[device.deviceId] =
             BleDeviceConnectionState.disconnected;
@@ -67,8 +75,10 @@ class DevicesManager extends ChangeNotifier {
       if (state == BleDeviceConnectionState.connected) {
         deviceInfo[deviceId] = OptiConnect.scannerInfo.getInfo(deviceId);
         _startListeningToBarcodeData(deviceId);
+        _startListeningToBatteryData(deviceId);
       } else if (state == BleDeviceConnectionState.disconnected) {
         _stopListeningToBarcodeData(deviceId);
+        _stopListeningToBatteryData(deviceId);
       }
     });
   }
@@ -124,14 +134,53 @@ class DevicesManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Starts listening to battery data streams (percentage and status)
+  void _startListeningToBatteryData(String deviceId) async {
+    // Battery percentage
+    final batteryPercentageStream = await OptiConnect.bluetoothManager
+        .subscribeToBatteryPercentageStream(deviceId);
+    _batteryPercentageSubscriptions[deviceId] =
+        batteryPercentageStream.listen((percentage) {
+      batteryPercentages[deviceId] = percentage;
+      notifyListeners();
+    });
+    batteryPercentages[deviceId] =
+        OptiConnect.bluetoothManager.getLatestBatteryPercentage(deviceId);
+
+    // Battery status
+    final batteryStatusStream = await OptiConnect.bluetoothManager
+        .subscribeToBatteryStatusStream(deviceId);
+    _batteryStatusSubscriptions[deviceId] =
+        batteryStatusStream.listen((status) {
+      batteryStatuses[deviceId] = status;
+      notifyListeners();
+    });
+    batteryStatuses[deviceId] =
+        OptiConnect.bluetoothManager.getLatestBatteryStatus(deviceId);
+  }
+
+  /// Stops listening to battery data when the device is disconnected
+  void _stopListeningToBatteryData(String deviceId) {
+    _batteryPercentageSubscriptions[deviceId]?.cancel();
+    _batteryStatusSubscriptions[deviceId]?.cancel();
+    _batteryPercentageSubscriptions.remove(deviceId);
+    _batteryStatusSubscriptions.remove(deviceId);
+  }
+
   /// Disposes the subscriptions and OptiConnect SDK
   @override
   Future<void> dispose() async {
     await OptiConnect.dispose();
-    for (var subscription in _connectionSubscriptions.values) {
+    for (final subscription in _connectionSubscriptions.values) {
       subscription.cancel();
     }
-    for (var subscription in _barcodeSubscriptions.values) {
+    for (final subscription in _barcodeSubscriptions.values) {
+      subscription.cancel();
+    }
+    for (final subscription in _batteryPercentageSubscriptions.values) {
+      subscription.cancel();
+    }
+    for (final subscription in _batteryStatusSubscriptions.values) {
       subscription.cancel();
     }
     super.dispose();

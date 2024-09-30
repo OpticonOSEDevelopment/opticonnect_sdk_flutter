@@ -3,7 +3,7 @@ import 'package:opticonnect_sdk/entities/command_response.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/command_bytes_provider.dart';
-import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/data/data_handler.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_executor.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_factory.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_feedback_service.dart';
@@ -13,7 +13,7 @@ import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_
 @lazySingleton
 class CommandExecutorsManager {
   final CommandFactory _commandFactory;
-  final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
+  final DataHandler _bleDevicesDataStreamsHandler;
   final CommandBytesProvider _commandBytesProvider;
   final CommandFeedbackService _commandFeedbackService;
   final SettingsCompressor _scannerSettingsCompressor;
@@ -21,7 +21,7 @@ class CommandExecutorsManager {
 
   CommandExecutorsManager(
     this._commandFactory,
-    this._bleDevicesStreamsHandler,
+    this._bleDevicesDataStreamsHandler,
     this._commandBytesProvider,
     this._commandFeedbackService,
     this._scannerSettingsCompressor,
@@ -35,8 +35,8 @@ class CommandExecutorsManager {
     _commandExecutors[deviceId]?.dispose();
     _commandExecutors[deviceId] = CommandExecutor(
       deviceId,
-      _bleDevicesStreamsHandler,
-      _bleDevicesStreamsHandler,
+      _bleDevicesDataStreamsHandler,
+      _bleDevicesDataStreamsHandler,
       _commandBytesProvider,
       _commandFeedbackService,
       _appLogger,
@@ -82,7 +82,7 @@ class CommandExecutorsManager {
     }
   }
 
-  void disposeCommandExecutor(String deviceId) {
+  void disposeForDevice(String deviceId) {
     if (_commandExecutors.containsKey(deviceId)) {
       _commandExecutors[deviceId]!.dispose();
       _commandExecutors.remove(deviceId);

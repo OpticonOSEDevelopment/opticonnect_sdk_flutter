@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/src/constants/crc_16_ccittrev_table.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/data/constants/crc_16_ccittrev_table.dart';
 
 @lazySingleton
 class CRC16Handler {

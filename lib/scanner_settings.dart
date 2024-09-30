@@ -119,8 +119,6 @@ class ScannerSettings extends SettingsBase {
   ///
   /// The [deviceId] specifies the BLE device whose settings will be reset.
   ///
-  /// Throws an exception if there is an error during the process or if resetting the settings fails.
-  ///
   /// Returns:
   /// - A boolean indicating whether the settings were successfully reset.
   Future<bool> resetSettings(String deviceId) async {

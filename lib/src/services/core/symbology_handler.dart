@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/src/constants/symbology_constants.dart';
+import 'package:opticonnect_sdk/constants/symbology_constants.dart';
 
 @lazySingleton
 class SymbologyHandler {

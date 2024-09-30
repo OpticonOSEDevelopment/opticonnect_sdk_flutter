@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/src/core/opc_data_handler.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/data/opc_data_handler.dart';
 
 class DataProcessor {
   final BluetoothCharacteristic readCharacteristic;
@@ -17,6 +17,10 @@ class DataProcessor {
       StreamController<String>.broadcast();
   final StreamController<BarcodeData> _barcodeDataStreamController =
       StreamController<BarcodeData>.broadcast();
+
+  StreamSubscription<List<int>>? _readCharacteristicSubscription;
+  StreamSubscription<String>? _commandSubscription;
+  StreamSubscription<BarcodeData>? _barcodeSubscription;
 
   DataProcessor({
     required this.readCharacteristic,
@@ -50,20 +54,42 @@ class DataProcessor {
   }
 
   void _initializeStreams() {
-    readCharacteristic.lastValueStream.listen((data) async {
-      await _opcDataHandler.processData(data);
-    });
+    // Store the subscription for later disposal
+    _readCharacteristicSubscription = readCharacteristic.lastValueStream.listen(
+      (data) async {
+        await _opcDataHandler.processData(data);
+      },
+      onError: (error) {
+        _appLogger.error('Error in readCharacteristic stream: $error');
+      },
+    );
 
-    _opcDataHandler.commandDataStream.listen((command) {
-      _commandStreamController.add(command);
-    });
+    // Store the subscriptions for the command and barcode streams
+    _commandSubscription = _opcDataHandler.commandDataStream.listen(
+      (command) {
+        _commandStreamController.add(command);
+      },
+      onError: (error) {
+        _appLogger.error('Error in commandDataStream: $error');
+      },
+    );
 
-    _opcDataHandler.barcodeDataStream.listen((barcodeData) {
-      _barcodeDataStreamController.add(barcodeData);
-    });
+    _barcodeSubscription = _opcDataHandler.barcodeDataStream.listen(
+      (barcodeData) {
+        _barcodeDataStreamController.add(barcodeData);
+      },
+      onError: (error) {
+        _appLogger.error('Error in barcodeDataStream: $error');
+      },
+    );
   }
 
   void dispose() {
+    // Cancel subscriptions before closing stream controllers
+    _readCharacteristicSubscription?.cancel();
+    _commandSubscription?.cancel();
+    _barcodeSubscription?.cancel();
+
     _commandStreamController.close();
     _barcodeDataStreamController.close();
   }

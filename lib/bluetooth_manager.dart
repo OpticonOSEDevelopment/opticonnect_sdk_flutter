@@ -1,11 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
+import 'package:opticonnect_sdk/entities/battery_level_status.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handler.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_discoverer.dart';
-import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_streams_handler.dart';
+import 'package:opticonnect_sdk/src/services/ble_services/streams/ble_devices_streams_handler.dart';
 
 /// Manages Bluetooth operations such as device discovery, connection, disconnection,
 /// and streaming data for BLE devices.
@@ -119,9 +120,69 @@ class BluetoothManager {
   Future<Stream<BarcodeData>> subscribeToBarcodeDataStream(
       String deviceId) async {
     try {
-      return _bleDevicesStreamsHandler.getBarcodeDataStream(deviceId);
+      return _bleDevicesStreamsHandler.dataHandler.getStream(deviceId);
     } catch (e) {
       _appLogger.error("Error subscribing to barcode data stream: $e");
+      rethrow;
+    }
+  }
+
+  /// Subscribes to the battery percentage stream from the BLE device with the given [deviceId].
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a stream of battery percentage updates.
+  Future<Stream<int>> subscribeToBatteryPercentageStream(
+      String deviceId) async {
+    try {
+      return _bleDevicesStreamsHandler.batteryHandler
+          .getBatteryPercentageStream(deviceId);
+    } catch (e) {
+      _appLogger.error("Error subscribing to battery percentage stream: $e");
+      rethrow;
+    }
+  }
+
+  /// Subscribes to the battery status stream from the BLE device with the given [deviceId].
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a stream of [BatteryLevelStatus] updates.
+  Future<Stream<BatteryLevelStatus>> subscribeToBatteryStatusStream(
+      String deviceId) async {
+    try {
+      return _bleDevicesStreamsHandler.batteryHandler
+          .getBatteryStatusStream(deviceId);
+    } catch (e) {
+      _appLogger.error("Error subscribing to battery status stream: $e");
+      rethrow;
+    }
+  }
+
+  /// Gets the latest battery percentage for the given [deviceId].
+  ///
+  /// Returns the latest battery percentage, or a default value if not available.
+  int getLatestBatteryPercentage(String deviceId) {
+    try {
+      return _bleDevicesStreamsHandler.batteryHandler
+          .getLatestBatteryPercentage(deviceId);
+    } catch (e) {
+      _appLogger.error(
+          'Error getting latest battery percentage for device $deviceId');
+      rethrow;
+    }
+  }
+
+  /// Gets the latest battery status for the given [deviceId].
+  ///
+  /// Returns the latest [BatteryLevelStatus], or a default value if not available.
+  BatteryLevelStatus getLatestBatteryStatus(String deviceId) {
+    try {
+      return _bleDevicesStreamsHandler.batteryHandler
+          .getLatestBatteryStatus(deviceId);
+    } catch (e) {
+      _appLogger
+          .error('Error getting latest battery status for device $deviceId');
       rethrow;
     }
   }
@@ -133,6 +194,7 @@ class BluetoothManager {
     try {
       await _bleConnectivityHandler.dispose();
       await _bleDevicesDiscoverer.dispose();
+      _bleDevicesStreamsHandler.dispose();
     } catch (e) {
       _appLogger.error("Error disposing Bluetooth resources: $e");
       rethrow;
