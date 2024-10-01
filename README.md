@@ -116,8 +116,6 @@ To allow the app to use Bluetooth in the background, follow these steps:
 
 ### MacOS Setup
 
-#### Add permissions
-
 Make sure you have granted access to the Bluetooth hardware:
 
 1. Open your MacOS project in Xcode.
