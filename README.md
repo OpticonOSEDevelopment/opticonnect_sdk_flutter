@@ -2,6 +2,8 @@
 
 OptiConnect SDK enables seamless integration with [Opticon](https://opticon.com/)'s BLE [OPN-2500](https://opticon.com/product/opn-2500/) and [OPN-6000](https://opticon.com/product/opn-6000/) barcode scanners. This SDK allows you to manage Bluetooth Low Energy (BLE) connections, handle scanner data streams, and programmatically control scanner settings via commands.
 
+**Note:** This package is independent of the [OptiConnect application](https://opticon.com/opticonnect/), which provides additional device management features. The SDK provides lower-level BLE functionality directly interacting with Opticon's BLE devices.
+
 ## Features
 
 -  Bluetooth discovery and connection management for OPN-2500 and OPN-6000 BLE scanners.
@@ -17,9 +19,9 @@ OptiConnect SDK enables seamless integration with [Opticon](https://opticon.com/
 -  Flutter SDK version 2.12.0 or above.
 -  Opticon BLE [OPN-2500](https://opticon.com/product/opn-2500/) or [OPN-6000](https://opticon.com/product/opn-6000/) barcode scanner(s).
 
-| ![OPN-2500](/assets/images/OPN-2500.png) | ![OPN-6000](/assets/images/OPN-6000.png) |
-| :--------------------------------------: | :--------------------------------------: |
-|               **OPN-2500**               |               **OPN-6000**               |
+| ![OPN-2500](https://raw.githubusercontent.com/opticonosedevelopment/opticonnect_sdk_flutter/main/assets/images/OPN-2500.png) | ![OPN-6000](https://raw.githubusercontent.com/opticonosedevelopment/opticonnect_sdk_flutter/main/assets/images/OPN-6000.png) |
+| :--------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: |
+|                                                         **OPN-2500**                                                         |                                                         **OPN-6000**                                                         |
 
 ### Installation
 
@@ -78,7 +80,7 @@ Add the following keys to your ios/Runner/Info.plist file to request Bluetooth a
 </array>
 ```
 
-#### 2. Update Info.plist
+#### 2. Update Podfile
 
 Ensure that the Podfile contains the required permissions for Bluetooth and location access by adding the following lines in your ios/Podfile:
 
@@ -111,3 +113,18 @@ To allow the app to use Bluetooth in the background, follow these steps:
 4. Click the + Capability button in the top left.
 5. Select Background Modes from the list.
 6. Check the option for Uses Bluetooth LE Accessories.
+
+### MacOS Setup
+
+#### Add permissions
+
+Make sure you have granted access to the Bluetooth hardware:
+
+1. Open your MacOS project in Xcode.
+2. Go to Runners -> Targets -> Runner.
+3. Go to the Signing & Capabilities tab.
+4. Under App Sandbox, ensure that Bluetooth is enabled by checking the Bluetooth box under Hardware.
+
+You can refer to the image below for guidance:
+
+![MacOSPermission](https://raw.githubusercontent.com/opticonosedevelopment/opticonnect_sdk_flutter/main/assets/images/macos_bluetooth_permission.png)

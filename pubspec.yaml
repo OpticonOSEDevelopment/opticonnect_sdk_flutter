@@ -4,7 +4,7 @@ description: >
    OPN-6000 barcode scanners.  This SDK allows developers to manage Bluetooth Low
    Energy (BLE) connections, handle scanner data streams, and set various
    commands programmatically for these devices.
-version: 1.0.2
+version: 1.0.4
 homepage: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter
 repository: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter
 documentation: https://opticonosedevelopment.github.io/opticonnect_sdk_flutter

@@ -29,3 +29,9 @@ Key features:
 ### Changed
 
 -  Added hyperlinks and images for the OPN-2500 and OPN-6000 in the readme file.
+
+## [1.0.4] - 2024-10-01
+
+### Changed
+
+-  Changed scanner image URLs in README to absolute paths for compatibility.
