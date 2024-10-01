@@ -17,9 +17,9 @@ OptiConnect SDK enables seamless integration with [Opticon](https://opticon.com/
 -  Flutter SDK version 2.12.0 or above.
 -  Opticon BLE [OPN-2500](https://opticon.com/product/opn-2500/) or [OPN-6000](https://opticon.com/product/opn-6000/) barcode scanner(s).
 
-| ![OPN-2500](/opticonnect_sdk_flutter/assets/images/OPN-2500.png) | ![OPN-6000](/opticonnect_sdk_flutter/assets/images/OPN-6000.png) |
-| :--------------------------------------------------------------: | :--------------------------------------------------------------: |
-|                           **OPN-2500**                           |                           **OPN-6000**                           |
+| ![OPN-2500](/assets/images/OPN-2500.png) | ![OPN-6000](/assets/images/OPN-6000.png) |
+| :--------------------------------------: | :--------------------------------------: |
+|               **OPN-2500**               |               **OPN-6000**               |
 
 ### Installation
 
