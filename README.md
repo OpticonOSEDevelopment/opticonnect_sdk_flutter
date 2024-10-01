@@ -18,8 +18,8 @@ OptiConnect SDK enables seamless integration with [Opticon](https://opticon.com/
 -  Opticon BLE [OPN-2500](https://opticon.com/product/opn-2500/) or [OPN-6000](https://opticon.com/product/opn-6000/) barcode scanner(s).
 
 <div style="display: flex; gap: 20px;">
-  <img src="./assets/images/OPN-2500.png" alt="OPN-2500" width="200"/>
-  <img src="./assets/images/OPN-6000.png" alt="OPN-6000" width="200"/>
+  <img src="./assets/images/OPN-2500.png" alt="OPN-2500" height="200"/>
+  <img src="./assets/images/OPN-6000.png" alt="OPN-6000" height="200"/>
 </div>
 
 ### Installation
