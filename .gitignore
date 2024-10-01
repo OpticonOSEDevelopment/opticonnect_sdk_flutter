@@ -48,3 +48,6 @@ doc/
 /example/ios
 /example/windows
 /example/android
+/example/.gitignore
+/example/example.iml
+/example/README.md

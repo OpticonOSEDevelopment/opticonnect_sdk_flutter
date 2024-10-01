@@ -9,7 +9,6 @@ homepage: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter
 repository: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter
 documentation: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter/wiki
 issue_tracker: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter/issues
-publish_to: "https://pub.dev"
 
 environment:
    sdk: ^3.5.0
