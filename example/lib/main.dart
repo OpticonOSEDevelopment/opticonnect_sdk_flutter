@@ -174,7 +174,7 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
               Text('Serial Number: ${deviceInfo.serialNumber}'),
               Text('Local Name: ${deviceInfo.localName}'),
               Text('Firmware Version: ${deviceInfo.firmwareVersion}'),
-              const Divider(), // Optional divider for better separation
+              const Divider(),
               Text(
                 'Battery Percentage: ${batteryPercentage == -1 ? 'N/A' : '$batteryPercentage%'}',
               ),

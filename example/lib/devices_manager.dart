@@ -33,6 +33,7 @@ class DevicesManager extends ChangeNotifier {
       _batteryStatusSubscriptions = {};
 
   StreamSubscription? _bleDevicesDiscoveryStream;
+  StreamSubscription<BleAdapterState>? _adapterStateStream;
 
   /// Initializes the OptiConnect SDK and starts discovering devices
   Future<void> initialize() async {
@@ -56,12 +57,10 @@ class DevicesManager extends ChangeNotifier {
     await OptiConnect.bluetoothManager.startDiscovery();
   }
 
-  StreamSubscription<BleAdapterState>? discoverySubscription;
-
   /// Starts BLE device discovery when BLE is enabled and listens for new devices
   Future<void> _startDiscovery() async {
-    discoverySubscription?.cancel();
-    discoverySubscription =
+    _adapterStateStream?.cancel();
+    _adapterStateStream =
         OptiConnect.bluetoothManager.adapterState.listen((state) async {
       if (state == BleAdapterState.on || state == BleAdapterState.unknown) {
         await OptiConnect.bluetoothManager.startDiscovery();
@@ -75,7 +74,7 @@ class DevicesManager extends ChangeNotifier {
             notifyListeners();
           }
         });
-        discoverySubscription?.cancel();
+        _adapterStateStream?.cancel();
       }
     });
   }
