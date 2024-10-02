@@ -118,7 +118,6 @@ class OptiConnectExampleState extends State<OptiConnectExample>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _disconnectDevice();
     super.dispose();
   }
 

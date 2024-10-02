@@ -79,3 +79,4 @@ Key features:
 ### Changed
 
 -  Improved resource management for the simple example.
+-  Improved error handling when the DataProcessor is disposed of, while a write to the device was still pending.
