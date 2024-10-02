@@ -31,7 +31,6 @@ class OptiConnectExampleState extends State<OptiConnectExample> {
   String _connectionStatus = 'Disconnected';
   String _barcodeData = '';
   bool _isConnecting = false;
-  final bool _isScanning = false;
 
   @override
   void initState() {
@@ -107,9 +106,8 @@ class OptiConnectExampleState extends State<OptiConnectExample> {
   }
 
   @override
-  void dispose() {
-    _disconnectDevice();
-    OptiConnect.dispose();
+  void dispose() async {
+    await OptiConnect.dispose();
     super.dispose();
   }
 
@@ -140,7 +138,8 @@ class OptiConnectExampleState extends State<OptiConnectExample> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _isScanning ? _disconnectDevice : null,
+              onPressed:
+                  _connectionStatus == 'Connected' ? _disconnectDevice : null,
               child: const Text('Disconnect'),
             ),
             const SizedBox(height: 24),
