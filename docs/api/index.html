@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="opticonnect_sdk API docs, for the Dart programming language.">
+  <title>opticonnect_sdk - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter">opticonnect_sdk package</a></li>
+  </ol>
+  <div class="self-name">opticonnect_sdk</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="opticonnect-sdk">OptiConnect SDK</h1>
+<p>OptiConnect SDK enables seamless integration with <a href="https://opticon.com/">Opticon</a>'s BLE <a href="https://opticon.com/product/opn-2500/">OPN-2500</a> and <a href="https://opticon.com/product/opn-6000/">OPN-6000</a> barcode scanners. This SDK allows you to manage Bluetooth Low Energy (BLE) connections, handle scanner data streams, and programmatically control scanner settings via commands.</p>
+<p><strong>Note:</strong> This package is independent of the <a href="https://opticon.com/opticonnect/">OptiConnect application</a>, which provides additional device management features. The SDK provides lower-level BLE functionality directly interacting with Opticon's BLE devices.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Bluetooth discovery and connection management for OPN-2500 and OPN-6000 BLE scanners.</li>
+<li>Real-time data streaming, including barcode data reception and BLE device state monitoring.</li>
+<li>Programmatic control of scanner settings (e.g., scan modes, illumination, connection pooling, etc.).</li>
+<li>Exclusive Connection Management: Manage connection pools using 4-character hexadecimal IDs to ensure exclusive device pairing. Prevent previously paired devices from hijacking active connections by assigning unique connection pool IDs.</li>
+<li>Command management and customization for BLE services and scanner configurations.</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Flutter SDK version 2.12.0 or above.</li>
+<li>Opticon BLE <a href="https://opticon.com/product/opn-2500/">OPN-2500</a> or <a href="https://opticon.com/product/opn-6000/">OPN-6000</a> barcode scanner(s).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://raw.githubusercontent.com/opticonosedevelopment/opticonnect_sdk_flutter/main/assets/images/OPN-2500.png" alt="OPN-2500"></th>
+<th align="center"><img src="https://raw.githubusercontent.com/opticonosedevelopment/opticonnect_sdk_flutter/main/assets/images/OPN-6000.png" alt="OPN-6000"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><strong>OPN-2500</strong></td>
+<td align="center"><strong>OPN-6000</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="installation">Installation</h3>
+<p>To install the SDK, add the following dependency to your <code>pubspec.yaml</code> file:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+   opticonnect_sdk: ^1.0.0
+</code></pre>
+<h3 id="important">Important</h3>
+<p>This SDK uses <a href="https://pub.dev/packages/flutter_blue_plus">flutter_blue_plus</a> under the hood for Bluetooth Low Energy (BLE) communications. We have provided the necessary permission configurations for Android and iOS within this README. You can refer to the flutter_blue_plus documentation for additional BLE-specific settings or for more advanced usage scenarios.</p>
+<h3 id="android-setup">Android Setup</h3>
+<p>to enable Bluetooth discovery and connection on Android, add the following permissions to your AndroidManifest.xml file located at android/app/src/main/AndroidManifest.xml below the manifest entry at the top:</p>
+<pre class="language-xml"><code class="language-xml">&lt;uses-feature android:name="android.hardware.bluetooth_le" android:required="false" /&gt;
+
+&lt;!-- New Bluetooth permissions for Android 12 or higher --&gt;
+&lt;uses-permission android:name="android.permission.BLUETOOTH_SCAN"/&gt;
+&lt;uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+
+&lt;!-- Legacy permissions for Android 11 or lower --&gt;
+&lt;uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" /&gt;
+&lt;uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" /&gt;
+
+&lt;!-- Legacy permission for Android 9 or lower --&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="28" /&gt;
+</code></pre>
+<h3 id="ios-setup">iOS Setup</h3>
+<p>To enable Bluetooth and background functionality for BLE device scanning on iOS, you need to modify a few project files.</p>
+<h4 id="1-update-infoplist">1. Update Info.plist</h4>
+<p>Add the following keys to your ios/Runner/Info.plist file to request Bluetooth and location permissions:</p>
+<pre class="language-xml"><code class="language-xml">&lt;key&gt;NSBluetoothAlwaysUsageDescription&lt;/key&gt;
+&lt;string&gt;This app needs Bluetooth to communicate with scanners and retrieve data.&lt;/string&gt;
+
+&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;
+&lt;string&gt;This app requires location access to scan for BLE devices while in use.&lt;/string&gt;
+
+&lt;key&gt;NSLocationAlwaysUsageDescription&lt;/key&gt;
+&lt;string&gt;This app requires location access to scan for BLE devices even when in the background.&lt;/string&gt;
+
+&lt;key&gt;UIBackgroundModes&lt;/key&gt;
+&lt;array&gt;
+   &lt;string&gt;bluetooth-central&lt;/string&gt;
+&lt;/array&gt;
+</code></pre>
+<h4 id="2-update-podfile">2. Update Podfile</h4>
+<p>Ensure that the Podfile contains the required permissions for Bluetooth and location access by adding the following lines in your ios/Podfile:</p>
+<pre class="language-dart"><code>post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+        '$(inherited)',
+
+        ## Enable required permissions
+        'PERMISSION_LOCATION=1',  # Enable location permissions
+        'PERMISSION_BLUETOOTH=1', # Enable Bluetooth permissions
+      ]
+    end
+  end
+end
+
+</code></pre>
+<h4 id="3-enable-background-modes-for-bluetooth-le-accessories-in-xcode">3. Enable Background Modes for Bluetooth LE Accessories in Xcode</h4>
+<p>To allow the app to use Bluetooth in the background, follow these steps:</p>
+<ol>
+<li>Open your iOS project in Xcode.</li>
+<li>Select the Runner target in the project navigator.</li>
+<li>Go to the Signing &amp; Capabilities tab.</li>
+<li>Click the + Capability button in the top left.</li>
+<li>Select Background Modes from the list.</li>
+<li>Check the option for Uses Bluetooth LE Accessories.</li>
+</ol>
+<h3 id="macos-setup">MacOS Setup</h3>
+<p>Make sure you have granted access to the Bluetooth hardware:</p>
+<ol>
+<li>Open your MacOS project in Xcode.</li>
+<li>Go to Runners -&gt; Targets -&gt; Runner.</li>
+<li>Go to the Signing &amp; Capabilities tab.</li>
+<li>Under App Sandbox, ensure that Bluetooth is enabled by checking the Bluetooth box under Hardware.</li>
+</ol>
+<p>You can refer to the image below for guidance:</p>
+<p><img src="https://raw.githubusercontent.com/opticonosedevelopment/opticonnect_sdk_flutter/main/assets/images/macos_bluetooth_permission.png" alt="MacOSPermission"></p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="bluetooth_manager">
+  <span class="name"><a href="bluetooth_manager/bluetooth_manager-library.html">bluetooth_manager</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="commands_constants">
+  <span class="name"><a href="constants_commands_constants/constants_commands_constants-library.html">constants\commands_constants</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="symbology_constants">
+  <span class="name"><a href="constants_symbology_constants/constants_symbology_constants-library.html">constants\symbology_constants</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="barcode_data">
+  <span class="name"><a href="entities_barcode_data/entities_barcode_data-library.html">entities\barcode_data</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="battery_level_status">
+  <span class="name"><a href="entities_battery_level_status/entities_battery_level_status-library.html">entities\battery_level_status</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="ble_discovered_device">
+  <span class="name"><a href="entities_ble_discovered_device/entities_ble_discovered_device-library.html">entities\ble_discovered_device</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="command_data">
+  <span class="name"><a href="entities_command_data/entities_command_data-library.html">entities\command_data</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="command_response">
+  <span class="name"><a href="entities_command_response/entities_command_response-library.html">entities\command_response</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="device_info">
+  <span class="name"><a href="entities_device_info/entities_device_info-library.html">entities\device_info</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="led_color">
+  <span class="name"><a href="entities_led_color/entities_led_color-library.html">entities\led_color</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="scanner_command">
+  <span class="name"><a href="entities_scanner_command/entities_scanner_command-library.html">entities\scanner_command</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="ble_adapter_state">
+  <span class="name"><a href="enums_ble_adapter_state/enums_ble_adapter_state-library.html">enums\ble_adapter_state</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="ble_device_connection_state">
+  <span class="name"><a href="enums_ble_device_connection_state/enums_ble_device_connection_state-library.html">enums\ble_device_connection_state</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="direct_input_key">
+  <span class="name"><a href="enums_direct_input_key/enums_direct_input_key-library.html">enums\direct_input_key</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="formattable_symbology">
+  <span class="name"><a href="enums_formattable_symbology/enums_formattable_symbology-library.html">enums\formattable_symbology</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="symbology_type">
+  <span class="name"><a href="enums_symbology_type/enums_symbology_type-library.html">enums\symbology_type</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="direct_input_keys_helper">
+  <span class="name"><a href="helpers_direct_input_keys_helper/helpers_direct_input_keys_helper-library.html">helpers\direct_input_keys_helper</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="opticonnect_sdk">
+  <span class="name"><a href="opticonnect_sdk/opticonnect_sdk-library.html">opticonnect</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="scanner_feedback">
+  <span class="name"><a href="scanner_feedback/scanner_feedback-library.html">scanner_feedback</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="scanner_info">
+  <span class="name"><a href="scanner_info/scanner_info-library.html">scanner_info</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="scanner_settings">
+  <span class="name"><a href="scanner_settings/scanner_settings-library.html">scanner_settings</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="codabar">
+  <span class="name"><a href="scanner_settings_code_specific_codabar/scanner_settings_code_specific_codabar-library.html">scanner_settings\code_specific\codabar</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="code_2_of_5_and_s_code">
+  <span class="name"><a href="scanner_settings_code_specific_code_2_of_5_and_s_code/scanner_settings_code_specific_code_2_of_5_and_s_code-library.html">scanner_settings\code_specific\code_2_of_5_and_s_code</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="code_11">
+  <span class="name"><a href="scanner_settings_code_specific_code_11/scanner_settings_code_specific_code_11-library.html">scanner_settings\code_specific\code_11</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="code_39">
+  <span class="name"><a href="scanner_settings_code_specific_code_39/scanner_settings_code_specific_code_39-library.html">scanner_settings\code_specific\code_39</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="code_93">
+  <span class="name"><a href="scanner_settings_code_specific_code_93/scanner_settings_code_specific_code_93-library.html">scanner_settings\code_specific\code_93</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="code_128_and_gs1_128">
+  <span class="name"><a href="scanner_settings_code_specific_code_128_and_gs1_128/scanner_settings_code_specific_code_128_and_gs1_128-library.html">scanner_settings\code_specific\code_128_and_gs1_128</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="code_specific">
+  <span class="name"><a href="scanner_settings_code_specific_code_specific/scanner_settings_code_specific_code_specific-library.html">scanner_settings\code_specific\code_specific</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="composite_codes">
+  <span class="name"><a href="scanner_settings_code_specific_composite_codes/scanner_settings_code_specific_composite_codes-library.html">scanner_settings\code_specific\composite_codes</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="ean_8">
+  <span class="name"><a href="scanner_settings_code_specific_ean_8/scanner_settings_code_specific_ean_8-library.html">scanner_settings\code_specific\ean_8</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="ean_13">
+  <span class="name"><a href="scanner_settings_code_specific_ean_13/scanner_settings_code_specific_ean_13-library.html">scanner_settings\code_specific\ean_13</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="gs1_databar">
+  <span class="name"><a href="scanner_settings_code_specific_gs1_databar/scanner_settings_code_specific_gs1_databar-library.html">scanner_settings\code_specific\gs1_databar</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="iata">
+  <span class="name"><a href="scanner_settings_code_specific_iata/scanner_settings_code_specific_iata-library.html">scanner_settings\code_specific\iata</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="korean_postal_authority">
+  <span class="name"><a href="scanner_settings_code_specific_korean_postal_authority/scanner_settings_code_specific_korean_postal_authority-library.html">scanner_settings\code_specific\korean_postal_authority</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="msi_plessey">
+  <span class="name"><a href="scanner_settings_code_specific_msi_plessey/scanner_settings_code_specific_msi_plessey-library.html">scanner_settings\code_specific\msi_plessey</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="telepen">
+  <span class="name"><a href="scanner_settings_code_specific_telepen/scanner_settings_code_specific_telepen-library.html">scanner_settings\code_specific\telepen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="uk_plessey">
+  <span class="name"><a href="scanner_settings_code_specific_uk_plessey/scanner_settings_code_specific_uk_plessey-library.html">scanner_settings\code_specific\uk_plessey</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="upc_a">
+  <span class="name"><a href="scanner_settings_code_specific_upc_a/scanner_settings_code_specific_upc_a-library.html">scanner_settings\code_specific\upc_a</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="upc_e">
+  <span class="name"><a href="scanner_settings_code_specific_upc_e/scanner_settings_code_specific_upc_e-library.html">scanner_settings\code_specific\upc_e</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="upc_e1">
+  <span class="name"><a href="scanner_settings_code_specific_upc_e1/scanner_settings_code_specific_upc_e1-library.html">scanner_settings\code_specific\upc_e1</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="connection_pool">
+  <span class="name"><a href="scanner_settings_connection_pool/scanner_settings_connection_pool-library.html">scanner_settings\connection_pool</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="formatting">
+  <span class="name"><a href="scanner_settings_formatting/scanner_settings_formatting-library.html">scanner_settings\formatting</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="indicator_options">
+  <span class="name"><a href="scanner_settings_indicator_options/scanner_settings_indicator_options-library.html">scanner_settings\indicator_options</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="read_options">
+  <span class="name"><a href="scanner_settings_read_options/scanner_settings_read_options-library.html">scanner_settings\read_options</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="symbology">
+  <span class="name"><a href="scanner_settings_symbology/scanner_settings_symbology-library.html">scanner_settings\symbology</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="scanner_settings_manager">
+  <span class="name"><a href="scanner_settings_manager/scanner_settings_manager-library.html">scanner_settings_manager</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter">opticonnect_sdk package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">opticonnect_sdk</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="bluetooth_manager/bluetooth_manager-library.html">bluetooth_manager</a></li>
+      <li><a href="constants_commands_constants/constants_commands_constants-library.html">constants\commands_constants</a></li>
+      <li><a href="constants_symbology_constants/constants_symbology_constants-library.html">constants\symbology_constants</a></li>
+      <li><a href="entities_barcode_data/entities_barcode_data-library.html">entities\barcode_data</a></li>
+      <li><a href="entities_battery_level_status/entities_battery_level_status-library.html">entities\battery_level_status</a></li>
+      <li><a href="entities_ble_discovered_device/entities_ble_discovered_device-library.html">entities\ble_discovered_device</a></li>
+      <li><a href="entities_command_data/entities_command_data-library.html">entities\command_data</a></li>
+      <li><a href="entities_command_response/entities_command_response-library.html">entities\command_response</a></li>
+      <li><a href="entities_device_info/entities_device_info-library.html">entities\device_info</a></li>
+      <li><a href="entities_led_color/entities_led_color-library.html">entities\led_color</a></li>
+      <li><a href="entities_scanner_command/entities_scanner_command-library.html">entities\scanner_command</a></li>
+      <li><a href="enums_ble_adapter_state/enums_ble_adapter_state-library.html">enums\ble_adapter_state</a></li>
+      <li><a href="enums_ble_device_connection_state/enums_ble_device_connection_state-library.html">enums\ble_device_connection_state</a></li>
+      <li><a href="enums_direct_input_key/enums_direct_input_key-library.html">enums\direct_input_key</a></li>
+      <li><a href="enums_formattable_symbology/enums_formattable_symbology-library.html">enums\formattable_symbology</a></li>
+      <li><a href="enums_symbology_type/enums_symbology_type-library.html">enums\symbology_type</a></li>
+      <li><a href="helpers_direct_input_keys_helper/helpers_direct_input_keys_helper-library.html">helpers\direct_input_keys_helper</a></li>
+      <li><a href="opticonnect_sdk/opticonnect_sdk-library.html">opticonnect</a></li>
+      <li><a href="scanner_feedback/scanner_feedback-library.html">scanner_feedback</a></li>
+      <li><a href="scanner_info/scanner_info-library.html">scanner_info</a></li>
+      <li><a href="scanner_settings/scanner_settings-library.html">scanner_settings</a></li>
+      <li><a href="scanner_settings_code_specific_codabar/scanner_settings_code_specific_codabar-library.html">scanner_settings\code_specific\codabar</a></li>
+      <li><a href="scanner_settings_code_specific_code_2_of_5_and_s_code/scanner_settings_code_specific_code_2_of_5_and_s_code-library.html">scanner_settings\code_specific\code_2_of_5_and_s_code</a></li>
+      <li><a href="scanner_settings_code_specific_code_11/scanner_settings_code_specific_code_11-library.html">scanner_settings\code_specific\code_11</a></li>
+      <li><a href="scanner_settings_code_specific_code_39/scanner_settings_code_specific_code_39-library.html">scanner_settings\code_specific\code_39</a></li>
+      <li><a href="scanner_settings_code_specific_code_93/scanner_settings_code_specific_code_93-library.html">scanner_settings\code_specific\code_93</a></li>
+      <li><a href="scanner_settings_code_specific_code_128_and_gs1_128/scanner_settings_code_specific_code_128_and_gs1_128-library.html">scanner_settings\code_specific\code_128_and_gs1_128</a></li>
+      <li><a href="scanner_settings_code_specific_code_specific/scanner_settings_code_specific_code_specific-library.html">scanner_settings\code_specific\code_specific</a></li>
+      <li><a href="scanner_settings_code_specific_composite_codes/scanner_settings_code_specific_composite_codes-library.html">scanner_settings\code_specific\composite_codes</a></li>
+      <li><a href="scanner_settings_code_specific_ean_8/scanner_settings_code_specific_ean_8-library.html">scanner_settings\code_specific\ean_8</a></li>
+      <li><a href="scanner_settings_code_specific_ean_13/scanner_settings_code_specific_ean_13-library.html">scanner_settings\code_specific\ean_13</a></li>
+      <li><a href="scanner_settings_code_specific_gs1_databar/scanner_settings_code_specific_gs1_databar-library.html">scanner_settings\code_specific\gs1_databar</a></li>
+      <li><a href="scanner_settings_code_specific_iata/scanner_settings_code_specific_iata-library.html">scanner_settings\code_specific\iata</a></li>
+      <li><a href="scanner_settings_code_specific_korean_postal_authority/scanner_settings_code_specific_korean_postal_authority-library.html">scanner_settings\code_specific\korean_postal_authority</a></li>
+      <li><a href="scanner_settings_code_specific_msi_plessey/scanner_settings_code_specific_msi_plessey-library.html">scanner_settings\code_specific\msi_plessey</a></li>
+      <li><a href="scanner_settings_code_specific_telepen/scanner_settings_code_specific_telepen-library.html">scanner_settings\code_specific\telepen</a></li>
+      <li><a href="scanner_settings_code_specific_uk_plessey/scanner_settings_code_specific_uk_plessey-library.html">scanner_settings\code_specific\uk_plessey</a></li>
+      <li><a href="scanner_settings_code_specific_upc_a/scanner_settings_code_specific_upc_a-library.html">scanner_settings\code_specific\upc_a</a></li>
+      <li><a href="scanner_settings_code_specific_upc_e/scanner_settings_code_specific_upc_e-library.html">scanner_settings\code_specific\upc_e</a></li>
+      <li><a href="scanner_settings_code_specific_upc_e1/scanner_settings_code_specific_upc_e1-library.html">scanner_settings\code_specific\upc_e1</a></li>
+      <li><a href="scanner_settings_connection_pool/scanner_settings_connection_pool-library.html">scanner_settings\connection_pool</a></li>
+      <li><a href="scanner_settings_formatting/scanner_settings_formatting-library.html">scanner_settings\formatting</a></li>
+      <li><a href="scanner_settings_indicator_options/scanner_settings_indicator_options-library.html">scanner_settings\indicator_options</a></li>
+      <li><a href="scanner_settings_read_options/scanner_settings_read_options-library.html">scanner_settings\read_options</a></li>
+      <li><a href="scanner_settings_symbology/scanner_settings_symbology-library.html">scanner_settings\symbology</a></li>
+      <li><a href="scanner_settings_manager/scanner_settings_manager-library.html">scanner_settings_manager</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    opticonnect_sdk
+      1.0.8
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
