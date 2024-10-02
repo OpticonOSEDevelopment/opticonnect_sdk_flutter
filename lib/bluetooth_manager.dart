@@ -77,7 +77,7 @@ class BluetoothManager {
   /// A stream of [BleDiscoveredDevice] representing discovered BLE devices.
   ///
   /// Returns a stream of BLE devices discovered during the discovery process.
-  Stream<BleDiscoveredDevice> get bleDeviceStream async* {
+  Stream<BleDiscoveredDevice> get bleDiscoveredDevicesStream async* {
     try {
       await for (final results in _bleDevicesDiscoverer.bleDeviceStream) {
         yield results;

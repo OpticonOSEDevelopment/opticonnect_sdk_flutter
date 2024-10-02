@@ -64,8 +64,9 @@ class DevicesManager extends ChangeNotifier {
         OptiConnect.bluetoothManager.adapterState.listen((state) async {
       if (state == BleAdapterState.on || state == BleAdapterState.unknown) {
         await OptiConnect.bluetoothManager.startDiscovery();
-        _bleDevicesDiscoveryStream =
-            OptiConnect.bluetoothManager.bleDeviceStream.listen((device) {
+        _bleDevicesDiscoveryStream = OptiConnect
+            .bluetoothManager.bleDiscoveredDevicesStream
+            .listen((device) {
           if (!_connectionSubscriptions.containsKey(device.deviceId)) {
             discoveredDevices[device.deviceId] = device;
             connectionStates[device.deviceId] =

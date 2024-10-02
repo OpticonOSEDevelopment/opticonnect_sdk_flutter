@@ -2,7 +2,7 @@ name: opticonnect_sdk
 description: >
    OptiConnect SDK integrates with Opticon's BLE OPN-2500 and OPN-6000 scanners, 
    enabling Bluetooth connection management, data streaming, and command control.
-version: 1.0.6
+version: 1.0.8
 homepage: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter
 repository: https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter
 documentation: https://opticonosedevelopment.github.io/opticonnect_sdk_flutter

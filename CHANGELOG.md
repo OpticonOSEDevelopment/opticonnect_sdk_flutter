@@ -48,3 +48,15 @@ Key features:
 
 -  Shortened the `pubspec.yaml` description to meet pub.dev requirements.
 -  Modified the example to ensure compatibility and functionality on macOS.
+
+## [1.0.7] - 2024-10-02
+
+### Changed
+
+-  Improved example.
+
+## [1.0.8] - 2024-10-02
+
+### Changed
+
+-  Renamed bleDeviceStream to bleDiscoveredDevicesStream for better naming.
