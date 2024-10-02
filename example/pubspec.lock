@@ -236,10 +236,10 @@ packages:
     dependency: "direct main"
     description:
       name: opticonnect_sdk
-      sha256: f2b33b35b4aea089562a352ac96bcd5c74a5338a9a6608bc50a8b89f00843371
+      sha256: "84213eb3883a341bdc462da88392a0eb7f3fe42789b84feeef8819601e27a41b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.7"
+    version: "1.0.8"
   path:
     dependency: transitive
     description:
