@@ -80,3 +80,9 @@ Key features:
 
 -  Improved resource management for the simple example.
 -  Improved error handling when the DataProcessor is disposed of, while a write to the device was still pending.
+
+## [1.0.12] - 2024-10-02
+
+### Changed
+
+-  Improved the simple example.
