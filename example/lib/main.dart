@@ -1,333 +1,156 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk_client/devices_manager.dart';
-import 'package:provider/provider.dart';
+import 'package:opticonnect_sdk/opticonnect.dart';
 
 void main() {
-  runApp(const OptiConnectSDKClient());
+  runApp(const OptiConnectApp());
 }
 
-class OptiConnectSDKClient extends StatelessWidget {
-  const OptiConnectSDKClient({super.key});
+class OptiConnectApp extends StatelessWidget {
+  const OptiConnectApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const OpticonnectSDKClient(),
+      home: const OptiConnectExample(),
     );
   }
 }
 
-class OpticonnectSDKClient extends StatefulWidget {
-  const OpticonnectSDKClient({super.key});
+class OptiConnectExample extends StatefulWidget {
+  const OptiConnectExample({super.key});
 
   @override
-  OpticonnectSDKClientState createState() => OpticonnectSDKClientState();
+  OptiConnectExampleState createState() => OptiConnectExampleState();
 }
 
-class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
-    with WidgetsBindingObserver {
-  final _devicesManager = DevicesManager();
+class OptiConnectExampleState extends State<OptiConnectExample> {
+  String _deviceId = '';
+  String _connectionStatus = 'Disconnected';
+  String _barcodeData = '';
+  bool _isConnecting = false;
+  final bool _isScanning = false;
 
   @override
   void initState() {
     super.initState();
-    _initializeSDK();
-    WidgetsBinding.instance.addObserver(this);
+    _initializeOptiConnectSDK();
   }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.detached) {
-      await _devicesManager.dispose();
-    }
-  }
-
-  Future<void> _initializeSDK() async {
+  Future<void> _initializeOptiConnectSDK() async {
     try {
-      await _devicesManager.initialize();
+      await OptiConnect.initialize();
+      await OptiConnect.bluetoothManager.startDiscovery();
+      OptiConnect.bluetoothManager.bleDiscoveredDevicesStream.listen((device) {
+        setState(() {
+          _deviceId = device.deviceId;
+          _connectToDevice(_deviceId);
+        });
+      });
     } catch (e) {
       debugPrint('Error initializing SDK: $e');
     }
   }
 
-  Widget _buildConnectionState(String deviceId) {
-    final connectionState = _devicesManager.connectionStates[deviceId];
-    final isConnected = connectionState == BleDeviceConnectionState.connected;
-    final isConnecting = connectionState == BleDeviceConnectionState.connecting;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: isConnected
-            ? Colors.green.shade100
-            : (isConnecting ? Colors.blue.shade100 : Colors.red.shade100),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            isConnected
-                ? Icons.check_circle
-                : (isConnecting ? Icons.hourglass_empty : Icons.cancel),
-            color: isConnected
-                ? Colors.green
-                : (isConnecting ? Colors.blue : Colors.red),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            isConnected
-                ? 'Connected'
-                : (isConnecting ? 'Connecting...' : 'Disconnected'),
-            style: TextStyle(
-              color: isConnected
-                  ? Colors.green
-                  : (isConnecting ? Colors.blue : Colors.red),
-            ),
-          ),
-          const SizedBox(width: 16),
-          ElevatedButton(
-            onPressed: isConnecting
-                ? null
-                : isConnected
-                    ? () => _disconnectFromDevice(deviceId)
-                    : () => _connectToDevice(deviceId),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: isConnected ? Colors.red : Colors.green,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-            ),
-            child: Text(isConnected ? 'Disconnect' : 'Connect',
-                style: const TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFloodlightToggleButton(String deviceId) {
-    final isConnected = _devicesManager.connectionStates[deviceId] ==
-        BleDeviceConnectionState.connected;
-    return isConnected
-        ? ElevatedButton(
-            onPressed: () => _devicesManager.toggleFloodlight(deviceId),
-            child: const Text('Toggle Floodlight'),
-          )
-        : const SizedBox();
-  }
-
-  Widget _buildSymbologyToggleButton(String deviceId) {
-    final isConnected = _devicesManager.connectionStates[deviceId] ==
-        BleDeviceConnectionState.connected;
-    return isConnected
-        ? ElevatedButton(
-            onPressed: () => _devicesManager.toggleSymbology(deviceId),
-            child: const Text('Toggle Symbology (EAN-13)'),
-          )
-        : const SizedBox();
-  }
-
-  String _formatToLocalTime(String isoDateString) {
-    DateTime dateTime = DateTime.parse(isoDateString).toLocal();
-    return DateFormat.yMd().add_jm().format(dateTime);
-  }
-
-  Widget _buildBarcodeDataAndDeviceInfo(String deviceId) {
-    final deviceInfo = _devicesManager.deviceInfo[deviceId];
-    final barcodeData = _devicesManager.receivedBarcodeData.isNotEmpty
-        ? _devicesManager.receivedBarcodeData[deviceId]?.lastOrNull
-        : null;
-
-    final batteryPercentage =
-        _devicesManager.batteryPercentages[deviceId] ?? -1;
-    final batteryStatus = _devicesManager.batteryStatuses[deviceId];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (barcodeData != null) ...[
-          _buildDataCard(
-            title: 'Latest Barcode Data',
-            content: [
-              Text('Data: ${barcodeData.data}'),
-              Text('Symbology: ${barcodeData.symbology}'),
-              Text('Quantity: ${barcodeData.quantity}'),
-              Text(
-                  'Time of scan: ${_formatToLocalTime(barcodeData.timeOfScan)}'),
-            ],
-          ),
-        ],
-        if (deviceInfo != null) ...[
-          const SizedBox(height: 16),
-          _buildDataCard(
-            title: 'Device Info',
-            content: [
-              Text('MAC Address: ${deviceInfo.macAddress}'),
-              Text('Serial Number: ${deviceInfo.serialNumber}'),
-              Text('Local Name: ${deviceInfo.localName}'),
-              Text('Firmware Version: ${deviceInfo.firmwareVersion}'),
-              const Divider(),
-              Text(
-                'Battery Percentage: ${batteryPercentage == -1 ? 'N/A' : '$batteryPercentage%'}',
-              ),
-              if (batteryStatus != null) ...[
-                Text('Battery Present: ${batteryStatus.isBatteryPresent}'),
-                Text('Battery Faulty: ${batteryStatus.isBatteryFaulty}'),
-                Text('Wireless Charging: ${batteryStatus.isWirelessCharging}'),
-                Text('Wired Charging: ${batteryStatus.isWiredCharging}'),
-                Text('Charging: ${batteryStatus.isCharging}'),
-              ] else ...[
-                const Text('No battery status available.'),
-              ],
-            ],
-          ),
-        ] else ...[
-          const Text('No device info available.'),
-        ]
-      ],
-    );
-  }
-
-  Widget _buildDataCard(
-      {required String title, required List<Widget> content}) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 3,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const Divider(),
-            ...content,
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => _devicesManager,
-      child: Consumer<DevicesManager>(
-        builder: (context, deviceManager, child) {
-          return MaterialApp(
-            theme: ThemeData(primarySwatch: Colors.blue),
-            home: Scaffold(
-              appBar: AppBar(
-                title: const Text('Opticonnect SDK Client Example'),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.refresh),
-                    onPressed: _devicesManager.startDiscovery,
-                    tooltip: 'Start Discovery',
-                  ),
-                ],
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Discovered Scanners',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      _devicesManager.discoveredDevices.isEmpty
-                          ? const Text('No devices found.')
-                          : Column(
-                              children: [
-                                ..._devicesManager.discoveredDevices.values
-                                    .map((device) {
-                                  final deviceId = device.deviceId;
-                                  return Column(
-                                    children: [
-                                      ListTile(
-                                        title: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(device.name),
-                                            LayoutBuilder(
-                                              builder: (context, constraints) {
-                                                return Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    const SizedBox(height: 4),
-                                                    _buildConnectionState(
-                                                        deviceId),
-                                                  ],
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      if (_devicesManager
-                                              .connectionStates[deviceId] ==
-                                          BleDeviceConnectionState.connected)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 16.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _buildFloodlightToggleButton(
-                                                  deviceId),
-                                              const SizedBox(height: 8),
-                                              _buildSymbologyToggleButton(
-                                                  deviceId),
-                                              _buildBarcodeDataAndDeviceInfo(
-                                                  deviceId),
-                                            ],
-                                          ),
-                                        ),
-                                    ],
-                                  );
-                                }),
-                              ],
-                            ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  void _connectToDevice(String deviceId) async {
+  Future<void> _connectToDevice(String deviceId) async {
+    if (_isConnecting) {
+      return;
+    }
+    _isConnecting = true;
     try {
-      await _devicesManager.connect(deviceId);
+      OptiConnect.bluetoothManager
+          .listenToConnectionState(deviceId)
+          .listen((state) {
+        setState(() {
+          if (state == BleDeviceConnectionState.connected) {
+            _connectionStatus = 'Connected';
+            _listenToBarcodeDataStream(deviceId);
+          } else if (state == BleDeviceConnectionState.connecting) {
+            _connectionStatus = 'Connecting...';
+          } else {
+            _connectionStatus = 'Disconnected';
+          }
+        });
+      });
+      await OptiConnect.bluetoothManager.connect(deviceId);
+      await Future.delayed(const Duration(seconds: 3));
+      _isConnecting = false;
     } catch (e) {
       debugPrint('Error connecting to device: $e');
     }
   }
 
-  void _disconnectFromDevice(String deviceId) async {
+  Future<void> _listenToBarcodeDataStream(String deviceId) async {
     try {
-      await _devicesManager.disconnect(deviceId);
+      final barcodeStream = await OptiConnect.bluetoothManager
+          .subscribeToBarcodeDataStream(deviceId);
+      barcodeStream.listen((BarcodeData barcode) {
+        setState(() {
+          _barcodeData = barcode.data;
+        });
+      });
     } catch (e) {
-      debugPrint('Error disconnecting from device: $e');
+      debugPrint('Error scanning barcode: $e');
     }
+  }
+
+  Future<void> _disconnectDevice() async {
+    if (_deviceId.isNotEmpty) {
+      await OptiConnect.bluetoothManager.disconnect(_deviceId);
+      setState(() {
+        _connectionStatus = 'Disconnected';
+        _barcodeData = '';
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _disconnectDevice();
+    OptiConnect.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('OptiConnect SDK Example'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Device: $_deviceId',
+              style: const TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Connection Status: $_connectionStatus',
+              style: TextStyle(
+                fontSize: 18,
+                color: _connectionStatus == 'Connected'
+                    ? Colors.green
+                    : Colors.red,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _isScanning ? _disconnectDevice : null,
+              child: const Text('Disconnect'),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'Latest Barcode Data: $_barcodeData',
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
