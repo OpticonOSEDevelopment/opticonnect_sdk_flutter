@@ -1,3 +1,7 @@
+// Basic example for the OptiConnect SDK
+// For an advanced example, visit:
+// https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter/tree/main/advanced_example
+
 import 'package:flutter/material.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
