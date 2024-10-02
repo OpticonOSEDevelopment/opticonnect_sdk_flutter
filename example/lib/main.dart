@@ -229,6 +229,13 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
             home: Scaffold(
               appBar: AppBar(
                 title: const Text('Opticonnect SDK Client Example'),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.refresh),
+                    onPressed: _devicesManager.startDiscovery,
+                    tooltip: 'Start Discovery',
+                  ),
+                ],
               ),
               body: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -258,35 +265,18 @@ class OpticonnectSDKClientState extends State<OpticonnectSDKClient>
                                             Text(device.name),
                                             LayoutBuilder(
                                               builder: (context, constraints) {
-                                                if (constraints.maxWidth <=
-                                                    600) {
-                                                  return Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      const SizedBox(height: 4),
-                                                      _buildConnectionState(
-                                                          deviceId),
-                                                    ],
-                                                  );
-                                                } else {
-                                                  return const SizedBox
-                                                      .shrink();
-                                                }
+                                                return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const SizedBox(height: 4),
+                                                    _buildConnectionState(
+                                                        deviceId),
+                                                  ],
+                                                );
                                               },
                                             ),
                                           ],
-                                        ),
-                                        trailing: LayoutBuilder(
-                                          builder: (context, constraints) {
-                                            if (constraints.maxWidth > 600) {
-                                              return _buildConnectionState(
-                                                  deviceId);
-                                            } else {
-                                              return const SizedBox.shrink();
-                                            }
-                                          },
                                         ),
                                       ),
                                       if (_devicesManager

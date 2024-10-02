@@ -38,6 +38,7 @@ class DevicesManager extends ChangeNotifier {
   Future<void> initialize() async {
     await OptiConnect.initialize();
     OptiConnect.scannerFeedback.set(buzzer: true, led: true, vibration: true);
+    await Future.delayed(const Duration(seconds: 5));
     await _startDiscovery();
   }
 
@@ -51,10 +52,16 @@ class DevicesManager extends ChangeNotifier {
     OptiConnect.bluetoothManager.disconnect(deviceId);
   }
 
+  Future<void> startDiscovery() async {
+    await OptiConnect.bluetoothManager.startDiscovery();
+  }
+
+  StreamSubscription<BleAdapterState>? discoverySubscription;
+
   /// Starts BLE device discovery when BLE is enabled and listens for new devices
   Future<void> _startDiscovery() async {
-    StreamSubscription<BleAdapterState>? subscription;
-    subscription =
+    discoverySubscription?.cancel();
+    discoverySubscription =
         OptiConnect.bluetoothManager.adapterState.listen((state) async {
       if (state == BleAdapterState.on || state == BleAdapterState.unknown) {
         await OptiConnect.bluetoothManager.startDiscovery();
@@ -68,7 +75,7 @@ class DevicesManager extends ChangeNotifier {
             notifyListeners();
           }
         });
-        subscription?.cancel();
+        discoverySubscription?.cancel();
       }
     });
   }

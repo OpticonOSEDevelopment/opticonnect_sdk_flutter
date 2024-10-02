@@ -35,3 +35,16 @@ Key features:
 ### Changed
 
 -  Changed scanner image URLs in README to absolute paths for compatibility.
+
+## [1.0.5] - 2024-10-01
+
+### Changed
+
+-  Extended README with MacOS section and added extra information to the introduction.
+
+## [1.0.6] - 2024-10-02
+
+### Changed
+
+-  Shortened the `pubspec.yaml` description to meet pub.dev requirements.
+-  Modified the example to ensure compatibility and functionality on macOS.
