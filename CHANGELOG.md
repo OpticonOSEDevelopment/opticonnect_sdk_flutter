@@ -60,3 +60,10 @@ Key features:
 ### Changed
 
 -  Renamed bleDeviceStream to bleDiscoveredDevicesStream for better naming.
+
+## [1.0.9] - 2024-10-02
+
+### Changed
+
+-  Simplified the main example for easier usage and quick integration.
+-  The 'advanced' example, showcasing more detailed functionality and configurations, is available in the [GitHub Repository](https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter).
