@@ -31,8 +31,14 @@ class DataHandler implements BleDataWriter, BleCommandResponseReader {
   @override
   Future<void> writeData(
       String deviceId, String data, List<int> dataBytes) async {
-    final dataProcessor = _getDataProcessor(deviceId);
-    await dataProcessor.writeData(dataBytes);
+    try {
+      final dataProcessor = _getDataProcessor(deviceId);
+      await dataProcessor.writeData(dataBytes);
+    } catch (e) {
+      final msg = 'Failed to write data: $e';
+      _appLogger.error(msg);
+      return;
+    }
   }
 
   DataProcessor _getDataProcessor(String deviceId) {

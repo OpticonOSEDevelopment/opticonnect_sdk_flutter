@@ -26,7 +26,8 @@ class OptiConnectExample extends StatefulWidget {
   OptiConnectExampleState createState() => OptiConnectExampleState();
 }
 
-class OptiConnectExampleState extends State<OptiConnectExample> {
+class OptiConnectExampleState extends State<OptiConnectExample>
+    with WidgetsBindingObserver {
   String _deviceId = '';
   String _connectionStatus = 'Disconnected';
   String _barcodeData = '';
@@ -35,6 +36,7 @@ class OptiConnectExampleState extends State<OptiConnectExample> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initializeOptiConnectSDK();
   }
 
@@ -106,8 +108,17 @@ class OptiConnectExampleState extends State<OptiConnectExample> {
   }
 
   @override
-  void dispose() async {
-    await OptiConnect.dispose();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Dispose of the OptiConnect SDK when the app is detached
+    if (state == AppLifecycleState.detached) {
+      OptiConnect.dispose();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _disconnectDevice();
     super.dispose();
   }
 
@@ -133,7 +144,9 @@ class OptiConnectExampleState extends State<OptiConnectExample> {
                 fontSize: 18,
                 color: _connectionStatus == 'Connected'
                     ? Colors.green
-                    : Colors.red,
+                    : (_connectionStatus == 'Connecting...'
+                        ? Colors.blue
+                        : Colors.red),
               ),
             ),
             const SizedBox(height: 16),

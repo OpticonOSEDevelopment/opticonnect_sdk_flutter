@@ -67,3 +67,15 @@ Key features:
 
 -  Simplified the main example for easier usage and quick integration.
 -  The 'advanced' example, showcasing more detailed functionality and configurations, is available in the [GitHub Repository](https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter).
+
+## [1.0.10] - 2024-10-02
+
+### Changed
+
+-  Improved the simple example.
+
+## [1.0.11] - 2024-10-02
+
+### Changed
+
+-  Improved resource management for the simple example.
