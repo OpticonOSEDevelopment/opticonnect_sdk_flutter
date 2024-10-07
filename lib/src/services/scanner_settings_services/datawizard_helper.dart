@@ -43,6 +43,7 @@ class DataWizardHelper {
   bool isDataWizardParameter(String candidate) {
     return (candidate.startsWith(dataWizardCommandPrefix0) ||
             candidate.startsWith(dataWizardCommandPrefix1)) &&
+        candidate.length >= 3 &&
         !_isDataWizardCommand(candidate);
   }
 }
