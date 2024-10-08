@@ -86,3 +86,9 @@ Key features:
 ### Changed
 
 -  Improved the simple example.
+
+## [1.0.13] - 2024-10-08
+
+### Changed
+
+-  Refined Bluetooth state handling checks in startDiscovery method before a startScan is performed.
