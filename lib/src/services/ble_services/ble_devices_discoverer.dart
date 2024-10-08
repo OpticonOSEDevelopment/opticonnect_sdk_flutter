@@ -41,13 +41,14 @@ class BleDevicesDiscoverer {
 
   Future<void> startDiscovery() async {
     try {
-      bool isBluetoothEnabled = await _ensureBluetoothEnabledOrListen();
+      await _checkBluetoothPermissions();
+
+      final isBluetoothEnabled = await _waitForBluetoothEnabled();
       if (!isBluetoothEnabled) {
-        // Bluetooth is off and we are waiting for it to turn on
+        _appLogger
+            .warning('Bluetooth is not enabled or ready. Aborting discovery.');
         return;
       }
-
-      await _checkBluetoothPermissions();
 
       if (FlutterBluePlus.isScanningNow) {
         await stopDiscovery();
@@ -59,57 +60,72 @@ class BleDevicesDiscoverer {
       await FlutterBluePlus.startScan(
         removeIfGone: const Duration(seconds: 2),
         continuousUpdates: true,
-        withServices: [
-          Guid(scannerServiceUuid),
-        ],
+        withServices: [Guid(scannerServiceUuid)],
         androidScanMode: AndroidScanMode.lowPower,
       );
 
-      FlutterBluePlus.scanResults.listen((results) {
-        for (final result in results) {
-          final deviceId = result.device.remoteId.str;
-
-          _cacheConnectionPoolId(
-              deviceId, result.advertisementData.manufacturerData);
-
-          final discoveredDevice = BleDiscoveredDevice(
-            name: result.device.platformName,
-            deviceId: deviceId,
-            rssi: result.rssi,
-            timeStamp: DateTime.now(),
-            connectionPoolId: _connectionPoolIds.containsKey(deviceId)
-                ? _connectionPoolIds[deviceId]!
-                : '',
-          );
-          if (_isValidDeviceName(discoveredDevice.name)) {
-            _deviceDiscoveryStreamController!.add(discoveredDevice);
-          }
-        }
-      });
+      _listenToScanResults();
     } catch (e) {
       _appLogger.error('Failed to start BLE discovery: $e');
       throw Exception('Failed to start BLE discovery: $e');
     }
   }
 
-  Future<bool> _ensureBluetoothEnabledOrListen() async {
-    final adapterState = await FlutterBluePlus.adapterState.first;
+  Future<bool> _waitForBluetoothEnabled() async {
+    final initialBluetoothState = await FlutterBluePlus.adapterState.first;
 
-    if (adapterState == BluetoothAdapterState.off) {
-      _appLogger.error('Bluetooth is not enabled. Waiting for it to turn on.');
-
-      FlutterBluePlus.adapterState.listen((state) async {
-        _appLogger.error('Bluetooth state changed to: $state');
-        if (state == BluetoothAdapterState.on) {
-          _appLogger.info('Bluetooth is enabled. Starting discovery.');
-          await startDiscovery(); // Start discovery when Bluetooth turns on
-        }
-      });
-
-      return false;
+    if (initialBluetoothState == BluetoothAdapterState.on) {
+      return true;
     }
 
-    return true;
+    _appLogger.info('Waiting for Bluetooth to turn on...');
+
+    try {
+      await FlutterBluePlus.adapterState
+          .where((state) => state == BluetoothAdapterState.on)
+          .first
+          .timeout(
+        const Duration(seconds: 8),
+        onTimeout: () {
+          _appLogger.warning(
+              'Bluetooth did not turn on in time. Proceeding with discovery attempt.');
+          return BluetoothAdapterState
+              .unknown; // Return unknown state if timeout occurs
+        },
+      );
+      return true;
+    } catch (e) {
+      _appLogger.error('Error while waiting for Bluetooth: $e');
+      return false;
+    }
+  }
+
+  void _listenToScanResults() {
+    FlutterBluePlus.scanResults.listen((results) {
+      for (final result in results) {
+        final deviceId = result.device.remoteId.str;
+
+        // Cache the connection pool ID
+        _cacheConnectionPoolId(
+            deviceId, result.advertisementData.manufacturerData);
+
+        // Create a discovered device object
+        final discoveredDevice = BleDiscoveredDevice(
+          name: result.device.platformName,
+          deviceId: deviceId,
+          rssi: result.rssi,
+          timeStamp: DateTime.now(),
+          connectionPoolId: _connectionPoolIds.containsKey(deviceId)
+              ? _connectionPoolIds[deviceId]!
+              : '',
+        );
+
+        // Validate the device name before adding it to the stream
+        if (_isValidDeviceName(discoveredDevice.name)) {
+          _deviceDiscoveryStreamController!.add(discoveredDevice);
+        }
+      }
+    });
   }
 
   String _getConnectionPoolIdFromManufacturerData(
