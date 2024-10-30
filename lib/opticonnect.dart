@@ -1,9 +1,9 @@
 library opticonnect_sdk;
 
-import 'package:opticonnect_sdk/bluetooth_manager.dart';
-import 'package:opticonnect_sdk/scanner_feedback.dart';
-import 'package:opticonnect_sdk/scanner_info.dart';
-import 'package:opticonnect_sdk/scanner_settings.dart';
+import 'package:opticonnect_sdk/interfaces/bluetooth_manager.dart';
+import 'package:opticonnect_sdk/interfaces/scanner_feedback.dart';
+import 'package:opticonnect_sdk/interfaces/scanner_info.dart';
+import 'package:opticonnect_sdk/interfaces/scanner_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_handler.dart';

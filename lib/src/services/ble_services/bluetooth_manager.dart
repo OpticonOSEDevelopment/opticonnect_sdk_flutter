@@ -1,3 +1,4 @@
+// src/ble_services/bluetooth_manager_impl.dart
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/barcode_data.dart';
@@ -5,54 +6,43 @@ import 'package:opticonnect_sdk/entities/battery_level_status.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
 import 'package:opticonnect_sdk/enums/ble_adapter_state.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+import 'package:opticonnect_sdk/interfaces/bluetooth_manager.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_connectivity_handler.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/ble_devices_discoverer.dart';
 import 'package:opticonnect_sdk/src/services/ble_services/streams/ble_devices_streams_handler.dart';
 
-/// Manages Bluetooth operations such as device discovery, connection, disconnection,
-/// and streaming data for BLE devices.
-///
-/// This class is responsible for handling all the Bluetooth-related operations and
-/// can be injected as a lazy singleton using a dependency injection system.
-///
-/// It is recommended that you access this class via the `OptiConnect` class
-/// and avoid direct initialization.
-@lazySingleton
-class BluetoothManager {
+@LazySingleton(as: BluetoothManager)
+class BluetoothManagerImpl implements BluetoothManager {
   final BleDevicesDiscoverer _bleDevicesDiscoverer;
   final BleConnectivityHandler _bleConnectivityHandler;
   final BleDevicesStreamsHandler _bleDevicesStreamsHandler;
   final AppLogger _appLogger;
 
-  /// Constructs the [BluetoothManager] with injected dependencies.
-  BluetoothManager(
+  BluetoothManagerImpl(
     this._bleDevicesDiscoverer,
     this._bleConnectivityHandler,
     this._bleDevicesStreamsHandler,
     this._appLogger,
   );
 
-  /// A stream of [BleAdapterState] representing the state of the Bluetooth adapter.
+  @override
   Stream<BleAdapterState> get adapterState => FlutterBluePlus.adapterState
       .map((state) => BleAdapterState.values[state.index]);
 
-  /// Checks if the Bluetooth adapter is currently scanning for devices (discovery).
+  @override
   bool get isScanning => FlutterBluePlus.isScanningNow;
 
-  /// A stream of [bool] representing the scanning state.
+  @override
   Stream<bool> get isScanningStream => FlutterBluePlus.isScanning;
 
-  /// Checks if Bluetooth is available on the device.
+  @override
   Future<bool> get isBluetoothAvailable async {
     return (await FlutterBluePlus.adapterState.first) ==
         BluetoothAdapterState.on;
   }
 
-  /// Starts the BLE device discovery process.
-  ///
-  /// This method begins the scanning process for nearby BLE devices.
-  /// It logs the start and handles any errors that may occur during the discovery process.
+  @override
   Future<void> startDiscovery() async {
     try {
       await _bleDevicesDiscoverer.startDiscovery();
@@ -62,9 +52,7 @@ class BluetoothManager {
     }
   }
 
-  /// Stops the BLE device discovery process.
-  ///
-  /// This method ends the BLE scanning process.
+  @override
   Future<void> stopDiscovery() async {
     try {
       await _bleDevicesDiscoverer.stopDiscovery();
@@ -74,9 +62,7 @@ class BluetoothManager {
     }
   }
 
-  /// A stream of [BleDiscoveredDevice] representing discovered BLE devices.
-  ///
-  /// Returns a stream of BLE devices discovered during the discovery process.
+  @override
   Stream<BleDiscoveredDevice> get bleDiscoveredDevicesStream async* {
     try {
       await for (final results in _bleDevicesDiscoverer.bleDeviceStream) {
@@ -88,11 +74,7 @@ class BluetoothManager {
     }
   }
 
-  /// Connects to the BLE device with the given [deviceId].
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Attempts to establish a connection to the BLE device.
+  @override
   Future<void> connect(String deviceId) async {
     try {
       await _bleConnectivityHandler.connect(deviceId);
@@ -102,11 +84,7 @@ class BluetoothManager {
     }
   }
 
-  /// Disconnects from the BLE device with the given [deviceId].
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Disconnects the BLE device.
+  @override
   Future<void> disconnect(String deviceId) async {
     try {
       await _bleConnectivityHandler.disconnect(deviceId);
@@ -116,11 +94,7 @@ class BluetoothManager {
     }
   }
 
-  /// Listens to the connection state of the BLE device with the given [deviceId].
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a stream of [BleDeviceConnectionState] indicating the connection state.
+  @override
   Stream<BleDeviceConnectionState> listenToConnectionState(String deviceId) {
     try {
       return _bleConnectivityHandler.listenToConnectionState(deviceId);
@@ -130,11 +104,7 @@ class BluetoothManager {
     }
   }
 
-  /// Subscribes to the barcode data stream from the BLE device with the given [deviceId].
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a stream of [BarcodeData] received from the device.
+  @override
   Future<Stream<BarcodeData>> subscribeToBarcodeDataStream(
       String deviceId) async {
     try {
@@ -145,11 +115,7 @@ class BluetoothManager {
     }
   }
 
-  /// Subscribes to the battery percentage stream from the BLE device with the given [deviceId].
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a stream of battery percentage updates.
+  @override
   Future<Stream<int>> subscribeToBatteryPercentageStream(
       String deviceId) async {
     try {
@@ -161,11 +127,7 @@ class BluetoothManager {
     }
   }
 
-  /// Subscribes to the battery status stream from the BLE device with the given [deviceId].
-  ///
-  /// [deviceId] - The identifier of the target device.
-  ///
-  /// Returns a stream of [BatteryLevelStatus] updates.
+  @override
   Future<Stream<BatteryLevelStatus>> subscribeToBatteryStatusStream(
       String deviceId) async {
     try {
@@ -177,9 +139,7 @@ class BluetoothManager {
     }
   }
 
-  /// Gets the latest battery percentage for the given [deviceId].
-  ///
-  /// Returns the latest battery percentage, or a default value if not available.
+  @override
   int getLatestBatteryPercentage(String deviceId) {
     try {
       return _bleDevicesStreamsHandler.batteryHandler
@@ -191,9 +151,7 @@ class BluetoothManager {
     }
   }
 
-  /// Gets the latest battery status for the given [deviceId].
-  ///
-  /// Returns the latest [BatteryLevelStatus], or a default value if not available.
+  @override
   BatteryLevelStatus getLatestBatteryStatus(String deviceId) {
     try {
       return _bleDevicesStreamsHandler.batteryHandler
@@ -205,9 +163,7 @@ class BluetoothManager {
     }
   }
 
-  /// Cleans up BLE-related resources when no longer needed.
-  ///
-  /// This method disposes of the device discoverer and connectivity handler.
+  @override
   Future<void> dispose() async {
     try {
       await _bleConnectivityHandler.dispose();
