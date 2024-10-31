@@ -12,7 +12,8 @@ dependencies:
       sdk: flutter
 
    cupertino_icons: ^1.0.8
-   opticonnect_sdk: ^1.0.0
+   opticonnect_sdk:
+      path: ../
 
 dev_dependencies:
    flutter_test:

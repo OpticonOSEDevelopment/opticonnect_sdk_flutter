@@ -3,10 +3,10 @@ library opticonnect_sdk;
 import 'package:opticonnect_sdk/interfaces/bluetooth_manager.dart';
 import 'package:opticonnect_sdk/interfaces/scanner_feedback.dart';
 import 'package:opticonnect_sdk/interfaces/scanner_info.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings.dart';
+import 'package:opticonnect_sdk/interfaces/scanner_settings/scanner_settings.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/scanner_settings_services/settings_handler.dart';
+import 'package:opticonnect_sdk/src/services/scanner_settings/settings_handler.dart';
 
 /// The main class for interacting with Opticon's BLE OPN-2500 and OPN-6000 scanners.
 /// Provides methods to discover, connect, and manage devices.

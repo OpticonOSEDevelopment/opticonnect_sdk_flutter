@@ -3,7 +3,7 @@ import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/device_info.dart';
 import 'package:opticonnect_sdk/entities/scanner_command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
-import 'package:opticonnect_sdk/src/services/scanner_commands_services/command_executors_manager.dart';
+import 'package:opticonnect_sdk/src/services/scanner_commands/command_executors_manager.dart';
 
 @lazySingleton
 class DevicesInfoManager {
