@@ -536,6 +536,8 @@ void main() {
             reason:
                 "Failed to set connection pool ID to $connectionPoolIdTarget.");
 
+        print('Connection pool ID set to $connectionPoolIdTarget');
+
         // Disconnect the device
         bool isDeviceDisconnected =
             await bluetoothTest.toggleDeviceConnectionState(
@@ -544,7 +546,11 @@ void main() {
           timeout: const Duration(seconds: 20),
         );
 
+        print('Device disconnected');
+
         if (isDeviceDisconnected) {
+          print('Discovering and reconnecting to the device');
+
           // Discover the device again
           final rediscoveredDevice = await bluetoothTest
               .discoverDevice(BluetoothTestHelper.testDeviceMacAddress);

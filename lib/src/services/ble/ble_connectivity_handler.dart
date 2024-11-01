@@ -159,35 +159,54 @@ class BleConnectivityHandler {
     return null;
   }
 
-  Future<bool> _initDevice(String deviceId) async {
-    try {
-      final bleDevice = _bleDevicesHelper.getDeviceFromId(deviceId);
+  Future<bool> _initDevice(String deviceId,
+      {int maxRetries = 3,
+      Duration retryDelay = const Duration(seconds: 2)}) async {
+    int attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        attempt++;
+        final bleDevice = _bleDevicesHelper.getDeviceFromId(deviceId);
 
-      final services = await bleDevice.discoverServices();
+        final services = await bleDevice.discoverServices();
 
-      final opcService = await _initOpcService(deviceId, services);
-      if (opcService == null) {
-        await disconnect(deviceId);
-        return false;
+        final opcService = await _initOpcService(deviceId, services);
+        if (opcService == null) {
+          await disconnect(deviceId);
+          _appLogger
+              .error('OPC Service initialization failed on attempt $attempt');
+          continue;
+        }
+
+        await _bleDevicesStreamsHandler.dataHandler
+            .addDataProcessor(deviceId, opcService);
+
+        final batteryService = await _initBatteryService(deviceId, services);
+        if (batteryService != null) {
+          await _bleDevicesStreamsHandler.batteryHandler
+              .addBatteryListener(deviceId, batteryService);
+        }
+
+        _commandExecutorsManager.createCommandExecutor(deviceId);
+        await _devicesInfoManager.fetchInfo(deviceId);
+
+        return true;
+      } catch (e) {
+        _appLogger.error(
+            'Attempt $attempt: Failed to initialize device $deviceId: $e');
+
+        if (attempt < maxRetries) {
+          await Future.delayed(retryDelay);
+        } else {
+          await disconnect(deviceId);
+        }
       }
-
-      await _bleDevicesStreamsHandler.dataHandler
-          .addDataProcessor(deviceId, opcService);
-
-      final batteryService = await _initBatteryService(deviceId, services);
-      if (batteryService != null) {
-        await _bleDevicesStreamsHandler.batteryHandler
-            .addBatteryListener(deviceId, batteryService);
-      }
-
-      _commandExecutorsManager.createCommandExecutor(deviceId);
-      await _devicesInfoManager.fetchInfo(deviceId);
-    } catch (e) {
-      _appLogger.error('Failed to initialize device $deviceId: $e');
-      await disconnect(deviceId);
-      return false;
     }
-    return true;
+
+    // If all retries fail
+    _appLogger.error(
+        'All $maxRetries attempts failed to initialize device $deviceId');
+    return false;
   }
 
   Future<void> disconnect(String deviceId) async {
@@ -204,6 +223,10 @@ class BleConnectivityHandler {
           BluetoothConnectionState.disconnecting);
 
       await bleDevice.disconnect();
+      _bleConnectionStatesService.setConnectionState(
+          deviceId,
+          // ignore: deprecated_member_use
+          BluetoothConnectionState.disconnected);
     } catch (e) {
       _appLogger.error('Failed to disconnect from device: $e');
       throw Exception('Failed to disconnect from device $deviceId: $e');
