@@ -85,6 +85,8 @@ import '../services/scanner_settings/code_specific/ean_13.dart' as _i205;
 import '../services/scanner_settings/code_specific/ean_8.dart' as _i606;
 import '../services/scanner_settings/code_specific/gs1_databar.dart' as _i463;
 import '../services/scanner_settings/code_specific/iata.dart' as _i1003;
+import '../services/scanner_settings/code_specific/korean_postal_authority.dart'
+    as _i172;
 import '../services/scanner_settings/code_specific/msi_plessey.dart' as _i334;
 import '../services/scanner_settings/code_specific/telepen.dart' as _i973;
 import '../services/scanner_settings/code_specific/uk_plessey.dart' as _i851;
@@ -146,13 +148,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1045.Code11>(() => _i203.Code11Impl());
     gh.lazySingleton<_i209.UPCE1>(() => _i33.UPCE1Impl());
     gh.lazySingleton<_i198.UKPlessey>(() => _i851.UKPlesseyImpl());
-    gh.lazySingleton<_i570.BleDevicesDiscoverer>(
-        () => _i570.BleDevicesDiscoverer(
-              gh<_i401.PermissionHandler>(),
-              gh<_i801.AppLogger>(),
-            ));
     gh.lazySingleton<_i480.Telepen>(() => _i973.TelepenImpl());
     gh.lazySingleton<_i909.MSIPlessey>(() => _i334.MSIPlesseyImpl());
+    gh.lazySingleton<_i1019.KoreanPostalAuthority>(
+        () => _i172.KoreanPostalAuthorityImpl());
     gh.lazySingleton<_i22.CommandBytesProvider>(
         () => _i381.OpcCommandProtocolHandler(
               gh<_i267.CRC16Handler>(),
@@ -199,6 +198,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i488.DatabaseManager>(),
           gh<_i801.AppLogger>(),
         ));
+    gh.lazySingleton<_i570.BleDevicesDiscoverer>(
+        () => _i570.BleDevicesDiscoverer(
+              gh<_i401.PermissionHandler>(),
+              gh<_i655.ConnectionPool>(),
+              gh<_i801.AppLogger>(),
+            ));
     gh.lazySingleton<_i619.SettingsCompressor>(() => _i619.SettingsCompressor(
           gh<_i399.SettingsHandler>(),
           gh<_i540.DataWizardHelper>(),

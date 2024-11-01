@@ -20,6 +20,21 @@ abstract class ConnectionPool {
   Future<CommandResponse> setId(
       {required String deviceId, required String poolId});
 
+  /// Caches the connection pool ID for the specified device.
+  /// This is used to store the connection pool ID for a device without setting it.
+  /// It will be called automatically whenever [setId] is executed to update the cache.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  /// [poolId] - A valid 4-character hexadecimal connection pool ID.
+  void cacheId(String deviceId, String poolId);
+
+  /// Retrieves the connection pool ID of the specified device.
+  ///
+  /// [deviceId] - The identifier of the target device.
+  ///
+  /// Returns a [String] containing the connection pool ID.
+  String getId(String deviceId);
+
   /// Sends the reset command to the device, resetting the connection pool ID to '0000'.
   ///
   /// [deviceId] - The identifier of the target device.

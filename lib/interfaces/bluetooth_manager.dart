@@ -36,7 +36,7 @@ abstract class BluetoothManager {
   /// A stream of [BleDiscoveredDevice] representing discovered BLE devices.
   ///
   /// Returns a stream of BLE devices discovered during the discovery process.
-  Stream<BleDiscoveredDevice> get bleDiscoveredDevicesStream;
+  Stream<BleDiscoveredDevice> get listenToDiscoveredDevices;
 
   /// Connects to the BLE device with the given [deviceId].
   ///

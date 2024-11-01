@@ -25,7 +25,7 @@ dependencies:
    path_provider: ^2.1.4
    path: ^1.9.0
    sqflite_common_ffi: ^2.3.3
-   flutter_blue_plus_windows: ^1.24.6
+   flutter_blue_plus_windows: ^1.24.18
    path_provider_windows: ^2.3.0
 
 dev_dependencies:

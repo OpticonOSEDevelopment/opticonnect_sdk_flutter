@@ -10,6 +10,9 @@ import 'package:opticonnect_sdk/src/interfaces/settings_base.dart';
 class ConnectionPoolImpl extends SettingsBase implements ConnectionPool {
   final AppLogger _appLogger;
 
+  // Cache for device connection pool IDs
+  final Map<String, String> _connectionPoolIds = {};
+
   ConnectionPoolImpl(this._appLogger);
 
   @override
@@ -64,15 +67,25 @@ class ConnectionPoolImpl extends SettingsBase implements ConnectionPool {
     final directInputKeys = _getDirectInputKeysFromHexId(poolId);
     final result = await sendCommand(deviceId, setConnectionPoolId,
         parameters: directInputKeys);
-    if (!result.succeeded) {
-      return result;
-    } else {
-      return sendCommand(deviceId, saveSettings);
+    if (result.succeeded) {
+      _cacheId(deviceId, poolId); // Cache the ID if successful
     }
+    return result;
+  }
+
+  @override
+  void cacheId(String deviceId, String poolId) {
+    _cacheId(deviceId, poolId);
+  }
+
+  @override
+  String getId(String deviceId) {
+    return _connectionPoolIds[deviceId] ?? '0000';
   }
 
   @override
   Future<CommandResponse> resetId(String deviceId) async {
+    _cacheId(deviceId, '0000'); // Reset to "0000" in cache
     final directInputKeys = _getDirectInputKeysFromHexId('0000');
     return sendCommand(deviceId, setConnectionPoolId,
         parameters: directInputKeys);
@@ -91,5 +104,10 @@ class ConnectionPoolImpl extends SettingsBase implements ConnectionPool {
     }
     final directInputKeys = _getDirectInputKeysFromHexId(poolId);
     return '@MENU_OPTO@ZZ@BBP@${directInputKeys.join('@')}@ZZ@OTPO_UNEM@';
+  }
+
+  // Cache the ID locally
+  void _cacheId(String deviceId, String poolId) {
+    _connectionPoolIds[deviceId] = poolId;
   }
 }

@@ -63,15 +63,8 @@ class BluetoothManagerImpl implements BluetoothManager {
   }
 
   @override
-  Stream<BleDiscoveredDevice> get bleDiscoveredDevicesStream async* {
-    try {
-      await for (final results in _bleDevicesDiscoverer.bleDeviceStream) {
-        yield results;
-      }
-    } catch (e) {
-      _appLogger.error("Error in bleDeviceStream: $e");
-      rethrow;
-    }
+  Stream<BleDiscoveredDevice> get listenToDiscoveredDevices {
+    return _bleDevicesDiscoverer.bleDeviceStream.asBroadcastStream();
   }
 
   @override
@@ -96,12 +89,9 @@ class BluetoothManagerImpl implements BluetoothManager {
 
   @override
   Stream<BleDeviceConnectionState> listenToConnectionState(String deviceId) {
-    try {
-      return _bleConnectivityHandler.listenToConnectionState(deviceId);
-    } catch (e) {
-      _appLogger.error("Error listening to connection state: $e");
-      rethrow;
-    }
+    return _bleConnectivityHandler
+        .listenToConnectionState(deviceId)
+        .asBroadcastStream();
   }
 
   @override

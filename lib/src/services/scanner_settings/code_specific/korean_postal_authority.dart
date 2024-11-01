@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/constants/commands_constants.dart';
 import 'package:opticonnect_sdk/entities/command_response.dart';
+import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/korean_postal_authority';
 import 'package:opticonnect_sdk/src/interfaces/settings_base.dart';
-import 'package:opticonnect_sdk/interfaces/korean_postal_authority.dart';
 
 /// Implementation of [KoreanPostalAuthority] for settings related to Korean Postal Authority Code symbology.
 ///

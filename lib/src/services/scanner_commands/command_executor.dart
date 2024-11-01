@@ -161,7 +161,7 @@ class CommandExecutor implements ICommandSender {
 
     final command = _pendingCommandsQueue.first;
     _appLogger
-        .warning('Command response received for: ${command.code}, Data: $data');
+        .info('Command response received for: ${command.code}, Data: $data');
 
     if (data == nak && !command.retried) {
       _retryCommand(command);

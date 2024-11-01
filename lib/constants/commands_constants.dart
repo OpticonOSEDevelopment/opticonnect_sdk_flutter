@@ -43,7 +43,7 @@ const String enableGS1DataBarExpandedOnly = 'JK';
 
 /// Enable 2D symbologies for scanning.
 /// These commands enable or disable individual 2D barcode symbologies.
-const String enable2DAllCodesOnly = '[BCB';
+const String enableAll2DCodesOnly = '[BCB';
 const String enableAztecCodeOnly = '[BC5';
 const String enableAztecRunesOnly = '[BF4';
 const String enableChineseSensibleCodeOnly = '[D4K';

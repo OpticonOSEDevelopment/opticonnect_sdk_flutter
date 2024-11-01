@@ -9,9 +9,9 @@ import 'package:opticonnect_sdk/entities/command_data.dart';
 import 'package:opticonnect_sdk/entities/device_info.dart';
 import 'package:opticonnect_sdk/enums/ble_adapter_state.dart';
 import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+import 'package:opticonnect_sdk/enums/scanner_settings/read_options.dart';
 import 'package:opticonnect_sdk/enums/symbology_type.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
-import 'package:opticonnect_sdk/scanner_settings/read_options.dart';
 
 /// Manages discovered devices, connection states, and scanner settings
 class DevicesManager extends ChangeNotifier {
@@ -22,6 +22,7 @@ class DevicesManager extends ChangeNotifier {
   final Map<String, StreamSubscription> _barcodeSubscriptions = {};
   final Map<String, List<BarcodeData>> receivedBarcodeData = {};
   final Map<String, bool> floodlightStatus = {};
+
   final Map<String, bool> symbologyStatus = {};
 
   // Battery related data
@@ -65,7 +66,7 @@ class DevicesManager extends ChangeNotifier {
       if (state == BleAdapterState.on || state == BleAdapterState.unknown) {
         await OptiConnect.bluetoothManager.startDiscovery();
         _bleDevicesDiscoveryStream = OptiConnect
-            .bluetoothManager.bleDiscoveredDevicesStream
+            .bluetoothManager.listenToDiscoveredDevices
             .listen((device) {
           if (!_connectionSubscriptions.containsKey(device.deviceId)) {
             discoveredDevices[device.deviceId] = device;

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
+import 'package:opticonnect_sdk/interfaces/scanner_settings/connection_pool.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/constants/ble_uuids.dart';
 import 'package:opticonnect_sdk/src/services/core/permission_handler.dart';
@@ -11,13 +12,14 @@ import 'package:permission_handler/permission_handler.dart';
 @lazySingleton
 class BleDevicesDiscoverer {
   final PermissionHandler _permissionHandler;
+  final ConnectionPool _connectionPool;
   final AppLogger _appLogger;
 
-  StreamController<BleDiscoveredDevice>? _deviceDiscoveryStreamController;
+  StreamController<BleDiscoveredDevice>? _deviceDiscoveryStreamController =
+      StreamController<BleDiscoveredDevice>.broadcast();
 
-  BleDevicesDiscoverer(this._permissionHandler, this._appLogger);
-
-  final Map<String, String> _connectionPoolIds = {};
+  BleDevicesDiscoverer(
+      this._permissionHandler, this._connectionPool, this._appLogger);
 
   Future<void> _checkBluetoothPermissions() async {
     if (!await _permissionHandler.hasBluetoothPermissions()) {
@@ -26,16 +28,6 @@ class BleDevicesDiscoverer {
       if (permissionStatus != PermissionStatus.granted) {
         throw Exception('Bluetooth permissions not granted.');
       }
-    }
-  }
-
-  void _cacheConnectionPoolId(
-      String deviceId, Map<int, List<int>> manufacturerData) {
-    final connectionPoolId = _getConnectionPoolIdFromManufacturerData(
-      manufacturerData,
-    );
-    if (connectionPoolId.isNotEmpty) {
-      _connectionPoolIds[deviceId] = connectionPoolId;
     }
   }
 
@@ -55,7 +47,7 @@ class BleDevicesDiscoverer {
       }
 
       _deviceDiscoveryStreamController ??=
-          StreamController<BleDiscoveredDevice>();
+          StreamController<BleDiscoveredDevice>.broadcast();
 
       await FlutterBluePlus.startScan(
         removeIfGone: const Duration(seconds: 2),
@@ -106,8 +98,12 @@ class BleDevicesDiscoverer {
         final deviceId = result.device.remoteId.str;
 
         // Cache the connection pool ID
-        _cacheConnectionPoolId(
-            deviceId, result.advertisementData.manufacturerData);
+        final poolId = _getConnectionPoolIdFromManufacturerData(
+            result.advertisementData.manufacturerData);
+
+        if (_connectionPool.getId(deviceId) != poolId && poolId.length == 4) {
+          _connectionPool.cacheId(deviceId, poolId);
+        }
 
         // Create a discovered device object
         final discoveredDevice = BleDiscoveredDevice(
@@ -115,9 +111,7 @@ class BleDevicesDiscoverer {
           deviceId: deviceId,
           rssi: result.rssi,
           timeStamp: DateTime.now(),
-          connectionPoolId: _connectionPoolIds.containsKey(deviceId)
-              ? _connectionPoolIds[deviceId]!
-              : '',
+          connectionPoolId: poolId,
         );
 
         // Validate the device name before adding it to the stream
@@ -161,7 +155,8 @@ class BleDevicesDiscoverer {
   }
 
   Stream<BleDiscoveredDevice> get bleDeviceStream {
-    if (_deviceDiscoveryStreamController != null) {
+    if (_deviceDiscoveryStreamController != null &&
+        !_deviceDiscoveryStreamController!.isClosed) {
       return _deviceDiscoveryStreamController!.stream;
     }
     throw Exception(

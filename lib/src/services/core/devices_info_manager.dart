@@ -48,7 +48,7 @@ class DevicesInfoManager {
             fetchedData = _formatMacAddress(fetchedData);
           }
           store[deviceId] = fetchedData;
-          _appLogger.error('Device info fetched: $parameter: $fetchedData');
+          _appLogger.info('Device info fetched: $parameter: $fetchedData');
         }
       }
     } catch (e) {
@@ -61,7 +61,6 @@ class DevicesInfoManager {
     if (macAddress.length % 2 == 1) {
       throw FormatException('Invalid MAC address: $macAddress');
     }
-    _appLogger.error('try formatting mac address: $macAddress');
     final buffer = StringBuffer();
     for (int i = 0; i < macAddress.length; i += 2) {
       buffer.write(macAddress.substring(i, i + 2));

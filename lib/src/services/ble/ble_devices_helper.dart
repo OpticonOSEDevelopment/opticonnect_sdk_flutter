@@ -9,7 +9,6 @@ class BleDevicesHelper {
     var device = BluetoothDevice.fromId(deviceId);
     if (Platform.isWindows) {
       device = BluetoothDeviceWindows(
-        platformName: device.platformName,
         remoteId: device.remoteId,
       );
     }

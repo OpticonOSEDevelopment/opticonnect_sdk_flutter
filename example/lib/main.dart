@@ -48,7 +48,7 @@ class OptiConnectExampleState extends State<OptiConnectExample>
     try {
       await OptiConnect.initialize();
       await OptiConnect.bluetoothManager.startDiscovery();
-      OptiConnect.bluetoothManager.bleDiscoveredDevicesStream.listen((device) {
+      OptiConnect.bluetoothManager.listenToDiscoveredDevices.listen((device) {
         setState(() {
           _deviceId = device.deviceId;
           _connectToDevice(_deviceId);

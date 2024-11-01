@@ -170,7 +170,7 @@ class SymbologyImpl extends SettingsBase implements Symbology {
     SymbologyType.gs1DataBar: enableGS1DataBarOnly,
     SymbologyType.gs1DataBarLimited: enableGS1DataBarLimitedOnly,
     SymbologyType.gs1DataBarExpanded: enableGS1DataBarExpandedOnly,
-    SymbologyType.all2DCodes: enable2DAllCodesOnly,
+    SymbologyType.all2DCodes: enableAll2DCodesOnly,
     SymbologyType.aztecCode: enableAztecCodeOnly,
     SymbologyType.aztecRunes: enableAztecRunesOnly,
     SymbologyType.chineseSensibleCode: enableChineseSensibleCodeOnly,
