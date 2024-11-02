@@ -1,7 +1,7 @@
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mutex/mutex.dart';
-import 'package:opticonnect_sdk/entities/battery_level_status.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/constants/ble_uuids.dart';
 import 'package:opticonnect_sdk/src/services/ble/streams/battery/battery_listener.dart';

@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 /// Enum representing the various modes available for Code 39 symbology.
 enum Code39Mode {
   /// Normal mode for Code 39 symbology.

@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/entities/entities.dart';
+
 /// A class representing the RGB color values for the LED.
 class LEDColor {
   /// Red component of the RGB color, ranging from 0 to 255.

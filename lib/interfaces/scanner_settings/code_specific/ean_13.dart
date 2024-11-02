@@ -1,5 +1,4 @@
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/enums/scanner_settings/code_specific/ean_13.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Interface for settings related to EAN-13 symbology.
 ///

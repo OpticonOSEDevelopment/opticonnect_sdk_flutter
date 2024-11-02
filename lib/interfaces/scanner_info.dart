@@ -1,4 +1,4 @@
-import 'package:opticonnect_sdk/entities/device_info.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Provides information about a BLE scanner device.
 ///

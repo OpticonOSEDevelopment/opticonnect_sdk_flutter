@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/gs1_databar.dart';
+import 'package:opticonnect_sdk/constants/constants.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/interfaces/interfaces.dart';
 import 'package:opticonnect_sdk/src/interfaces/settings_base.dart';
 
 /// Implementation of the [GS1Databar] interface for settings related to GS1 Databar symbology.

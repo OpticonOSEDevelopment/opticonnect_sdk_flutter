@@ -3,8 +3,8 @@
 // https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter/tree/main/advanced_example
 
 import 'package:flutter/material.dart';
-import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 
 void main() {

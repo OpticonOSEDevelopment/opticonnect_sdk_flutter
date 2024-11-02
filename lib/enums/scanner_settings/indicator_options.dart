@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 /// Enum representing the different types of buzzer sounds.
 enum BuzzerType {
   singleToneBuzzer,

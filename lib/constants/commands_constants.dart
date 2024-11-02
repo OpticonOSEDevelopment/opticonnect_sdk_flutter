@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/constants/constants.dart';
+
 /// Enable 1D symbologies for scanning.
 /// These commands enable or disable individual 1D barcode symbologies.
 const String enable1DAllCodesExclAddonOnly = '[BCA';

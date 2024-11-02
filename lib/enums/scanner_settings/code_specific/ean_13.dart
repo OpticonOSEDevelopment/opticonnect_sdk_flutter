@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 /// Enum representing the translation modes for ISSN, ISMN, and ISBN.
 enum TranslationMode {
   /// Disable the translation.

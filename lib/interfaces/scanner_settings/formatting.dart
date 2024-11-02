@@ -1,6 +1,4 @@
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/enums/direct_input_key.dart';
-import 'package:opticonnect_sdk/enums/formattable_symbology.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Responsible for configuring formatting options like preambles, prefixes, suffixes, and postambles.
 ///

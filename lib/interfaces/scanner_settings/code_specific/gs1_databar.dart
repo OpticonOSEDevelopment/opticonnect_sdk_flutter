@@ -1,4 +1,4 @@
-import 'package:opticonnect_sdk/entities/command_response.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Interface for settings related to GS1 Databar symbology.
 ///

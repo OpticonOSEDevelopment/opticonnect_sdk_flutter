@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/entities/entities.dart';
+
 /// A class representing a BLE device discovered during scanning.
 ///
 /// This class contains information about the device such as its name, unique device ID,

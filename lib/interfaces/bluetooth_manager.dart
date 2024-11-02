@@ -1,9 +1,4 @@
-// bluetooth_manager.dart (interface)
-import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/entities/battery_level_status.dart';
-import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
-import 'package:opticonnect_sdk/enums/ble_adapter_state.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Manages Bluetooth operations such as device discovery, connection, disconnection,
 /// and streaming data for BLE devices.

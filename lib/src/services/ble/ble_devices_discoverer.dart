@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/connection_pool.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/interfaces/interfaces.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/constants/ble_uuids.dart';
 import 'package:opticonnect_sdk/src/services/core/permission_handler.dart';

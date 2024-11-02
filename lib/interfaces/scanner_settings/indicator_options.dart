@@ -1,6 +1,4 @@
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/entities/led_color.dart';
-import 'package:opticonnect_sdk/enums/scanner_settings/indicator_options.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Manages various indicators for the scanner such as buzzer, vibrator, and battery charging indicator.
 ///

@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
+
 /// Configures the feedback behavior of the scanner when executing commands.
 ///
 /// This interface provides methods to manage feedback settings such as LED, buzzer,

@@ -1,13 +1,4 @@
-// scanner_settings.dart (interface)
-import 'package:opticonnect_sdk/entities/command_data.dart';
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/entities/scanner_command.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/code_specific.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/connection_pool.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/formatting.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/indicator_options.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/read_options.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/symbology.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// A contract for scanner settings functionality within Opticon BLE scanners.
 ///

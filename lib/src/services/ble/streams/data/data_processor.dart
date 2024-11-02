@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
-import 'package:opticonnect_sdk/entities/barcode_data.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/streams/data/opc_data_handler.dart';

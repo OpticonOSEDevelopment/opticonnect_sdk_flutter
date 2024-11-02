@@ -1,16 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
-import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/entities/battery_level_status.dart';
-import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
-import 'package:opticonnect_sdk/entities/command_data.dart';
-import 'package:opticonnect_sdk/entities/device_info.dart';
-import 'package:opticonnect_sdk/enums/ble_adapter_state.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk/enums/scanner_settings/read_options.dart';
-import 'package:opticonnect_sdk/enums/symbology_type.dart';
+import 'package:opticonnect_sdk/constants/constants.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 
 /// Manages discovered devices, connection states, and scanner settings

@@ -1,5 +1,4 @@
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/enums/scanner_settings/code_specific/code_11.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Interface for managing settings related to Code 11 symbology.
 ///

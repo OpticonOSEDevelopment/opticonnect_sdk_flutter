@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/entities/scanner_command.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/command_bytes_provider.dart';
 import 'package:opticonnect_sdk/src/services/ble/streams/data/data_handler.dart';

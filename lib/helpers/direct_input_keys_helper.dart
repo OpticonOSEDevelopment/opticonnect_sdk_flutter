@@ -1,4 +1,4 @@
-import 'package:opticonnect_sdk/enums/direct_input_key.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
 
 /// A helper class for managing and converting direct input keys to their corresponding key codes.
 ///

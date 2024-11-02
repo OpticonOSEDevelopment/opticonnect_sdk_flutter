@@ -2,15 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
-import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/entities/battery_level_status.dart';
-import 'package:opticonnect_sdk/entities/command_data.dart';
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/entities/device_info.dart';
-import 'package:opticonnect_sdk/entities/scanner_command.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk/enums/scanner_settings/code_specific/codabar.dart';
+import 'package:opticonnect_sdk/constants/constants.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 
 import 'bluetooth_test_helper.dart';

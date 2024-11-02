@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 /// Enum representing various direct input keys used for keyboard and barcode input.
 ///
 /// This enum includes numeric, alphabetical (both upper and lower case), function keys,

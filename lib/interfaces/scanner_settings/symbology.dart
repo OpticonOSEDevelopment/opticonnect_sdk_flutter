@@ -1,5 +1,4 @@
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/enums/symbology_type.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Interface for managing symbology settings on the scanner.
 ///

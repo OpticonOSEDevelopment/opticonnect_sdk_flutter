@@ -1,4 +1,4 @@
-import 'package:opticonnect_sdk/src/entities/base_command.dart';
+part of 'package:opticonnect_sdk/entities/entities.dart';
 
 /// A class representing a scanner command, inheriting from [BaseCommand].
 ///

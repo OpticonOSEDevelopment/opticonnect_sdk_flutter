@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/constants/constants.dart';
+
 const int discrete2of5 = 2;
 const int matrix2of5 = 3;
 const int interleaved2of5 = 4;

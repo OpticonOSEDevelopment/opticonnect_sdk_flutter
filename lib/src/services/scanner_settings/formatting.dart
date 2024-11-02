@@ -1,11 +1,10 @@
 // src/scanner_settings/formatting_impl.dart
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/enums/direct_input_key.dart';
-import 'package:opticonnect_sdk/enums/formattable_symbology.dart';
+import 'package:opticonnect_sdk/constants/constants.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
 import 'package:opticonnect_sdk/helpers/direct_input_keys_helper.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/formatting.dart';
+import 'package:opticonnect_sdk/interfaces/interfaces.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/settings_base.dart';
 

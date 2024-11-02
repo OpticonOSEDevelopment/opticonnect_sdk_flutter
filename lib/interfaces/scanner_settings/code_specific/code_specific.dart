@@ -1,21 +1,4 @@
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/codabar.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/code_11.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/code_128_and_gs1_128.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/code_2_of_5_and_s_code.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/code_39.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/code_93.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/composite_codes.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/ean_13.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/ean_8.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/gs1_databar.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/iata.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/korean_postal_authority';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/msi_plessey.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/telepen.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/uk_plessey.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/upc_a.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/upc_e.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/upc_e1.dart';
+part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
 
 /// Interface for accessing settings for specific barcode symbologies.
 ///

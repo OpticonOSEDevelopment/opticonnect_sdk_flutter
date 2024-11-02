@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/entities/entities.dart';
+
 /// A class representing basic information about a BLE device.
 /// This class holds the information fetched from a BLE device, such as
 /// its MAC address, serial number, local name, and firmware version.

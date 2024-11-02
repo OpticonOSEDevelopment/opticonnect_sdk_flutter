@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 import 'package:permission_handler/permission_handler.dart';
 

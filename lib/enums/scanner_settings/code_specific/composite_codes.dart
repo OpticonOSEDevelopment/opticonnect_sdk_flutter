@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 /// Enum representing the output mode for composite codes.
 enum CompositeCodesOutputMode {
   /// Only 1D and 2D components are allowed in the output.

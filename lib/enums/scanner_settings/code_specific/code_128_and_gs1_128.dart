@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 /// Enum representing the various modes for Code 128 and GS1-128 symbologies.
 enum Code128GS1128Mode {
   disableGS1128,

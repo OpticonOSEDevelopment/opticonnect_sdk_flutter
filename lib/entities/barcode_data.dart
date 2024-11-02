@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/entities/entities.dart';
+
 /// This class holds detailed information about a scanned barcode, including:
 /// - The processed barcode data ([data]), which may have undergone transformations
 ///   based on scanner settings (e.g., preamble, prefix, suffix, postamble).

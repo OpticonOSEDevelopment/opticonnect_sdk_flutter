@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mutex/mutex.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/ble_connection_states_service.dart';
 import 'package:opticonnect_sdk/src/services/ble/ble_devices_helper.dart';
@@ -114,16 +114,34 @@ class BleConnectivityHandler {
     }
   }
 
+  BleDeviceConnectionState _mapBluetoothConnectionState(
+      BluetoothConnectionState state) {
+    switch (state) {
+      case BluetoothConnectionState.connected:
+        return BleDeviceConnectionState.connected;
+      case BluetoothConnectionState.disconnected:
+        return BleDeviceConnectionState.disconnected;
+      // ignore: deprecated_member_use
+      case BluetoothConnectionState.connecting:
+        return BleDeviceConnectionState.connecting;
+      // ignore: deprecated_member_use
+      case BluetoothConnectionState.disconnecting:
+        return BleDeviceConnectionState.disconnecting;
+      default:
+        return BleDeviceConnectionState.disconnected;
+    }
+  }
+
   Stream<BleDeviceConnectionState> listenToConnectionState(String deviceId) {
     return _bleConnectionStatesService.connectionStateStream(deviceId).map(
       (BluetoothConnectionState state) {
-        return mapBluetoothConnectionState(state);
+        return _mapBluetoothConnectionState(state);
       },
     );
   }
 
   BleDeviceConnectionState getConnectionState(String deviceId) {
-    return mapBluetoothConnectionState(
+    return _mapBluetoothConnectionState(
         _bleConnectionStatesService.getConnectionState(deviceId));
   }
 

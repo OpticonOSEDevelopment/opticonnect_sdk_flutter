@@ -1,12 +1,9 @@
 // src/ble_services/bluetooth_manager_impl.dart
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/entities/barcode_data.dart';
-import 'package:opticonnect_sdk/entities/battery_level_status.dart';
-import 'package:opticonnect_sdk/entities/ble_discovered_device.dart';
-import 'package:opticonnect_sdk/enums/ble_adapter_state.dart';
-import 'package:opticonnect_sdk/enums/ble_device_connection_state.dart';
-import 'package:opticonnect_sdk/interfaces/bluetooth_manager.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/interfaces/interfaces.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/ble_connectivity_handler.dart';
 import 'package:opticonnect_sdk/src/services/ble/ble_devices_discoverer.dart';

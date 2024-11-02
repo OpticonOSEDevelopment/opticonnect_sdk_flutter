@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
-import 'package:opticonnect_sdk/entities/command_response.dart';
-import 'package:opticonnect_sdk/enums/scanner_settings/code_specific/upc_e.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_settings/code_specific/upc_e.dart';
+import 'package:opticonnect_sdk/constants/constants.dart';
+import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/interfaces/interfaces.dart';
 import 'package:opticonnect_sdk/src/interfaces/settings_base.dart';
 
 /// Implementation of [UPCE] for UPCE symbology settings.

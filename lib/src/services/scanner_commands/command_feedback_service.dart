@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/constants/commands_constants.dart';
-import 'package:opticonnect_sdk/interfaces/scanner_feedback.dart';
+import 'package:opticonnect_sdk/constants/constants.dart';
+import 'package:opticonnect_sdk/interfaces/interfaces.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 
 @lazySingleton

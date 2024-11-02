@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/entities/entities.dart';
+
 /// Represents a command and its associated parameters for scanner settings.
 ///
 /// This class is used to store a command and the list of parameters that

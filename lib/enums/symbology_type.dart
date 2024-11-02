@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 enum SymbologyType {
   allCodes,
   // 1D Symbologies

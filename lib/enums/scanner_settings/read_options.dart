@@ -1,3 +1,5 @@
+part of 'package:opticonnect_sdk/enums/enums.dart';
+
 /// Enum representing different modes for reading positive and negative barcodes.
 enum PositiveAndNegativeBarcodesMode {
   positiveBarcodes,
