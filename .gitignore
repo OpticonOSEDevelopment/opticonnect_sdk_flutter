@@ -1,0 +1,6 @@
+# Ignore everything
+*
+
+# Allow the docs folder and its content
+!/docs/
+!/docs/**
