@@ -1,4 +1,4 @@
-package com.opticon.advanced_example
+package com.opticon.example
 
 import io.flutter.embedding.android.FlutterActivity
 
