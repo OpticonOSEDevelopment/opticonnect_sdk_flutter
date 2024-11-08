@@ -59,7 +59,7 @@
 <li>Bluetooth discovery and connection management for OPN-2500 and OPN-6000 BLE scanners.</li>
 <li>Real-time data streaming, including barcode data reception and BLE device state monitoring.</li>
 <li>Programmatic control of scanner settings (e.g., scan modes, illumination, connection pooling, etc.).</li>
-<li>Exclusive Connection Management: Manage connection pools using 4-character hexadecimal IDs to ensure exclusive device pairing. Prevent previously paired devices from hijacking active connections by assigning unique connection pool IDs.</li>
+<li>Exclusive connection management: Ensure stable device pairing in multi-device environments by assigning unique connection pool IDs, preventing previously paired devices from hijacking active connections.</li>
 <li>Command management and customization for BLE services and scanner configurations.</li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
@@ -168,120 +168,29 @@ end
       <section class="summary">
           <h2>Libraries</h2>
         <dl>
-          <dt id="bluetooth_manager">
-  <span class="name"><a href="bluetooth_manager/bluetooth_manager-library.html">bluetooth_manager</a></span> 
+          <dt id="constants">
+  <span class="name"><a href="constants/constants-library.html">constants</a></span> 
 
 </dt>
 <dd>
 </dd>
 
-          <dt id="commands_constants">
-  <span class="name"><a href="constants_commands_constants/constants_commands_constants-library.html">constants\commands_constants</a></span> 
+          <dt id="entities">
+  <span class="name"><a href="entities/entities-library.html">entities</a></span> 
 
 </dt>
 <dd>
 </dd>
 
-          <dt id="symbology_constants">
-  <span class="name"><a href="constants_symbology_constants/constants_symbology_constants-library.html">constants\symbology_constants</a></span> 
+          <dt id="enums">
+  <span class="name"><a href="enums/enums-library.html">enums</a></span> 
 
 </dt>
 <dd>
 </dd>
 
-          <dt id="barcode_data">
-  <span class="name"><a href="entities_barcode_data/entities_barcode_data-library.html">entities\barcode_data</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="battery_level_status">
-  <span class="name"><a href="entities_battery_level_status/entities_battery_level_status-library.html">entities\battery_level_status</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="ble_discovered_device">
-  <span class="name"><a href="entities_ble_discovered_device/entities_ble_discovered_device-library.html">entities\ble_discovered_device</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="command_data">
-  <span class="name"><a href="entities_command_data/entities_command_data-library.html">entities\command_data</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="command_response">
-  <span class="name"><a href="entities_command_response/entities_command_response-library.html">entities\command_response</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="device_info">
-  <span class="name"><a href="entities_device_info/entities_device_info-library.html">entities\device_info</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="led_color">
-  <span class="name"><a href="entities_led_color/entities_led_color-library.html">entities\led_color</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="scanner_command">
-  <span class="name"><a href="entities_scanner_command/entities_scanner_command-library.html">entities\scanner_command</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="ble_adapter_state">
-  <span class="name"><a href="enums_ble_adapter_state/enums_ble_adapter_state-library.html">enums\ble_adapter_state</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="ble_device_connection_state">
-  <span class="name"><a href="enums_ble_device_connection_state/enums_ble_device_connection_state-library.html">enums\ble_device_connection_state</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="direct_input_key">
-  <span class="name"><a href="enums_direct_input_key/enums_direct_input_key-library.html">enums\direct_input_key</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="formattable_symbology">
-  <span class="name"><a href="enums_formattable_symbology/enums_formattable_symbology-library.html">enums\formattable_symbology</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="symbology_type">
-  <span class="name"><a href="enums_symbology_type/enums_symbology_type-library.html">enums\symbology_type</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="direct_input_keys_helper">
-  <span class="name"><a href="helpers_direct_input_keys_helper/helpers_direct_input_keys_helper-library.html">helpers\direct_input_keys_helper</a></span> 
+          <dt id="interfaces">
+  <span class="name"><a href="interfaces/interfaces-library.html">interfaces</a></span> 
 
 </dt>
 <dd>
@@ -289,202 +198,6 @@ end
 
           <dt id="opticonnect_sdk">
   <span class="name"><a href="opticonnect_sdk/opticonnect_sdk-library.html">opticonnect</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="scanner_feedback">
-  <span class="name"><a href="scanner_feedback/scanner_feedback-library.html">scanner_feedback</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="scanner_info">
-  <span class="name"><a href="scanner_info/scanner_info-library.html">scanner_info</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="scanner_settings">
-  <span class="name"><a href="scanner_settings/scanner_settings-library.html">scanner_settings</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="codabar">
-  <span class="name"><a href="scanner_settings_code_specific_codabar/scanner_settings_code_specific_codabar-library.html">scanner_settings\code_specific\codabar</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="code_2_of_5_and_s_code">
-  <span class="name"><a href="scanner_settings_code_specific_code_2_of_5_and_s_code/scanner_settings_code_specific_code_2_of_5_and_s_code-library.html">scanner_settings\code_specific\code_2_of_5_and_s_code</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="code_11">
-  <span class="name"><a href="scanner_settings_code_specific_code_11/scanner_settings_code_specific_code_11-library.html">scanner_settings\code_specific\code_11</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="code_39">
-  <span class="name"><a href="scanner_settings_code_specific_code_39/scanner_settings_code_specific_code_39-library.html">scanner_settings\code_specific\code_39</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="code_93">
-  <span class="name"><a href="scanner_settings_code_specific_code_93/scanner_settings_code_specific_code_93-library.html">scanner_settings\code_specific\code_93</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="code_128_and_gs1_128">
-  <span class="name"><a href="scanner_settings_code_specific_code_128_and_gs1_128/scanner_settings_code_specific_code_128_and_gs1_128-library.html">scanner_settings\code_specific\code_128_and_gs1_128</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="code_specific">
-  <span class="name"><a href="scanner_settings_code_specific_code_specific/scanner_settings_code_specific_code_specific-library.html">scanner_settings\code_specific\code_specific</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="composite_codes">
-  <span class="name"><a href="scanner_settings_code_specific_composite_codes/scanner_settings_code_specific_composite_codes-library.html">scanner_settings\code_specific\composite_codes</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="ean_8">
-  <span class="name"><a href="scanner_settings_code_specific_ean_8/scanner_settings_code_specific_ean_8-library.html">scanner_settings\code_specific\ean_8</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="ean_13">
-  <span class="name"><a href="scanner_settings_code_specific_ean_13/scanner_settings_code_specific_ean_13-library.html">scanner_settings\code_specific\ean_13</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="gs1_databar">
-  <span class="name"><a href="scanner_settings_code_specific_gs1_databar/scanner_settings_code_specific_gs1_databar-library.html">scanner_settings\code_specific\gs1_databar</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="iata">
-  <span class="name"><a href="scanner_settings_code_specific_iata/scanner_settings_code_specific_iata-library.html">scanner_settings\code_specific\iata</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="korean_postal_authority">
-  <span class="name"><a href="scanner_settings_code_specific_korean_postal_authority/scanner_settings_code_specific_korean_postal_authority-library.html">scanner_settings\code_specific\korean_postal_authority</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="msi_plessey">
-  <span class="name"><a href="scanner_settings_code_specific_msi_plessey/scanner_settings_code_specific_msi_plessey-library.html">scanner_settings\code_specific\msi_plessey</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="telepen">
-  <span class="name"><a href="scanner_settings_code_specific_telepen/scanner_settings_code_specific_telepen-library.html">scanner_settings\code_specific\telepen</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="uk_plessey">
-  <span class="name"><a href="scanner_settings_code_specific_uk_plessey/scanner_settings_code_specific_uk_plessey-library.html">scanner_settings\code_specific\uk_plessey</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="upc_a">
-  <span class="name"><a href="scanner_settings_code_specific_upc_a/scanner_settings_code_specific_upc_a-library.html">scanner_settings\code_specific\upc_a</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="upc_e">
-  <span class="name"><a href="scanner_settings_code_specific_upc_e/scanner_settings_code_specific_upc_e-library.html">scanner_settings\code_specific\upc_e</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="upc_e1">
-  <span class="name"><a href="scanner_settings_code_specific_upc_e1/scanner_settings_code_specific_upc_e1-library.html">scanner_settings\code_specific\upc_e1</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="connection_pool">
-  <span class="name"><a href="scanner_settings_connection_pool/scanner_settings_connection_pool-library.html">scanner_settings\connection_pool</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="formatting">
-  <span class="name"><a href="scanner_settings_formatting/scanner_settings_formatting-library.html">scanner_settings\formatting</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="indicator_options">
-  <span class="name"><a href="scanner_settings_indicator_options/scanner_settings_indicator_options-library.html">scanner_settings\indicator_options</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="read_options">
-  <span class="name"><a href="scanner_settings_read_options/scanner_settings_read_options-library.html">scanner_settings\read_options</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="symbology">
-  <span class="name"><a href="scanner_settings_symbology/scanner_settings_symbology-library.html">scanner_settings\symbology</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="scanner_settings_manager">
-  <span class="name"><a href="scanner_settings_manager/scanner_settings_manager-library.html">scanner_settings_manager</a></span> 
 
 </dt>
 <dd>
@@ -511,52 +224,11 @@ end
     <h5 class="hidden-xs"><span class="package-name">opticonnect_sdk</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="bluetooth_manager/bluetooth_manager-library.html">bluetooth_manager</a></li>
-      <li><a href="constants_commands_constants/constants_commands_constants-library.html">constants\commands_constants</a></li>
-      <li><a href="constants_symbology_constants/constants_symbology_constants-library.html">constants\symbology_constants</a></li>
-      <li><a href="entities_barcode_data/entities_barcode_data-library.html">entities\barcode_data</a></li>
-      <li><a href="entities_battery_level_status/entities_battery_level_status-library.html">entities\battery_level_status</a></li>
-      <li><a href="entities_ble_discovered_device/entities_ble_discovered_device-library.html">entities\ble_discovered_device</a></li>
-      <li><a href="entities_command_data/entities_command_data-library.html">entities\command_data</a></li>
-      <li><a href="entities_command_response/entities_command_response-library.html">entities\command_response</a></li>
-      <li><a href="entities_device_info/entities_device_info-library.html">entities\device_info</a></li>
-      <li><a href="entities_led_color/entities_led_color-library.html">entities\led_color</a></li>
-      <li><a href="entities_scanner_command/entities_scanner_command-library.html">entities\scanner_command</a></li>
-      <li><a href="enums_ble_adapter_state/enums_ble_adapter_state-library.html">enums\ble_adapter_state</a></li>
-      <li><a href="enums_ble_device_connection_state/enums_ble_device_connection_state-library.html">enums\ble_device_connection_state</a></li>
-      <li><a href="enums_direct_input_key/enums_direct_input_key-library.html">enums\direct_input_key</a></li>
-      <li><a href="enums_formattable_symbology/enums_formattable_symbology-library.html">enums\formattable_symbology</a></li>
-      <li><a href="enums_symbology_type/enums_symbology_type-library.html">enums\symbology_type</a></li>
-      <li><a href="helpers_direct_input_keys_helper/helpers_direct_input_keys_helper-library.html">helpers\direct_input_keys_helper</a></li>
+      <li><a href="constants/constants-library.html">constants</a></li>
+      <li><a href="entities/entities-library.html">entities</a></li>
+      <li><a href="enums/enums-library.html">enums</a></li>
+      <li><a href="interfaces/interfaces-library.html">interfaces</a></li>
       <li><a href="opticonnect_sdk/opticonnect_sdk-library.html">opticonnect</a></li>
-      <li><a href="scanner_feedback/scanner_feedback-library.html">scanner_feedback</a></li>
-      <li><a href="scanner_info/scanner_info-library.html">scanner_info</a></li>
-      <li><a href="scanner_settings/scanner_settings-library.html">scanner_settings</a></li>
-      <li><a href="scanner_settings_code_specific_codabar/scanner_settings_code_specific_codabar-library.html">scanner_settings\code_specific\codabar</a></li>
-      <li><a href="scanner_settings_code_specific_code_2_of_5_and_s_code/scanner_settings_code_specific_code_2_of_5_and_s_code-library.html">scanner_settings\code_specific\code_2_of_5_and_s_code</a></li>
-      <li><a href="scanner_settings_code_specific_code_11/scanner_settings_code_specific_code_11-library.html">scanner_settings\code_specific\code_11</a></li>
-      <li><a href="scanner_settings_code_specific_code_39/scanner_settings_code_specific_code_39-library.html">scanner_settings\code_specific\code_39</a></li>
-      <li><a href="scanner_settings_code_specific_code_93/scanner_settings_code_specific_code_93-library.html">scanner_settings\code_specific\code_93</a></li>
-      <li><a href="scanner_settings_code_specific_code_128_and_gs1_128/scanner_settings_code_specific_code_128_and_gs1_128-library.html">scanner_settings\code_specific\code_128_and_gs1_128</a></li>
-      <li><a href="scanner_settings_code_specific_code_specific/scanner_settings_code_specific_code_specific-library.html">scanner_settings\code_specific\code_specific</a></li>
-      <li><a href="scanner_settings_code_specific_composite_codes/scanner_settings_code_specific_composite_codes-library.html">scanner_settings\code_specific\composite_codes</a></li>
-      <li><a href="scanner_settings_code_specific_ean_8/scanner_settings_code_specific_ean_8-library.html">scanner_settings\code_specific\ean_8</a></li>
-      <li><a href="scanner_settings_code_specific_ean_13/scanner_settings_code_specific_ean_13-library.html">scanner_settings\code_specific\ean_13</a></li>
-      <li><a href="scanner_settings_code_specific_gs1_databar/scanner_settings_code_specific_gs1_databar-library.html">scanner_settings\code_specific\gs1_databar</a></li>
-      <li><a href="scanner_settings_code_specific_iata/scanner_settings_code_specific_iata-library.html">scanner_settings\code_specific\iata</a></li>
-      <li><a href="scanner_settings_code_specific_korean_postal_authority/scanner_settings_code_specific_korean_postal_authority-library.html">scanner_settings\code_specific\korean_postal_authority</a></li>
-      <li><a href="scanner_settings_code_specific_msi_plessey/scanner_settings_code_specific_msi_plessey-library.html">scanner_settings\code_specific\msi_plessey</a></li>
-      <li><a href="scanner_settings_code_specific_telepen/scanner_settings_code_specific_telepen-library.html">scanner_settings\code_specific\telepen</a></li>
-      <li><a href="scanner_settings_code_specific_uk_plessey/scanner_settings_code_specific_uk_plessey-library.html">scanner_settings\code_specific\uk_plessey</a></li>
-      <li><a href="scanner_settings_code_specific_upc_a/scanner_settings_code_specific_upc_a-library.html">scanner_settings\code_specific\upc_a</a></li>
-      <li><a href="scanner_settings_code_specific_upc_e/scanner_settings_code_specific_upc_e-library.html">scanner_settings\code_specific\upc_e</a></li>
-      <li><a href="scanner_settings_code_specific_upc_e1/scanner_settings_code_specific_upc_e1-library.html">scanner_settings\code_specific\upc_e1</a></li>
-      <li><a href="scanner_settings_connection_pool/scanner_settings_connection_pool-library.html">scanner_settings\connection_pool</a></li>
-      <li><a href="scanner_settings_formatting/scanner_settings_formatting-library.html">scanner_settings\formatting</a></li>
-      <li><a href="scanner_settings_indicator_options/scanner_settings_indicator_options-library.html">scanner_settings\indicator_options</a></li>
-      <li><a href="scanner_settings_read_options/scanner_settings_read_options-library.html">scanner_settings\read_options</a></li>
-      <li><a href="scanner_settings_symbology/scanner_settings_symbology-library.html">scanner_settings\symbology</a></li>
-      <li><a href="scanner_settings_manager/scanner_settings_manager-library.html">scanner_settings_manager</a></li>
 </ol>
 
   </div>
@@ -569,7 +241,7 @@ end
 <footer>
   <span class="no-break">
     opticonnect_sdk
-      1.0.8
+      1.0.13
   </span>
 
   
