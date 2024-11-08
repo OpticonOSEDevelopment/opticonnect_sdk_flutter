@@ -105,3 +105,9 @@ Key features:
 
 -  Upgraded multiple dependencies to improve performance and compatibility.
    Limited flutter_blue_plus to version 1.33.x due to breaking changes introduced in later versions until flutter_blue_plus_windows. This limitation will remain until flutter_blue_plus_windows is updated to support flutter_blue_plus version 1.34.x or higher.
+
+## [1.0.16] - 2024-11-08
+
+### Changed
+
+-  Upgraded device_info_plus to version 11.
