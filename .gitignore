@@ -75,7 +75,6 @@ docs/
 /opticonnect_test/ios
 /opticonnect_test/macos
 /opticonnect_test/windows
-/opticonnect_test/android
 /opticonnect_test/.gitignore
 /opticonnect_test/opticonnect_test.iml
 /opticonnect_test/README.md

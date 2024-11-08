@@ -98,18 +98,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_blue_plus
-      sha256: "22912f71d140ff5c15735d4b2f0425e0a5f61ce6444a29360e7fca05eeebbad7"
+      sha256: "45ccee4a838f321c301b6130fbf3de28f07a2d6334a69eb5e13b6f83683080e0"
       url: "https://pub.dev"
     source: hosted
-    version: "1.33.5"
+    version: "1.33.6"
   flutter_blue_plus_windows:
     dependency: transitive
     description:
       name: flutter_blue_plus_windows
-      sha256: "8e3ee9100adf91439c191f1f52c1726ce78c4f7b9daf5096ea81fef953cea1c9"
+      sha256: "1a0877425a9872ab86569a84a99591dc8e9edd67cc280b57cb5a44970d1e070a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.24.18"
+    version: "1.24.19"
   flutter_driver:
     dependency: transitive
     description: flutter
@@ -142,10 +142,10 @@ packages:
     dependency: transitive
     description:
       name: get_it
-      sha256: d85128a5dae4ea777324730dc65edd9c9f43155c109d5cc0a69cab74139fbac1
+      sha256: c49895c1ecb0ee2a0ec568d39de882e2c299ba26355aa6744ab1001f98cebd15
       url: "https://pub.dev"
     source: hosted
-    version: "7.7.0"
+    version: "8.0.2"
   injectable:
     dependency: transitive
     description:
@@ -237,7 +237,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.13"
+    version: "1.0.14"
   path:
     dependency: transitive
     description:
