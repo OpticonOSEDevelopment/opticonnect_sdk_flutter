@@ -92,3 +92,9 @@ Key features:
 ### Changed
 
 -  Refined Bluetooth state handling checks in startDiscovery method before a startScan is performed.
+
+## [1.0.14] - 2024-11-08
+
+### Changed
+
+-  The SDK has been restructured to improve encapsulation and ease of use. Only the public interfaces are now exposed, with implementations hidden in the private layer.
