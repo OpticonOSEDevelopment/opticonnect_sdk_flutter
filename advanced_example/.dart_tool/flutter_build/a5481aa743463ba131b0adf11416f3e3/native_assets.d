@@ -1,0 +1,1 @@
+ C:\\Users\\Robbin\\Desktop\\opticonnect_sdk\\opticonnect_sdk\\advanced_example\\.dart_tool\\flutter_build\\a5481aa743463ba131b0adf11416f3e3\\native_assets.yaml: 
