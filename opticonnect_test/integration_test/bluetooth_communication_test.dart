@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:opticonnect_sdk/constants/constants.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
-import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/constants.dart';
+import 'package:opticonnect_sdk/entities.dart';
+import 'package:opticonnect_sdk/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 
 import 'bluetooth_test_helper.dart';

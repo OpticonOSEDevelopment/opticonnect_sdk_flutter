@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:mutex/mutex.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/entities.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/streams/data/constants/data_hex_constants.dart';

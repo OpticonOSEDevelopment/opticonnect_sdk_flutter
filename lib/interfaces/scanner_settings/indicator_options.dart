@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
+part of 'package:opticonnect_sdk/interfaces.dart';
 
 /// Manages various indicators for the scanner such as buzzer, vibrator, and battery charging indicator.
 ///

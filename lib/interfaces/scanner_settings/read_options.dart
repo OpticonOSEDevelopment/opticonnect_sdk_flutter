@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
+part of 'package:opticonnect_sdk/interfaces.dart';
 
 /// Configures scan options, including read modes, illumination, and barcode settings.
 abstract class ReadOptions {

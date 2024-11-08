@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
-import 'package:opticonnect_sdk/interfaces/interfaces.dart';
+import 'package:opticonnect_sdk/entities.dart';
+import 'package:opticonnect_sdk/interfaces.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 import 'package:opticonnect_sdk/src/injection/injection.config.dart';
 

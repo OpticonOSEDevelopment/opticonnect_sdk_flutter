@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/enums.dart';
 import 'package:opticonnect_sdk_client/devices_manager.dart';
 import 'package:provider/provider.dart';
 

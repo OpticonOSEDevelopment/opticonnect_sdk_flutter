@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/entities/entities.dart';
+part of 'package:opticonnect_sdk/entities.dart';
 
 /// Represents the battery status of a device, including various indicators
 /// such as charging status, fault status, and battery percentage.

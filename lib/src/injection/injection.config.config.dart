@@ -11,7 +11,7 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../interfaces/interfaces.dart' as _i242;
+import '../../interfaces.dart' as _i242;
 import '../interfaces/app_logger.dart' as _i801;
 import '../interfaces/command_bytes_provider.dart' as _i22;
 import '../services/ble/ble_connection_states_service.dart' as _i886;

@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
+part of 'package:opticonnect_sdk/interfaces.dart';
 
 /// Interface for managing settings related to Code 2 of 5 and S-Code symbologies.
 ///

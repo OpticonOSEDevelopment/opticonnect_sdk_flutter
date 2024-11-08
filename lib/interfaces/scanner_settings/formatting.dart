@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
+part of 'package:opticonnect_sdk/interfaces.dart';
 
 /// Responsible for configuring formatting options like preambles, prefixes, suffixes, and postambles.
 ///

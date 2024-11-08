@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/entities.dart';
 import 'package:opticonnect_sdk/src/entities/base_command.dart';
 import 'package:opticonnect_sdk/src/extensions/command_buffer_extension.dart';
 

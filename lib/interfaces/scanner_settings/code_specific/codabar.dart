@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/interfaces/interfaces.dart';
+part of 'package:opticonnect_sdk/interfaces.dart';
 
 /// Interface for managing Codabar-specific settings on the scanner.
 ///

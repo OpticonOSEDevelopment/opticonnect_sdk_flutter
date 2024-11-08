@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/interfaces/interfaces.dart';
+import 'package:opticonnect_sdk/interfaces.dart';
 import 'package:opticonnect_sdk/src/interfaces/settings_base.dart';
 
 /// Implementation for accessing settings for specific barcode symbologies.

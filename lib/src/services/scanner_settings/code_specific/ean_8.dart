@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/constants/constants.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
-import 'package:opticonnect_sdk/interfaces/interfaces.dart';
+import 'package:opticonnect_sdk/constants.dart';
+import 'package:opticonnect_sdk/entities.dart';
+import 'package:opticonnect_sdk/interfaces.dart';
 import 'package:opticonnect_sdk/src/interfaces/settings_base.dart';
 
 /// Implementation for settings related to EAN-8 symbology.

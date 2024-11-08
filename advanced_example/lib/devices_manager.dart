@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:opticonnect_sdk/constants/constants.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
-import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/constants.dart';
+import 'package:opticonnect_sdk/entities.dart';
+import 'package:opticonnect_sdk/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 
 /// Manages discovered devices, connection states, and scanner settings

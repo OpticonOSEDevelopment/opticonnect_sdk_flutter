@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/entities/entities.dart';
+part of 'package:opticonnect_sdk/entities.dart';
 
 /// A class representing the RGB color values for the LED.
 class LEDColor {

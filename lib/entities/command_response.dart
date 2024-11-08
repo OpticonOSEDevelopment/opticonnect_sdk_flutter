@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/entities/entities.dart';
+part of 'package:opticonnect_sdk/entities.dart';
 
 /// A class representing the response of a command sent to a device.
 class CommandResponse {

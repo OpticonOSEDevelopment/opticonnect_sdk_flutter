@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/enums/enums.dart';
+part of 'package:opticonnect_sdk/enums.dart';
 
 /// An enum representing the connection state of a BLE device.
 enum BleDeviceConnectionState {

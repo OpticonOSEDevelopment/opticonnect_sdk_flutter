@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/enums/enums.dart';
+part of 'package:opticonnect_sdk/enums.dart';
 
 /// Enum representing the leading zero and check digit transmission settings for UPCA symbology.
 enum UPCALeadingZeroAndTransmitCDMode {

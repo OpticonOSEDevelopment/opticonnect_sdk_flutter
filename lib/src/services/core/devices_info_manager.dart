@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/constants/constants.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/constants.dart';
+import 'package:opticonnect_sdk/entities.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/scanner_commands/command_executors_manager.dart';
 

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:mutex/mutex.dart';
-import 'package:opticonnect_sdk/constants/constants.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/constants.dart';
+import 'package:opticonnect_sdk/entities.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/interfaces/ble_command_response_reader.dart';

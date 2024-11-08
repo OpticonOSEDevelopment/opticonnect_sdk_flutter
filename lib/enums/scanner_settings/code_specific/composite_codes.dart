@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/enums/enums.dart';
+part of 'package:opticonnect_sdk/enums.dart';
 
 /// Enum representing the output mode for composite codes.
 enum CompositeCodesOutputMode {

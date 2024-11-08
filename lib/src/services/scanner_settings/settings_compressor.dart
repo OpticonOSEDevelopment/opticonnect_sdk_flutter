@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
+import 'package:opticonnect_sdk/entities.dart';
 import 'package:opticonnect_sdk/src/entities/command.dart';
 import 'package:opticonnect_sdk/src/entities/raw_command.dart';
 import 'package:opticonnect_sdk/src/services/scanner_settings/datawizard_helper.dart';

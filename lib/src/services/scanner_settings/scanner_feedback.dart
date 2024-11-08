@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:opticonnect_sdk/interfaces/interfaces.dart';
+import 'package:opticonnect_sdk/interfaces.dart';
 
 @LazySingleton(as: ScannerFeedback)
 class ScannerFeedbackImpl implements ScannerFeedback {

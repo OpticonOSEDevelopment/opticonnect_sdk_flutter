@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/enums/enums.dart';
+part of 'package:opticonnect_sdk/enums.dart';
 
 /// Enum representing different modes for Codabar symbology.
 enum CodabarMode {

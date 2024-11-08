@@ -3,8 +3,8 @@
 // https://github.com/OpticonOSEDevelopment/opticonnect_sdk_flutter/tree/main/advanced_example
 
 import 'package:flutter/material.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
-import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/entities.dart';
+import 'package:opticonnect_sdk/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 
 void main() {

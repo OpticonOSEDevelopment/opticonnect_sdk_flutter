@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/enums/enums.dart';
+part of 'package:opticonnect_sdk/enums.dart';
 
 /// Enum representing the check digit validation settings for MSI Plessey symbology.
 enum MSIPlesseyCheckCDSettings {

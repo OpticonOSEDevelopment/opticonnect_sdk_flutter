@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_blue_plus_windows/flutter_blue_plus_windows.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mutex/mutex.dart';
-import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/enums.dart';
 import 'package:opticonnect_sdk/src/interfaces/app_logger.dart';
 import 'package:opticonnect_sdk/src/services/ble/ble_connection_states_service.dart';
 import 'package:opticonnect_sdk/src/services/ble/ble_devices_helper.dart';

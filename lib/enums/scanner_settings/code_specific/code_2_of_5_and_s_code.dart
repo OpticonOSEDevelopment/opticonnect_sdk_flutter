@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/enums/enums.dart';
+part of 'package:opticonnect_sdk/enums.dart';
 
 /// Enum representing the minimum data length for Code 2 of 5 and S-Code symbologies.
 enum DataLength {

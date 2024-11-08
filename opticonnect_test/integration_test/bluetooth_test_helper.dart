@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:opticonnect_sdk/entities/entities.dart';
-import 'package:opticonnect_sdk/enums/enums.dart';
+import 'package:opticonnect_sdk/entities.dart';
+import 'package:opticonnect_sdk/enums.dart';
 import 'package:opticonnect_sdk/opticonnect.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -90,6 +90,8 @@ mixin BluetoothTestHelper {
   }) async {
     final StreamController<BleDeviceConnectionState> connectionStateController =
         StreamController<BleDeviceConnectionState>();
+
+    await Future.delayed(const Duration(seconds: 2));
 
     // Assign the connection subscription globally, convert to broadcast stream for multiple listeners
     connectionStateSubscription = OptiConnect.bluetoothManager

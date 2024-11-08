@@ -1,4 +1,4 @@
-part of 'package:opticonnect_sdk/entities/entities.dart';
+part of 'package:opticonnect_sdk/entities.dart';
 
 /// Represents a command and its associated parameters for scanner settings.
 ///

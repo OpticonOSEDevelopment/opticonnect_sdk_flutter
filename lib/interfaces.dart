@@ -1,0 +1,33 @@
+library interfaces;
+
+import 'package:opticonnect_sdk/entities.dart';
+import 'package:opticonnect_sdk/enums.dart';
+
+part 'interfaces/bluetooth_manager.dart';
+part 'interfaces/scanner_feedback.dart';
+part 'interfaces/scanner_info.dart';
+part 'interfaces/scanner_settings/code_specific/codabar.dart';
+part 'interfaces/scanner_settings/code_specific/code_11.dart';
+part 'interfaces/scanner_settings/code_specific/code_128_and_gs1_128.dart';
+part 'interfaces/scanner_settings/code_specific/code_2_of_5_and_s_code.dart';
+part 'interfaces/scanner_settings/code_specific/code_39.dart';
+part 'interfaces/scanner_settings/code_specific/code_93.dart';
+part 'interfaces/scanner_settings/code_specific/code_specific.dart';
+part 'interfaces/scanner_settings/code_specific/composite_codes.dart';
+part 'interfaces/scanner_settings/code_specific/ean_13.dart';
+part 'interfaces/scanner_settings/code_specific/ean_8.dart';
+part 'interfaces/scanner_settings/code_specific/gs1_databar.dart';
+part 'interfaces/scanner_settings/code_specific/iata.dart';
+part 'interfaces/scanner_settings/code_specific/korean_postal_authority.dart';
+part 'interfaces/scanner_settings/code_specific/msi_plessey.dart';
+part 'interfaces/scanner_settings/code_specific/telepen.dart';
+part 'interfaces/scanner_settings/code_specific/uk_plessey.dart';
+part 'interfaces/scanner_settings/code_specific/upc_a.dart';
+part 'interfaces/scanner_settings/code_specific/upc_e.dart';
+part 'interfaces/scanner_settings/code_specific/upc_e1.dart';
+part 'interfaces/scanner_settings/connection_pool.dart';
+part 'interfaces/scanner_settings/formatting.dart';
+part 'interfaces/scanner_settings/indicator_options.dart';
+part 'interfaces/scanner_settings/read_options.dart';
+part 'interfaces/scanner_settings/scanner_settings.dart';
+part 'interfaces/scanner_settings/symbology.dart';
