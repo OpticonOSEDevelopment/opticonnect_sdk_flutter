@@ -98,3 +98,10 @@ Key features:
 ### Changed
 
 -  The SDK has been restructured to improve encapsulation and ease of use. Only the public interfaces are now exposed, with implementations hidden in the private layer.
+
+## [1.0.15] - 2024-11-08
+
+### Changed
+
+-  Upgraded multiple dependencies to improve performance and compatibility.
+   Limited flutter_blue_plus to version 1.33.x due to breaking changes introduced in later versions until flutter_blue_plus_windows. This limitation will remain until flutter_blue_plus_windows is updated to support flutter_blue_plus version 1.34.x or higher.
