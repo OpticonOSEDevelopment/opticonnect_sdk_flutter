@@ -1,4 +1,4 @@
-package com.opticon.example
+package com.opticon.opticonnect_test
 
 import io.flutter.embedding.android.FlutterActivity
 
