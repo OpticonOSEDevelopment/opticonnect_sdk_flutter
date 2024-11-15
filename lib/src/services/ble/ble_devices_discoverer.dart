@@ -52,7 +52,7 @@ class BleDevicesDiscoverer {
       await FlutterBluePlus.startScan(
         removeIfGone: const Duration(seconds: 2),
         continuousUpdates: true,
-        withServices: [Guid(scannerServiceUuid)],
+        withServices: [Guid(scannerServiceUuid), Guid(opcServiceUuid)],
         androidScanMode: AndroidScanMode.lowPower,
       );
 

@@ -111,3 +111,9 @@ Key features:
 ### Changed
 
 -  Upgraded device_info_plus to version 11.
+
+## [1.0.17] - 2024-11-15
+
+### Changed
+
+-  Upgraded flutter_blue_plus and flutter_blue_plus_windows to the latest versions.
