@@ -4,9 +4,13 @@ OptiConnect SDK enables seamless integration with [Opticon](https://opticon.com/
 
 **Note:** This package is independent of the [OptiConnect application](https://opticon.com/opticonnect/), which provides additional device management features. The SDK provides lower-level BLE functionality directly interacting with Opticon's BLE devices.
 
-[SDK Manual](https://opticonosedevelopment.github.io/opticonnect_sdk_flutter/)
+## Documentation
 
-[OptiConnect Pub.dev package](https://pub.dev/packages/opticonnect_sdk/)
+For comprehensive information on the SDK setup, usage, and API reference, please visit the [OptiConnect SDK Documentation](https://opticonosedevelopment.github.io/opticonnect_sdk_flutter/).
+
+## Pub.dev Flutter Package
+
+The OptiConnect SDK is available as a Flutter package on pub.dev [here](https://pub.dev/packages/opticonnect_sdk/).
 
 ## Features
 
